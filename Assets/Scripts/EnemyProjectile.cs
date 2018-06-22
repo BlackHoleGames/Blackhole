@@ -8,10 +8,9 @@ public class EnemyProjectile : MonoBehaviour {
     public float speed;
     public float timeToLive = 10.0f;
     public float damage = 10.0f;
-    bool inPosition;
+
     // Use this for initialization
     void Start () {
-        inPosition = false;
 	}
 	
 	// Update is called once per frame

@@ -8,7 +8,7 @@ public class SquadManager : MonoBehaviour {
     public EnemyManager Manager;
 	// Use this for initialization
 	void Start () {
-		
+        Manager = GameObject.FindObjectOfType<EnemyManager>();
 	}
 	
 	// Update is called once per frame
