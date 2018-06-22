@@ -142,26 +142,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470959294557886}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 3, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512669400123382}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!4 &4328278109431616
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1892800542923434}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512669400123382}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!4 &4512669400123382
 Transform:
   m_ObjectHideFlags: 1
@@ -186,26 +186,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661049054707950}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -3, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512669400123382}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!4 &4969677008907142
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1133932289861116}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512669400123382}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!23 &23167899228762166
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -478,10 +478,11 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   squadron:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1661049054707950}
+  - {fileID: 1470959294557886}
+  - {fileID: 1133932289861116}
+  - {fileID: 1892800542923434}
+  squadManager: {fileID: 114245596910877466}
 --- !u!114 &114136799404065500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -512,8 +513,10 @@ MonoBehaviour:
   numberOfShots: 5
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
+  spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  squadManager: {fileID: 114245596910877466}
 --- !u!114 &114245596910877466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,6 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numOfMembers: 5
   Manager: {fileID: 0}
+  speed: 3
 --- !u!114 &114704911164568860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -544,8 +548,10 @@ MonoBehaviour:
   numberOfShots: 5
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
+  spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  squadManager: {fileID: 114245596910877466}
 --- !u!114 &114723500270401862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -563,8 +569,10 @@ MonoBehaviour:
   numberOfShots: 5
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
+  spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  squadManager: {fileID: 114245596910877466}
 --- !u!114 &114807107508027528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -582,8 +590,10 @@ MonoBehaviour:
   numberOfShots: 5
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
+  spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  squadManager: {fileID: 114245596910877466}
 --- !u!135 &135807460595890600
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -9,9 +9,11 @@ public class BasicEnemy : MonoBehaviour {
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
     public GameObject enemyProjectile;
+    public float spawnCooldown = 5.0f;
     private float rateCounter, shotTimeCounter, shotCounter;
     public Material matOn, matOff;
     bool shielded;
+    public SquadManager squadManager;
 	// Use this for initialization
 	void Start () {
         shotCounter = numberOfShots;
@@ -23,24 +25,27 @@ public class BasicEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (rateCounter <= 0.0f) {
-            if (shotCounter > 0)
-            {
-                shotTimeCounter-= Time.deltaTime;
-                if (shotTimeCounter <= 0) {
-                    shotTimeCounter = rateOfFire;
-                    --shotCounter;
-                    Instantiate(enemyProjectile, transform.position + transform.forward, transform.rotation);
+        if (spawnCooldown <= 0.0f) {
+            if (rateCounter <= 0.0f) {
+                if (shotCounter > 0)
+                {
+                    shotTimeCounter -= Time.deltaTime;
+                    if (shotTimeCounter <= 0) {
+                        shotTimeCounter = rateOfFire;
+                        --shotCounter;
+                        Instantiate(enemyProjectile, transform.position + transform.forward, transform.rotation);
+                    }
                 }
-            }  
-            else
-            {
-                shotTimeCounter = rateOfFire;
-                shotCounter = numberOfShots;
-                rateCounter = shotCooldown;
+                else
+                {
+                    shotTimeCounter = rateOfFire;
+                    shotCounter = numberOfShots;
+                    rateCounter = shotCooldown;
+                }
             }
+            else rateCounter -= Time.deltaTime;
         }
-        else rateCounter -= Time.deltaTime;
+        else spawnCooldown -= Time.deltaTime;
     }
 
     public void Unprotect() {
@@ -53,7 +58,11 @@ public class BasicEnemy : MonoBehaviour {
         if (other.gameObject.tag == "PlayerProjectile")
         {
             if (!shielded)  life -= other.gameObject.GetComponent<Projectile>().damage;
-            if (life <= 0.0f) Destroy(gameObject);
+            if (life <= 0.0f)
+            {
+                Destroy(gameObject);
+                squadManager.DecreaseNumber();
+            }
         }
     }
 }

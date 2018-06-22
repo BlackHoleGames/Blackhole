@@ -10,15 +10,21 @@ public class EnemyManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         squadronIndex = 0;
+        SpawnNext();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Input.GetKeyDown(KeyCode.E)) {
+            Instantiate(squadrons[squadronIndex], spawn);
+        }
+    }
 
     public void SpawnNext() {
-        Instantiate(squadrons[squadronIndex],spawn);
-        ++squadronIndex;
+        if (squadronIndex < squadrons.Length)
+        {
+            Instantiate(squadrons[squadronIndex], spawn);
+            ++squadronIndex;
+        }
     }
 }
