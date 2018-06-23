@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
-        float nextPosX =  (axisX * Time.unscaledDeltaTime)*speedFactor;
-        float nextPosY = (axisY * Time.unscaledDeltaTime)* speedFactor;
+        float nextPosX = ((axisX * speedFactor) * (Time.deltaTime / Time.timeScale))  ;
+        float nextPosY = ((axisY * speedFactor) * (Time.deltaTime / Time.timeScale)) ;
         //gameObject.transform.Translate(new Vector3(axisX* Time.unscaledDeltaTime, axisY* Time.unscaledDeltaTime, 0.0f)  * speedFactor);
         if ((gameObject.transform.position.x + nextPosX > -XLimit) && (gameObject.transform.position.x + nextPosX < XLimit))        
             gameObject.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);       
@@ -41,11 +41,13 @@ public class PlayerController : MonoBehaviour {
         if (!spaceDown && Input.GetKeyDown(KeyCode.Space)) {
             tm.StartSloMo();
             spaceDown = true;
+            speedFactor = speedFactor * 2;
         }
         if (spaceDown && Input.GetKeyUp(KeyCode.Space))
         {
             tm.RestoreTime();
             spaceDown = false;
+            speedFactor = speedFactor / 2;
         }
         if (is_firing)
         {

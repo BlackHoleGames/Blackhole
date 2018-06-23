@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 1020445715}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2497,7 +2497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 2028986209}
   squadrons:
-  - {fileID: 1217359280975682, guid: c937e9d4e9605c04bb846a86db2c2095, type: 2}
+  - {fileID: 1082270039299732, guid: 77b5b69f2c875a64aa6bf791adc57550, type: 2}
   - {fileID: 1217359280975682, guid: c937e9d4e9605c04bb846a86db2c2095, type: 2}
   - {fileID: 1217359280975682, guid: c937e9d4e9605c04bb846a86db2c2095, type: 2}
 --- !u!4 &1952563484
