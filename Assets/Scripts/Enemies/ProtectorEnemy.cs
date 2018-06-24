@@ -14,6 +14,7 @@ public class ProtectorEnemy : MonoBehaviour {
     public GameObject[] squadron;
     private float cooldownCounter;
     public SquadManager squadManager;
+    public GameObject explosionPS;
 	// Use this for initialization
 	void Start () {
         recovering = false;
@@ -52,6 +53,8 @@ public class ProtectorEnemy : MonoBehaviour {
             g.GetComponent<BasicEnemy>().Unprotect();
         }
         squadManager.DecreaseNumber();
+        //Instantiate(explosionPS, new Vector3(0.0f,0.0f,0.0f), new Quaternion());
+        Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);
     }
 
@@ -59,7 +62,6 @@ public class ProtectorEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
-            Debug.Log("Got hit");
             if (!recovering) shield -= other.gameObject.GetComponent<Projectile>().damage;
             else life -= other.gameObject.GetComponent<Projectile>().damage;
             

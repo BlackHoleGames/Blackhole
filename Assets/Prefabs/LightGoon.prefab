@@ -113,5 +113,9 @@ MonoBehaviour:
   numberOfShots: 5
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
+  spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  squadManager: {fileID: 0}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}

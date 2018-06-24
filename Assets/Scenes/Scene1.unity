@@ -1194,7 +1194,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slomoTime: 0.05
+  actualmaxspeed: 2
   slowDown: 0
+  accelerate: 0
 --- !u!1 &1021878197
 GameObject:
   m_ObjectHideFlags: 0

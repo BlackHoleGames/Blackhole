@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23850427757517762}
   - component: {fileID: 114869909910773222}
   m_Layer: 0
-  m_Name: LightGoon 1
+  m_Name: TrackGoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 23436836999111058}
   - component: {fileID: 114942999808615512}
   m_Layer: 0
-  m_Name: LightGoon 1 (1)
+  m_Name: TrackGoon (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,6 +494,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   squadManager: {fileID: 114060150688428686}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!114 &114297979892044016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,6 +530,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   squadManager: {fileID: 114060150688428686}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!114 &114869909910773222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,6 +553,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   squadManager: {fileID: 114060150688428686}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!114 &114942999808615512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,6 +576,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   squadManager: {fileID: 114060150688428686}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!114 &114968270611964140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,6 +602,8 @@ MonoBehaviour:
   - {fileID: 1124359862298860}
   - {fileID: 1836567162335944}
   squadManager: {fileID: 114060150688428686}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!135 &135878303508631758
 SphereCollider:
   m_ObjectHideFlags: 1

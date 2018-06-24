@@ -14,6 +14,7 @@ public class BasicEnemy : MonoBehaviour {
     public Material matOn, matOff;
     bool shielded;
     public SquadManager squadManager;
+    public GameObject explosionPS;
 	// Use this for initialization
 	void Start () {
         shotCounter = numberOfShots;
@@ -60,8 +61,10 @@ public class BasicEnemy : MonoBehaviour {
             if (!shielded)  life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Destroy(gameObject);
+                Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);
+
                 squadManager.DecreaseNumber();
+                Destroy(gameObject);
             }
         }
     }

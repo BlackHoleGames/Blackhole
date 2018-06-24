@@ -108,6 +108,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  squadManager: {fileID: 0}
+  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
+    type: 2}
 --- !u!114 &114772462049105750
 MonoBehaviour:
   m_ObjectHideFlags: 1

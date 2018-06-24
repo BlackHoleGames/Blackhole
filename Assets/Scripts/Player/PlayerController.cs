@@ -11,13 +11,14 @@ public class PlayerController : MonoBehaviour {
     public GameObject projectile;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
-    private bool is_firing, spaceDown;
+    private bool is_firing, spaceDown, accelDown;
     private TimeManager tm;
 	// Use this for initialization
 	void Start () {
         firingCounter = 0.0f;
         is_firing = false;
         spaceDown = false;
+        accelDown = false;
         tm = GetComponent<TimeManager>();
 	}
 	
@@ -38,16 +39,31 @@ public class PlayerController : MonoBehaviour {
             is_firing = false;
             firingCounter = cooldown;
         }
-        if (!spaceDown && Input.GetKeyDown(KeyCode.Space)) {
-            tm.StartSloMo();
-            spaceDown = true;
-            speedFactor = speedFactor * 2;
+        if (Input.GetKeyDown(KeyCode.Space)){
+            if (accelDown) {
+                accelDown = false;
+            }
+            if (!spaceDown) {
+                tm.StartSloMo();
+                spaceDown = true;
+                speedFactor = speedFactor * 2;
+            }
+            else {
+                tm.RestoreTime();
+                spaceDown = false;
+                speedFactor = speedFactor / 2;
+            }
         }
-        if (spaceDown && Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            tm.RestoreTime();
-            spaceDown = false;
-            speedFactor = speedFactor / 2;
+            if (!accelDown ) {
+                tm.StartTimeDash();
+                accelDown = true;
+            }
+            else {
+                tm.RestoreTimeDash();
+                accelDown = false;
+            }
         }
         if (is_firing)
         {
