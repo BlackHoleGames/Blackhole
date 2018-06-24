@@ -8,7 +8,7 @@ public class TimerScript : MonoBehaviour {
 
     public Text timerText;
     public Slider timeLine;
-    private float startTime;
+    public float startTime;
     public void TimeLevel(int sceneIndex)
     {
         startTime = Time.time;
@@ -22,9 +22,10 @@ public class TimerScript : MonoBehaviour {
         string seconds = (t % 60).ToString();
 
         timerText.text = minutes + ":" + seconds;
-        timeLine.value = timeLine.value + (t % 60) * 0.0001f;
+        timeLine.value = timeLine.value + (t % 60) * 0.00001f;
         if (timeLine.value == 1) {
             SceneManager.LoadScene(0);
+            startTime = Time.time;
         }
     }
 
