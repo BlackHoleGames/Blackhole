@@ -22,7 +22,7 @@ public class TimerScript : MonoBehaviour {
         string seconds = (t % 60).ToString();
 
         timerText.text = minutes + ":" + seconds;
-        timeLine.value = timeLine.value + (t % 60) * 0.00001f;
+        timeLine.value = (t % 60) / 30;//timeLine.value + (t % 60) * 0.00001f;
         if (timeLine.value == 1) {
             SceneManager.LoadScene(0);
             startTime = Time.time;
