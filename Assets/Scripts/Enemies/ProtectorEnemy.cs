@@ -15,18 +15,19 @@ public class ProtectorEnemy : MonoBehaviour {
     private float cooldownCounter;
     public SquadManager squadManager;
     public GameObject explosionPS;
+    private TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
         recovering = false;
         cooldownCounter = cooldown;
-        
+        tb = gameObject.GetComponent<TimeBehaviour>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (!recovering)
         {
-            if (shield < 100.0f) shield += Time.deltaTime * multFactor;
+            if (shield < 100.0f) shield += Time.deltaTime * multFactor* tb.scaleOfTime;
             if (shield < 0.0f)
             {
                 recovering = true;
@@ -35,7 +36,7 @@ public class ProtectorEnemy : MonoBehaviour {
         }
         else {
             if (life <= 0.0f) ActivateDeath();
-            cooldownCounter -= Time.deltaTime;
+            cooldownCounter -= Time.deltaTime * tb.scaleOfTime;
             if (cooldownCounter <= 0.0f)
             {
                 cooldownCounter = cooldown;
