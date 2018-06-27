@@ -80,11 +80,12 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player" && other.tag != "timeBubble") {
+        if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
             if (!tm.slowDown)
             {
-                tm.StartSloMo();
+                Debug.Log("slowing");
 
+                tm.StartSloMo();
             }
             else {
                 // Die or loose life

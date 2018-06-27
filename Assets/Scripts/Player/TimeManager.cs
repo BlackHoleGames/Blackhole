@@ -48,7 +48,6 @@ public class TimeManager : MonoBehaviour {
                 else if (Time.timeScale > actualmaxspeed && Time.timeScale != 1.0f) Time.timeScale = actualmaxspeed;
             }
         }*/
-        Debug.Log(Time.timeScale);
     }
 
     public void StartSloMo() {

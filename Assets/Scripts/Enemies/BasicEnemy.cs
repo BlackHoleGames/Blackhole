@@ -36,7 +36,7 @@ public class BasicEnemy : MonoBehaviour {
                     if (shotTimeCounter <= 0) {
                         shotTimeCounter = rateOfFire;
                         --shotCounter;
-                        Instantiate(enemyProjectile, transform.position + transform.forward, transform.rotation);
+                        Instantiate(enemyProjectile, transform.position, transform.rotation);
                     }
                 }
                 else
