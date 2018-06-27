@@ -7,9 +7,11 @@ public class SquadManager : MonoBehaviour {
     public int numOfMembers;
     public EnemyManager Manager;
     public float speed = 2.0f;
+    private AudioSource explosion;
 	// Use this for initialization
 	void Start () {
         Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
+        explosion = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +22,7 @@ public class SquadManager : MonoBehaviour {
 	}
 
     public void DecreaseNumber() {
+        explosion.Play();
         --numOfMembers;
         if (numOfMembers <= 0) {
             Manager.SpawnNext();

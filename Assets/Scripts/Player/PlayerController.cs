@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
     private bool is_firing, spaceDown, accelDown;
     private TimeManager tm;
     public GameObject sphere;
-
+    public AudioSource timebomb;
+    public AudioSource slomo;
 	// Use this for initialization
 	void Start () {
         firingCounter = 0.0f;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour {
             if (accelDown) {
                 accelDown = false;
             }
+            timebomb.Play();
             Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
             // 1*
         }
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour {
             if (!tm.slowDown)
             {
                 Debug.Log("slowing");
-
+                slomo.Play();
                 tm.StartSloMo();
             }
             else {
