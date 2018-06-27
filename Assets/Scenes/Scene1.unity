@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ Transform:
   m_GameObject: {fileID: 334636708}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.124, y: -1.78, z: -7.118}
-  m_LocalScale: {x: 25.635315, y: 32.09258, z: 1}
+  m_LocalScale: {x: 31.329395, y: 39.220936, z: 1.2221185}
   m_Children:
   - {fileID: 714225966}
   m_Father: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &452988410
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,7 +2038,7 @@ GameObject:
   - component: {fileID: 1020445718}
   - component: {fileID: 1020445717}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2056,8 +2056,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firing: 0
-  fireCooldown: 0.1
-  speedFactor: 10
+  fireCooldown: 0.2
+  speedFactor: 7
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   XLimit: 10
   ZLimit: 5
@@ -2128,7 +2128,7 @@ Transform:
   m_GameObject: {fileID: 1020445709}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -3.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -3034,8 +3034,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 30
+  orthographic: 0
   orthographic size: 7
   m_Depth: -1
   m_CullingMask:
@@ -3059,7 +3059,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1446077907}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 28.7, z: 0}
+  m_LocalPosition: {x: 0, y: 26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3782,7 +3782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1782044609
 Transform:
   m_ObjectHideFlags: 0
