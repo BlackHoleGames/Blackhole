@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class TimeBubble : MonoBehaviour {
 
-    public float timeBubbleDuration = 2.0f;
+    public float timeBubbleDuration = 1.0f;
     public float timeBubbleMaxRadius = 10.0f;
     public float timeBubbleIncreaseStep = 0.4f;
+    public GameObject tmPartSys;
     private bool toDestroy;
     // Use this for initialization
     void Start () {
         toDestroy = false;
+        Instantiate(tmPartSys, gameObject.transform.position, gameObject.transform.rotation);
     }
 
     // Update is called once per frame
@@ -18,14 +20,14 @@ public class TimeBubble : MonoBehaviour {
         if (toDestroy) Destroy(gameObject);
         if (gameObject.transform.localScale.x < timeBubbleMaxRadius)
         {
-            Vector3 newScale = gameObject.transform.localScale + new Vector3(2.5f, 2.5f, 2.5f) * 2.0f * Time.deltaTime;
+            Vector3 newScale = gameObject.transform.localScale + new Vector3(2.5f, 2.5f, 2.5f) * (50.0f* Time.deltaTime);
             gameObject.transform.localScale = newScale;
         }
         else
         {
             if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.deltaTime;
             else
-            {
+            {               
                 gameObject.transform.localScale = new Vector3(0.05f,0.05f,0.05f);
                 toDestroy = true;
             }

@@ -2059,6 +2059,8 @@ MonoBehaviour:
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   XLimit: 10
   ZLimit: 5
+  invul: 1
+  sloMo: 2
   sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
 --- !u!23 &1020445711
 MeshRenderer:
@@ -2101,7 +2103,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1020445709}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -2140,6 +2142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slomoTime: 0.05
   actualmaxspeed: 2
+  slomoDuration: 2
   slowDown: 0
   accelerate: 0
 --- !u!135 &1020445716

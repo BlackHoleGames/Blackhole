@@ -77,6 +77,21 @@ public class PlayerController : MonoBehaviour {
             firingCounter = fireCooldown;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Player" && other.tag != "timeBubble") {
+            if (!tm.slowDown)
+            {
+                tm.StartSloMo();
+
+            }
+            else {
+                // Die or loose life
+            }
+        }
+    }
+
 }
 
 
