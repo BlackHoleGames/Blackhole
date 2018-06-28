@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PlayerProjectile
   - EnemyManager
+  - Enemy
+  - EnemyProjectile
+  - timeBubble
   layers:
   - Default
   - TransparentFX

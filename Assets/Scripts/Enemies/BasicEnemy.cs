@@ -15,8 +15,10 @@ public class BasicEnemy : MonoBehaviour {
     bool shielded;
     public SquadManager squadManager;
     public GameObject explosionPS;
+    private TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
+        tb = gameObject.GetComponent<TimeBehaviour>();
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
@@ -30,11 +32,11 @@ public class BasicEnemy : MonoBehaviour {
             if (rateCounter <= 0.0f) {
                 if (shotCounter > 0)
                 {
-                    shotTimeCounter -= Time.deltaTime;
+                    shotTimeCounter -= Time.deltaTime* tb.scaleOfTime;
                     if (shotTimeCounter <= 0) {
                         shotTimeCounter = rateOfFire;
                         --shotCounter;
-                        Instantiate(enemyProjectile, transform.position + transform.forward, transform.rotation);
+                        Instantiate(enemyProjectile, transform.position, transform.rotation);
                     }
                 }
                 else
@@ -44,9 +46,9 @@ public class BasicEnemy : MonoBehaviour {
                     rateCounter = shotCooldown;
                 }
             }
-            else rateCounter -= Time.deltaTime;
+            else rateCounter -= Time.deltaTime* tb.scaleOfTime;
         }
-        else spawnCooldown -= Time.deltaTime;
+        else spawnCooldown -= Time.deltaTime* tb.scaleOfTime;
     }
 
     public void Unprotect() {

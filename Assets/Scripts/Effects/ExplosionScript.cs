@@ -14,7 +14,6 @@ public class ExplosionScript : MonoBehaviour {
 	void Update () {
         if (ps)
         {
-            if (ps.IsAlive()) Debug.Log("alive");
             if (!ps.IsAlive()) Destroy(gameObject);            
         }
 	}
