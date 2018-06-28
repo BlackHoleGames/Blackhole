@@ -40,6 +40,7 @@ public class TimerScript : MonoBehaviour {
             gameover = false;     
         }
         if (timeLine.value == 1.0f) {
+            startTime = Time.time;
             GameOver();
 
             float t2 = Time.time - endTime;
@@ -47,10 +48,11 @@ public class TimerScript : MonoBehaviour {
             if (seconds2 > 3)
             {
                 restartMap();
+                timeLine.value = 0.00001f;
                 startTime = Time.time;
-                //SceneManager.UnloadScene(1);
                 SceneManager.LoadScene(0);
-                //                Application.LoadLevel(Application.loadedLevel);
+                //SceneManager.LoadScene(1);    
+
             }
 
         }

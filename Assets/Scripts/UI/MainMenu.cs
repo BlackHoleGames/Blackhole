@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        Application.LoadLevel(Application.loadedLevel);
+        //Application.LoadLevel(Application.loadedLevel);
         //TimerScript TS = new TimerScript();
         //TS.startTime = Time.time;
     }
