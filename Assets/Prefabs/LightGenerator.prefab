@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 135959542912923344}
   - component: {fileID: 23572212029696872}
   - component: {fileID: 114669417651286420}
-  - component: {fileID: 114772462049105750}
   - component: {fileID: 114717900165304596}
   - component: {fileID: 54676263131636356}
+  - component: {fileID: 114990172408517722}
   m_Layer: 0
   m_Name: LightGenerator
   m_TagString: Enemy
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleOfTime: 1
---- !u!114 &114772462049105750
+--- !u!114 &114990172408517722
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

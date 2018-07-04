@@ -36,47 +36,35 @@ public class TimerScript : MonoBehaviour {
             string seconds = (t % 60).ToString();
 
             timerText.text = minutes + ":" + seconds;
-            timeLine.value = (t % 60) / 30;//timeLine.value + (t % 60) * 0.00001f;       
+            timeLine.value = (t % 60) / 59;//timeLine.value + (t % 60) * 0.00001f;       
             gameover = false;     
         }
         if (timeLine.value == 1.0f) {
             startTime = Time.time;
-            GameOver();
+            //Comented to Test GameOver();
 
             float t2 = Time.time - endTime;
             float seconds2 = (t2 % 60);
-            if (seconds2 > 3)
-            {
-                restartMap();
-                timeLine.value = 0.00001f;
-                startTime = Time.time;
-                SceneManager.LoadScene(0);
-                //SceneManager.LoadScene(1);    
-
-            }
+            //Comented for testing if (seconds2 > 3)
+            //Comented for testing {
+            //Comented for testing     restartMap();
+            //Comented for testing     timeLine.value = 0.00001f;
+            //Comented for testing     startTime = Time.time;
+            //Comented for testing     SceneManager.LoadScene(0);
+            //Comented for testing     //SceneManager.LoadScene(1);    
+            //Comented for testing 
+            //Comented for testing }
 
         }
 
     }
-    public void GameOver()
-    {
-        if (!gameover)
-        {
-            endTime = Time.time;
-            gameover = true;
-        }
-        GameOverText.gameObject.SetActive(true);
-    }
-        //StartCoroutine(LoadAsynchron(sceneIndex));
-        //AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-//        operation.progress
-//    }
-//    IEnumerator LoadAsynchron(int sceneIndex)
-//    {
-//        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-//        while (!operation.isDone)
-//        {
-//            yield return null;
-//        }
-//    }
+    //Comented for testing public void GameOver()
+    //Comented for testing {
+    //Comented for testing     if (!gameover)
+    //Comented for testing     {
+    //Comented for testing         endTime = Time.time;
+    //Comented for testing         gameover = true;
+    //Comented for testing     }
+    //Comented for testing     GameOverText.gameObject.SetActive(true);
+    //Comented for testing }
 }
