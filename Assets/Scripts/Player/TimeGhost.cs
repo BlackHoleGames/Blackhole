@@ -39,20 +39,23 @@ public class TimeGhost : MonoBehaviour {
             {
                 //float axisX = Input.GetAxis("Horizontal");
                 //float axisY = Input.GetAxis("Vertical");
+                //MoveCharacter(axisX, axisY);
+
                 StartCoroutine(Move());
             }   
-                if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
-                if (Input.GetButtonUp("Fire1") && is_firing)
-                {
-                    is_firing = false;
-                    firingCounter = fireCooldown;
-                }
-                if (is_firing)
-                {
-                    Fire();
-                    firingCounter -= Time.unscaledDeltaTime;
-                }
-                else is_firing = false;
+            
+            if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
+            if (Input.GetButtonUp("Fire1") && is_firing)
+            {
+                is_firing = false;
+                firingCounter = fireCooldown;
+            }
+            if (is_firing)
+            {
+                Fire();
+                firingCounter -= Time.unscaledDeltaTime;
+            }
+            else is_firing = false;
             
         }
         else {
