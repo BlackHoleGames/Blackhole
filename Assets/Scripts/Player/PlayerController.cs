@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     public float sloMo = 2.0f;
     private float firingCounter;
     private bool is_firing, spaceDown, accelDown;
+    private int ghostCounter;
     private TimeManager tm;
     public GameObject sphere;
     public GameObject ghost;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         firingCounter = 0.0f;
+        ghostCounter = 0;
         is_firing = false;
         spaceDown = false;
         accelDown = false;
@@ -72,7 +74,11 @@ public class PlayerController : MonoBehaviour {
         else is_firing = false;
         if (Input.GetKeyDown(KeyCode.G))
         {
-            Instantiate(ghost, transform.position, transform.rotation);
+            if (ghostCounter < 3)
+            {
+                Instantiate(ghost, transform.position, transform.rotation);
+                ++ghostCounter;
+            }
         }
     }
 
