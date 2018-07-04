@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     private bool is_firing, spaceDown, accelDown;
     private TimeManager tm;
     public GameObject sphere;
+    public GameObject ghost;
     public AudioSource timebomb;
     public AudioSource slomo;
 	// Use this for initialization
@@ -69,7 +70,10 @@ public class PlayerController : MonoBehaviour {
             firingCounter -= Time.unscaledDeltaTime;
         }
         else is_firing = false;
-
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Instantiate(ghost, transform.position, transform.rotation);
+        }
     }
 
     public void Fire() {
