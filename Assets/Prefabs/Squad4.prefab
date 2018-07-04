@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: 100
-  life: 50
+  life: 10
   multFactor: 1
   cooldown: 10
   sinFactor: 5
