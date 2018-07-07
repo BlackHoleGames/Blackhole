@@ -13,8 +13,7 @@ public class TimeGhost : MonoBehaviour {
     public float invul = 1.0f;
     public float startDelayCounter = 0.0f;
     private float firingCounter;
-    private bool is_firing, start;
-
+    public bool is_firing;
     //------------------------------------------
 
     const int MAX_FPS = 60;
@@ -31,8 +30,7 @@ public class TimeGhost : MonoBehaviour {
     void Start()
     {
         firingCounter = 0.0f;
-        is_firing = false;
-        start = false;
+        is_firing = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().is_firing; 
 
         int length = Mathf.CeilToInt(lagSeconds * MAX_FPS);
         position_buffer = new Vector3[length];
@@ -87,6 +85,7 @@ public class TimeGhost : MonoBehaviour {
 
     private void LateUpdate()
     {
+        Debug.Log(is_firing);
         if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
         {
             counter += Time.unscaledDeltaTime;
@@ -105,18 +104,22 @@ public class TimeGhost : MonoBehaviour {
 
             transform.position = Vector3.Lerp(position_buffer[oldest_index], position_buffer[next], delta);
         }
-        if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
-        if (Input.GetButtonUp("Fire1") && is_firing)
-        {
-            is_firing = false;
-            firingCounter = fireCooldown;
-        }
         if (is_firing)
         {
+            Debug.Log("Kid is Firing");
             Fire();
             firingCounter -= Time.unscaledDeltaTime;
         }
-        else is_firing = false;
+
+    }
+
+    public void StartFiring() {
+        is_firing = true;
+    }
+
+    public void StopFiring() {
+        is_firing = false;
+        firingCounter = fireCooldown;
     }
 
     public void Fire()

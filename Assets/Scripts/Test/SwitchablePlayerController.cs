@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwitchablePlayerController : MonoBehaviour {
 
 
-    public bool is_vertical;
+    public bool is_vertical, is_firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
     public GameObject projectile;
@@ -14,7 +14,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float invul = 1.0f;
     public float sloMo = 2.0f;
     private float firingCounter;
-    private bool is_firing, spaceDown, accelDown, firing ;
+    private bool  spaceDown, accelDown, firing ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     public CameraBehaviour cb;
@@ -23,8 +23,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public AudioSource timebomb;
     public AudioSource slomo;
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         firingCounter = 0.0f;
         is_firing = false;
         spaceDown = false;
@@ -35,57 +34,48 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
         Move(axisX,axisY);
-        if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
-        if (Input.GetButtonUp("Fire1") && is_firing)
-        {
+        if (Input.GetButtonDown("Fire1") && !is_firing) {
+            is_firing = true;
+            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
+        }
+        if (Input.GetButtonUp("Fire1") && is_firing) {
             is_firing = false;
             firingCounter = fireCooldown;
+            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (accelDown)
-            {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (accelDown) {
                 accelDown = false;
             }
             timebomb.Play();
             Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
-            // 1*
         }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
+        if (Input.GetKeyDown(KeyCode.V)) {
             transform.position = new Vector3(0.0f,0.0f,0.0f);
             is_vertical = !is_vertical;
             cb.switchCamPosRot(is_vertical);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (!accelDown)
-            {
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            if (!accelDown) {
                 tm.StartTimeDash();
                 accelDown = true;
             }
-            else
-            {
+            else {
                 tm.RestoreTimeDash();
                 accelDown = false;
             }
         }
-        if (is_firing)
-        {
+        if (is_firing) {
             Fire();
             firingCounter -= Time.unscaledDeltaTime;
         }
-        else is_firing = false;
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (ghostArray.Count < 3)
-            {
-                GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
+        if (Input.GetKeyDown(KeyCode.G)) {
+            if (ghostArray.Count < 3) {
+                GameObject obj = Instantiate(ghost, transform.position, transform.rotation);                
                 if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count-1)].transform;
                 else obj.GetComponent<TimeGhost>().leader = transform;
                 ghostArray.Add(obj);
@@ -93,10 +83,8 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
     }
 
-    public void Fire()
-    {
-        if (firingCounter <= 0.0f)
-        {
+    public void Fire() {
+        if (firingCounter <= 0.0f) {
             Transform t = gameObject.transform;
             Instantiate(projectile, t.position, t.rotation);
             firingCounter = fireCooldown;
@@ -124,18 +112,14 @@ public class SwitchablePlayerController : MonoBehaviour {
             else gameObject.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
-        {
-            if (!tm.slowDown)
-            {
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
+            if (!tm.slowDown) {
                 Debug.Log("slowing");
                 slomo.Play();
                 tm.StartSloMo();
             }
-            else
-            {
+            else {
                 // Die or loose life
             }
         }
