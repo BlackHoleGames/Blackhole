@@ -4279,8 +4279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_vertical: 0
+  is_firing: 0
   fireCooldown: 0.2
-  speedFactor: 7
+  speedFactor: 10
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   XLimit: 10
   ZLimit: 5

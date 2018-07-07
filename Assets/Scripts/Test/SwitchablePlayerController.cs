@@ -92,8 +92,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     public void Move(float Xinput, float YZinput) {
-        float nextPosX = ((Xinput * speedFactor) * (Time.deltaTime / Time.timeScale));
-        float nextPosYZ = ((YZinput * speedFactor) * (Time.deltaTime / Time.timeScale));
+        float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); // / Time.timeScale));
+        float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  // / Time.timeScale));
         float coordAD, coordWS;
         if (is_vertical) {
             coordAD = gameObject.transform.position.x;

@@ -14,7 +14,9 @@ public class FirstTrackProjectile : MonoBehaviour {
     void Start()
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        target = GameObject.FindGameObjectsWithTag("Player")[0].transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+        target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+        gameObject.transform.LookAt(target);
+
     }
 
     // Update is called once per frame
@@ -22,10 +24,11 @@ public class FirstTrackProjectile : MonoBehaviour {
     {
         timeToLive -= Time.deltaTime * tb.scaleOfTime;
         if (timeToLive <= 0.0f) Destroy(gameObject);
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
+        gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
+        /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
         if (Vector3.Distance(gameObject.transform.position , new Vector3(target.x, 0.0f, target.z)) < 0.1f){
             Destroy(gameObject);
-        }
+        }*/
 
     }
 
