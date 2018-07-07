@@ -15,9 +15,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float sloMo = 2.0f;
     private float firingCounter;
     private bool is_firing, spaceDown, accelDown, firing ;
-    private int ghostCounter;
     private TimeManager tm;
-    private GameObject[] ghostArray;
+    private List<GameObject> ghostArray;
     public CameraBehaviour cb;
     public GameObject sphere;
     public GameObject ghost;
@@ -27,12 +26,12 @@ public class SwitchablePlayerController : MonoBehaviour {
     void Start()
     {
         firingCounter = 0.0f;
-        ghostCounter = 0;
         is_firing = false;
         spaceDown = false;
         accelDown = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
+        ghostArray = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -84,11 +83,12 @@ public class SwitchablePlayerController : MonoBehaviour {
         else is_firing = false;
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (ghostCounter < 3)
+            if (ghostArray.Count < 3)
             {
                 GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
-                obj.GetComponent<TimeGhost>().leader = transform;
-                ++ghostCounter;
+                if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count-1)].transform;
+                else obj.GetComponent<TimeGhost>().leader = transform;
+                ghostArray.Add(obj);
             }
         }
     }

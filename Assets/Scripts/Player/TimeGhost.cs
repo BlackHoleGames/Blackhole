@@ -85,7 +85,7 @@ public class TimeGhost : MonoBehaviour {
         }
     }*/
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
         {
@@ -105,6 +105,18 @@ public class TimeGhost : MonoBehaviour {
 
             transform.position = Vector3.Lerp(position_buffer[oldest_index], position_buffer[next], delta);
         }
+        if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
+        if (Input.GetButtonUp("Fire1") && is_firing)
+        {
+            is_firing = false;
+            firingCounter = fireCooldown;
+        }
+        if (is_firing)
+        {
+            Fire();
+            firingCounter -= Time.unscaledDeltaTime;
+        }
+        else is_firing = false;
     }
 
     public void Fire()
