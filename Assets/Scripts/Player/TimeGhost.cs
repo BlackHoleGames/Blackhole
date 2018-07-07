@@ -85,7 +85,6 @@ public class TimeGhost : MonoBehaviour {
 
     private void LateUpdate()
     {
-        Debug.Log(is_firing);
         if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
         {
             counter += Time.unscaledDeltaTime;
@@ -106,7 +105,6 @@ public class TimeGhost : MonoBehaviour {
         }
         if (is_firing)
         {
-            Debug.Log("Kid is Firing");
             Fire();
             firingCounter -= Time.unscaledDeltaTime;
         }
