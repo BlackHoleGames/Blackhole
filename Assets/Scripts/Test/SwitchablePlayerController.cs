@@ -17,6 +17,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     private bool is_firing, spaceDown, accelDown, firing ;
     private int ghostCounter;
     private TimeManager tm;
+    private GameObject[] ghostArray;
     public CameraBehaviour cb;
     public GameObject sphere;
     public GameObject ghost;
@@ -85,7 +86,8 @@ public class SwitchablePlayerController : MonoBehaviour {
         {
             if (ghostCounter < 3)
             {
-                Instantiate(ghost, transform.position, transform.rotation);
+                GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
+                obj.GetComponent<TimeGhost>().leader = transform;
                 ++ghostCounter;
             }
         }
