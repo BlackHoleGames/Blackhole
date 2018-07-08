@@ -3882,10 +3882,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 20, z: 0}
-  horizontalPosition: {x: 20, y: 0, z: 0}
+  horizontalPosition: {x: 0, y: 7, z: -23}
   verticalRotation: {x: 90, y: 0, z: 0}
-  horizontalRotation: {x: 0, y: -90, z: 0}
+  horizontalRotation: {x: 7.5, y: 0, z: 0}
   speed: 5
+  timeToMove: 1
   startRotating: 0
   toVerticalPos: 0
 --- !u!1 &1490756873
