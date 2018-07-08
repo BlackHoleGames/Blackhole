@@ -7,6 +7,7 @@ public class TimeBubble : MonoBehaviour {
     public float timeBubbleDuration = 1.0f;
     public float timeBubbleMaxRadius = 10.0f;
     public float timeBubbleIncreaseStep = 0.4f;
+    private float destroyCount = 0.2f;
     public GameObject tmPartSys;
     private bool toDestroy;
     // Use this for initialization
@@ -17,14 +18,16 @@ public class TimeBubble : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (toDestroy) Destroy(gameObject);
+        if (toDestroy){
+            destroyCount -= Time.deltaTime;
+            if (destroyCount <= 0.0f) Destroy(gameObject);
+        }
         if (gameObject.transform.localScale.x < timeBubbleMaxRadius)
         {
             Vector3 newScale = gameObject.transform.localScale + new Vector3(2.5f, 2.5f, 2.5f) * (50.0f* Time.deltaTime);
             gameObject.transform.localScale = newScale;
         }
-        else
-        {
+        else {
             if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.deltaTime;
             else
             {               

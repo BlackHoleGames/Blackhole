@@ -13,7 +13,7 @@ public class BasicEnemy : MonoBehaviour {
     private float rateCounter, shotTimeCounter, shotCounter;
     public Material matOn, matOff;
     bool shielded;
-    public SquadManager squadManager;
+    private SquadManager squadManager;
     public GameObject explosionPS;
     private TimeBehaviour tb;
 	// Use this for initialization
@@ -24,10 +24,11 @@ public class BasicEnemy : MonoBehaviour {
         rateCounter = 0.0f;
         shielded = true;
         gameObject.GetComponent<Renderer>().material = matOn;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        squadManager = GetComponentInParent<SquadManager>();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (spawnCooldown <= 0.0f) {
             if (rateCounter <= 0.0f) {
                 if (shotCounter > 0)

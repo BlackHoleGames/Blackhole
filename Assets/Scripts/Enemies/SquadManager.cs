@@ -12,6 +12,7 @@ public class SquadManager : MonoBehaviour {
 	void Start () {
         Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
         explosion = GetComponent<AudioSource>();
+        
 	}
 	
 	// Update is called once per frame

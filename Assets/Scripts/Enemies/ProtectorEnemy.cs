@@ -21,6 +21,7 @@ public class ProtectorEnemy : MonoBehaviour {
         recovering = false;
         cooldownCounter = cooldown;
         tb = gameObject.GetComponent<TimeBehaviour>();
+        squadManager = GetComponentInParent<SquadManager>();
     }
 	
 	// Update is called once per frame

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trackPlayer : MonoBehaviour {
+public class InstantiateEnemy : MonoBehaviour {
 
+    public GameObject enemyToInstantiate;
+    
 	// Use this for initialization
 	void Start () {
-		
+        Instantiate(enemyToInstantiate, transform.position, transform.rotation);
+
 	}
 	
 	// Update is called once per frame
