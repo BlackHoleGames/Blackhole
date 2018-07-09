@@ -38,8 +38,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646053309271298}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3, y: -2.5, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -133,9 +133,9 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 0}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}
 --- !u!114 &114700724869096196
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,7 +11,7 @@ public class ProtectorEnemy : MonoBehaviour {
     public float sinFactor = 1.5f;
     public Material matOn,matOff;
     bool recovering;
-    public GameObject[] squadron;
+    public List<GameObject> squadron;
     private float cooldownCounter;
     public SquadManager squadManager;
     public GameObject explosionPS;

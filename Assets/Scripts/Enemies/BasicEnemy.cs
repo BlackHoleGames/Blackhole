@@ -15,7 +15,7 @@ public class BasicEnemy : MonoBehaviour {
     bool shielded;
     private SquadManager squadManager;
     public GameObject explosionPS;
-    private TimeBehaviour tb;
+    public TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -25,6 +25,7 @@ public class BasicEnemy : MonoBehaviour {
         shielded = true;
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
+        transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
     }
 
     // Update is called once per frame

@@ -12,7 +12,9 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float ZLimit = 5.0f;
     public float invul = 1.0f;
     public float sloMo = 2.0f;
-    private float firingCounter, t;
+    public float alertModeDuration = 3.0f;
+    public float invulnerabilityDuration = 1.0f;
+    private float firingCounter, t, alertModeTime;
     private bool  accelDown, readjustPosition ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
@@ -23,6 +25,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         firingCounter = 0.0f;
+        alertModeTime = 0.0f;
         is_firing = false;
         accelDown = false;
         is_vertical = true;
@@ -36,6 +39,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         float axisY = Input.GetAxis("Vertical");
         Move(axisX,axisY);
         ManageInput();
+        if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
         if (readjustPosition) ReadjustPlayer();
         if (is_firing) {
             Fire();
@@ -141,10 +145,12 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
+            if (alertModeTime > 0.0f && alertModeTime < (alertModeDuration-invulnerabilityDuration))
             if (!tm.slowDown) {
                 Debug.Log("slowing");
                 slomo.Play();
                 tm.StartSloMo();
+                alertModeTime = alertModeDuration;
             }
             else {
                 // Die or loose life

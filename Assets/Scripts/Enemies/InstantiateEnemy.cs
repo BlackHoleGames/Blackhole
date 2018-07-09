@@ -8,9 +8,12 @@ public class InstantiateEnemy : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        Instantiate(enemyToInstantiate, transform.position, transform.rotation);
-
-	}
+        GameObject go = Instantiate(enemyToInstantiate, transform.position, transform.rotation);        
+        go.transform.parent = transform.parent;
+        Destroy(gameObject);
+        //GameObject pf = (GameObject)Resources.Load("Resources/"+enemyToInstantiate.name);
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {

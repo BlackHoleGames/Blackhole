@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65004445182853878}
   - component: {fileID: 23261249671358330}
   - component: {fileID: 114555720130290790}
+  - component: {fileID: 114496608555337250}
   m_Layer: 0
   m_Name: TrackGoon 1
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646053309271298}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3, y: -2.5, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 6, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,6 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114496608555337250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646053309271298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ca26ba0da75945b750ba33cd229c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleOfTime: 1
 --- !u!114 &114555720130290790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,6 +129,6 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 0}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}

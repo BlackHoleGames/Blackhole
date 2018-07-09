@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114245596910877466}
   - component: {fileID: 82492283117635874}
   m_Layer: 0
-  m_Name: Squad1
+  m_Name: Squad6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,8 +83,8 @@ GameObject:
   - component: {fileID: 23422593361289748}
   - component: {fileID: 114082127413355636}
   - component: {fileID: 114983482556530828}
-  - component: {fileID: 114811495626378326}
   - component: {fileID: 54404440353337398}
+  - component: {fileID: 114219848186280270}
   m_Layer: 0
   m_Name: LightGenerator
   m_TagString: Enemy
@@ -140,8 +140,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563008478954060}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512669400123382}
@@ -231,7 +231,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,7 +265,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -299,7 +299,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -367,7 +367,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: 100
-  life: 50
+  life: 10
   multFactor: 1
   cooldown: 10
   sinFactor: 5
@@ -651,6 +651,17 @@ MonoBehaviour:
   squadManager: {fileID: 114245596910877466}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+--- !u!114 &114219848186280270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563008478954060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecca9d82bdeed8b41bdaf7d225cf274a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114236353286296076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -805,19 +816,6 @@ MonoBehaviour:
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
   tb: {fileID: 0}
---- !u!114 &114811495626378326
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563008478954060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21970fcc3dc2fb944b9c689bf7996bed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  travelDistance: 3
-  speed: 3
 --- !u!114 &114983482556530828
 MonoBehaviour:
   m_ObjectHideFlags: 1
