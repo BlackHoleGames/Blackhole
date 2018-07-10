@@ -14,7 +14,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
     public float invulnerabilityDuration = 1.0f;
-    private float firingCounter, t, alertModeTime;
+    public float shield = 10.0f;
+    private float firingCounter, t, alertModeTime, actualLife;
     private bool  accelDown, readjustPosition ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
@@ -24,6 +25,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public Vector3 readjustInitialPos;
     // Use this for initialization
     void Start() {
+        actualLife = shield;
         firingCounter = 0.0f;
         alertModeTime = 0.0f;
         is_firing = false;
@@ -132,12 +134,12 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     public void ReadjustPlayer() {
         if (is_vertical){
-            t += Time.deltaTime / 1.0f;
+            t += Time.unscaledDeltaTime / 1.0f;
             transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x,0.0f, transform.position.z), t);
             if ((Mathf.Abs(transform.position.y) < 0.01)) readjustPosition = false;
         }
         else {
-            t += Time.deltaTime / 1.0f;
+            t += Time.unscaledDeltaTime / 1.0f;
             transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x, transform.position.y, 0.0f), t);
             if ((Mathf.Abs(transform.position.z) < 0.01)) readjustPosition = false;
         }
@@ -145,15 +147,21 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
-            if (alertModeTime > 0.0f && alertModeTime < (alertModeDuration-invulnerabilityDuration))
+            if (alertModeTime > 0.0f && alertModeTime < (alertModeDuration - invulnerabilityDuration)) {
+                actualLife = actualLife - (shield / 2.0f);
+                if (actualLife < 0.0f) { } // Death                
+            }
             if (!tm.slowDown) {
                 Debug.Log("slowing");
                 slomo.Play();
                 tm.StartSloMo();
                 alertModeTime = alertModeDuration;
-            }
-            else {
-                // Die or loose life
+                while (ghostArray.Count > 0) {
+                    Destroy(ghostArray[0]);
+                    ghostArray.Remove(ghostArray[0]);
+
+                }
+                ghostArray.Clear();
             }
         }
     }

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     public float invul = 1.0f;
     public float sloMo = 2.0f;
     private float firingCounter;
-    private bool is_firing, spaceDown, accelDown;
+    private bool is_firing,  accelDown;
     private int ghostCounter;
     private TimeManager tm;
     public GameObject sphere;
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour {
         firingCounter = 0.0f;
         ghostCounter = 0;
         is_firing = false;
-        spaceDown = false;
         accelDown = false;
         tm = GetComponent<TimeManager>();
 	}

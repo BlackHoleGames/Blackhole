@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class TimeBubble : MonoBehaviour {
 
-    public float timeBubbleDuration = 1.0f;
+    public float timeBubbleDuration = 1.5f;
     public float timeBubbleMaxRadius = 10.0f;
-    public float timeBubbleIncreaseStep = 0.4f;
-    private float destroyCount = 0.2f;
+    public float timeToMaxSize = 0.4f;
+    private float t;
     public GameObject tmPartSys;
     private bool toDestroy;
+    private float sizeMultiplier = 1.0f;
     // Use this for initialization
     void Start () {
         toDestroy = false;
         Instantiate(tmPartSys, gameObject.transform.position, gameObject.transform.rotation);
+        t = 0;
+        if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
+        if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
     }
 
     // Update is called once per frame
     void Update () {
-        if (toDestroy){
-            destroyCount -= Time.deltaTime;
-            if (destroyCount <= 0.0f) Destroy(gameObject);
-        }
+
         if (gameObject.transform.localScale.x < timeBubbleMaxRadius)
         {
-            Vector3 newScale = gameObject.transform.localScale + new Vector3(2.5f, 2.5f, 2.5f) * (50.0f* Time.deltaTime);
-            gameObject.transform.localScale = newScale;
+            t += Time.unscaledDeltaTime / timeToMaxSize;
+            gameObject.transform.localScale = Vector3.Lerp(new Vector3(0.0f,0.0f,0.0f), (new Vector3(10.0f, 10.0f, 10.0f) * sizeMultiplier), t);            
         }
         else {
-            if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.deltaTime;
+            if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.unscaledDeltaTime;
             else
-            {               
-                gameObject.transform.localScale = new Vector3(0.05f,0.05f,0.05f);
-                toDestroy = true;
+            {
+                Destroy(gameObject);
             }
         }          
     }
@@ -41,11 +41,11 @@ public class TimeBubble : MonoBehaviour {
     {
         if ((other.tag == "EnemyProjectile" || other.tag == "Enemy") && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
-            if (tb) tb.scaleOfTime = 0.2f;
+            if (tb) tb.SlowDown(0.2f, 0.5f);
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.tag == "EnemyProjectile" || other.tag == "Enemy")
         {
@@ -53,5 +53,5 @@ public class TimeBubble : MonoBehaviour {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
             if (tb) tb.SpeedUp();
         }
-    }
+    }*/
 }
