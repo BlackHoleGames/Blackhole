@@ -17,7 +17,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
     private float firingCounter, t, alertModeTime, actualLife,regenCounter;
-    private bool   readjustPosition ;
+    private bool   readjustPosition, inWarp ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     public CameraBehaviour cb;
@@ -50,6 +50,12 @@ public class SwitchablePlayerController : MonoBehaviour {
             firingCounter -= Time.deltaTime;
         }
         if (actualLife < shield) Regen();
+        if (inWarp) {
+            if (!tm.isMaxGTLReached) {
+                SwitchCam();
+                inWarp = false;
+            }
+        }
     }
 
     public void ManageInput() {
@@ -69,16 +75,10 @@ public class SwitchablePlayerController : MonoBehaviour {
             timebomb.Play();
             Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
         }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            readjustInitialPos = transform.position;
-            readjustPosition = true;
-            t = 0;
-            is_vertical = !is_vertical;
-            cb.switchCamPosRot(is_vertical);
-        }
         if (Input.GetKeyDown(KeyCode.B))
         {
+            SwitchCam();
+            inWarp = true;
             tm.StartTimeWarp();
         }
         if (Input.GetKeyDown(KeyCode.Q))
@@ -107,6 +107,14 @@ public class SwitchablePlayerController : MonoBehaviour {
             Instantiate(projectile, t.position, t.rotation);
             firingCounter = fireCooldown;
         }
+    }
+
+    public void SwitchCam() {
+        readjustInitialPos = transform.position;
+        readjustPosition = true;
+        t = 0;
+        is_vertical = !is_vertical;
+        cb.switchCamPosRot(is_vertical);
     }
 
     public void Move(float Xinput, float YZinput) {

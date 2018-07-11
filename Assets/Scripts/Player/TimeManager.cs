@@ -6,18 +6,20 @@ public class TimeManager : MonoBehaviour {
     public float slomoTime = 0.05f;
     public float actualmaxspeed = 2.0f;
     public float slomoDuration = 2.0f;
+    public float timeWarpDuration = 10.0f;
     public bool slowDown = false;
     public bool accelerate = false;
     private bool gtlIncreasing = false;
     private bool speedUp = false;
     private float slomoCounter = 0.0f;
-    private bool isMaxGTLReached;
+    public bool isMaxGTLReached;
     private float[] gtlSeries = { 1.5f, 2.0f};
     private float timeWarp = 3.0f;
     private int gtlIndex;
-    private float targetGTL;
+    private float targetGTL, maxGTLCounter;
 
     void Start(){
+        isMaxGTLReached = false;
         gtlIndex = 0;
     }
 
@@ -59,6 +61,12 @@ public class TimeManager : MonoBehaviour {
                 }
             }
         }
+        if (isMaxGTLReached) {
+            maxGTLCounter += Time.unscaledDeltaTime;
+            if (maxGTLCounter > timeWarpDuration) {
+                Time.timeScale = 1.0f;
+            }
+        }
        /*else
         {
             if (!accelerate) {
@@ -91,6 +99,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StartTimeWarp() {
+        isMaxGTLReached = true;
         gtlIncreasing = true;
         targetGTL = timeWarp;
     }
