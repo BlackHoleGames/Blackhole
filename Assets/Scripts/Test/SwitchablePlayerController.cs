@@ -15,8 +15,9 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float alertModeDuration = 3.0f;
     public float invulnerabilityDuration = 1.0f;
     public float shield = 10.0f;
-    private float firingCounter, t, alertModeTime, actualLife;
-    private bool  accelDown, readjustPosition ;
+    public float shieldRegenPerSec = 1.0f;
+    private float firingCounter, t, alertModeTime, actualLife,regenCounter;
+    private bool   readjustPosition ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     public CameraBehaviour cb;
@@ -27,9 +28,9 @@ public class SwitchablePlayerController : MonoBehaviour {
     void Start() {
         actualLife = shield;
         firingCounter = 0.0f;
+        regenCounter = 0.0f;
         alertModeTime = 0.0f;
         is_firing = false;
-        accelDown = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
@@ -47,7 +48,8 @@ public class SwitchablePlayerController : MonoBehaviour {
             Fire();
             //firingCounter -= Time.unscaledDeltaTime;
             firingCounter -= Time.deltaTime;
-        }        
+        }
+        if (actualLife < shield) Regen();
     }
 
     public void ManageInput() {
@@ -64,7 +66,6 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (accelDown) accelDown = false;            
             timebomb.Play();
             Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
         }
@@ -76,29 +77,28 @@ public class SwitchablePlayerController : MonoBehaviour {
             is_vertical = !is_vertical;
             cb.switchCamPosRot(is_vertical);
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            tm.StartTimeWarp();
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!accelDown)
+            if (ghostArray.Count < 2)
             {
-                tm.StartTimeDash();
-                accelDown = true;
-            }
-            else
-            {
-                tm.RestoreTimeDash();
-                accelDown = false;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (ghostArray.Count < 3)
-            {
+                Debug.Log("Q pressed");
+
+                tm.IncreaseGTL();
+                //tm.RestoreTimeDash();
                 GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
                 if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
                 else obj.GetComponent<TimeGhost>().leader = transform;
                 ghostArray.Add(obj);
             }
         }
+    }
+
+    public void Regen() {
+        actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
     }
 
     public void Fire() {
@@ -152,7 +152,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 if (actualLife < 0.0f) { } // Death                
             }
             if (!tm.slowDown) {
-                Debug.Log("slowing");
+
                 slomo.Play();
                 tm.StartSloMo();
                 alertModeTime = alertModeDuration;
