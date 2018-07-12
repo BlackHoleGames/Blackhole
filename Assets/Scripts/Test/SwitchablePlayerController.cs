@@ -22,7 +22,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     private List<GameObject> ghostArray;
     public CameraBehaviour cb;
     public GameObject projectile, sphere, ghost;
-    //public Oscilator oscEnemies;
+    public static bool camMovementEnemies;
     public AudioSource timebomb, slomo;
     public Vector3 readjustInitialPos;
     // Use this for initialization
@@ -35,6 +35,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         is_vertical = true;
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
+        camMovementEnemies = false;
     }
 
     // Update is called once per frame
@@ -116,7 +117,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         t = 0;
         is_vertical = !is_vertical;
         cb.switchCamPosRot(is_vertical);
-        Oscilator.changeCam = true;
+        camMovementEnemies = true;
     }
 
     public void Move(float Xinput, float YZinput) {

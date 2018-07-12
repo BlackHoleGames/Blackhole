@@ -8,10 +8,8 @@ public class Oscilator : MonoBehaviour {
     float speed;
     float width;
     float height;
-    public static bool changeCam;
 	// Use this for initialization
 	void Start () {
-        changeCam = false;
         speed = 2;
         width = 7;
         height = 4;
@@ -20,7 +18,7 @@ public class Oscilator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timeCounter += Time.deltaTime * speed;
-        if (!changeCam) { 
+        if (!SwitchablePlayerController.camMovementEnemies) { 
             float x = Mathf.Cos(timeCounter) * width;
             float y = 0;
             float z = Mathf.Sin(timeCounter) * height; 

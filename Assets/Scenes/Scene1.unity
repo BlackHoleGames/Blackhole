@@ -4621,7 +4621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 2028986209}
   squadrons:
-  - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
+  - {fileID: 1082270039299732, guid: e290367fe75def14185e2ac0a24f8193, type: 2}
   - {fileID: 1217359280975682, guid: 661dc1dfd7613a84d954da4eb78f309c, type: 2}
   - {fileID: 1217359280975682, guid: c937e9d4e9605c04bb846a86db2c2095, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
