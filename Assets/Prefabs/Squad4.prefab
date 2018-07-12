@@ -636,8 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513fa310d41ef894e85ddde10ffe1226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: 100
-  life: 10
+  shield: 0
+  life: 2
   multFactor: 1
   cooldown: 10
   sinFactor: 5
@@ -682,9 +682,9 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 114245596910877466}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}
 --- !u!114 &114245596910877466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -767,9 +767,9 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 114245596910877466}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}
 --- !u!114 &114723500270401862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -790,9 +790,9 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 114245596910877466}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}
 --- !u!114 &114807107508027528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -813,9 +813,9 @@ MonoBehaviour:
   spawnCooldown: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
-  squadManager: {fileID: 114245596910877466}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  tb: {fileID: 0}
 --- !u!114 &114983482556530828
 MonoBehaviour:
   m_ObjectHideFlags: 1

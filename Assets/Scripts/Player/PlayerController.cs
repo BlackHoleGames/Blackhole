@@ -39,13 +39,14 @@ public class PlayerController : MonoBehaviour {
             gameObject.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);       
         if ((gameObject.transform.position.z + nextPosY > -ZLimit) && (gameObject.transform.position.z + nextPosY < ZLimit))
             gameObject.transform.position += new Vector3(0.0f,0.0f ,nextPosY);
-        if (Input.GetButtonDown("Fire1") && !is_firing) is_firing = true;
-        if (Input.GetButtonUp("Fire1") && is_firing)
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Joystick1Button9)) && !is_firing) is_firing = true;
+        if ((Input.GetButtonUp("Fire1") || Input.GetKeyDown(KeyCode.Joystick1Button9)) && is_firing)
         {
             is_firing = false;
             firingCounter = fireCooldown;
         }
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
+        {
             if (accelDown) {
                 accelDown = false;
             }
