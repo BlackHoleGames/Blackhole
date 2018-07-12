@@ -30,10 +30,8 @@ public class TimeBubble : MonoBehaviour {
         }
         else {
             if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.unscaledDeltaTime;
-            else
-            {
-                Destroy(gameObject);
-            }
+            else Destroy(gameObject);
+            
         }          
     }
 

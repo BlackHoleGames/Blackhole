@@ -24,9 +24,7 @@ public class TimeBehaviour : MonoBehaviour {
                 t += Time.unscaledDeltaTime / 1.0f;
                 scaleOfTime = Mathf.Lerp( startingPointScaleOfTime, 1.0f , t);
             }
-        }
-
-
+        }  
         if (slowingDown) {
             slowDownCounter -= Time.unscaledDeltaTime;
             if (slowDownCounter <= 0.0f) {
@@ -40,11 +38,11 @@ public class TimeBehaviour : MonoBehaviour {
         scaleOfTime = newScaleOfTime;
         slowDownCounter = slowdownduration;
         startingPointScaleOfTime = slowdownduration;
+        startSpeedUp = false;
         slowingDown = true;
     }
 
     public void SpeedUp(){
         startSpeedUp = true;
     }
-
 }

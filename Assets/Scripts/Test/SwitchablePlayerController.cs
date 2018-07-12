@@ -48,7 +48,6 @@ public class SwitchablePlayerController : MonoBehaviour {
         if (readjustPosition) ReadjustPlayer();
         if (is_firing) {
             Fire();
-            //firingCounter -= Time.unscaledDeltaTime;
             firingCounter -= Time.deltaTime;
         }
         if (actualLife < shield) Regen();
@@ -69,7 +68,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         if (Input.GetButtonUp("Fire1") && is_firing)
         {
             is_firing = false;
-            firingCounter = fireCooldown;
+            firingCounter = 0.0f;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -94,6 +93,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
                 if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
                 else obj.GetComponent<TimeGhost>().leader = transform;
+                obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
                 ghostArray.Add(obj);
             }
         }
