@@ -8,8 +8,10 @@ public class Oscilator : MonoBehaviour {
     float speed;
     float width;
     float height;
+    public static bool changeCam;
 	// Use this for initialization
 	void Start () {
+        changeCam = false;
         speed = 2;
         width = 7;
         height = 4;
@@ -18,10 +20,21 @@ public class Oscilator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timeCounter += Time.deltaTime * speed;
-        float x = Mathf.Cos(timeCounter) * width;
-        float y = 0;
-        float z = Mathf.Sin(timeCounter) * height; 
+        if (!changeCam) { 
+            float x = Mathf.Cos(timeCounter) * width;
+            float y = 0;
+            float z = Mathf.Sin(timeCounter) * height; 
 
-        transform.position = new Vector3(x, y, z);
+            transform.position = new Vector3(x, y, z);
+
+        }else
+        {
+            
+            float x = Mathf.Cos(timeCounter) * width;
+            float z = 10;
+            float y = Mathf.Sin(timeCounter) * height;
+
+            transform.position = new Vector3(x, y, z);
+        }
     }
 }
