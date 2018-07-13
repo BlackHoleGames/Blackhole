@@ -133,8 +133,8 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
         else {
             t += Time.unscaledDeltaTime / 1.0f;
-            transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x, transform.position.y, 0.0f), t);
-            if ((Mathf.Abs(transform.position.z) < 0.01)) readjustPosition = false;
+            transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x, transform.position.y, -3.5f), t);
+            if ((Mathf.Abs(Mathf.Abs(transform.position.z) - 3.5f) < 0.01)) readjustPosition = false;
         }
     }
 
@@ -156,14 +156,12 @@ public class SwitchablePlayerController : MonoBehaviour {
                 if (actualLife < 0.0f) { } // Death                
             }
             if (!tm.slowDown) {
-
                 slomo.Play();
                 tm.StartSloMo();
                 alertModeTime = alertModeDuration;
                 while (ghostArray.Count > 0) {
                     Destroy(ghostArray[0]);
                     ghostArray.Remove(ghostArray[0]);
-
                 }
                 ghostArray.Clear();
             }

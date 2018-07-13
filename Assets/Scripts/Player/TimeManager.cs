@@ -34,7 +34,7 @@ public class TimeManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         gtlCounter += Time.deltaTime;
-        if (gtlCounter > timeToGTLIncrease && gtlIndex < 2) {
+        if (gtlCounter > timeToGTLIncrease && gtlIndex < 2 && !slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
             gtlCounter = 0.0f;
             Debug.Log("GTL INCREASE!");
             if (gtlIndex <= 1) {
@@ -60,7 +60,11 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StartSloMo() {
+        gtlCounter = 0.0f;        
         cb.ResetToInitial();
+        gtlIncreasing = false;
+        speedUp = false;
+        isMaxGTLReached = false;
         slowDown = true;
         gtlIndex = 0;
         slomoCounter = slomoDuration;

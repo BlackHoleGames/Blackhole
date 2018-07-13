@@ -56,21 +56,24 @@ public class CameraBehaviour : MonoBehaviour {
                 
                 break;
         }
+        toVerticalPos = false;
         t = 0;
         startRotating = true;
         stateOfGTL = Orientation;
     }
 
     public void ResetToInitial() {
-        if (stateOfGTL != 0)
+        if (!toVerticalPos)
         {
-            startPos = targetPos;
-            startRot = Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
+            startPos = transform.position;
+            startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
             targetPos = verticalPosition;
             targetRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
             t = 0;
             startRotating = true;
             stateOfGTL = 0;
+            toVerticalPos = true;
+
         }
     }
 
