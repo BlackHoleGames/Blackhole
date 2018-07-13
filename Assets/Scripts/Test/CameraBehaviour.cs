@@ -5,12 +5,14 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
 
-    public Vector3 verticalPosition, horizontalPosition, verticalRotation, horizontalRotation;
+    public Vector3 verticalPosition, middlePosition, nearHorizontalPosition, timeWarpPos;
+    public Vector3 verticalRotation, middleRotation, nearHorizontalRotation, timeWarpRot;
     public float speed = 5.0f;
     public float timeToMove = 1.0f;
     private float t = 0.0f;
     public bool startRotating;
     public bool toVerticalPos;
+    public int stateOfGTL;
     private Vector3 startPos, targetPos;
     private Quaternion startRot, targetRot;
 
@@ -18,31 +20,12 @@ public class CameraBehaviour : MonoBehaviour {
 	void Start () {
         startRotating = false;
         toVerticalPos = false;
+        stateOfGTL = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (startRotating) {
-            /*float rotY = transform.rotation.eulerAngles.z;
-            if (!toVerticalPos)
-            {
-                rotY -=  Time.deltaTime * speed;
-                if (rotY > -90.0f)
-                {
-                    rotY = -90.0f;
-                    startRotating = false;
-                }
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f,rotY);
-            }
-            else {
-                rotY += Time.deltaTime * speed;
-                if (rotY < 0.0f)
-                {
-                    rotY = 0.0f;
-                    startRotating = false;
-                }
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f,rotY);
-            }*/
             t += Time.deltaTime / timeToMove;
             transform.position = Vector3.Lerp(startPos, targetPos, t);
             transform.rotation = Quaternion.Euler( Vector3.Lerp(startRot.eulerAngles, targetRot.eulerAngles, t));
@@ -51,34 +34,44 @@ public class CameraBehaviour : MonoBehaviour {
         }
 	}
 
-    public void switchCamPosRot(bool verticalOrientation) {
-        /* Quaternion q = Quaternion.identity;
-         if (verticalOrientation) {
-             transform.position = verticalPosition;
-             transform.rotation = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z) ;
-         }
-         else
-         {
-             transform.position = horizontalPosition;
-             transform.rotation = Quaternion.Euler(horizontalRotation.x, horizontalRotation.y, horizontalRotation.z);
-         }*/
-        if (verticalOrientation)
-        {
-            targetPos = verticalPosition;
-            targetRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
-            startPos = horizontalPosition;
-            startRot = Quaternion.Euler(horizontalRotation.x, horizontalRotation.y, horizontalRotation.z);
-        }
-        else
-        {
-            targetPos = horizontalPosition;
-            targetRot = Quaternion.Euler(horizontalRotation.x, horizontalRotation.y, horizontalRotation.z);
-            startPos = verticalPosition;
-            startRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
+    public void switchCamPosRot(int Orientation) {
+        switch (Orientation) {
+            case 0:
+                startPos = verticalPosition;
+                startRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
+                targetPos = middlePosition ;
+                targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
+                break;
+            case 1:
+                startPos = middlePosition;
+                startRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
+                targetPos = nearHorizontalPosition;
+                targetRot = Quaternion.Euler( nearHorizontalRotation.x, nearHorizontalRotation.y, nearHorizontalRotation.z);
+                break;
+            case 2:
+                startPos = targetPos;
+                startRot = Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
+                targetPos = timeWarpPos;
+                targetRot = Quaternion.Euler(timeWarpRot.x, timeWarpRot.y, timeWarpRot.z);
+                
+                break;
         }
         t = 0;
         startRotating = true;
-        toVerticalPos = verticalOrientation;
+        stateOfGTL = Orientation;
+    }
+
+    public void ResetToInitial() {
+        if (stateOfGTL != 0)
+        {
+            startPos = targetPos;
+            startRot = Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
+            targetPos = verticalPosition;
+            targetRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
+            t = 0;
+            startRotating = true;
+            stateOfGTL = 0;
+        }
     }
 
 

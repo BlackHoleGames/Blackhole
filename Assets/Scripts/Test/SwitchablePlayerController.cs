@@ -16,11 +16,10 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float invulnerabilityDuration = 1.0f;
     public float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
-    private float firingCounter, t, alertModeTime, actualLife,regenCounter;
+    private float firingCounter, t, alertModeTime, actualLife;
     private bool   readjustPosition, inWarp ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
-    public CameraBehaviour cb;
     public GameObject projectile, sphere, ghost;
     public static bool camMovementEnemies;
     public AudioSource timebomb, slomo;
@@ -29,7 +28,6 @@ public class SwitchablePlayerController : MonoBehaviour {
     void Start() {
         actualLife = shield;
         firingCounter = 0.0f;
-        regenCounter = 0.0f;
         alertModeTime = 0.0f;
         is_firing = false;
         is_vertical = true;
@@ -53,7 +51,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         if (actualLife < shield) Regen();
         if (inWarp) {
             if (!tm.isMaxGTLReached) {
-                SwitchCam();
+                SwitchAxis();
                 inWarp = false;
             }
         }
@@ -78,24 +76,9 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SwitchCam();
+            SwitchAxis();
             inWarp = true;
             tm.StartTimeWarp();
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (ghostArray.Count < 2)
-            {
-                Debug.Log("Q pressed");
-
-                tm.IncreaseGTL();
-                //tm.RestoreTimeDash();
-                GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
-                if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
-                else obj.GetComponent<TimeGhost>().leader = transform;
-                obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
-                ghostArray.Add(obj);
-            }
         }
     }
 
@@ -111,12 +94,11 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
     }
 
-    public void SwitchCam() {
+    public void SwitchAxis() {
         readjustInitialPos = transform.position;
         readjustPosition = true;
         t = 0;
         is_vertical = !is_vertical;
-        cb.switchCamPosRot(is_vertical);
         camMovementEnemies = true;
     }
 
@@ -153,6 +135,17 @@ public class SwitchablePlayerController : MonoBehaviour {
             t += Time.unscaledDeltaTime / 1.0f;
             transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x, transform.position.y, 0.0f), t);
             if ((Mathf.Abs(transform.position.z) < 0.01)) readjustPosition = false;
+        }
+    }
+
+    public void SpawnGhost() {
+        if (ghostArray.Count < 2)
+        {
+            GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
+            if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
+            else obj.GetComponent<TimeGhost>().leader = transform;
+            obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
+            ghostArray.Add(obj);
         }
     }
 

@@ -58,11 +58,11 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (!accelDown ) {
-                tm.StartTimeDash();
+                //tm.StartTimeDash();
                 accelDown = true;
             }
             else {
-                tm.RestoreTimeDash();
+                //tm.RestoreTimeDash();
                 accelDown = false;
             }
         }

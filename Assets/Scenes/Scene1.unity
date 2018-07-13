@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964128, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2155,8 +2155,8 @@ MonoBehaviour:
   actualmaxspeed: 2
   slomoDuration: 2
   timeWarpDuration: 10
+  timeToGTLIncrease: 15
   slowDown: 0
-  accelerate: 0
   isMaxGTLReached: 0
 --- !u!135 &1020445716
 SphereCollider:
@@ -3249,13 +3249,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 26, z: 0}
-  horizontalPosition: {x: 0, y: 7, z: -23}
+  middlePosition: {x: 0, y: 15, z: -10}
+  nearHorizontalPosition: {x: 0, y: 9, z: -10}
+  timeWarpPos: {x: 0, y: 2, z: -12.5}
   verticalRotation: {x: 90, y: 0, z: 0}
-  horizontalRotation: {x: 7.5, y: 0, z: 0}
+  middleRotation: {x: 45, y: 0, z: 0}
+  nearHorizontalRotation: {x: 30, y: 0, z: 0}
+  timeWarpRot: {x: 0, y: 0, z: 0}
   speed: 5
   timeToMove: 1
   startRotating: 0
   toVerticalPos: 0
+  stateOfGTL: 0
 --- !u!1 &1461836750
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,7 +3508,6 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   shield: 10
   shieldRegenPerSec: 1
-  cb: {fileID: 1446077912}
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
@@ -3697,8 +3701,8 @@ MonoBehaviour:
   actualmaxspeed: 2
   slomoDuration: 2
   timeWarpDuration: 10
+  timeToGTLIncrease: 15
   slowDown: 0
-  accelerate: 0
   isMaxGTLReached: 0
 --- !u!23 &1532430277
 MeshRenderer:

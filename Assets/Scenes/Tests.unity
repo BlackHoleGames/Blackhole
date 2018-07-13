@@ -3882,13 +3882,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 20, z: 0}
-  horizontalPosition: {x: 0, y: 7, z: -23}
+  middlePosition: {x: 0, y: 15, z: -10}
+  nearHorizontalPosition: {x: 0, y: 9, z: -10}
+  timeWarpPos: {x: 0, y: 2, z: -12.5}
   verticalRotation: {x: 90, y: 0, z: 0}
-  horizontalRotation: {x: 7.5, y: 0, z: 0}
+  middleRotation: {x: 45, y: 0, z: 0}
+  nearHorizontalRotation: {x: 30, y: 0, z: 0}
+  timeWarpRot: {x: 0, y: 0, z: 0}
   speed: 5
   timeToMove: 1
   startRotating: 0
   toVerticalPos: 0
+  stateOfGTL: 0
 --- !u!1 &1490756873
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,8 +4271,10 @@ MonoBehaviour:
   slomoTime: 0.05
   actualmaxspeed: 2
   slomoDuration: 2
+  timeWarpDuration: 10
+  timeToGTLIncrease: 15
   slowDown: 0
-  accelerate: 0
+  isMaxGTLReached: 0
 --- !u!114 &1550467610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4283,16 +4290,20 @@ MonoBehaviour:
   is_firing: 0
   fireCooldown: 0.2
   speedFactor: 10
-  projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   XLimit: 10
   ZLimit: 5
   invul: 1
   sloMo: 2
-  cb: {fileID: 1426294389}
+  alertModeDuration: 3
+  invulnerabilityDuration: 1
+  shield: 10
+  shieldRegenPerSec: 1
+  projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   timebomb: {fileID: 1550467606}
   slomo: {fileID: 1550467607}
+  readjustInitialPos: {x: 0, y: 0, z: 0}
 --- !u!23 &1550467611
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4569,8 +4580,10 @@ MonoBehaviour:
   slomoTime: 0.05
   actualmaxspeed: 2
   slomoDuration: 2
+  timeWarpDuration: 10
+  timeToGTLIncrease: 15
   slowDown: 0
-  accelerate: 0
+  isMaxGTLReached: 0
 --- !u!114 &1569190494
 MonoBehaviour:
   m_ObjectHideFlags: 0
