@@ -3260,18 +3260,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 26, z: 0}
-  middlePosition: {x: 0, y: 15, z: -15}
-  nearHorizontalPosition: {x: 0, y: 9, z: -15}
+  middlePosition: {x: 0, y: 18, z: -15}
   timeWarpPos: {x: 0, y: 2, z: -15}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
-  nearHorizontalRotation: {x: 30, y: 0, z: 0}
   timeWarpRot: {x: 0, y: 0, z: 0}
   speed: 5
   timeToMove: 1
   startRotating: 0
   toVerticalPos: 0
-  stateOfGTL: 0
 --- !u!1 &1461836750
 GameObject:
   m_ObjectHideFlags: 0

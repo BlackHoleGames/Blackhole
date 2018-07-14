@@ -81,9 +81,12 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SwitchAxis();
-            inWarp = true;
-            tm.StartTimeWarp();
+            if (tm.HasCharges())
+            {
+                SwitchAxis();
+                inWarp = true;
+                tm.StartTimeWarp();
+            }
         }
     }
 

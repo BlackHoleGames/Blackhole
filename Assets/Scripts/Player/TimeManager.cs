@@ -11,11 +11,11 @@ public class TimeManager : MonoBehaviour {
     public bool slowDown = false;
     private bool gtlIncreasing = false;
     private bool speedUp = false;
+    private bool inFasterGTL = false;
     private float slomoCounter = 0.0f;
     public bool isMaxGTLReached;
-    private float[] gtlSeries = {1.25f, 1.75f};
+    private float gtlFast = 1.5f;
     private float timeWarp = 2.0f;
-    private int gtlIndex;
     private float targetGTL, maxGTLCounter, gtlCounter;
     private CameraBehaviour cb;
     private int timeWarpCharges;
@@ -27,7 +27,6 @@ public class TimeManager : MonoBehaviour {
 
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
-        gtlIndex = 0;
         timeWarpCharges = 0;
     }
 
@@ -35,16 +34,16 @@ public class TimeManager : MonoBehaviour {
     void Update() {
         if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
             gtlCounter += Time.deltaTime;
-            if (gtlCounter > timeToGTLIncrease && gtlIndex < 2) {
+            if (gtlCounter > timeToGTLIncrease) {
                 gtlCounter = 0.0f;
                 Debug.Log("GTL INCREASE!");
-                if (gtlIndex <= 1) {
+                if (!inFasterGTL) {
                     IncreaseGTL();
                     sp.SpawnGhost();
-                    cb.switchCamPosRot(gtlIndex);
-                    if (gtlIndex < 1) ++gtlIndex;
+                    cb.SwitchCamPosRot();
+                    inFasterGTL = true;
                 }
-                if (gtlIndex > 0 && timeWarpCharges < 3) ++timeWarpCharges;
+                if (inFasterGTL && timeWarpCharges < 3) ++timeWarpCharges;
             }
         }
         if (slowDown) DoSlowDown();
@@ -60,12 +59,12 @@ public class TimeManager : MonoBehaviour {
         speedUp = false;
         isMaxGTLReached = false;
         slowDown = true;
-        gtlIndex = 0;
+        inFasterGTL = false;
         slomoCounter = slomoDuration;
     }
 
     public void IncreaseGTL() {
-        targetGTL = gtlSeries[gtlIndex];
+        targetGTL =gtlFast;
         gtlIncreasing = true;
     }
 
@@ -75,10 +74,12 @@ public class TimeManager : MonoBehaviour {
 
     public void StartTimeWarp() {
         if (timeWarpCharges > 0 && !slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
-            cb.switchCamPosRot(2);
+            gtlCounter = 0.0f;
+            cb.SwitchToTimeWarp();
             sp.SpawnGhost();
             isMaxGTLReached = true;
             gtlIncreasing = true;
+            inFasterGTL = false;
             targetGTL = timeWarp;
             --timeWarpCharges;
         }
@@ -124,9 +125,14 @@ public class TimeManager : MonoBehaviour {
         maxGTLCounter += Time.unscaledDeltaTime;
         if (maxGTLCounter > timeWarpDuration)
         {
-            Time.timeScale = 1.0f;
+            Time.timeScale = 1.5f;
             isMaxGTLReached = false;
-            cb.ResetToInitial();
+            inFasterGTL = true;
+            cb.SwitchCamPosRot();
         }
+    }
+
+    public bool HasCharges() {
+        return (timeWarpCharges > 0);
     }
 }
