@@ -33,30 +33,24 @@ public class TimeManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        gtlCounter += Time.deltaTime;
-        if (gtlCounter > timeToGTLIncrease && gtlIndex < 2 && !slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
-            gtlCounter = 0.0f;
-            Debug.Log("GTL INCREASE!");
-            if (gtlIndex <= 1) {
-                IncreaseGTL();
-                sp.SpawnGhost();
-                 cb.switchCamPosRot(gtlIndex);
-                if (gtlIndex < 1) ++gtlIndex;
-
+        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
+            gtlCounter += Time.deltaTime;
+            if (gtlCounter > timeToGTLIncrease && gtlIndex < 2) {
+                gtlCounter = 0.0f;
+                Debug.Log("GTL INCREASE!");
+                if (gtlIndex <= 1) {
+                    IncreaseGTL();
+                    sp.SpawnGhost();
+                    cb.switchCamPosRot(gtlIndex);
+                    if (gtlIndex < 1) ++gtlIndex;
+                }
+                if (gtlIndex > 0 && timeWarpCharges < 3) ++timeWarpCharges;
             }
-            if (gtlIndex > 0 && timeWarpCharges < 3) ++timeWarpCharges;             
         }
         if (slowDown) DoSlowDown();
         else if (speedUp) DoSpeedUp();
         else if (gtlIncreasing) DoGTLIncrease();
-        if (isMaxGTLReached) {
-            maxGTLCounter += Time.unscaledDeltaTime;
-            if (maxGTLCounter > timeWarpDuration) {
-                Time.timeScale = 1.0f;
-                isMaxGTLReached = false;
-                cb.ResetToInitial();
-            }
-        }
+        if (isMaxGTLReached) DoTimeWarp();
     }
 
     public void StartSloMo() {
@@ -80,7 +74,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StartTimeWarp() {
-        if (timeWarpCharges > 0) {
+        if (timeWarpCharges > 0 && !slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
             cb.switchCamPosRot(2);
             sp.SpawnGhost();
             isMaxGTLReached = true;
@@ -123,6 +117,16 @@ public class TimeManager : MonoBehaviour {
                 Time.timeScale = targetGTL;
                 gtlIncreasing = false;
             }
+        }
+    }
+
+    public void DoTimeWarp() {
+        maxGTLCounter += Time.unscaledDeltaTime;
+        if (maxGTLCounter > timeWarpDuration)
+        {
+            Time.timeScale = 1.0f;
+            isMaxGTLReached = false;
+            cb.ResetToInitial();
         }
     }
 }

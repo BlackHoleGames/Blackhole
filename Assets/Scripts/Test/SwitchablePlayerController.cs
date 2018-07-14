@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +16,11 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
     public float invulnerabilityDuration = 1.0f;
-    public float shield = 10.0f;
+    public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
-    private float firingCounter, t, alertModeTime, actualLife;
+    public Slider life;
+    public float actualLife;
+    private float firingCounter, t, alertModeTime;
     private bool   readjustPosition, inWarp ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
@@ -27,6 +31,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         actualLife = shield;
+        life.value = actualLife;
         firingCounter = 0.0f;
         alertModeTime = 0.0f;
         is_firing = false;
@@ -84,6 +89,7 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     public void Regen() {
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
+        life.value = actualLife;
     }
 
     public void Fire() {
@@ -139,8 +145,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     public void SpawnGhost() {
-        if (ghostArray.Count < 2)
-        {
+        if (ghostArray.Count < 2) {
             GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
             if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
             else obj.GetComponent<TimeGhost>().leader = transform;
@@ -151,10 +156,18 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
-            if (alertModeTime > 0.0f && alertModeTime < (alertModeDuration - invulnerabilityDuration)) {
-                actualLife = actualLife - (shield / 2.0f);
-                if (actualLife < 0.0f) { } // Death                
+
+            if (alertModeTime > 0.0f) {
+                if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                {
+                    actualLife = actualLife - (shield / 2.0f);
+                    alertModeTime = alertModeDuration;
+                    actualLife = actualLife - (shield / 2.0f);
+                    life.value = actualLife;
+                    if (actualLife < 0.0f) { } // Death                
+                }
             }
+            else alertModeTime = alertModeDuration;
             if (!tm.slowDown) {
                 slomo.Play();
                 tm.StartSloMo();

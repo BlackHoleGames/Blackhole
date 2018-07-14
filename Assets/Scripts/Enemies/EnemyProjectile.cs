@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour {
 	void Update () {
         timeToLive -= Time.deltaTime*tb.scaleOfTime;
         if (timeToLive <= 0.0f) Destroy(gameObject);
-        gameObject.transform.Translate(0.0f, -speed * Time.deltaTime*tb.scaleOfTime, 0.0f);
+        gameObject.transform.Translate(0.0f, 0.0f, - speed * Time.deltaTime*tb.scaleOfTime);
 
     }
 
