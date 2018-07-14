@@ -3260,9 +3260,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 26, z: 0}
-  middlePosition: {x: 0, y: 15, z: -10}
-  nearHorizontalPosition: {x: 0, y: 9, z: -10}
-  timeWarpPos: {x: 0, y: 2, z: -12.5}
+  middlePosition: {x: 0, y: 15, z: -15}
+  nearHorizontalPosition: {x: 0, y: 9, z: -15}
+  timeWarpPos: {x: 0, y: 2, z: -15}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
   nearHorizontalRotation: {x: 30, y: 0, z: 0}
@@ -3482,13 +3482,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1532430280}
   - component: {fileID: 1532430279}
-  - component: {fileID: 1532430278}
   - component: {fileID: 1532430277}
   - component: {fileID: 1532430272}
   - component: {fileID: 1532430276}
-  - component: {fileID: 1532430275}
   - component: {fileID: 1532430274}
   - component: {fileID: 1532430273}
+  - component: {fileID: 1532430275}
   m_Layer: 0
   m_Name: CamSwitchable Player
   m_TagString: Player
@@ -3686,18 +3685,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!135 &1532430275
-SphereCollider:
+--- !u!64 &1532430275
+MeshCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1532430271}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.00001
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940699}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 8b109bab8c4b2a342a6f09cfe84a163f, type: 3}
 --- !u!114 &1532430276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3750,39 +3751,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &1532430278
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1532430271}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1532430279
 MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1532430271}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 8b109bab8c4b2a342a6f09cfe84a163f, type: 3}
 --- !u!4 &1532430280
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1532430271}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -3.5}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1538257129
 GameObject:
   m_ObjectHideFlags: 0
@@ -4637,9 +4625,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 2028986209}
   squadrons:
-  - {fileID: 1082270039299732, guid: e290367fe75def14185e2ac0a24f8193, type: 2}
+  - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
   - {fileID: 1217359280975682, guid: 661dc1dfd7613a84d954da4eb78f309c, type: 2}
-  - {fileID: 1217359280975682, guid: c937e9d4e9605c04bb846a86db2c2095, type: 2}
+  - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
 --- !u!4 &1952563484
 Transform:

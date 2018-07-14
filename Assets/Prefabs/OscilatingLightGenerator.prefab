@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 54442340666745368}
   - component: {fileID: 114059491873168990}
   m_Layer: 0
-  m_Name: LightGenerator 1
+  m_Name: OscilatingLightGenerator
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,11 +131,7 @@ MonoBehaviour:
   sinFactor: 5
   matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  squadron:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  squadron: []
   squadManager: {fileID: 0}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
