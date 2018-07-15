@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 10
-  shotCooldown: 5
+  shotCooldown: 3
   rateOfFire: 0.2
-  numberOfShots: 5
+  numberOfShots: 3
   enemyProjectile: {fileID: 1608848417862874, guid: 39967631d57764f4a97b91a232b270e1,
     type: 2}
   spawnCooldown: 5

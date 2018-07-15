@@ -129,6 +129,7 @@ public class TimeManager : MonoBehaviour {
             isMaxGTLReached = false;
             inFasterGTL = true;
             cb.SwitchCamPosRot();
+            maxGTLCounter = 0.0f;
         }
     }
 

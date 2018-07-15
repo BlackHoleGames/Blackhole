@@ -10,8 +10,11 @@ public class SwitchablePlayerController : MonoBehaviour {
     public bool is_vertical, is_firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
+    public float rotationSpeed = 2.0f;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
+    public float RollLimit = 30.0f;
+    public float PitchLimit = 30.0f;
     public float invul = 1.0f;
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
@@ -20,20 +23,24 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float shieldRegenPerSec = 1.0f;
     public Slider life;
     public float actualLife;
-    private float firingCounter, t, alertModeTime;
-    private bool   readjustPosition, inWarp ;
+    private float firingCounter, t, rtime, alertModeTime, rotationTarget;
+    private bool   readjustPosition, inWarp, startRotating ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     public GameObject projectile, sphere, ghost;
     public static bool camMovementEnemies;
     public AudioSource timebomb, slomo;
-    public Vector3 readjustInitialPos;
+    public Vector3 readjustInitialPos, initialRot;
     // Use this for initialization
     void Start() {
         actualLife = shield;
         life.value = actualLife;
+        rotationTarget = 0.0f;
         firingCounter = 0.0f;
         alertModeTime = 0.0f;
+        rtime = 0.0f;
+        initialRot = transform.rotation.eulerAngles;
+        startRotating = false;
         is_firing = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
@@ -46,6 +53,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
         Move(axisX,axisY);
+        ManageRotation(axisX, axisY);
         ManageInput();
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
         if (readjustPosition) ReadjustPlayer();
@@ -132,6 +140,33 @@ public class SwitchablePlayerController : MonoBehaviour {
             else gameObject.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
         }
         
+    }
+
+    public void ManageRotation(float Xinput, float YZinput) {
+        if (is_vertical) {
+            if (YZinput == 0) {
+
+            }
+        }
+        if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0) ) {
+            rotationTarget = 0.0f;
+            startRotating = true;
+        }
+        else if (Xinput != 0) {
+            if (transform.rotation.eulerAngles.z < 30.0f && transform.rotation.eulerAngles.z > 330.0f)
+            {
+                float actualRot = rotationTarget;
+                rotationTarget = 30.0f;
+                if (Xinput < 0.0f) rotationTarget = 330.0f;
+                if (startRotating && rotationTarget != actualRot) initialRot = transform.rotation.eulerAngles;
+                startRotating = true;
+                transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRot, new Vector3(0.0f,0) , t));
+            }
+        }
+        if (startRotating) {
+            transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRot, new Vector3(0.0f, 0.0f, rotationTarget), 0.05f));
+            if (Mathf.Abs(transform.rotation.eulerAngles.z - rotationTarget) < 0.01) startRotating = false;
+        }
     }
 
     public void ReadjustPlayer() {

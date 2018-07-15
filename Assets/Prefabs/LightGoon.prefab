@@ -127,7 +127,7 @@ MonoBehaviour:
   life: 10
   shotCooldown: 5
   rateOfFire: 0.2
-  numberOfShots: 5
+  numberOfShots: 3
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
   spawnCooldown: 5
