@@ -156,8 +156,8 @@ public class SwitchablePlayerController : MonoBehaviour {
             if (transform.rotation.eulerAngles.z < 30.0f && transform.rotation.eulerAngles.z > 330.0f)
             {
                 float actualRot = rotationTarget;
-                rotationTarget = 30.0f;
-                if (Xinput < 0.0f) rotationTarget = 330.0f;
+                rotationTarget = RollLimit;
+                if (Xinput < 0.0f) rotationTarget = 360.0f - RollLimit;
                 if (startRotating && rotationTarget != actualRot) initialRot = transform.rotation.eulerAngles;
                 startRotating = true;
                 transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRot, new Vector3(0.0f,0) , t));
