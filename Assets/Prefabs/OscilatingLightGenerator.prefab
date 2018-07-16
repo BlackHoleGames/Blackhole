@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513fa310d41ef894e85ddde10ffe1226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: 0
+  shield: 10
   life: 2
   multFactor: 1
   cooldown: 10

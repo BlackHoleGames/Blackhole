@@ -27,7 +27,7 @@ public class TimeManager : MonoBehaviour {
 
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
-        timeWarpCharges = 0;
+        timeWarpCharges = 3;
     }
 
     // Update is called once per frame
