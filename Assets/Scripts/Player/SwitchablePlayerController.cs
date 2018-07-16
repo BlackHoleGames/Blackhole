@@ -224,6 +224,7 @@ public class SwitchablePlayerController : MonoBehaviour {
             GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
             if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
             else obj.GetComponent<TimeGhost>().leader = transform;
+            obj.transform.rotation = Quaternion.identity;
             obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
             ghostArray.Add(obj);
         }

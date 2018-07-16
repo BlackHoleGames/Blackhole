@@ -27,7 +27,7 @@ public class TimeManager : MonoBehaviour {
 
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
-        timeWarpCharges = 3;
+        timeWarpCharges = 0;
     }
 
     // Update is called once per frame
@@ -86,7 +86,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void DoSlowDown() {
-        if (Time.timeScale > slomoTime) Time.timeScale -= Time.unscaledDeltaTime;
+        if (Time.timeScale > slomoTime && (Time.timeScale - Time.unscaledDeltaTime) > 0) Time.timeScale -= Time.unscaledDeltaTime;
         else if (Time.timeScale < slomoTime && Time.timeScale != slomoTime)
         {
             Time.timeScale = slomoTime;
