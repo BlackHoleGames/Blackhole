@@ -24,13 +24,13 @@ public class SwitchablePlayerController : MonoBehaviour {
     public Slider life;
     public float actualLife;
     private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool   readjustPosition, inWarp, startRotating ;
+    private bool   readjustPosition, inWarp, startRotatingRoll, startRotatingPitch, restorePitch ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
-    public GameObject projectile, sphere, ghost;
+    public GameObject projectile, sphere, ghost, parentAxis;
     public static bool camMovementEnemies;
     public AudioSource timebomb, slomo;
-    public Vector3 readjustInitialPos, initialRot;
+    public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     // Use this for initialization
     void Start() {
         actualLife = shield;
@@ -42,12 +42,16 @@ public class SwitchablePlayerController : MonoBehaviour {
         rtimeZ = 0.0f;
         rtimeX = 0.0f;
         initialRot = transform.rotation.eulerAngles;
-        startRotating = false;
+        startRotatingRoll = false;
+        startRotatingPitch = false;
+        restorePitch = false;
         is_firing = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
         camMovementEnemies = false;
+
+        //parentAxis = gameObject;
     }
 
     // Update is called once per frame
@@ -55,7 +59,9 @@ public class SwitchablePlayerController : MonoBehaviour {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
         Move(axisX,axisY);
-        ManageRotation(axisX, axisY);
+        ManagePitchRotation(axisY);
+        ManageRollRotation(axisX);
+        if (startRotatingRoll || startRotatingPitch) Rotate();        
         ManageInput();
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
         if (readjustPosition) ReadjustPlayer();
@@ -64,12 +70,6 @@ public class SwitchablePlayerController : MonoBehaviour {
             firingCounter -= Time.deltaTime;
         }
         if (actualLife < shield) Regen();
-        if (inWarp) {
-            if (!tm.isMaxGTLReached) {
-                SwitchAxis();
-                inWarp = false;
-            }
-        }
     }
 
     public void ManageInput() {
@@ -107,13 +107,14 @@ public class SwitchablePlayerController : MonoBehaviour {
 
     public void Fire() {
         if (firingCounter <= 0.0f) {
-            Transform t = gameObject.transform;
+            Transform t = transform;
             Instantiate(projectile, t.position, t.rotation);
             firingCounter = fireCooldown;
         }
     }
 
     public void SwitchAxis() {
+        Debug.Log("Switching");
         readjustInitialPos = transform.position;
         readjustPosition = true;
         t = 0;
@@ -126,33 +127,67 @@ public class SwitchablePlayerController : MonoBehaviour {
         float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  // / Time.timeScale));
         float coordAD, coordWS;
         if (is_vertical) {
-            coordAD = gameObject.transform.position.x;
-            coordWS = gameObject.transform.position.z;
+            coordAD = parentAxis.transform.position.x;
+            coordWS = parentAxis.transform.position.z;
         }
         else {
-            coordAD = gameObject.transform.position.x;
-            coordWS = gameObject.transform.position.y;
+            coordAD = parentAxis.transform.position.x;
+            coordWS = parentAxis.transform.position.y;
         }
         if ((coordAD + nextPosX > -XLimit) && (coordAD + nextPosX < XLimit)){
-            if (is_vertical) gameObject.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
-            else gameObject.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
+            if (is_vertical) parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
+            else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
         if ((coordWS + nextPosYZ > -ZLimit) && (coordWS + nextPosYZ < ZLimit)){
-            if (is_vertical) gameObject.transform.position += new Vector3(0.0f, 0.0f, nextPosYZ);
-            else gameObject.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
+            if (is_vertical) parentAxis.transform.position += new Vector3(0.0f, 0.0f, nextPosYZ);
+            else parentAxis.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
         }
         
     }
 
-    public void ManageRotation(float Xinput, float YZinput) {
-        if (!is_vertical)
+    //parentAxis
+    public void ManageRollRotation(float Xinput) {
+
+        if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0) ) {
+            rotationTargetZ = 0.0f;
+            rtimeZ = 0;
+            initialRot = transform.rotation.eulerAngles;
+            startRotatingRoll = true;
+        }
+        else if (Xinput != 0) {
+            if (transform.rotation.eulerAngles.z < RollLimit && transform.rotation.eulerAngles.z > -RollLimit)
+            {
+                float actualRot = rotationTargetZ;
+                rotationTargetZ = RollLimit;
+                if (Xinput > 0.0f) rotationTargetZ = -RollLimit;
+                if (startRotatingRoll && rotationTargetZ != actualRot) {
+                    initialRot = transform.rotation.eulerAngles;
+                    rtimeZ = 0;
+                }
+                startRotatingRoll = true;
+            }
+        }
+        if (startRotatingRoll) {
+            rtimeZ += Time.unscaledDeltaTime / 1.0f;
+            rotZ = AngleLerp(initialRot,new Vector3(0.0f, 0.0f, rotationTargetZ),rtimeZ*rotationSpeed);
+
+            //transform.eulerAngles = targetRotationZ;
+            if (Mathf.Abs(transform.rotation.eulerAngles.z - rotationTargetZ) < 0.01) {
+                startRotatingRoll = false;
+            }
+
+        }
+    }
+
+    public void ManagePitchRotation( float YZinput) {
+        if (!is_vertical && !readjustPosition)
         {
             if (YZinput == 0 && (transform.rotation.eulerAngles.x != 0))
             {
                 rotationTargetX = 0.0f;
                 rtimeX = 0;
                 initialRot = transform.rotation.eulerAngles;
-                startRotating = true;
+                startRotatingPitch = true;
             }
             if (YZinput != 0)
             {
@@ -161,61 +196,57 @@ public class SwitchablePlayerController : MonoBehaviour {
                     float actualRot = rotationTargetX;
                     rotationTargetX = RollLimit;
                     if (YZinput > 0.0f) rotationTargetX = -RollLimit;
-                    if (startRotating && rotationTargetX != actualRot)
-                    {
+                    if (startRotatingPitch && rotationTargetX != actualRot) {
                         initialRot = transform.rotation.eulerAngles;
                         rtimeX = 0;
                     }
-                    startRotating = true;
-                   //transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRot, new Vector3(0.0f, 0), t));
+                    startRotatingPitch = true;                                                   
+                }                     
+            }
+            if (startRotatingPitch) {
+                rtimeX += Time.unscaledDeltaTime / 1.0f;
+                rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
+                //parentAxis.transform.eulerAngles = targetRotationX;
+                if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01)
+                {
+                    startRotatingPitch = false;
                 }
             }
-        }
-        if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0) ) {
-            rotationTargetZ = 0.0f;
-            rtimeZ = 0;
-            initialRot = transform.rotation.eulerAngles;
-            startRotating = true;
-        }
-        else if (Xinput != 0) {
-            if (transform.rotation.eulerAngles.z < RollLimit && transform.rotation.eulerAngles.z > -RollLimit)
-            {
-                float actualRot = rotationTargetZ;
-                rotationTargetZ = RollLimit;
-                if (Xinput > 0.0f) rotationTargetZ = -RollLimit;
-                if (startRotating && rotationTargetZ != actualRot) {
-                    initialRot = transform.rotation.eulerAngles;
-                    rtimeZ = 0;
-                }
-                startRotating = true;
-                //transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRot, new Vector3(0.0f,0) , t));
-            }
-        }
-        if (startRotating) {
-            rtimeZ += Time.unscaledDeltaTime;
-            rtimeX += Time.unscaledDeltaTime;
-            Vector3 targetRotationZ = AngleLerp(initialRot,new Vector3(0.0f, 0.0f, rotationTargetZ),rtimeZ*rotationSpeed);
-            if (!is_vertical)
-            {
-                Vector3 targetRotationX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
-                //Yrot.transform.eulerAngles = targetRotationX;
-            }
-
-            transform.eulerAngles = targetRotationZ;
-            if (Mathf.Abs(transform.rotation.eulerAngles.z - rotationTargetZ) < 0.01) startRotating = false;
         }
     }
 
+    public void Rotate() {
+        parentAxis.transform.eulerAngles = new Vector3(rotX.x, 0.0f, rotZ.z);
+    }
+    
     public void ReadjustPlayer() {
         if (is_vertical){
+            if (parentAxis.transform.rotation.eulerAngles.x != 0) {
+                if (!restorePitch) {
+                    rotationTargetX = 0.0f;
+                    rtimeX = 0;
+                    initialRot = transform.rotation.eulerAngles;
+                    restorePitch = true;
+                }
+                else {
+                    rtimeX += Time.unscaledDeltaTime / 1.0f;
+                    rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
+                    //parentAxis.transform.eulerAngles = targetRotationX;
+                    if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01) {
+                        parentAxis.transform.eulerAngles = new Vector3(0.0f, 0.0f, parentAxis.transform.eulerAngles.z);
+                        restorePitch = false;
+                        rtimeX = 0;
+                    }
+                }
+            }
             t += Time.unscaledDeltaTime / 1.0f;
-            transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x,0.0f, transform.position.z), t);
-            if ((Mathf.Abs(transform.position.y) < 0.01)) readjustPosition = false;
+            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(parentAxis.transform.position.x,0.0f, parentAxis.transform.position.z), t);
+            if ((Mathf.Abs(parentAxis.transform.position.y) < 0.01)) readjustPosition = false;
         }
         else {
             t += Time.unscaledDeltaTime / 1.0f;
-            transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(transform.position.x, transform.position.y, -3.5f), t);
-            if ((Mathf.Abs(Mathf.Abs(transform.position.z) - 3.5f) < 0.01)) readjustPosition = false;
+            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(parentAxis.transform.position.x, parentAxis.transform.position.y, -3.5f), t);
+            if ((Mathf.Abs(Mathf.Abs(parentAxis.transform.position.z) - 3.5f) < 0.01)) readjustPosition = false;
         }
     }
 
@@ -231,7 +262,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
+        /*if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
 
             if (alertModeTime > 0.0f) {
                 if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
@@ -254,7 +285,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 }
                 ghostArray.Clear();
             }
-        }
+        }*/
     }
 
     Vector3 AngleLerp(Vector3 StartAngle, Vector3 FinishAngle, float t)

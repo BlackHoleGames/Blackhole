@@ -50,6 +50,16 @@ public class CameraBehaviour : MonoBehaviour {
         startRotating = true; 
     }
 
+    public void SwitchToMiddle()
+    {
+        startPos = transform.position;
+        startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
+        targetPos = middlePosition;
+        targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
+        t = 0;
+        startRotating = true;
+    }
+
     public void SwitchToTimeWarp() {
         startPos = transform.position;
         startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);

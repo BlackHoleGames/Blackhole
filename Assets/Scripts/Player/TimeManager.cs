@@ -27,7 +27,7 @@ public class TimeManager : MonoBehaviour {
 
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
-        timeWarpCharges = 0;
+        timeWarpCharges = 3;
     }
 
     // Update is called once per frame
@@ -128,8 +128,9 @@ public class TimeManager : MonoBehaviour {
             Time.timeScale = 1.5f;
             isMaxGTLReached = false;
             inFasterGTL = true;
-            cb.SwitchCamPosRot();
+            cb.SwitchToMiddle();
             maxGTLCounter = 0.0f;
+            sp.SwitchAxis();
         }
     }
 
