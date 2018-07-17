@@ -59,7 +59,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
         Move(axisX,axisY);
-        ManagePitchRotation(axisY);
+        //ManagePitchRotation(axisY);
         ManageRollRotation(axisX);
         if (startRotatingRoll || startRotatingPitch) Rotate();        
         ManageInput();
