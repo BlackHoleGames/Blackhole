@@ -195,7 +195,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 {
                     float actualRot = rotationTargetX;
                     rotationTargetX = RollLimit;
-                    if (YZinput > 0.0f) rotationTargetX = -RollLimit;
+                    if (YZinput < 0.0f) rotationTargetX = -RollLimit;
                     if (startRotatingPitch && rotationTargetX != actualRot) {
                         initialRot = transform.rotation.eulerAngles;
                         rtimeX = 0;
