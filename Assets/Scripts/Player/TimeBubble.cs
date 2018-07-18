@@ -23,10 +23,10 @@ public class TimeBubble : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (gameObject.transform.localScale.x < timeBubbleMaxRadius)
+        if (gameObject.transform.localScale.x < timeBubbleMaxRadius*sizeMultiplier)
         {
             t += Time.unscaledDeltaTime / timeToMaxSize;
-            gameObject.transform.localScale = Vector3.Lerp(new Vector3(0.0f,0.0f,0.0f), (new Vector3(10.0f, 10.0f, 10.0f) * sizeMultiplier), t);            
+            gameObject.transform.localScale = Vector3.Lerp(new Vector3(0.0f,0.0f,0.0f), (new Vector3(timeBubbleMaxRadius, timeBubbleMaxRadius, timeBubbleMaxRadius) * sizeMultiplier), t);            
         }
         else {
             if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.unscaledDeltaTime;
