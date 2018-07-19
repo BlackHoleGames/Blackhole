@@ -29,6 +29,7 @@ public class TutorialScript : MonoBehaviour {
         PStart = false;
         for (int i = 0; i < 5; i++)
         {
+            if (PStart) break;
             FadeInText();
             yield return new WaitForSeconds(1.5f);
             FadeOut();
@@ -36,21 +37,22 @@ public class TutorialScript : MonoBehaviour {
         }
         if (PStart)
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            PStart = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
-        //splashImage.canvasRenderer.SetAlpha(0.0f);
-        //splashImage.CrossFadeAlpha(1.0f, 1.5f, false);
-        //waitSeconds();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("enter"))
+        {
+            PStart = true;
+        }
     }
 
     void FadeInText()
