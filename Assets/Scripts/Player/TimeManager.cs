@@ -36,7 +36,6 @@ public class TimeManager : MonoBehaviour {
             gtlCounter += Time.deltaTime;
             if (gtlCounter > timeToGTLIncrease) {
                 gtlCounter = 0.0f;
-                Debug.Log("GTL INCREASE!");
                 if (!inFasterGTL) {
                     IncreaseGTL();
                     sp.SpawnGhost();
