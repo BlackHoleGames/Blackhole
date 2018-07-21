@@ -18,5 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/UI_Menu.unity
     guid: 5d9dfd9645877cd4495ea9dcba8b7a09
   - enabled: 1
+    path: Assets/Scenes/UI_Briefing.unity
+    guid: 4b2628d01fcf8674fb43f9365005de4c
+  - enabled: 1
     path: Assets/Scenes/Scene1.unity
     guid: e3d766e55ccee864f93ede82b6e8b01b
