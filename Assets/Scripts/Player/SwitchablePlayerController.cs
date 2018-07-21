@@ -21,8 +21,10 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float invulnerabilityDuration = 1.0f;
     public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
+    public float timeBombRegenPerSec = 1.0f;
     public Slider life;
-    public Image fill;
+    public Image fillLife;
+    public Image fillTimeBomb;
     public float actualLife;
     private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool   readjustPosition, inWarp, startRotatingRoll, startRotatingPitch, restorePitch ;
@@ -71,6 +73,7 @@ public class SwitchablePlayerController : MonoBehaviour {
             firingCounter -= Time.deltaTime;
         }
         if (actualLife < shield) Regen();
+        if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
     }
 
     public void ManageInput() {
@@ -87,8 +90,12 @@ public class SwitchablePlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            timebomb.Play();
-            Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
+            if (fillTimeBomb.fillAmount == 1.0f)
+            {
+                fillTimeBomb.fillAmount = 0.0f;
+                timebomb.Play();
+                Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
+            }
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -104,6 +111,10 @@ public class SwitchablePlayerController : MonoBehaviour {
     public void Regen() {
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
         life.value = actualLife;
+    }
+    public void RegenTimeBomb()
+    {
+        fillTimeBomb.fillAmount += timeBombRegenPerSec * Time.unscaledDeltaTime;
     }
 
     public void Fire() {
@@ -273,7 +284,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                     life.value = actualLife;
                     if (actualLife < 0.0f)
                     {
-                        fill.enabled =false;
+                        fillLife.enabled =false;
                         TimerScript.gameover = true;
                         //Remaining deaht animation before this bool.                        
                     } // Death                
