@@ -22,6 +22,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
     public Slider life;
+    public Image fill;
     public float actualLife;
     private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool   readjustPosition, inWarp, startRotatingRoll, startRotatingPitch, restorePitch ;
@@ -261,7 +262,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        /*if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
+        if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
 
             if (alertModeTime > 0.0f) {
                 if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
@@ -270,7 +271,12 @@ public class SwitchablePlayerController : MonoBehaviour {
                     alertModeTime = alertModeDuration;
                     actualLife = actualLife - (shield / 2.0f);
                     life.value = actualLife;
-                    if (actualLife < 0.0f) { } // Death                
+                    if (actualLife < 0.0f)
+                    {
+                        fill.enabled =false;
+                        TimerScript.gameover = true;
+                        //Remaining deaht animation before this bool.                        
+                    } // Death                
                 }
             }
             else alertModeTime = alertModeDuration;
@@ -284,7 +290,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 }
                 ghostArray.Clear();
             }
-        }*/
+        }
     }
 
     Vector3 AngleLerp(Vector3 StartAngle, Vector3 FinishAngle, float t)
