@@ -35,7 +35,9 @@ public class EnemyManager : MonoBehaviour {
     public void SpawnNext() {
         if (squadronIndex < squadrons.Length)
         {
-            GameObject obj = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]]);
+            GameObject obj = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
+            obj.transform.parent = transform.parent;
+
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             ++squadronIndex;
         }

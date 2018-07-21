@@ -2702,7 +2702,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1079437045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: -15.5}
+  m_LocalPosition: {x: 0, y: -2, z: -15.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1952563484}
@@ -5172,7 +5172,7 @@ MonoBehaviour:
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
-  squadronSpawnPoints: 01000000050000000300000004000000
+  squadronSpawnPoints: 00000000050000000300000004000000
 --- !u!4 &1952563484
 Transform:
   m_ObjectHideFlags: 0
