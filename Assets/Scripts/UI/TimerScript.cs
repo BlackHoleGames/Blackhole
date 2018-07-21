@@ -12,8 +12,9 @@ public class TimerScript : MonoBehaviour {
     public float startTime;
     public float endTime;
     public bool restart = false;
-    public bool gameover = false;
+    public static bool gameover = false;
     public Text GameOverText;
+    public static bool isGameOver;
     public void TimeLevel(int sceneIndex)
     {
         startTime = Time.time;
@@ -35,16 +36,18 @@ public class TimerScript : MonoBehaviour {
             string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString();
 
-            timerText.text = minutes + ":" + seconds;
+            //timerText.text = minutes + ":" + seconds;
             timeLine.value = (t % 60) / 59;//timeLine.value + (t % 60) * 0.00001f;       
-            gameover = false;     
+            //gameover = false;     
         }
-        if (timeLine.value == 1.0f) {
-            startTime = Time.time;
+        if (gameover) {
+            //GameOverText.gameObject.SetActive(true);
+            FinishGame();
+            //startTime = Time.time;
             //Comented to Test GameOver();
 
-            float t2 = Time.time - endTime;
-            float seconds2 = (t2 % 60);
+            //float t2 = Time.time - endTime;
+            //float seconds2 = (t2 % 60);
             //Comented for testing if (seconds2 > 3)
             //Comented for testing {
             //Comented for testing     restartMap();
@@ -58,13 +61,12 @@ public class TimerScript : MonoBehaviour {
         }
 
     }
-    //Comented for testing public void GameOver()
-    //Comented for testing {
-    //Comented for testing     if (!gameover)
-    //Comented for testing     {
-    //Comented for testing         endTime = Time.time;
-    //Comented for testing         gameover = true;
-    //Comented for testing     }
-    //Comented for testing     GameOverText.gameObject.SetActive(true);
-    //Comented for testing }
+    public void FinishGame()
+    {
+        gameover = false;
+        isGameOver = false;
+        //System.Threading.Thread.Sleep(2000);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

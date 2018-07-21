@@ -40,6 +40,9 @@ public class EnemyManager : MonoBehaviour {
 
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             ++squadronIndex;
+        }else
+        {
+            TimerScript.gameover = true;
         }
     }
 }
