@@ -12,14 +12,18 @@ public class Oscilate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        leftPos = gameObject.transform.position.x - travelDistance;
-        rightPos = gameObject.transform.position.x + travelDistance;
-        upPos = gameObject.transform.position.y - travelDistance;
-        downPos = gameObject.transform.position.y + travelDistance;
+        leftPos = transform.parent.transform.position.x - travelDistance;
+        rightPos = transform.parent.transform.position.x + travelDistance;
+        upPos = transform.parent.transform.position.y - travelDistance;
+        downPos = transform.parent.transform.position.y + travelDistance;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        leftPos = transform.parent.transform.position.x - travelDistance;
+        rightPos = transform.parent.transform.position.x + travelDistance;
+        upPos = transform.parent.transform.position.y - travelDistance;
+        downPos = transform.parent.transform.position.y + travelDistance;
         if (!SwitchablePlayerController.camMovementEnemies)
         {
             if (gameObject.transform.position.x < leftPos) direction = 1.0f;

@@ -114,7 +114,6 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     public void SwitchAxis() {
-        Debug.Log("Switching");
         readjustInitialPos = transform.position;
         readjustPosition = true;
         t = 0;
