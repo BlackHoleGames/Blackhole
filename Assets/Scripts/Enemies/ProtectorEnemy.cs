@@ -15,9 +15,13 @@ public class ProtectorEnemy : MonoBehaviour {
     private float cooldownCounter;
     public SquadManager squadManager;
     public GameObject explosionPS;
+    public AudioClip explosionClip;
     private TimeBehaviour tb;
-	// Use this for initialization
-	void Start () {
+    private AudioSource audioSource;
+
+    // Use this for initialization
+    void Start () {
+        audioSource = GetComponent<AudioSource>();
         recovering = false;
         cooldownCounter = cooldown;
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -26,10 +30,12 @@ public class ProtectorEnemy : MonoBehaviour {
         foreach (BasicEnemy e in transform.parent.GetComponentsInChildren<BasicEnemy>()) {
             squadron.Add( e.gameObject);
         }
+        audioSource.Play();
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (!recovering)
         {
             if (shield < 100.0f) shield += Time.deltaTime * multFactor* tb.scaleOfTime;
@@ -56,9 +62,10 @@ public class ProtectorEnemy : MonoBehaviour {
         gameObject.GetComponent<Renderer>().material = matOff;
         foreach (GameObject g in squadron)
         {
-            g.GetComponent<BasicEnemy>().Unprotect();
+            BasicEnemy be = g.GetComponent<BasicEnemy>();
+            if (be) be.Unprotect();
         }
-        squadManager.DecreaseNumber();
+        squadManager.DecreaseNumber(explosionClip);
         //Instantiate(explosionPS, new Vector3(0.0f,0.0f,0.0f), new Quaternion());
         Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);

@@ -12,12 +12,15 @@ public class BasicEnemy : MonoBehaviour {
     public float spawnCooldown = 5.0f;
     private float rateCounter, shotTimeCounter, shotCounter;
     public Material matOn, matOff;
-    bool shielded;
+    private bool shielded;
     private SquadManager squadManager;
     public GameObject explosionPS;
     public TimeBehaviour tb;
+    private AudioSource audioSource;
+    public AudioClip gunshot, explosion;
 	// Use this for initialization
 	void Start () {
+        audioSource = GetComponent<AudioSource>();
         tb = gameObject.GetComponent<TimeBehaviour>();
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
@@ -26,6 +29,9 @@ public class BasicEnemy : MonoBehaviour {
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
         transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
+        audioSource.Play();
+        audioSource.clip = gunshot;
+
     }
 
     // Update is called once per frame
@@ -39,6 +45,7 @@ public class BasicEnemy : MonoBehaviour {
                         shotTimeCounter = rateOfFire;
                         --shotCounter;
                         Instantiate(enemyProjectile, transform.position, transform.rotation);
+                        audioSource.Play();
                     }
                 }
                 else
@@ -66,8 +73,7 @@ public class BasicEnemy : MonoBehaviour {
             if (life <= 0.0f)
             {
                 Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);
-
-                squadManager.DecreaseNumber();
+                squadManager.DecreaseNumber(explosion);
                 Destroy(gameObject);
             }
         }

@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1336138879871236, guid: 47328744d7d116e418752c4836e0522b,
     type: 2}
 --- !u!114 &114681725095712760
 MonoBehaviour:
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1336138879871236, guid: 47328744d7d116e418752c4836e0522b,
     type: 2}
 --- !u!114 &114963725510042952
 MonoBehaviour:

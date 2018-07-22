@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine;
+
 
 public class SwitchablePlayerController : MonoBehaviour {
 
@@ -22,18 +22,19 @@ public class SwitchablePlayerController : MonoBehaviour {
     public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
     public float timeBombRegenPerSec = 1.0f;
+    public AudioClip[] timeBombClips;
     public Slider life;
-    public Image fillLife;
-    public Image fillTimeBomb;
-    public float actualLife;
-    private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool   readjustPosition, inWarp, startRotatingRoll, startRotatingPitch, restorePitch ;
-    private TimeManager tm;
-    private List<GameObject> ghostArray;
+    public Image fillLife, fillTimeBomb;
     public GameObject projectile, sphere, ghost, parentAxis;
     public static bool camMovementEnemies;
-    public AudioSource timebomb, slomo;
+    public AudioSource timebomb, slomo, gunshot, timewarp;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
+    public float actualLife;
+    private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
+    private bool   readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch ;
+    private TimeManager tm;
+    private List<GameObject> ghostArray;
+
     // Use this for initialization
     void Start() {
         actualLife = shield;
@@ -93,6 +94,8 @@ public class SwitchablePlayerController : MonoBehaviour {
             if (fillTimeBomb.fillAmount == 1.0f)
             {
                 fillTimeBomb.fillAmount = 0.0f;
+                int clipIndex = (int)Random.Range(0,3);
+                timebomb.clip = timeBombClips[clipIndex];
                 timebomb.Play();
                 Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
             }
@@ -102,8 +105,8 @@ public class SwitchablePlayerController : MonoBehaviour {
             if (tm.HasCharges())
             {
                 SwitchAxis();
-                inWarp = true;
                 tm.StartTimeWarp();
+                timewarp.Play();
             }
         }
     }
@@ -121,6 +124,7 @@ public class SwitchablePlayerController : MonoBehaviour {
         if (firingCounter <= 0.0f) {
             Transform t = transform;
             Instantiate(projectile, t.position, t.rotation);
+            gunshot.Play();
             firingCounter = fireCooldown;
         }
     }

@@ -9,19 +9,25 @@ public class KamikazeEnemy : MonoBehaviour {
     public float life = 50.0f;
     private SquadManager squadManager;
     public GameObject explosionPS;
-    public TimeBehaviour tb;
+    private TimeBehaviour tb;
     private GameObject player;
     private float direction;
     private bool turbo;
+    private AudioSource audioSource;
+    public AudioClip explosionClip;
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         turbo = false;
         player = GameObject.FindGameObjectWithTag("Player");
         if (transform.position.x < 0.0f) direction = 1.0f;
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
         squadManager = GetComponentInParent<SquadManager>();
+        audioSource.Play();
+
         //transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
     }
 
@@ -42,7 +48,7 @@ public class KamikazeEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                //squadManager.DecreaseNumber();
+                squadManager.DecreaseNumber(explosionClip);
                 Destroy(gameObject);
             }
            

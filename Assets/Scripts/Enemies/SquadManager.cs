@@ -76,7 +76,8 @@ public class SquadManager : MonoBehaviour {
         sp = start;
     }
 
-    public void DecreaseNumber() {
+    public void DecreaseNumber(AudioClip ac) {
+        explosion.clip = ac;
         explosion.Play();
         --numOfMembers;
         if (numOfMembers == 0)

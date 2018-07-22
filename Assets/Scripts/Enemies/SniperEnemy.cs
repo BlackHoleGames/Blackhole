@@ -10,20 +10,26 @@ public class SniperEnemy : MonoBehaviour {
     public float spawnCooldown = 5.0f;
     private float rateCounter, shotTimeCounter;
     public Material matOn, matOff;
-    bool shielded;
+    private bool shielded, playCharging;
     private SquadManager squadManager;
     public GameObject explosionPS;
-    public TimeBehaviour tb;
+    private TimeBehaviour tb;
+    private AudioSource audioSource;
+    public AudioClip explosionClip, gunshot;
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         tb = gameObject.GetComponent<TimeBehaviour>();
         shotTimeCounter = chargeTime;
         rateCounter = 0.0f;
         shielded = true;
+        playCharging = false;
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
         transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
+        audioSource.Play();
+        audioSource.clip = gunshot;
     }
 
     // Update is called once per frame
@@ -33,13 +39,18 @@ public class SniperEnemy : MonoBehaviour {
         {
             if (rateCounter <= 0.0f)
             {
+                if (!playCharging) {
+                    playCharging = true;
+                    audioSource.Play();
+                }
                 shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
                 if (shotTimeCounter <= 0)
                 {
+                    playCharging = true;
                     shotTimeCounter = chargeTime;
                     rateCounter = shotCooldown;
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
-                }                               
+                }
             }
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
@@ -61,7 +72,7 @@ public class SniperEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                squadManager.DecreaseNumber();
+                squadManager.DecreaseNumber(explosionClip);
                 Destroy(gameObject);
             }
         }
