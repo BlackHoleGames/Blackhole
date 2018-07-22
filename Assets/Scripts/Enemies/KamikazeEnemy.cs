@@ -13,12 +13,13 @@ public class KamikazeEnemy : MonoBehaviour {
     private GameObject player;
     private float direction;
     private bool turbo;
-    private AudioSource audioSource;
+    private AudioSource audioSource, hitAudioSource;
     public AudioClip explosionClip;
     // Use this for initialization
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
+        hitAudioSource = GetComponents<AudioSource>()[1];
 
         turbo = false;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -43,6 +44,7 @@ public class KamikazeEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {

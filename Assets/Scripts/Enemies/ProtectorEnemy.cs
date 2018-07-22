@@ -17,11 +17,12 @@ public class ProtectorEnemy : MonoBehaviour {
     public GameObject explosionPS;
     public AudioClip explosionClip;
     private TimeBehaviour tb;
-    private AudioSource audioSource;
+    private AudioSource audioSource, hitAudioSource;
 
     // Use this for initialization
     void Start () {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
+        hitAudioSource = GetComponents<AudioSource>()[1];
         recovering = false;
         cooldownCounter = cooldown;
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -64,6 +65,14 @@ public class ProtectorEnemy : MonoBehaviour {
         {
             BasicEnemy be = g.GetComponent<BasicEnemy>();
             if (be) be.Unprotect();
+            else {
+                SniperEnemy se = g.GetComponent<SniperEnemy>();
+                if (se) se.Unprotect();
+                else {
+                    RadialShooter re = g.GetComponent<RadialShooter>();
+                    if (re) re.Unprotect();
+                }
+            }
         }
         squadManager.DecreaseNumber(explosionClip);
         //Instantiate(explosionPS, new Vector3(0.0f,0.0f,0.0f), new Quaternion());
@@ -75,6 +84,8 @@ public class ProtectorEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            hitAudioSource.Play();
+
             if (!recovering) shield -= other.gameObject.GetComponent<Projectile>().damage;
             else life -= other.gameObject.GetComponent<Projectile>().damage;
             

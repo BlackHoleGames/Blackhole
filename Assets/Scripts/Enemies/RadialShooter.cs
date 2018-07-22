@@ -17,12 +17,13 @@ public class RadialShooter : MonoBehaviour {
     private SquadManager squadManager;
     public GameObject explosionPS;
     private TimeBehaviour tb;
-    private AudioSource audioSource;
+    private AudioSource audioSource, hitAudioSource;
     public AudioClip explosionClip, gunshot;
     // Use this for initialization
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
+        hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
@@ -83,6 +84,7 @@ public class RadialShooter : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            hitAudioSource.Play();
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {

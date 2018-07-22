@@ -16,11 +16,12 @@ public class BasicEnemy : MonoBehaviour {
     private SquadManager squadManager;
     public GameObject explosionPS;
     public TimeBehaviour tb;
-    private AudioSource audioSource;
+    private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot, explosion;
 	// Use this for initialization
 	void Start () {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
+        hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
@@ -69,6 +70,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            hitAudioSource.Play();
             if (!shielded)  life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
