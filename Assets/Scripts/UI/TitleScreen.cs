@@ -14,31 +14,31 @@ public class TitleScreen : MonoBehaviour {
         splashImage.canvasRenderer.SetAlpha(0.0f);
         splashText.canvasRenderer.SetAlpha(0.0f);
         FadeInImage();
-        PStart = false;
+//        PStart = false;
         for(int i = 0; i < 5; i++) {
-            if (PStart) break;
+//            if (PStart) break;
             FadeInText();
             yield return new WaitForSeconds(1.5f);
-            if (PStart) break;
+//            if (PStart) break;
             FadeOut();
             yield return new WaitForSeconds(1.5f);
         }
-        if (PStart)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-        }else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-
+        //if (PStart)
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        //}else
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //}
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("enter"))
-        {
-            PStart = true;
-        }
+        //if (Input.GetKeyDown("enter"))
+        //{
+        //    PStart = true;
+        //}
     }
 
     void FadeInText()
