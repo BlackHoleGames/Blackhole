@@ -77,6 +77,7 @@ public class BasicEnemy : MonoBehaviour {
                 Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);
                 squadManager.DecreaseNumber(explosion);
                 Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
             }
         }
     }

@@ -40,7 +40,9 @@ public class EnemyManager : MonoBehaviour {
 
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             ++squadronIndex;
-        }else
+            if(squadronIndex>1)ScoreScript.score = ScoreScript.score+ (int)(500 * ScoreScript.multiplierScore);
+        }
+        else
         {
             TimerScript.gameover = true;
         }

@@ -47,7 +47,11 @@ public class ProtectorEnemy : MonoBehaviour {
             }
         }
         else {
-            if (life <= 0.0f) ActivateDeath();
+            if (life <= 0.0f)
+            {
+                ActivateDeath();
+                ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
+            }
             cooldownCounter -= Time.deltaTime * tb.scaleOfTime;
             if (cooldownCounter <= 0.0f)
             {
