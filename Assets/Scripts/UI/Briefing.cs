@@ -22,9 +22,9 @@ public class Briefing : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("enter"))
-        {
-            PStart = true;
-        }
+        //if (Input.GetKeyDown("enter"))
+        //{
+        //    PStart = true;
+        //}
     }
 }
