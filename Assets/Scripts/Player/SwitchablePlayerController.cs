@@ -10,7 +10,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public bool is_vertical, is_firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
-    public float rotationSpeed = 2.0f;
+    public float rotationSpeed = 4.0f;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
     public float RollLimit = 30.0f;
@@ -133,7 +133,8 @@ public class SwitchablePlayerController : MonoBehaviour {
         readjustInitialPos = transform.position;
         readjustPosition = true;
         t = 0;
-        is_vertical = !is_vertical;
+        if (is_vertical) is_vertical = false;
+        else is_vertical = true;
         camMovementEnemies = true;
     }
 

@@ -8,14 +8,16 @@ public class Oscilator : MonoBehaviour {
     public float speed = 2.0f;
     public float width = 7.0f;
     public float height = 4.0f;
+    private TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
+        tb = gameObject.GetComponent<TimeBehaviour>();
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        timeCounter += Time.deltaTime ;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        timeCounter += Time.deltaTime * tb.scaleOfTime;
         if (!SwitchablePlayerController.camMovementEnemies) { 
             float x = Mathf.Cos(timeCounter) * width;
             float y = 0;

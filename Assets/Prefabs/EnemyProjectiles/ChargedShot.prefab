@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114504785989663882}
   m_Layer: 0
   m_Name: ChargedShot
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   m_StaticBatchInfo:

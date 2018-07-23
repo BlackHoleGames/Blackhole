@@ -44,5 +44,6 @@ public class TimeBehaviour : MonoBehaviour {
 
     public void SpeedUp(){
         startSpeedUp = true;
+        slowingDown = false;
     }
 }

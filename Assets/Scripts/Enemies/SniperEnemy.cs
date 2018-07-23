@@ -47,7 +47,7 @@ public class SniperEnemy : MonoBehaviour {
                 shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
                 if (shotTimeCounter <= 0)
                 {
-                    playCharging = true;
+                    playCharging = false;
                     shotTimeCounter = chargeTime;
                     rateCounter = shotCooldown;
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
