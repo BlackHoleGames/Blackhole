@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour {
 
-
     public Vector3 verticalPosition, middlePosition,  timeWarpPos;
     public Vector3 verticalRotation, middleRotation,  timeWarpRot;
     public float speed = 5.0f;
-    public float timeToMove = 1.0f;
+    public float timeToMove = 12.0f;
     private float t = 0.0f;
     public bool startRotating;
     public bool toVerticalPos;
@@ -19,10 +18,11 @@ public class CameraBehaviour : MonoBehaviour {
 	void Start () {
         startRotating = false;
         toVerticalPos = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        SwitchCamPosRot();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (startRotating) {
             t += Time.deltaTime / timeToMove;
             transform.position = Vector3.Lerp(startPos, targetPos, t);
@@ -33,8 +33,11 @@ public class CameraBehaviour : MonoBehaviour {
 	}
 
     public void SwitchCamPosRot() {
-        startPos = verticalPosition;
-        startRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
+        timeToMove = 12.0f;
+        // startPos = verticalPosition;
+        // startRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
+        startPos = transform.position;
+        startRot = transform.rotation;
         targetPos = middlePosition ;
         targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
         t = 0;
@@ -43,6 +46,7 @@ public class CameraBehaviour : MonoBehaviour {
     }
 
     public void ResetToInitial() {
+        timeToMove = 1.0f;
         startPos = transform.position;
         startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
         targetPos = verticalPosition;
@@ -52,8 +56,8 @@ public class CameraBehaviour : MonoBehaviour {
         startRotating = true; 
     }
 
-    public void SwitchToMiddle()
-    {
+    public void SwitchToMiddle() {
+        timeToMove = 1.0f;
         startPos = transform.position;
         startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
         targetPos = middlePosition;
@@ -64,6 +68,7 @@ public class CameraBehaviour : MonoBehaviour {
     }
 
     public void SwitchToTimeWarp() {
+        timeToMove = 1.0f;
         startPos = transform.position;
         startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
         targetPos = timeWarpPos;
@@ -72,6 +77,4 @@ public class CameraBehaviour : MonoBehaviour {
         startRotating = true;
         ScoreScript.multiplierScore = 3.0f;
     }
-
-
 }

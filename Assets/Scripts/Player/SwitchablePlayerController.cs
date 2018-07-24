@@ -115,8 +115,8 @@ public class SwitchablePlayerController : MonoBehaviour {
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
         life.value = actualLife;
     }
-    public void RegenTimeBomb()
-    {
+
+    public void RegenTimeBomb() {
         fillTimeBomb.fillAmount += timeBombRegenPerSec * Time.unscaledDeltaTime;
     }
 
@@ -283,6 +283,18 @@ public class SwitchablePlayerController : MonoBehaviour {
             if (alertModeTime > 0.0f) {
                 if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                 {
+                    if (!tm.InSlowMo())
+                    {
+                        slomo.Play();
+                        tm.StartSloMo();
+                        alertModeTime = alertModeDuration;
+                        while (ghostArray.Count > 0)
+                        {
+                            Destroy(ghostArray[0]);
+                            ghostArray.Remove(ghostArray[0]);
+                        }
+                        ghostArray.Clear();
+                    }
                     actualLife = actualLife - (shield / 2.0f);
                     alertModeTime = alertModeDuration;
                     actualLife = actualLife - (shield / 2.0f);
@@ -296,16 +308,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 }
             }
             else alertModeTime = alertModeDuration;
-            if (!tm.slowDown) {
-                slomo.Play();
-                tm.StartSloMo();
-                alertModeTime = alertModeDuration;
-                while (ghostArray.Count > 0) {
-                    Destroy(ghostArray[0]);
-                    ghostArray.Remove(ghostArray[0]);
-                }
-                ghostArray.Clear();
-            }
+            
         }
     }
 
