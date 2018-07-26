@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour {
     public GameObject[] squadrons;
     public SpawnPoint[] squadronSpawnPoints;
     public SpawnPoint[] squadronExitPoints;
+    public float[] squadTime;
     private int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
 
@@ -36,9 +37,6 @@ public class EnemyManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-       /* if (Input.GetKeyDown(KeyCode.E)) {
-            Instantiate(squadrons[squadronIndex], spawn);
-        }*/
     }
 
     public void SpawnNext() {
@@ -49,7 +47,7 @@ public class EnemyManager : MonoBehaviour {
 
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
-            obj.GetComponent<SquadManager>().SetTimeToLive(15.0f);
+            obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
             ++squadronIndex;
             if(squadronIndex>1)ScoreScript.score = ScoreScript.score+ (int)(500 * ScoreScript.multiplierScore);
         }

@@ -10,13 +10,12 @@ public class SquadManager : MonoBehaviour {
     public float speed = 2.0f;
     public float timeToLive = -1.0f;
     private AudioSource explosion;
-    private bool waitUntilExplosionEnded, movingToPosition, liveIsDone;
+    private bool waitUntilExplosionEnded, movingToPosition, liveIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
     private EnemyManager.SpawnPoint exitPoint = EnemyManager.SpawnPoint.NOT_SET;
     private Vector3 center = new Vector3(0.0f,0.0f,5.0f);
     private Vector3 initialPos, target, exit;
     private float timeToMove;
-    public bool passerby;
 	// Use this for initialization
 	void Start () {
         Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
@@ -27,13 +26,14 @@ public class SquadManager : MonoBehaviour {
         movingToPosition = true;
         target = center;
         liveIsDone = false;
+        arrivedToStart = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
         {
-            ManageEntry();
+            ManageMovement();
             if (waitUntilExplosionEnded)
             {
                 if (!explosion.isPlaying)
@@ -42,7 +42,7 @@ public class SquadManager : MonoBehaviour {
                 }
             }
         }
-        if (!liveIsDone) {
+        if (!liveIsDone && arrivedToStart) {
             timeToLive -= Time.deltaTime;
             if (timeToLive <= 0.0f) {
                 timeToMove = 0.0f;
@@ -78,76 +78,15 @@ public class SquadManager : MonoBehaviour {
         }
     }
 
-    public void ManageEntry() {
-        /*switch (entryPoint)
-        {
-            case EnemyManager.SpawnPoint.TOP:
-                {
-                    if (gameObject.transform.position.z > 5.0f) gameObject.transform.Translate(new Vector3(0.0f, 0.0f, -Time.deltaTime * speed));
-                    break;
-                }
-            case EnemyManager.SpawnPoint.TOPRIGHT:
-                {
-                    if (gameObject.transform.position.z < 5.0f) gameObject.transform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * speed));
-                    if (gameObject.transform.position.z > 2.0f && gameObject.transform.position.y < 0.0f) gameObject.transform.Translate(new Vector3(0.0f, Time.deltaTime * speed / 2.0f, 0.0f));
+    public void ManageMovement() {
 
-                    break;
-                }
-            case EnemyManager.SpawnPoint.TOPLEFT:
-                {
-                    if (gameObject.transform.position.x < 0.0f) gameObject.transform.Translate(new Vector3(Time.deltaTime * speed, 0.0f, 0.0f));
-
-                    break;
-                }
-            case EnemyManager.SpawnPoint.RIGHTUP:
-                {
-                    if (gameObject.transform.position.x > 0.0f) gameObject.transform.Translate(new Vector3(-Time.deltaTime * speed, 0.0f, 0.0f));
-
-                    break;
-                }
-            case EnemyManager.SpawnPoint.RIGHT:
-                {
-                    if (gameObject.transform.position.y > 0.0f) gameObject.transform.Translate(new Vector3(0.0f, -Time.deltaTime * speed, 0.0f));
-
-                    break;
-                }
-            case EnemyManager.SpawnPoint.RIGHTDOWN:
-                {
-                    if (gameObject.transform.position.y < 0.0f) gameObject.transform.Translate(new Vector3(0.0f, Time.deltaTime * speed, 0.0f));
-
-                    break;
-                }
-            case EnemyManager.SpawnPoint.BOTTOMRIGHT:
-                {
-                    break;
-                }
-            case EnemyManager.SpawnPoint.BOTTOM:
-                {
-                    break;
-                }
-            case EnemyManager.SpawnPoint.BOTTOMLEFT:
-                {
-                    break;
-                }
-            case EnemyManager.SpawnPoint.LEFTDOWN:
-                {
-                    break;
-                }
-            case EnemyManager.SpawnPoint.LEFT:
-                {
-                    break;
-                }
-            case EnemyManager.SpawnPoint.LEFTUP:
-                {
-                    break;
-                }
-        }*/
         if (movingToPosition)
         {
             timeToMove += Time.deltaTime / 3.0f;
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
             if (Vector3.Distance(transform.position,target)< 1.0 ) {
                 movingToPosition = false;
+                if (!arrivedToStart) arrivedToStart = true;
                 if (timeToLive < 0.0f && numOfMembers > 0) {
                     Manager.SpawnNext();
                     Destroy(gameObject);
@@ -155,6 +94,72 @@ public class SquadManager : MonoBehaviour {
             }
         }
     }
+
+    /*public void ManageEntry() {
+        switch (entryPoint)
+    {
+        case EnemyManager.SpawnPoint.TOP:
+            {
+                if (gameObject.transform.position.z > 5.0f) gameObject.transform.Translate(new Vector3(0.0f, 0.0f, -Time.deltaTime * speed));
+                break;
+            }
+        case EnemyManager.SpawnPoint.TOPRIGHT:
+            {
+                if (gameObject.transform.position.z < 5.0f) gameObject.transform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * speed));
+                if (gameObject.transform.position.z > 2.0f && gameObject.transform.position.y < 0.0f) gameObject.transform.Translate(new Vector3(0.0f, Time.deltaTime * speed / 2.0f, 0.0f));
+
+                break;
+            }
+        case EnemyManager.SpawnPoint.TOPLEFT:
+            {
+                if (gameObject.transform.position.x < 0.0f) gameObject.transform.Translate(new Vector3(Time.deltaTime * speed, 0.0f, 0.0f));
+
+                break;
+            }
+        case EnemyManager.SpawnPoint.RIGHTUP:
+            {
+                if (gameObject.transform.position.x > 0.0f) gameObject.transform.Translate(new Vector3(-Time.deltaTime * speed, 0.0f, 0.0f));
+
+                break;
+            }
+        case EnemyManager.SpawnPoint.RIGHT:
+            {
+                if (gameObject.transform.position.y > 0.0f) gameObject.transform.Translate(new Vector3(0.0f, -Time.deltaTime * speed, 0.0f));
+
+                break;
+            }
+        case EnemyManager.SpawnPoint.RIGHTDOWN:
+            {
+                if (gameObject.transform.position.y < 0.0f) gameObject.transform.Translate(new Vector3(0.0f, Time.deltaTime * speed, 0.0f));
+
+                break;
+            }
+        case EnemyManager.SpawnPoint.BOTTOMRIGHT:
+            {
+                break;
+            }
+        case EnemyManager.SpawnPoint.BOTTOM:
+            {
+                break;
+            }
+        case EnemyManager.SpawnPoint.BOTTOMLEFT:
+            {
+                break;
+            }
+        case EnemyManager.SpawnPoint.LEFTDOWN:
+            {
+                break;
+            }
+        case EnemyManager.SpawnPoint.LEFT:
+            {
+                break;
+            }
+        case EnemyManager.SpawnPoint.LEFTUP:
+            {
+                break;
+            }
+    }
+    }*/
 
     /*public void ManageExit() {
         switch (exitPoint)
