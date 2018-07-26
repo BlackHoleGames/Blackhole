@@ -3776,6 +3776,11 @@ MonoBehaviour:
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   squadronSpawnPoints: 0a000000000000000100000008000000
   squadronExitPoints: 06000000040000000900000002000000
+  squadTime:
+  - 3
+  - 3
+  - 4
+  - 1
 --- !u!4 &1952563484
 Transform:
   m_ObjectHideFlags: 0
