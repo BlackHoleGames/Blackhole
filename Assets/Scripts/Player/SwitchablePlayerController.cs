@@ -13,6 +13,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float rotationSpeed = 4.0f;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
+    public float TimeWarpXLimit;
+    public float TimeWarpYLimit;
     public float RollLimit = 30.0f;
     public float PitchLimit = 30.0f;
     public float invul = 1.0f;
