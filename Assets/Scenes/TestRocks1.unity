@@ -11172,6 +11172,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1099748574}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1134687019
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1708.9504
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798537979614980, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1161602748
 GameObject:
   m_ObjectHideFlags: 0
@@ -11967,6 +12009,8 @@ MonoBehaviour:
   rotationSpeed: 2
   XLimit: 10
   ZLimit: 5
+  TimeWarpXLimit: 0
+  TimeWarpYLimit: 0
   RollLimit: 30
   PitchLimit: 30
   invul: 1
@@ -17484,6 +17528,8 @@ MonoBehaviour:
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   squadronSpawnPoints: 00000000050000000300000004000000
+  squadronExitPoints: 
+  squadTime: []
 --- !u!4 &1952563484
 Transform:
   m_ObjectHideFlags: 0
