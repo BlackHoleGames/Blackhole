@@ -8,7 +8,9 @@ public class TimeManager : MonoBehaviour {
     public float slomoDuration = 2.0f;
     public float timeWarpDuration = 10.0f;
     public float timeToGTLIncrease = 15.0f;
-    public bool slowDown = false;
+    public float wormHoleDuration = 10.0f;
+    public float wormholeMultiplier = 3.0f;
+    private bool slowDown = false;
     private bool gtlIncreasing = false;
     private bool speedUp = false;
     private bool inFasterGTL = false;
@@ -17,25 +19,29 @@ public class TimeManager : MonoBehaviour {
     public bool isMaxGTLReached;
     public float gtlFast = 1.5f;
     public float gtlFaster = 2.0f;
-    private float targetGTL, maxGTLCounter, gtlCounter;
+    private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter;
     private CameraBehaviour cb;
     private SwitchablePlayerController sp;
     private bool firstTimeEnteredSpeedUp;
+    private bool wormhole = false;
+    
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
         firstTimeEnteredSpeedUp = true;
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
+        wormHoleCounter = wormHoleDuration;
     }
 
     // Update is called once per frame
     void Update() {
-        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
+        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached && !wormhole) DoGTL();
         if (slowDown) DoSlowDown();
         else if (speedUp) DoSpeedUp();
         else if (gtlIncreasing) DoGTLIncrease();
-        if (isMaxGTLReached) DoTimeWarp();
+        else if (wormhole) DoWorhmHole();
+        //if (isMaxGTLReached) DoTimeWarp();
     }
 
     public void StartSloMo() {
@@ -45,7 +51,7 @@ public class TimeManager : MonoBehaviour {
         isMaxGTLReached = false;
         slowDown = true;
         inFasterGTL = false;
-        slomoCounter = slomoDuration;
+        wormhole = false;
     }
 
     public void IncreaseGTL() {
@@ -70,6 +76,25 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
+    public void StartWorhmHole() {
+        wormhole = true;
+        wormHoleCounter = wormHoleDuration;
+        if (slowDown) {
+            Time.timeScale = 1.0f;
+            slowDown = false;
+        }
+        if (speedUp) {
+            Time.timeScale = 1.0f;
+            speedUp = false;
+        }
+        if (gtlIncreasing)
+        {
+            Time.timeScale = 1.0f;
+            gtlIncreasing = false;
+        }
+        Time.timeScale = Time.timeScale * wormholeMultiplier;
+    }
+
     public void StartTimeWarp() {
         if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
             cb.SwitchToTimeWarp();
@@ -90,6 +115,7 @@ public class TimeManager : MonoBehaviour {
             Time.timeScale = slomoTime;
             slowDown = false;
             speedUp = true;
+            slomoCounter = 0.0f;
         }
     }
 
@@ -129,6 +155,13 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
+    public void DoWorhmHole() {
+        wormHoleCounter -= Time.unscaledDeltaTime;
+        if (wormHoleCounter <= 0.0f) {
+            wormhole = false;
+            Time.timeScale = Time.timeScale / wormholeMultiplier;
+        }
+    }
 
 
     public bool InSlowMo() {

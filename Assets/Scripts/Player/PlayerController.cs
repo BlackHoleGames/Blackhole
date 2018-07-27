@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy" || other.tag == "EnemyProjectile") {
-            if (!tm.slowDown)
+            if (!tm.InSlowMo())
             {
                 Debug.Log("slowing");
                 slomo.Play();

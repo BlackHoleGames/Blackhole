@@ -24,7 +24,7 @@ public class SniperEnemy : MonoBehaviour {
         tb = gameObject.GetComponent<TimeBehaviour>();
         shotTimeCounter = chargeTime;
         rateCounter = 0.0f;
-        shielded = true;
+        shielded = false;
         playCharging = false;
         gameObject.GetComponent<Renderer>().material = matOff;
         squadManager = GetComponentInParent<SquadManager>();

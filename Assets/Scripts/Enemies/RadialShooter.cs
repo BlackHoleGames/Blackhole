@@ -28,7 +28,7 @@ public class RadialShooter : MonoBehaviour {
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
-        shielded = true;
+        shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
         ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();

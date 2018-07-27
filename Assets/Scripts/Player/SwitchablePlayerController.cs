@@ -319,6 +319,10 @@ public class SwitchablePlayerController : MonoBehaviour {
         else actualLife+= amount;
     }
 
+    public void InitiateWormHole() {
+        tm.StartWorhmHole();
+    }
+
     Vector3 AngleLerp(Vector3 StartAngle, Vector3 FinishAngle, float t)
     {
         float xLerp = Mathf.LerpAngle(StartAngle.x, FinishAngle.x, t);

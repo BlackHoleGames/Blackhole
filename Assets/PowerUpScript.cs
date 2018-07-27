@@ -30,9 +30,9 @@ public class PowerUpScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
+        if (other.gameObject.tag == "Player")
         {
-            if (other.gameObject.tag == "Player") other.gameObject.GetComponent<SwitchablePlayerController>().AddLife(lifeGiving);
+            other.gameObject.GetComponent<SwitchablePlayerController>().AddLife(lifeGiving);
             Destroy(gameObject);
         }
     }
