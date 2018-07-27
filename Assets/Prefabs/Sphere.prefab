@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBubbleDuration: 1
-  timeBubbleMaxRadius: 10
-  timeBubbleIncreaseStep: 0.4
+  timeBubbleMaxRadius: 50
+  timeToMaxSize: 0.4
   tmPartSys: {fileID: 1144217653516254, guid: 8f56beffc5fb31a48ad172a0e4f49bb1, type: 2}
 --- !u!135 &135687942414357824
 SphereCollider:

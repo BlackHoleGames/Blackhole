@@ -24,6 +24,7 @@ public class TimeGhost : MonoBehaviour {
     Vector3[] position_buffer;
     float[] time_buffer;
     int oldest_index, newest_index;
+    public bool blocksProjectiles = true;
 
     float counter;
     // Use this for initialization
@@ -42,6 +43,8 @@ public class TimeGhost : MonoBehaviour {
         oldest_index = 0;
         newest_index = 1;
         counter = Time.time;
+        if (blocksProjectiles) gameObject.tag = "ghost";
+        else gameObject.tag = "Untagged";
     }
 
     public void SetFiringCounter(float newFiringCounter) {

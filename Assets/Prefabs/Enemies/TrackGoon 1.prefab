@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69baf00f3a8798f408e74fd9452066c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  life: 100
   shotCooldown: 3
   rateOfFire: 0.2
   numberOfShots: 3

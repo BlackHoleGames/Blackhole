@@ -31,17 +31,12 @@ public class ShootAroundProjectile : MonoBehaviour {
         timeToLive -= Time.deltaTime * tb.scaleOfTime;
         if (timeToLive <= 0.0f) Destroy(gameObject);
         gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
-        /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
-        if (Vector3.Distance(gameObject.transform.position , new Vector3(target.x, 0.0f, target.z)) < 0.1f){
-            Destroy(gameObject);
-        }*/
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
+        if (other.gameObject.tag == "Player") {
             Destroy(gameObject);
         }
     }

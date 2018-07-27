@@ -31,7 +31,8 @@ public class RadialShooter : MonoBehaviour {
         shielded = true;
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
-        transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
+        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
+        if (pe) pe.squadron.Add(gameObject);
         degreesPerProjectile = 360.0f / (float)numberOfShots;
         audioSource.Play();
         audioSource.clip = gunshot;

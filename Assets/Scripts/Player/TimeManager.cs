@@ -15,39 +15,23 @@ public class TimeManager : MonoBehaviour {
     private bool returnToFasterGTL = false;
     private float slomoCounter = 0.0f;
     public bool isMaxGTLReached;
-    private float gtlFast = 1.5f;
-    private float timeWarp = 2.0f;
+    public float gtlFast = 1.5f;
+    public float gtlFaster = 2.0f;
     private float targetGTL, maxGTLCounter, gtlCounter;
     private CameraBehaviour cb;
-    private int timeWarpCharges;
     private SwitchablePlayerController sp;
-    private bool first, camIsInInitial, firstTimeEnteredSpeedUp;
+    private bool firstTimeEnteredSpeedUp;
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
-        first = true;
         firstTimeEnteredSpeedUp = true;
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
-        timeWarpCharges = 3;
     }
 
     // Update is called once per frame
     void Update() {
-        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
-            gtlCounter += Time.deltaTime;
-            if (gtlCounter > timeToGTLIncrease) {
-                gtlCounter = 0.0f;
-                if (!inFasterGTL) {
-                    IncreaseGTL();
-                    sp.SpawnGhost();
-                    if (!first) cb.SwitchCamPosRot();
-                    else first = true;
-                    inFasterGTL = true;
-                }
-                if (inFasterGTL && timeWarpCharges < 3) ++timeWarpCharges;
-            }
-        }
+        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
         if (slowDown) DoSlowDown();
         else if (speedUp) DoSpeedUp();
         else if (gtlIncreasing) DoGTLIncrease();
@@ -56,7 +40,6 @@ public class TimeManager : MonoBehaviour {
 
     public void StartSloMo() {
         gtlCounter = 0.0f;        
-        cb.ResetToInitial();
         gtlIncreasing = false;
         speedUp = false;
         isMaxGTLReached = false;
@@ -66,7 +49,8 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void IncreaseGTL() {
-        targetGTL =gtlFast;
+        if (!inFasterGTL) targetGTL = gtlFast;
+        else targetGTL = gtlFaster;
         gtlIncreasing = true;
     }
 
@@ -74,18 +58,28 @@ public class TimeManager : MonoBehaviour {
         slowDown = false;
     }
 
-    public void StartTimeWarp() {
-        if (timeWarpCharges > 0 && !slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
+    public void DoGTL() {
+        gtlCounter += Time.deltaTime;
+        if (gtlCounter > timeToGTLIncrease)
+        {
             gtlCounter = 0.0f;
-            cb.SwitchToTimeWarp();
+            if (!inFasterGTL) inFasterGTL = true;
+            else isMaxGTLReached = true;
+            IncreaseGTL();
             sp.SpawnGhost();
+        }
+    }
+
+    public void StartTimeWarp() {
+        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
+            cb.SwitchToTimeWarp();
+            gtlCounter = 0.0f;
             isMaxGTLReached = true;
             gtlIncreasing = true;
-            if (inFasterGTL) returnToFasterGTL = true;
-            else returnToFasterGTL = false;
+            //if (inFasterGTL) returnToFasterGTL = true;
+            //else returnToFasterGTL = false;
             inFasterGTL = false;
-            targetGTL = timeWarp;
-            --timeWarpCharges;
+            //targetGTL = timeWarp;
         }
     }
 
@@ -96,28 +90,19 @@ public class TimeManager : MonoBehaviour {
             Time.timeScale = slomoTime;
             slowDown = false;
             speedUp = true;
-            firstTimeEnteredSpeedUp = true;
         }
     }
 
     public void DoSpeedUp() {
-        if (firstTimeEnteredSpeedUp) {
-            if (returnToFasterGTL) cb.SwitchToMiddle();
-            else cb.ResetToInitial();
-            firstTimeEnteredSpeedUp = false;
+        if (slomoCounter < slomoDuration) {
+            if (Time.timeScale < 1.0) Time.timeScale += Time.unscaledDeltaTime;
+            else if (Time.timeScale > 1.0f) Time.timeScale = 1.0f;
+            slomoCounter += Time.unscaledDeltaTime;
         }
         else {
-            if (slomoCounter < slomoDuration) {
-                if (Time.timeScale < 1.0) Time.timeScale += Time.unscaledDeltaTime;
-                else if (Time.timeScale > 1.0f) Time.timeScale = 1.0f;
-                slomoCounter += Time.unscaledDeltaTime;
-            }
-            else {
-                Time.timeScale = 1.0f;
-                speedUp = false;
-                cb.SwitchCamPosRot();
-            }
-        }
+            Time.timeScale = 1.0f;
+            speedUp = false;
+        }        
     }
 
     public void DoGTLIncrease() {
@@ -136,18 +121,15 @@ public class TimeManager : MonoBehaviour {
         maxGTLCounter += Time.unscaledDeltaTime;
         if (maxGTLCounter > timeWarpDuration)
         {
-            Time.timeScale = 1.5f;
-            isMaxGTLReached = false;
-            inFasterGTL = true;
-            cb.SwitchToMiddle();
+            Time.timeScale = gtlFaster;
+            isMaxGTLReached = true;
+            inFasterGTL = false;
             maxGTLCounter = 0.0f;
-            sp.SwitchAxis();
+            cb.ResetToInitial();
         }
     }
 
-    public bool HasCharges() {
-        return (timeWarpCharges > 0);
-    }
+
 
     public bool InSlowMo() {
         return slowDown;

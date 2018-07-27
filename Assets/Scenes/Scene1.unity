@@ -1600,6 +1600,8 @@ MonoBehaviour:
   timeToGTLIncrease: 15
   slowDown: 0
   isMaxGTLReached: 0
+  gtlFast: 1.5
+  gtlFaster: 2
 --- !u!135 &1020445716
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3152,6 +3154,8 @@ MonoBehaviour:
   timeToGTLIncrease: 15
   slowDown: 0
   isMaxGTLReached: 0
+  gtlFast: 1.5
+  gtlFaster: 2
 --- !u!23 &1532430277
 MeshRenderer:
   m_ObjectHideFlags: 0

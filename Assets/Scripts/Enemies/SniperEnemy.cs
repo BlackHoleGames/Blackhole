@@ -26,9 +26,10 @@ public class SniperEnemy : MonoBehaviour {
         rateCounter = 0.0f;
         shielded = true;
         playCharging = false;
-        gameObject.GetComponent<Renderer>().material = matOn;
+        gameObject.GetComponent<Renderer>().material = matOff;
         squadManager = GetComponentInParent<SquadManager>();
-        transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
+        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
+        if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
     }

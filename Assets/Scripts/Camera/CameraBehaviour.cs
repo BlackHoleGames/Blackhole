@@ -18,7 +18,7 @@ public class CameraBehaviour : MonoBehaviour {
 	void Start () {
         startRotating = false;
         toVerticalPos = false;
-        SwitchCamPosRot();
+        //SwitchCamPosRot();
     }
 
     // Update is called once per frame

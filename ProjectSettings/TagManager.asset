@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - EnemyProjectile
   - timeBubble
+  - ghost
   layers:
   - Default
   - TransparentFX

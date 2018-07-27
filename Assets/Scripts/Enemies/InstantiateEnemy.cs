@@ -8,8 +8,10 @@ public class InstantiateEnemy : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        GameObject go = Instantiate(enemyToInstantiate, transform.position, transform.rotation);        
-        go.transform.parent = transform.parent;
+        if (enemyToInstantiate) {
+            GameObject go = Instantiate(enemyToInstantiate, transform.position, transform.rotation);
+            go.transform.parent = transform.parent;
+        }
         Destroy(gameObject);
         //GameObject pf = (GameObject)Resources.Load("Resources/"+enemyToInstantiate.name);
         

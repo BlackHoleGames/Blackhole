@@ -12,7 +12,7 @@ public class BasicEnemy : MonoBehaviour {
     public float spawnCooldown = 5.0f;
     private float rateCounter, shotTimeCounter, shotCounter;
     public Material matOn, matOff;
-    private bool shielded;
+    private bool shielded, hit, materialHitOn;
     private SquadManager squadManager;
     public GameObject explosionPS;
     public TimeBehaviour tb;
@@ -26,12 +26,14 @@ public class BasicEnemy : MonoBehaviour {
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
-        shielded = true;
+        shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
         squadManager = GetComponentInParent<SquadManager>();
-        transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
+        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
+        if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
+        gameObject.GetComponent<Renderer>().material = matOff;
 
     }
 
@@ -59,6 +61,18 @@ public class BasicEnemy : MonoBehaviour {
             else rateCounter -= Time.deltaTime* tb.scaleOfTime;
         }
         else spawnCooldown -= Time.deltaTime* tb.scaleOfTime;
+        if (materialHitOn) {
+            gameObject.GetComponent<Renderer>().material = matOff;
+            materialHitOn = false;
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOn;
+            materialHitOn = true;
+        }
+
+
     }
 
     public void Unprotect() {
@@ -71,7 +85,10 @@ public class BasicEnemy : MonoBehaviour {
         if (other.gameObject.tag == "PlayerProjectile")
         {
             hitAudioSource.Play();
-            if (!shielded)  life -= other.gameObject.GetComponent<Projectile>().damage;
+            if (!shielded) {
+                life -= other.gameObject.GetComponent<Projectile>().damage;
+                hit = true;
+            }
             if (life <= 0.0f)
             {
                 Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);

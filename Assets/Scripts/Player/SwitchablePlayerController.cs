@@ -75,7 +75,7 @@ public class SwitchablePlayerController : MonoBehaviour {
             Fire();
             firingCounter -= Time.deltaTime;
         }
-        if (actualLife < shield) Regen();
+        //if (actualLife < shield) Regen();
         if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
     }
 
@@ -102,7 +102,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
             }
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        /*if (Input.GetKeyDown(KeyCode.B))
         {
             if (tm.HasCharges())
             {
@@ -110,7 +110,7 @@ public class SwitchablePlayerController : MonoBehaviour {
                 tm.StartTimeWarp();
                 timewarp.Play();
             }
-        }
+        }*/
     }
 
     public void Regen() {
@@ -312,6 +312,11 @@ public class SwitchablePlayerController : MonoBehaviour {
             else alertModeTime = alertModeDuration;
             
         }
+    }
+
+    public void AddLife(float amount) {
+        if (actualLife + amount > shield) actualLife = shield;
+        else actualLife+= amount;
     }
 
     Vector3 AngleLerp(Vector3 StartAngle, Vector3 FinishAngle, float t)

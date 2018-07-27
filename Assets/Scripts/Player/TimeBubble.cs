@@ -5,7 +5,7 @@ using UnityEngine;
 public class TimeBubble : MonoBehaviour {
 
     public float timeBubbleDuration = 1.5f;
-    public float timeBubbleMaxRadius = 10.0f;
+    public float timeBubbleMaxRadius = 50.0f;
     public float timeToMaxSize = 0.4f;
     private float t;
     public GameObject tmPartSys;
@@ -16,8 +16,8 @@ public class TimeBubble : MonoBehaviour {
         toDestroy = false;
         Instantiate(tmPartSys, gameObject.transform.position, gameObject.transform.rotation);
         t = 0;
-        if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
-        if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
+        //if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
+        //if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
     }
 
     // Update is called once per frame
