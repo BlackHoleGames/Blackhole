@@ -13,6 +13,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float rotationSpeed = 4.0f;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
+    public int rotSpeed = 20;
     public float TimeWarpXLimit;
     public float TimeWarpYLimit;
     public float RollLimit = 30.0f;
@@ -36,6 +37,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     private bool   readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
+    public Transform cameraTrs;
+    public bool camRotate = false;
 
     // Use this for initialization
     void Start() {
@@ -143,6 +146,8 @@ public class SwitchablePlayerController : MonoBehaviour {
     public void Move(float Xinput, float YZinput) {
         float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); // / Time.timeScale));
         float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  // / Time.timeScale));
+        //cameraTrs.Rotate(0, rotSpeed * Time.deltaTime ,0);
+        //        cameraTrs.Rotate(0, 0, -ZLimit);
         float coordAD, coordWS;
         if (is_vertical) {
             coordAD = parentAxis.transform.position.x;
@@ -153,7 +158,17 @@ public class SwitchablePlayerController : MonoBehaviour {
             coordWS = parentAxis.transform.position.y;
         }
         if ((coordAD + nextPosX > -XLimit) && (coordAD + nextPosX < XLimit)){
-            if (is_vertical) parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
+            if (is_vertical)
+            {
+                if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
+                else camRotate = false;
+                parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
+                if (camRotate)
+                {
+                    cameraTrs.Rotate(0, 0, Xinput*0.1f);
+                    parentAxis.transform.Rotate(0,  Xinput*10,0);
+                }
+            }
             else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
         if ((coordWS + nextPosYZ > -ZLimit) && (coordWS + nextPosYZ < ZLimit)){

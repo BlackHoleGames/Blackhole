@@ -95,7 +95,8 @@ public class BasicEnemy : MonoBehaviour {
                 Instantiate(explosionPS,transform.position, transform.rotation);
                 Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
                 squadManager.DecreaseNumber(explosion);
-                GamePad.SetVibration(0, 0.0f, 2.0f);
+                //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
+                //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
                 vibratorOn();
                 Destroy(gameObject);
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
