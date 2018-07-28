@@ -299,7 +299,6 @@ public class SwitchablePlayerController : MonoBehaviour {
                     }
                     actualLife = actualLife - (shield / 2.0f);
                     alertModeTime = alertModeDuration;
-                    actualLife = actualLife - (shield / 2.0f);
                     life.value = actualLife;
                     if (actualLife < 0.0f)
                     {
@@ -317,6 +316,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public void AddLife(float amount) {
         if (actualLife + amount > shield) actualLife = shield;
         else actualLife+= amount;
+        life.value = actualLife;
     }
 
     public void InitiateWormHole() {

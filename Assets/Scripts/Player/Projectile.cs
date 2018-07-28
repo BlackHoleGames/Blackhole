@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "timeBubble") {
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "timeBubble" && other.gameObject.tag != "powerUp") {
             Destroy(gameObject);
         }
     }
