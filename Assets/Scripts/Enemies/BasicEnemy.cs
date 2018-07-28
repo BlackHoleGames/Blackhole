@@ -92,7 +92,8 @@ public class BasicEnemy : MonoBehaviour {
             }
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);
+                Instantiate(explosionPS,transform.position, transform.rotation);
+                Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
                 squadManager.DecreaseNumber(explosion);
                 GamePad.SetVibration(0, 0.0f, 2.0f);
                 vibratorOn();
