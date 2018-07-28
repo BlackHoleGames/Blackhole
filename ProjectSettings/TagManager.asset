@@ -10,6 +10,7 @@ TagManager:
   - EnemyProjectile
   - timeBubble
   - ghost
+  - powerUp
   layers:
   - Default
   - TransparentFX
