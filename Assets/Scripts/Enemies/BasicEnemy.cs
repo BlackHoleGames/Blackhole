@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class BasicEnemy : MonoBehaviour {
 
@@ -93,9 +94,18 @@ public class BasicEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS,gameObject.transform.position, gameObject.transform.rotation);
                 squadManager.DecreaseNumber(explosion);
+                GamePad.SetVibration(0, 0.0f, 2.0f);
+                vibratorOn();
                 Destroy(gameObject);
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
+                
             }
         }
+    }
+    IEnumerable vibratorOn()
+    {
+        GamePad.SetVibration(0, 0.0f, 2.0f);
+        yield return new WaitForSeconds(1.0f);
+        GamePad.SetVibration(0, 0.0f, 0.0f);
     }
 }
