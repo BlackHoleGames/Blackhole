@@ -6,17 +6,20 @@ public class ThirdBossStage : MonoBehaviour {
 
 
     public GameObject parentAxis;
-    public float distance;
-    public GameObject[] enemies;
+    public float offsetDistance;
+    public GameObject[] eyes;
     public GameObject[] kamikazeEntrance;
     private float LerpTime;
     private bool Readjust;
     private Vector3 initialPos, targetPos;
+    private int defeatedEyeCounter;
+    public float initialDistance = 7.5f;
 	// Use this for initialization
 	void Start () {
         transform.position = parentAxis.transform.position;
         LerpTime = 0.0f;
         Readjust = false;
+        defeatedEyeCounter = 0;
     }
 	
 	// Update is called once per frame
@@ -38,5 +41,18 @@ public class ThirdBossStage : MonoBehaviour {
         LerpTime += Time.deltaTime / 1.0f;
         transform.position = Vector3.Lerp(initialPos, parentAxis.transform.position, LerpTime);
         if (Vector3.Distance(parentAxis.transform.position, transform.position) < 0.5) Readjust = false;
+    }
+
+    public void EyeDefeated() {
+        ++defeatedEyeCounter;
+        if (defeatedEyeCounter >= 4){
+            //DoSomething
+        }
+        else {
+            initialDistance += -offsetDistance;
+            foreach (GameObject g in eyes) {
+                g.GetComponent<BossEyeScript>().DecreaseDistance(initialDistance);
+            }
+        }
     }
 }
