@@ -59,16 +59,12 @@ public class EnemyManager : MonoBehaviour {
                     ChainSquadManager = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
                     instantiatingSubSquads = true;
                     subSquadEnemyCounter = squadrons[squadronIndex].GetComponent<SquadManager>().subSquadCount;
-                    subSquadDelay = squadrons[squadronIndex].GetComponent<SquadManager>().subSquadUnitDelayTime;
-                    ++squadronIndex;
-                    if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
-                    
+                    subSquadDelay = squadrons[squadronIndex].GetComponent<SquadManager>().subSquadUnitDelayTime;                    
                 }
                 else
                 {
                     GameObject obj = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
                     obj.transform.parent = transform.parent;
-
                     obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
                     obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
                     obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
@@ -86,7 +82,7 @@ public class EnemyManager : MonoBehaviour {
         if (!instantiatingSubSquads)
         {
             waitForDelay = true;
-            waitingTime = delayTime[squadronIndex - 1];
+            waitingTime = delayTime[squadronIndex-1];
         }
     }
 
@@ -106,6 +102,8 @@ public class EnemyManager : MonoBehaviour {
                 instantiatingSubSquads = false;
                 Destroy(ChainSquadManager);
                 StartWait();
+                ++squadronIndex;
+                if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
         }
     }
