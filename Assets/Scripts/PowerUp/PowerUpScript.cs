@@ -26,6 +26,7 @@ public class PowerUpScript : MonoBehaviour {
 
        transform.position += new Vector3(nextPosX*direction, 0.0f, 0.0f);
        transform.position += new Vector3(0.0f, 0.0f, -nextPosZ);
+        if (transform.position.z < -10.0f) Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class SquadManager : MonoBehaviour {
 
+    // If this squad is a chain of enemies
+    public bool isChainOfEnemies = false;
+    public int subSquadCount = 0;
+    public GameObject subSquadron;
+    public float subSquadUnitDelayTime;
+
+    // If it's only a squadron
     public int numOfMembers;
     public EnemyManager Manager;
     public float speed = 2.0f;
@@ -31,25 +38,30 @@ public class SquadManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
+        if (!isChainOfEnemies)
         {
-            ManageMovement();
-            if (waitUntilExplosionEnded)
+            if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
             {
-                if (!explosion.isPlaying)
+                ManageMovement();
+                if (waitUntilExplosionEnded)
                 {
-                    Destroy(gameObject);
+                    if (!explosion.isPlaying)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
-        }
-        if (!liveIsDone && arrivedToStart) {
-            timeToLive -= Time.deltaTime;
-            if (timeToLive <= 0.0f) {
-                timeToMove = 0.0f;
-                target = exit;
-                initialPos = transform.position;
-                movingToPosition = true;
-                liveIsDone = true;
+            if (!liveIsDone && arrivedToStart)
+            {
+                timeToLive -= Time.deltaTime;
+                if (timeToLive <= 0.0f)
+                {
+                    timeToMove = 0.0f;
+                    target = exit;
+                    initialPos = transform.position;
+                    movingToPosition = true;
+                    liveIsDone = true;
+                }
             }
         }
     }
@@ -74,7 +86,7 @@ public class SquadManager : MonoBehaviour {
         if (numOfMembers == 0)
         {
             waitUntilExplosionEnded = true;
-            Manager.SpawnNext();
+            Manager.StartWait();
         }
     }
 
@@ -88,7 +100,7 @@ public class SquadManager : MonoBehaviour {
                 movingToPosition = false;
                 if (!arrivedToStart) arrivedToStart = true;
                 if (timeToLive < 0.0f && numOfMembers > 0) {
-                    Manager.SpawnNext();
+                    Manager.StartWait();
                     Destroy(gameObject);
                 }
             }

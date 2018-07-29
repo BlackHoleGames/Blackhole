@@ -10,12 +10,16 @@ public class EnemyManager : MonoBehaviour {
     public GameObject[] squadrons;
     public SpawnPoint[] squadronSpawnPoints;
     public SpawnPoint[] squadronExitPoints;
-    public float[] squadTime;
+    public float[] squadTime, delayTime;
     private int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
-
-	// Use this for initialization
-	void Start () {
+    private bool waitForDelay, instantiatingSubSquads;
+    private float waitingTime, subSquadDelay;
+    private int subSquadEnemyCounter;
+    private GameObject ChainSquadManager;
+    //subSquadUnitDelayTime
+    // Use this for initialization
+    void Start () {
         squadronIndex = 0;
         spawnToTransform = new Dictionary<SpawnPoint, Transform>();
         spawnToTransform.Add(SpawnPoint.TOPRIGHT, spawns[0]);
@@ -32,28 +36,77 @@ public class EnemyManager : MonoBehaviour {
         spawnToTransform.Add(SpawnPoint.TOP, spawns[11]);
 
         SpawnNext();
-        
+        waitForDelay = false;
     }
 
     // Update is called once per frame
     void Update () {
+        if (waitForDelay) {
+            waitingTime -= Time.deltaTime;
+            if (waitingTime < 0.0f)
+            {
+                waitForDelay = false;
+                SpawnNext();
+            }
+        }
+        if (instantiatingSubSquads) ManageChainSpawn();
     }
 
     public void SpawnNext() {
-        if (squadronIndex < squadrons.Length)
-        {
-            GameObject obj = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
-            obj.transform.parent = transform.parent;
+        if (!waitForDelay) {
+            if (squadronIndex < squadrons.Length) {
+                if (squadrons[squadronIndex].GetComponent<SquadManager>().isChainOfEnemies && squadrons[squadronIndex].GetComponent<SquadManager>().subSquadron) {
+                    ChainSquadManager = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
+                    instantiatingSubSquads = true;
+                    subSquadEnemyCounter = squadrons[squadronIndex].GetComponent<SquadManager>().subSquadCount;
+                    subSquadDelay = squadrons[squadronIndex].GetComponent<SquadManager>().subSquadUnitDelayTime;
+                    ++squadronIndex;
+                    if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
+                    
+                }
+                else
+                {
+                    GameObject obj = Instantiate(squadrons[squadronIndex], spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
+                    obj.transform.parent = transform.parent;
 
+                    obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
+                    obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
+                    obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
+                    ++squadronIndex;
+                    if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
+                }
+            }
+            else {
+                TimerScript.gameover = true;
+            }
+        }
+    }
+
+    public void StartWait() {
+        if (!instantiatingSubSquads)
+        {
+            waitForDelay = true;
+            waitingTime = delayTime[squadronIndex - 1];
+        }
+    }
+
+    public void ManageChainSpawn() {
+        subSquadDelay -= Time.deltaTime;
+        if (subSquadDelay < 0.0f)
+        {
+            subSquadDelay = ChainSquadManager.GetComponent<SquadManager>().subSquadUnitDelayTime;
+            GameObject obj = Instantiate(ChainSquadManager.GetComponent<SquadManager>().subSquadron, spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
+            obj.transform.parent = transform.parent;
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
             obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
-            ++squadronIndex;
-            if(squadronIndex>1)ScoreScript.score = ScoreScript.score+ (int)(500 * ScoreScript.multiplierScore);
-        }
-        else
-        {
-            TimerScript.gameover = true;
+            --subSquadEnemyCounter;
+            if (subSquadEnemyCounter <= 0)
+            {
+                instantiatingSubSquads = false;
+                Destroy(ChainSquadManager);
+                StartWait();
+            }
         }
     }
 }

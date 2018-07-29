@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964128, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -10517,17 +10517,22 @@ MonoBehaviour:
   - {fileID: 2074675384}
   - {fileID: 1288025881}
   squadrons:
-  - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
+  - {fileID: 1807735217654372, guid: 1534cc3dc2f45fc409d6199e4943f84d, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   squadronSpawnPoints: 0a000000000000000100000008000000
   squadronExitPoints: 06000000040000000900000002000000
   squadTime:
-  - 3
+  - 1
   - 3
   - 4
   - 1
+  delayTime:
+  - 3
+  - 2
+  - 2
+  - 2
 --- !u!4 &1952563484
 Transform:
   m_ObjectHideFlags: 0

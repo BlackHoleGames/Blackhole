@@ -333,6 +333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd38d5446ade0d44fbd00c02587bcd90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChainOfEnemies: 0
+  subSquadCount: 0
+  subSquadron: {fileID: 0}
+  subSquadUnitDelayTime: 0
   numOfMembers: 5
   Manager: {fileID: 0}
   speed: 3
