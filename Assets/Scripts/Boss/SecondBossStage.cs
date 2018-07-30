@@ -10,7 +10,6 @@ public class SecondBossStage : MonoBehaviour {
     public GameObject Eye;
     public GameObject player;
     private int WeakPointCounter;
-    private bool isVulnerable;
     public Material Exposed;
 
 
@@ -33,7 +32,6 @@ public class SecondBossStage : MonoBehaviour {
         if (WeakPointCounter >= 2)
         {
             Eye.GetComponent<Renderer>().material = Exposed;
-            isVulnerable = true;
         }
     }
 }

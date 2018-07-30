@@ -15,7 +15,6 @@ public class ProtectorEnemy : MonoBehaviour {
     private float cooldownCounter;
     public SquadManager squadManager;
     public GameObject explosionPS;
-    public AudioClip explosionClip;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
 
@@ -78,7 +77,7 @@ public class ProtectorEnemy : MonoBehaviour {
                 }
             }
         }
-        squadManager.DecreaseNumber(explosionClip);
+        squadManager.DecreaseNumber();
         //Instantiate(explosionPS, new Vector3(0.0f,0.0f,0.0f), new Quaternion());
         Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);

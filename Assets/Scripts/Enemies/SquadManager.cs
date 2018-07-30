@@ -16,17 +16,15 @@ public class SquadManager : MonoBehaviour {
     public EnemyManager Manager;
     public float speed = 2.0f;
     public float timeToLive = -1.0f;
-    private AudioSource explosion;
     private bool waitUntilExplosionEnded, movingToPosition, liveIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
-    private EnemyManager.SpawnPoint exitPoint = EnemyManager.SpawnPoint.NOT_SET;
+    //private EnemyManager.SpawnPoint exitPoint = EnemyManager.SpawnPoint.NOT_SET;
     private Vector3 center = new Vector3(0.0f,0.0f,5.0f);
     private Vector3 initialPos, target, exit;
     private float timeToMove;
 	// Use this for initialization
 	void Start () {
         Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
-        explosion = GetComponent<AudioSource>();
         waitUntilExplosionEnded = false;
         timeToMove = 0;
         initialPos = transform.position;
@@ -43,13 +41,7 @@ public class SquadManager : MonoBehaviour {
             if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
             {
                 ManageMovement();
-                if (waitUntilExplosionEnded)
-                {
-                    if (!explosion.isPlaying)
-                    {
-                        Destroy(gameObject);
-                    }
-                }
+
             }
             if (!liveIsDone && arrivedToStart)
             {
@@ -79,13 +71,11 @@ public class SquadManager : MonoBehaviour {
         timeToLive = time;
     }
 
-    public void DecreaseNumber(AudioClip ac) {
-        explosion.clip = ac;
-        explosion.Play();
+    public void DecreaseNumber() {
+        
         --numOfMembers;
         if (numOfMembers == 0)
         {
-            waitUntilExplosionEnded = true;
             Manager.StartWait();
         }
     }

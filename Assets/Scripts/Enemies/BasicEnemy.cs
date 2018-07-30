@@ -18,7 +18,7 @@ public class BasicEnemy : MonoBehaviour {
     public GameObject explosionPS;
     public TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
-    public AudioClip gunshot, explosion;
+    public AudioClip gunshot;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponents<AudioSource>()[0];
@@ -94,7 +94,7 @@ public class BasicEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS,transform.position, transform.rotation);
                 Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
-                squadManager.DecreaseNumber(explosion);
+                squadManager.DecreaseNumber();
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
                 vibratorOn();

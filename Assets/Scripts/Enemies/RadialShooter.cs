@@ -10,7 +10,7 @@ public class RadialShooter : MonoBehaviour {
     public int numberOfShots = 3;
     public GameObject enemyProjectile;
     public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter, shotCounter;
+    private float rateCounter, shotTimeCounter; //, shotCounter;
     public float degreesPerProjectile;
     public Material matOn, matOff;
     bool shielded;
@@ -18,14 +18,14 @@ public class RadialShooter : MonoBehaviour {
     public GameObject explosionPS;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
-    public AudioClip explosionClip, gunshot;
+    public AudioClip gunshot;
     // Use this for initialization
     void Start()
     {
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
-        shotCounter = numberOfShots;
+        //shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
         shielded = false;
@@ -91,7 +91,7 @@ public class RadialShooter : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                squadManager.DecreaseNumber(explosionClip);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

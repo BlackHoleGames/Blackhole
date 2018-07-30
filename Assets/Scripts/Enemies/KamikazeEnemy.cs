@@ -14,7 +14,6 @@ public class KamikazeEnemy : MonoBehaviour {
     private float direction;
     private bool turbo;
     private AudioSource audioSource, hitAudioSource;
-    public AudioClip explosionClip;
     // Use this for initialization
     void Start()
     {
@@ -50,7 +49,7 @@ public class KamikazeEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                squadManager.DecreaseNumber(explosionClip);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
            

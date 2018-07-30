@@ -8,51 +8,43 @@ public class ThirdBossStage : MonoBehaviour {
     public GameObject parentAxis;
     public float offsetDistance;
     public GameObject[] eyes;
-    public GameObject[] kamikazeEntrance;
-    private float LerpTime;
-    private bool Readjust;
-    private Vector3 initialPos, targetPos;
+    private bool defeated;
     private int defeatedEyeCounter;
-    public float initialDistance = 7.5f;
-	// Use this for initialization
-	void Start () {
+
+    private Vector3 axis = Vector3.up;
+    private Vector3 desiredPosition;
+    public float radius = 7.5f;
+    public float radiusSpeed = 0.5f;
+    public float rotationSpeed = 80.0f;
+    // Use this for initialization
+    void Start () {
         transform.position = parentAxis.transform.position;
-        LerpTime = 0.0f;
-        Readjust = false;
         defeatedEyeCounter = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (Readjust) AdjustBossLocation();
-        if (Vector3.Distance(parentAxis.transform.position, transform.position) > 1  && !Readjust) {
-            Readjust = true;
-            initialPos = transform.position;
-            targetPos = parentAxis.transform.position;
-            LerpTime = 0.0f;
-        }
-        else {*/
+        if (!defeated)  {
             transform.position = parentAxis.transform.position;
-            transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
-        //}
-	}
-
-    void AdjustBossLocation() {
-        LerpTime += Time.deltaTime / 1.0f;
-        transform.position = Vector3.Lerp(initialPos, parentAxis.transform.position, LerpTime);
-        if (Vector3.Distance(parentAxis.transform.position, transform.position) < 0.5) Readjust = false;
+            foreach (GameObject g in eyes) {
+                g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+                desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
+                g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+            }
+        }
     }
 
     public void EyeDefeated() {
         ++defeatedEyeCounter;
-        if (defeatedEyeCounter >= 4){
-            //DoSomething
+        if (defeatedEyeCounter >= 4)
+        {
+            foreach (GameObject g in eyes) g.GetComponent<BossEyeScript>().StartExit();          
+            defeated = true;
         }
-        else {
-            initialDistance += -offsetDistance;
-            foreach (GameObject g in eyes) {
-                g.GetComponent<BossEyeScript>().DecreaseDistance(initialDistance);
-            }
+        else
+        {
+            foreach (GameObject g in eyes) g.GetComponent<BossEyeScript>().DecreaseShotTime();
+            radius += -offsetDistance;
         }
     }
 }

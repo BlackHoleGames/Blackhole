@@ -6,15 +6,18 @@ public class ExplosionScript : MonoBehaviour {
 
 
     public ParticleSystem ps;
+    public AudioSource audioSource;
 	// Use this for initialization
 	void Start () {
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (ps)
         {
-            if (!ps.IsAlive()) Destroy(gameObject);            
+            if (!ps.IsAlive()) ps.Stop();
+            if (!audioSource.isPlaying)Destroy(gameObject);            
         }
 	}
 }

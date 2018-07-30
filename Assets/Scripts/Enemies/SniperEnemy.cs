@@ -15,7 +15,7 @@ public class SniperEnemy : MonoBehaviour {
     public GameObject explosionPS;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
-    public AudioClip explosionClip, gunshot;
+    public AudioClip gunshot;
     // Use this for initialization
     void Start()
     {
@@ -76,7 +76,7 @@ public class SniperEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                squadManager.DecreaseNumber(explosionClip);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

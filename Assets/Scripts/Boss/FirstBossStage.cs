@@ -25,6 +25,7 @@ public class FirstBossStage : MonoBehaviour {
     private Vector3 initialPos;
     // Use this for initialization
     void Start () {
+        initialPos = transform.position;
         lerpTime = 0.0f;
         direction = 1;
         tb = GetComponent<TimeBehaviour>();
