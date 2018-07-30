@@ -28,7 +28,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public AudioClip[] timeBombClips;
     public Slider life;
     public Image fillLife, fillTimeBomb;
-    public GameObject projectile, sphere, ghost, parentAxis;
+    public GameObject projectile, sphere, ghost, parentAxis, pdestroyed;
     public static bool camMovementEnemies;
     public AudioSource timebomb, slomo, gunshot, timewarp;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
@@ -39,9 +39,11 @@ public class SwitchablePlayerController : MonoBehaviour {
     private List<GameObject> ghostArray;
     public Transform cameraTrs;
     public bool camRotate = false;
-
+    private Mesh playerOk;
     // Use this for initialization
     void Start() {
+//        mDestroyed = GetComponent<Mesh>();
+
         actualLife = shield;
         life.value = actualLife;
         rotationTargetZ = 0.0f;
@@ -318,6 +320,10 @@ public class SwitchablePlayerController : MonoBehaviour {
                     if (actualLife < 0.0f)
                     {
                         fillLife.enabled =false;
+                        //mDestroyed = null;
+                        pdestroyed.SetActive(true);
+                        playerOk = null;
+
                         TimerScript.gameover = true;
                         //Remaining deaht animation before this bool.                        
                     } // Death                
