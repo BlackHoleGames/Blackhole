@@ -85,16 +85,20 @@ public class SwitchablePlayerController : MonoBehaviour {
     }
 
     public void ManageInput() {
-        if (Input.GetButtonDown("Fire1") && !is_firing)
+        if ((Input.GetButtonDown("Fire1") || Input.GetAxis("360_Triggers") > 0.001) && !is_firing)
         {
             is_firing = true;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
         }
-        if (Input.GetButtonUp("Fire1") && is_firing)
+        if ((Input.GetButtonUp("Fire1") || Input.GetAxis("360_Triggers") > 0.001) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+        }
+        if(Input.GetAxis("360_Triggers") > 0.001)
+        {
+            is_firing = true;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -162,14 +166,14 @@ public class SwitchablePlayerController : MonoBehaviour {
         if ((coordAD + nextPosX > -XLimit) && (coordAD + nextPosX < XLimit)){
             if (is_vertical)
             {
-                if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
-                else camRotate = false;
+                //if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
+                //else camRotate = false;
                 parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
-                if (camRotate)
-                {
-                    cameraTrs.Rotate(0, 0, Xinput*0.1f);
-                    parentAxis.transform.Rotate(0,  Xinput*10,0);
-                }
+                //if (camRotate)
+                //{
+                //    cameraTrs.Rotate(0, 0, Xinput*0.1f);
+                //    parentAxis.transform.Rotate(0,  Xinput*10,0);
+                //}
             }
             else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
@@ -321,8 +325,8 @@ public class SwitchablePlayerController : MonoBehaviour {
                     {
                         fillLife.enabled =false;
                         //mDestroyed = null;
-                        pdestroyed.SetActive(true);
-                        playerOk = null;
+                        //pdestroyed.SetActive(true);
+                        //playerOk = null;
 
                         TimerScript.gameover = true;
                         //Remaining deaht animation before this bool.                        
