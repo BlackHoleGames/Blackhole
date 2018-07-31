@@ -16,11 +16,11 @@ public class FirstBossStage : MonoBehaviour {
     public GameObject reactorShot;
     public GameObject[] reactorPoints;
 
-    private bool start, shotSpawned, shotDone, openingHatch, readjustHeight;
+    private bool start, shotSpawned, shotDone, openingHatch, closingHatch, readjustHeight;
     private TimeBehaviour tb;
     private int[] reactorSequence1 = { 1, 0, 0, 1 }; // Remember all will shoot after the last one in this sequence
     private int[] reactorSequence2 = { 3, 2, 3, 2 }; // Remember all will shoot after the last one in this sequence
-    private int reactorShotIndex, direction;
+    private int reactorShotIndex, direction, activeReactorsIndex;
     private float timeBetweenShotsCounter, shotDurationCounter, windowOfOportunityCounter, lerpTime;
     private Vector3 initialPos;
     // Use this for initialization
@@ -33,8 +33,10 @@ public class FirstBossStage : MonoBehaviour {
         shotSpawned = false;
         shotDone = false;
         openingHatch = false;
+        closingHatch = false;
         readjustHeight = false;
         reactorShotIndex = 0;
+        activeReactorsIndex = 0;
         timeBetweenShotsCounter = timeBetweenReactorShots;
         shotDurationCounter = shotDuration;
         windowOfOportunityCounter = windowOfOportunityDuration;
@@ -50,10 +52,15 @@ public class FirstBossStage : MonoBehaviour {
                 if (!openingHatch) {
                     openingHatch = true;
                     PlayOpeningHatch();
+                    SwitchVulnerabilityOnReactors(true);
                 }
                 if (windowOfOportunityCounter <= 0.0f) {
                     if (!shotDone) ManageShots();
-                    else {
+                    if (closingHatch){
+                        closingHatch = false;
+                        SwitchVulnerabilityOnReactors(false);
+                    }
+                    if (shotDone && !closingHatch) {
                         windowOfOportunityCounter = windowOfOportunityDuration;
                         timeBetweenShotsCounter = timeBetweenReactorShots;
                         shotDone = false;
@@ -110,6 +117,7 @@ public class FirstBossStage : MonoBehaviour {
         if (shotDurationCounter <= 0.0f) {
             shotSpawned = false;
             shotDone = true;
+            closingHatch = true;
             shotDurationCounter = shotDuration;
             windowOfOportunityCounter = windowOfOportunityDuration;
             PlayClosingHatch();
@@ -117,13 +125,46 @@ public class FirstBossStage : MonoBehaviour {
     }
 
     public void SpawnShot(int index) {
-        GameObject obj = Instantiate(reactorShot,reactorPoints[index].transform.position, reactorPoints[index].transform.rotation);
+
+        GameObject obj = Instantiate(reactorShot,reactorPoints[index].transform.position+ new Vector3(0.0f,0.0f,-15.0f), reactorPoints[index].transform.rotation);
         obj.transform.parent = reactorPoints[index].transform;
         obj.GetComponent<BossLaser>().StartBehaviour(shotDuration);
     }
 
     public void PlayOpeningHatch() {
+        if (reactorShotIndex < reactorSequence1.Length)
+        {
+            SpawnShot(reactorSequence1[reactorShotIndex]);
+            SpawnShot(reactorSequence2[reactorShotIndex]);
+            ++reactorShotIndex;
+        }
+        else
+        {
+            reactorShotIndex = 0;
+            SpawnShot(0);
+            SpawnShot(1);
+            SpawnShot(2);
+            SpawnShot(3);
+        }
+    }
 
+    public void SwitchVulnerabilityOnReactors(bool vulnerability) {
+        if (activeReactorsIndex < reactorSequence1.Length) {
+            if (vulnerability) {
+                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().UnProtect();
+                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().UnProtect();
+            }
+            else {
+                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().Protect();
+                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().Protect();
+            }
+        }
+        else {
+            foreach (GameObject g in reactorPoints) {
+                if (vulnerability) g.GetComponent<ReactorWeakPoint>().UnProtect();
+                else g.GetComponent<ReactorWeakPoint>().Protect();
+            }
+        }
     }
 
     public void PlayClosingHatch() {
