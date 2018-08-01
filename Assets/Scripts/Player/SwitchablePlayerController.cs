@@ -7,7 +7,8 @@ using System.Collections.Generic;
 public class SwitchablePlayerController : MonoBehaviour {
 
 
-    public bool is_vertical, is_firing;
+    private bool is_vertical;
+    public bool is_firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
     public float rotationSpeed = 4.0f;
@@ -18,7 +19,7 @@ public class SwitchablePlayerController : MonoBehaviour {
     public float TimeWarpYLimit;
     public float RollLimit = 30.0f;
     public float PitchLimit = 30.0f;
-    public float invul = 1.0f;
+    //public float invul = 1.0f;
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
     public float invulnerabilityDuration = 1.0f;
@@ -31,14 +32,14 @@ public class SwitchablePlayerController : MonoBehaviour {
     public GameObject projectile, sphere, ghost, parentAxis, pdestroyed;
     public static bool camMovementEnemies;
     public AudioSource timebomb, slomo, gunshot, timewarp;
-    public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
+    private Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
     private float firingCounter, t, rtimeZ , rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool   readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch ;
     private TimeManager tm;
     private List<GameObject> ghostArray;
-    public Transform cameraTrs;
-    public bool camRotate = false;
+    //public Transform cameraTrs;
+    //public bool camRotate = false;
     private Mesh playerOk;
     // Use this for initialization
     void Start() {

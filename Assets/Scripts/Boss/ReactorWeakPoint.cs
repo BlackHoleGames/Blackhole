@@ -50,6 +50,7 @@ public class ReactorWeakPoint : MonoBehaviour {
                 hit = true;
                 alive = false;
                 gameObject.GetComponent<Renderer>().material = matOff;
+                transform.parent.GetComponent<FirstBossStage>().ReactorDestroyed();
             }
             else life -= other.GetComponent<Projectile>().damage;
             

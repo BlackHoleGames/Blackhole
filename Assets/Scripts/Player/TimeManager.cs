@@ -20,11 +20,11 @@ public class TimeManager : MonoBehaviour {
     public float gtlFast = 1.5f;
     public float gtlFaster = 2.0f;
     private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter;
-    private CameraBehaviour cb;
+    public CameraBehaviour cb;
     private SwitchablePlayerController sp;
     private bool firstTimeEnteredSpeedUp;
     private bool wormhole = false;
-    
+    public GameObject timewarpEffect;
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
@@ -104,6 +104,7 @@ public class TimeManager : MonoBehaviour {
             //if (inFasterGTL) returnToFasterGTL = true;
             //else returnToFasterGTL = false;
             inFasterGTL = false;
+            timewarpEffect.SetActive(true);
             //targetGTL = timeWarp;
         }
     }
@@ -144,7 +145,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void DoTimeWarp() {
-        maxGTLCounter += Time.unscaledDeltaTime;
+       /* maxGTLCounter += Time.unscaledDeltaTime;
         if (maxGTLCounter > timeWarpDuration)
         {
             Time.timeScale = gtlFaster;
@@ -152,7 +153,7 @@ public class TimeManager : MonoBehaviour {
             inFasterGTL = false;
             maxGTLCounter = 0.0f;
             cb.ResetToInitial();
-        }
+        }*/
     }
 
     public void DoWorhmHole() {

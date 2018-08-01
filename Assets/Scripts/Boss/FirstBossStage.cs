@@ -20,7 +20,7 @@ public class FirstBossStage : MonoBehaviour {
     private TimeBehaviour tb;
     private int[] reactorSequence1 = { 1, 0, 0, 1 }; // Remember all will shoot after the last one in this sequence
     private int[] reactorSequence2 = { 3, 2, 3, 2 }; // Remember all will shoot after the last one in this sequence
-    private int reactorShotIndex, direction, activeReactorsIndex;
+    private int reactorShotIndex, direction, activeReactorsIndex, reactorDestroyedCount;
     private float timeBetweenShotsCounter, shotDurationCounter, windowOfOportunityCounter, lerpTime;
     private Vector3 initialPos;
     // Use this for initialization
@@ -56,15 +56,18 @@ public class FirstBossStage : MonoBehaviour {
                 }
                 if (windowOfOportunityCounter <= 0.0f) {
                     if (!shotDone) ManageShots();
-                    if (closingHatch){
+                    if (closingHatch) {
                         closingHatch = false;
                         SwitchVulnerabilityOnReactors(false);
+                        ++activeReactorsIndex;
                     }
-                    if (shotDone && !closingHatch) {
-                        windowOfOportunityCounter = windowOfOportunityDuration;
-                        timeBetweenShotsCounter = timeBetweenReactorShots;
-                        shotDone = false;
-                        openingHatch = false;
+                    else {
+                        if (shotDone) {
+                            windowOfOportunityCounter = windowOfOportunityDuration;
+                            timeBetweenShotsCounter = timeBetweenReactorShots;
+                            shotDone = false;
+                            openingHatch = false;
+                        }
                     }
                 }
             }
@@ -92,7 +95,7 @@ public class FirstBossStage : MonoBehaviour {
                 initialPos = transform.position;
             }
             else {*/
-                transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, -offsetY, 0.0f);
+            transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, -offsetY, 0.0f);
             //}
         }
     }
@@ -132,31 +135,18 @@ public class FirstBossStage : MonoBehaviour {
     }
 
     public void PlayOpeningHatch() {
-        if (reactorShotIndex < reactorSequence1.Length)
-        {
-            SpawnShot(reactorSequence1[reactorShotIndex]);
-            SpawnShot(reactorSequence2[reactorShotIndex]);
-            ++reactorShotIndex;
-        }
-        else
-        {
-            reactorShotIndex = 0;
-            SpawnShot(0);
-            SpawnShot(1);
-            SpawnShot(2);
-            SpawnShot(3);
-        }
+
     }
 
     public void SwitchVulnerabilityOnReactors(bool vulnerability) {
         if (activeReactorsIndex < reactorSequence1.Length) {
             if (vulnerability) {
-                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().UnProtect();
-                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().UnProtect();
+                reactorPoints[reactorSequence1[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().UnProtect();
+                reactorPoints[reactorSequence2[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().UnProtect();
             }
             else {
-                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().Protect();
-                reactorPoints[activeReactorsIndex].GetComponent<ReactorWeakPoint>().Protect();
+                reactorPoints[reactorSequence1[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().Protect();
+                reactorPoints[reactorSequence2[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().Protect();
             }
         }
         else {
@@ -173,5 +163,12 @@ public class FirstBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
+    }
+
+    public void ReactorDestroyed() {
+        ++reactorDestroyedCount;
+        if (reactorDestroyedCount >= 4) {
+            // Finish sequence
+        }
     }
 }
