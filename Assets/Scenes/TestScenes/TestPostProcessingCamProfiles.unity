@@ -7597,8 +7597,8 @@ MonoBehaviour:
   fireCooldown: 0.1
   speedFactor: 7
   rotationSpeed: 2
-  XLimit: 5
-  ZLimit: 2.4
+  XLimit: 5.7
+  ZLimit: 2.5
   rotSpeed: 20
   TimeWarpXLimit: 0
   TimeWarpYLimit: 0
