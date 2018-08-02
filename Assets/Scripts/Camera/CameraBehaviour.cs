@@ -18,7 +18,7 @@ public class CameraBehaviour : MonoBehaviour {
 	void Start () {
         startRotating = false;
         toVerticalPos = false;
-        SwitchToMiddle();
+        //SwitchToMiddle();
         //SwitchCamPosRot();
     }
 
