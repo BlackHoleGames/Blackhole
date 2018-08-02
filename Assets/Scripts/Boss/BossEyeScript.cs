@@ -51,8 +51,7 @@ public class BossEyeScript : MonoBehaviour {
         if (other.gameObject.tag == "PlayerProjectile" && !disabled)
         {
             //hitAudioSource.Play();
-            if (life > 0.0f)
-            {
+            if (life > 0.0f) {
                 life -= other.gameObject.GetComponent<Projectile>().damage;
                 hit = true;
                 if (life <= 0.0f) {

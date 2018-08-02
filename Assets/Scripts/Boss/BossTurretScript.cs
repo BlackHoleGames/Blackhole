@@ -15,28 +15,20 @@ public class BossTurretScript : MonoBehaviour {
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
-
-
-
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (rateCounter <= 0.0f)
-        {
-            if (shotCounter > 0)
-            {
+        if (rateCounter <= 0.0f) {
+            if (shotCounter > 0) {
                 shotTimeCounter -= Time.deltaTime;
-                if (shotTimeCounter <= 0)
-                {
+                if (shotTimeCounter <= 0) {
                     shotTimeCounter = rateOfFire;
                     --shotCounter;
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
                 }
             }
-            else
-            {
+            else {
                 shotTimeCounter = rateOfFire;
                 shotCounter = numberOfShots;
                 rateCounter = shotCooldown;

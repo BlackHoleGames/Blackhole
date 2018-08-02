@@ -118,6 +118,20 @@ GameObject:
   m_PrefabParentObject: {fileID: 1665083749192822, guid: 8d6c7ddc0e32338499a19c516f1f8960,
     type: 2}
   m_PrefabInternal: {fileID: 2146820991}
+--- !u!114 &100258838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 100258837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18361e25bf31b6447aaca6ae6ffd3baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 30
+  matOn: {fileID: 0}
+  matOff: {fileID: 0}
 --- !u!1 &134676074
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +791,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftWeakSpot: {fileID: 1368726877}
   RightWeakSpot: {fileID: 1134861727}
+  Eye: {fileID: 100258837}
+  player: {fileID: 0}
   Turrets:
   - {fileID: 1805151600}
   - {fileID: 1174642370}
@@ -784,8 +800,6 @@ MonoBehaviour:
   - {fileID: 1081972584}
   - {fileID: 1547104435}
   - {fileID: 1088617877}
-  Eye: {fileID: 100258837}
-  player: {fileID: 0}
   Exposed: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
 --- !u!1 &446274680
 GameObject:
@@ -2501,6 +2515,8 @@ MonoBehaviour:
   isMaxGTLReached: 0
   gtlFast: 1.5
   gtlFaster: 2
+  cb: {fileID: 0}
+  timewarpEffect: {fileID: 0}
 --- !u!114 &1084094433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2512,7 +2528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df0efc39956f446a60150f9dd1c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_vertical: 0
   is_firing: 0
   fireCooldown: 0.2
   speedFactor: 7
@@ -2524,7 +2539,6 @@ MonoBehaviour:
   TimeWarpYLimit: 0
   RollLimit: 30
   PitchLimit: 30
-  invul: 1
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 1
@@ -2547,13 +2561,7 @@ MonoBehaviour:
   slomo: {fileID: 1084094430}
   gunshot: {fileID: 1084094428}
   timewarp: {fileID: 1084094427}
-  readjustInitialPos: {x: 0, y: 0, z: 0}
-  initialRot: {x: 0, y: 0, z: 0}
-  rotX: {x: 0, y: 0, z: 0}
-  rotZ: {x: 0, y: 0, z: 0}
   actualLife: 0
-  cameraTrs: {fileID: 1560538800}
-  camRotate: 0
 --- !u!23 &1084094434
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4969,6 +4977,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803905aa3b2c3849b5469383f8e1730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actualStage: 0
+  goToPoints: []
+  timeToMoveEachPhase: []
 --- !u!1 &2072452188
 GameObject:
   m_ObjectHideFlags: 0

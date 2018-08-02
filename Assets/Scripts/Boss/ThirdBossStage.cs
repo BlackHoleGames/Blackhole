@@ -16,20 +16,27 @@ public class ThirdBossStage : MonoBehaviour {
     public float radius = 7.5f;
     public float radiusSpeed = 0.5f;
     public float rotationSpeed = 80.0f;
+    private bool start;
     // Use this for initialization
     void Start () {
         transform.position = parentAxis.transform.position;
         defeatedEyeCounter = 0;
+        start = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (!defeated)  {
-            transform.position = parentAxis.transform.position;
-            foreach (GameObject g in eyes) {
-                g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-                desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
-                g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+        if (start)
+        {
+            if (!defeated)
+            {
+                transform.position = parentAxis.transform.position;
+                foreach (GameObject g in eyes)
+                {
+                    g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+                    desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
+                    g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+                }
             }
         }
     }
@@ -46,5 +53,9 @@ public class ThirdBossStage : MonoBehaviour {
             foreach (GameObject g in eyes) g.GetComponent<BossEyeScript>().DecreaseShotTime();
             radius += -offsetDistance;
         }
+    }
+
+    public void StartBossPhase() {
+        start = true;
     }
 }

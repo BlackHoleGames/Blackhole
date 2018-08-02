@@ -29,7 +29,7 @@ public class FirstBossStage : MonoBehaviour {
         lerpTime = 0.0f;
         direction = 1;
         tb = GetComponent<TimeBehaviour>();
-        start = true;
+        start = false;
         shotSpawned = false;
         shotDone = false;
         openingHatch = false;
