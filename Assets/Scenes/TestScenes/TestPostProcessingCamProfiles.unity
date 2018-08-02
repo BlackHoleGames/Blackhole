@@ -3992,7 +3992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalPosition: {x: 0, y: 26, z: 0}
   middlePosition: {x: 0, y: 17.5, z: -16.5}
-  timeWarpPos: {x: 0, y: 0, z: -25}
+  timeWarpPos: {x: 0, y: 0, z: -15}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
   timeWarpRot: {x: 0, y: 0, z: 0}
@@ -7592,17 +7592,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df0efc39956f446a60150f9dd1c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  is_vertical: 0
   is_firing: 0
   fireCooldown: 0.1
   speedFactor: 7
   rotationSpeed: 2
-  XLimit: 10
-  ZLimit: 5
+  XLimit: 5
+  ZLimit: 2.4
   rotSpeed: 20
   TimeWarpXLimit: 0
   TimeWarpYLimit: 0
   RollLimit: 30
   PitchLimit: 30
+  invul: 1
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 1
@@ -7625,7 +7627,13 @@ MonoBehaviour:
   slomo: {fileID: 1738764854}
   gunshot: {fileID: 1738764852}
   timewarp: {fileID: 1738764851}
+  readjustInitialPos: {x: 0, y: 0, z: 0}
+  initialRot: {x: 0, y: 0, z: 0}
+  rotX: {x: 0, y: 0, z: 0}
+  rotZ: {x: 0, y: 0, z: 0}
   actualLife: 1
+  cameraTrs: {fileID: 0}
+  camRotate: 0
 --- !u!23 &1738764858
 MeshRenderer:
   m_ObjectHideFlags: 0

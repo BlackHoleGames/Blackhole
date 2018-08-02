@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 238defa0af11fec4ba43857a42ca2b62, type: 2}
   m_StaticBatchInfo:
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firing: 0
   fireCooldown: 0.2
-  speedFactor: 7
+  speedFactor: 8
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   XLimit: 10
   ZLimit: 5
@@ -120,7 +121,7 @@ MonoBehaviour:
   startDelayCounter: 0.5
   is_firing: 0
   leader: {fileID: 0}
-  lagSeconds: 0.5
+  lagSeconds: 0.25
   blocksProjectiles: 1
 --- !u!136 &136168164721076802
 CapsuleCollider:
