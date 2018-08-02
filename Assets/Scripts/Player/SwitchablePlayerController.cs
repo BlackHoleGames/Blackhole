@@ -40,7 +40,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private List<GameObject> ghostArray;
     public Transform cameraTrs;
     public bool camRotate = false;
-    private Mesh playerOk;
+    public bool speedOn =false;
     // Use this for initialization
     void Start()
     {
@@ -63,7 +63,6 @@ public class SwitchablePlayerController : MonoBehaviour
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
         camMovementEnemies = false;
-
         //parentAxis = gameObject;
     }
 
@@ -196,7 +195,14 @@ public class SwitchablePlayerController : MonoBehaviour
             if (is_vertical) parentAxis.transform.position += new Vector3(0.0f, 0.0f, nextPosYZ);
             else parentAxis.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
         }
-
+        if (YZinput > 0.0f)// || Xinput != 0)
+        {
+            speedOn = true;
+        }
+        else
+        {
+            speedOn = false;
+        }
     }
 
     //parentAxis

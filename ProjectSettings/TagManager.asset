@@ -12,6 +12,7 @@ TagManager:
   - ghost
   - powerUp
   - destroyed
+  - propeller
   layers:
   - Default
   - TransparentFX

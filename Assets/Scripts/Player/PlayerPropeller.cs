@@ -8,11 +8,12 @@ public class PlayerPropeller : MonoBehaviour {
     public float MaxIntensityPropeller = 1.0f;
     public float CurrentIntensityPropeller = 0.6f;
     public float IncreaseIntensityPropeller = 0.1f;
-    public static bool speedOn = false;
+    public bool speedOn = false;
     public static bool isStillAlive = true;
 	
 	// Update is called once per frame
 	void Update () {
+        speedOn = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().speedOn;
         var prop = propeller.main;
 
         if (isStillAlive) { 
