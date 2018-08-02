@@ -98,6 +98,7 @@ public class TimeManager : MonoBehaviour {
     public void StartTimeWarp() {
         if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
             cb.SwitchToTimeWarp();
+            sp.SwitchAxis();
             gtlCounter = 0.0f;
             isMaxGTLReached = true;
             gtlIncreasing = true;

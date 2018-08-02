@@ -9,16 +9,19 @@ public class BossTurretScript : MonoBehaviour {
     public int numberOfShots = 3;
     public GameObject enemyProjectile;
     private float rateCounter, shotTimeCounter, shotCounter;
+    private GameObject player;
 
     // Use this for initialization
     void Start () {
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
 	void Update () {
+        transform.LookAt(player.transform.position);
         if (rateCounter <= 0.0f) {
             if (shotCounter > 0) {
                 shotTimeCounter -= Time.deltaTime;
