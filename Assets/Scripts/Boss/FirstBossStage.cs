@@ -25,7 +25,7 @@ public class FirstBossStage : MonoBehaviour {
     private Vector3 initialPos;
     // Use this for initialization
     void Start () {
-        initialPos = transform.position;
+        initialPos = transform.parent.transform.position;
         lerpTime = 0.0f;
         direction = 1;
         tb = GetComponent<TimeBehaviour>();
@@ -77,15 +77,15 @@ public class FirstBossStage : MonoBehaviour {
     public void ManageMovement() {
         if (readjustHeight) {
             lerpTime += Time.deltaTime / timeToMoveUp;
-            transform.position = Vector3.Lerp(initialPos, new Vector3(), lerpTime);
-            if (Mathf.Abs(transform.position.y - initialHeight) < 0.01) readjustHeight = false;
+            transform.parent.transform.position = Vector3.Lerp(initialPos, new Vector3(), lerpTime);
+            if (Mathf.Abs(transform.parent.transform.position.y - initialHeight) < 0.01) readjustHeight = false;
         }
         else {
             if (direction > 0) {
-                if (transform.position.x > limitX) direction = -1;
+                if (transform.parent.transform.position.x > limitX) direction = -1;
             }
             else {
-                if (transform.position.x < -limitX) direction = 1;
+                if (transform.parent.transform.position.x < -limitX) direction = 1;
             }
             float offsetY = 0;
             /*if (transform.position.y > heightLimit) offsetY = downwardSpeed * Time.deltaTime * tb.scaleOfTime;
@@ -95,7 +95,7 @@ public class FirstBossStage : MonoBehaviour {
                 initialPos = transform.position;
             }
             else {*/
-            transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, -offsetY, 0.0f);
+            transform.parent.transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, -offsetY, 0.0f);
             //}
         }
     }
@@ -168,7 +168,7 @@ public class FirstBossStage : MonoBehaviour {
     public void ReactorDestroyed() {
         ++reactorDestroyedCount;
         if (reactorDestroyedCount >= 4) {
-            // Finish sequence
+            GetComponentInParent<BossManager>().GoToNextPhase();
         }
     }
 }

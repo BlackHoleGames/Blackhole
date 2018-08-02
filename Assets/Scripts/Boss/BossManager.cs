@@ -13,42 +13,58 @@ public class BossManager : MonoBehaviour {
     private FirstBossStage fbs;
     private SecondBossStage sbs;
     private ThirdBossStage tbs;
+    private Vector3 initialPos;
+
 	void Start () {
         actualStage =   BossStage.ENTERING;
         lerpTime = 0.0f;
         fbs = GetComponentInChildren<FirstBossStage>();
         sbs = GetComponentInChildren<SecondBossStage>();
         tbs = GetComponentInChildren<ThirdBossStage>();
+        initialPos = transform.position;    
     }
 	
 	// Update is called once per frame
 	void Update () {
         switch (actualStage) {
             case BossStage.ENTERING:
-                if (Vector3.Distance(transform.position, goToPoints[0].position) > 0.1) lerpTime = Time.deltaTime / timeToMoveEachPhase[0];                
-                else actualStage = BossStage.TOPHASE1;                               
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[0];
+                if (Vector3.Distance(transform.position, goToPoints[0].position) > 0.1f) transform.position = Vector3.Lerp(initialPos, goToPoints[0].position, lerpTime);
+                else {
+                    actualStage = BossStage.TOPHASE1;
+                    lerpTime = 0.0f;
+                }
                 break;
             case BossStage.TOPHASE1:
-                if (Vector3.Distance(transform.position, goToPoints[1].position) > 0.1) lerpTime = Time.deltaTime / timeToMoveEachPhase[1];
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[1];
+                if (Vector3.Distance(transform.position, goToPoints[1].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[0].position, goToPoints[1].position, lerpTime);
                 else {
                     actualStage = BossStage.PHASE1;
                     fbs.StartBossPhase();
+                    lerpTime = 0.0f;
+
                 }
                 break;
             case BossStage.TOPHASE2:
-                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1) lerpTime = Time.deltaTime / timeToMoveEachPhase[2];
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[2];
+                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[1].position, goToPoints[2].position, lerpTime);
                 else
                 {
                     actualStage = BossStage.PHASE2;
                     sbs.StartBossPhase();
+                    lerpTime = 0.0f;
+
                 }
                 break;
             case BossStage.TOPHASE3:
-                if (Vector3.Distance(transform.position, goToPoints[3].position) > 0.1) lerpTime = Time.deltaTime / timeToMoveEachPhase[3];
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[3];
+                if (Vector3.Distance(transform.position, goToPoints[3].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[2].position, goToPoints[3].position, lerpTime);
                 else
                 {
                     actualStage = BossStage.PHASE3;
                     tbs.StartBossPhase();
+                    lerpTime = 0.0f;
+
                 }
                 break;
         }
