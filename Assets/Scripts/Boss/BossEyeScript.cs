@@ -37,7 +37,7 @@ public class BossEyeScript : MonoBehaviour {
             if (orienting)
             {
                 rotTime += Time.unscaledDeltaTime / 2.0f;
-                transform.eulerAngles = AngleLerp(initialOrientation, orientationTarget, (rotTime * 1.0f));
+                transform.eulerAngles = AngleLerp( orientationTarget, initialOrientation, (rotTime * 1.0f));
                 if (rotTime >= 1.0f) {
                     orienting = false;
                 }

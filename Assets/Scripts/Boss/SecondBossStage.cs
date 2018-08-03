@@ -13,48 +13,56 @@ public class SecondBossStage : MonoBehaviour {
     private float lerpTime;
     private float initialRot;
     public float eyeTimeToMove = 5.0f;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         WeakPointCounter = 0;
         lerpTime = 0.0f;
         start = true;
+        rotateEye = false;
         initialRot = Eye.transform.eulerAngles.x;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update() {
         if (start) {
             foreach (GameObject g in Turrets) g.transform.LookAt(player.transform.position);
             if (rotateEye) {
                 lerpTime += Time.deltaTime / eyeTimeToMove;
                 if (Eye.transform.eulerAngles.x > 90.0f)
                 {
+                    Eye.GetComponent<Renderer>().material = Exposed;
+
+                }
+                else {
                     float rot = Mathf.Lerp(initialRot, 90.0f, lerpTime);
                     Eye.transform.eulerAngles = new Vector3(rot, 0.0f, 0.0f);
                 }
-                else {
-                    Eye.GetComponent<Renderer>().material = Exposed;
-                }
             }
         }
-	}
+    }
 
     public void WeakPointDone() {
         ++WeakPointCounter;
         if (WeakPointCounter >= 2) {
-            rotateEye = true;
-            lerpTime = 0.0f;
-            
+            GetComponentInParent<BossManager>().GoToNextPhase();
+
         }
     }
 
     public void StartBossPhase() {
         start = true;
-        foreach (GameObject t in Turrets) t.GetComponent<BossTurretScript>().enabled = true;        
+        foreach (GameObject t in Turrets) t.GetComponent<BossTurretScript>().enabled = true;
+    }
+
+    public void StartBossPhase2() {
+        lerpTime = 0.0f;
+        rotateEye = true;
+
     }
 
     public void FinishBossPhase() {
         foreach (GameObject t in Turrets) t.GetComponent<BossTurretScript>().enabled = false;
+        GetComponentInParent<BossManager>().GoToNextPhase();
     }
 }
