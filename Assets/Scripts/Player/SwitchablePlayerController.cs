@@ -31,9 +31,9 @@ public class SwitchablePlayerController : MonoBehaviour
     public Image fillLife, fillTimeBomb;
     public GameObject projectile, sphere, ghost, parentAxis, pdestroyed;
     public static bool camMovementEnemies;
-    public AudioSource timebomb, slomo, gunshot, timewarp;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
+    private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch;
     private TimeManager tm;
@@ -63,6 +63,13 @@ public class SwitchablePlayerController : MonoBehaviour
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
         camMovementEnemies = false;
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        slomo = audioSources[0];
+        timebomb = audioSources[1];
+        gunshot = audioSources[2];
+        timewarp = audioSources[3];
+        alarm = audioSources[4];
+
         //parentAxis = gameObject;
     }
 
@@ -77,11 +84,14 @@ public class SwitchablePlayerController : MonoBehaviour
         if (startRotatingRoll || startRotatingPitch) Rotate();
         ManageInput();
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
+        else {
+            if (alarm.isPlaying) alarm.Stop();
+        }
         if (readjustPosition) ReadjustPlayer();
         if (is_firing)
         {
             Fire();
-            firingCounter -= Time.deltaTime;
+            firingCounter -= Time.unscaledDeltaTime;
         }
         //if (actualLife < shield) Regen();
         if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
@@ -165,17 +175,22 @@ public class SwitchablePlayerController : MonoBehaviour
         //cameraTrs.Rotate(0, rotSpeed * Time.deltaTime ,0);
         //        cameraTrs.Rotate(0, 0, -ZLimit);
         float coordAD, coordWS;
+        float LimitHorizontal, LimitVertical;
         if (is_vertical)
         {
             coordAD = parentAxis.transform.position.x;
             coordWS = parentAxis.transform.position.z;
+            LimitHorizontal = XLimit;
+            LimitVertical = ZLimit;
         }
         else
         {
             coordAD = parentAxis.transform.position.x;
             coordWS = parentAxis.transform.position.y;
+            LimitHorizontal = TimeWarpXLimit;
+            LimitVertical = TimeWarpYLimit;
         }
-        if ((coordAD + nextPosX > -XLimit) && (coordAD + nextPosX < XLimit))
+        if ((coordAD + nextPosX > -LimitHorizontal) && (coordAD + nextPosX < LimitHorizontal))
         {
             if (is_vertical)
             {
@@ -190,7 +205,7 @@ public class SwitchablePlayerController : MonoBehaviour
             }
             else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
-        if ((coordWS + nextPosYZ > -ZLimit) && (coordWS + nextPosYZ < ZLimit))
+        if ((coordWS + nextPosYZ > -LimitVertical) && (coordWS + nextPosYZ < LimitVertical))
         {
             if (is_vertical) parentAxis.transform.position += new Vector3(0.0f, 0.0f, nextPosYZ);
             else parentAxis.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
@@ -347,6 +362,7 @@ public class SwitchablePlayerController : MonoBehaviour
 
             if (alertModeTime > 0.0f)
             {
+                if (!alarm.isPlaying) alarm.Play();
                 if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                 {
                     if (!tm.InSlowMo())
@@ -400,5 +416,17 @@ public class SwitchablePlayerController : MonoBehaviour
         float zLerp = Mathf.LerpAngle(StartAngle.z, FinishAngle.z, t);
         Vector3 Lerped = new Vector3(xLerp, yLerp, zLerp);
         return Lerped;
+    }
+
+    public void SetNewLimits(float newX, float newY, bool verticalLimits) {
+        if (verticalLimits)
+        {
+            XLimit = newX;
+            ZLimit = newY;
+        }
+        else {
+            TimeWarpXLimit = newX;
+            TimeWarpYLimit = newY;
+        }
     }
 }

@@ -101,6 +101,7 @@ public class BossEyeScript : MonoBehaviour {
                 orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
+                transform.LookAt(KamikazeExit);
             }
             else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed);
         }
