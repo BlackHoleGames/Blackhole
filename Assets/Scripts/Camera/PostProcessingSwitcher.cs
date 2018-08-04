@@ -56,9 +56,7 @@ public class PostProcessingSwitcher : MonoBehaviour {
             SetGrainSettings(0.0f);
             SwitchPostProcess(Profiles.NORMAL);
         }
-        else SetGrainSettings(intentsityEffect);
-        
-        
+        else SetGrainSettings(intentsityEffect);                
     }
 
     public void ManageDamageEffect() {
