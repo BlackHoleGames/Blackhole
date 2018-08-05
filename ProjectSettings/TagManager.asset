@@ -13,6 +13,8 @@ TagManager:
   - powerUp
   - destroyed
   - propeller
+  - settings
+  - mainmenu
   layers:
   - Default
   - TransparentFX

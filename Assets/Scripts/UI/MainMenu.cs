@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour {
     public AudioClip sound;
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public GameObject Quit;
     private Button button { get { return GetComponent<Button>(); } }
     private AudioSource source1 { get { return GetComponent<AudioSource>(); } }
     // Use this for initialization
@@ -21,9 +22,10 @@ public class MainMenu : MonoBehaviour {
     }
     public void Settings()
     {
-        //mainMenu.SetActive(false);
-        ////source1.PlayOneShot(sound);
-        //settingsMenu.SetActive(true);
+
+        mainMenu.SetActive(false);
+        //source1.PlayOneShot(sound);
+        settingsMenu.SetActive(true);
     }
 
     public void QuitGame()
