@@ -12,6 +12,10 @@ public class InputCtrlUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //float axisX = Input.GetAxis("Horizontal");
+ //       float positionY = Input.GetAxis("Vertical");
+ //       if(positionY!=0.0f)Move(positionY);
+        
         if (Input.GetKeyDown("enter"))
         {
             switch (scene)
@@ -33,6 +37,11 @@ public class InputCtrlUI : MonoBehaviour {
                 break;
             }
         }
-
     }
+//    public void Move(float positionY)
+//    {
+//        if (Input.GetButtonDown("Fire1")){
+//
+//        }
+//    }
 }

@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 188998773}
   m_Layer: 5
   m_Name: Back
-  m_TagString: Untagged
+  m_TagString: back
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,6 +388,7 @@ MonoBehaviour:
   Action: 3
   mainMenu: {fileID: 924644213}
   Settings: {fileID: 602465052}
+  soundChange: {fileID: 0}
 --- !u!1 &362884357
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +442,7 @@ MonoBehaviour:
   Action: 2
   mainMenu: {fileID: 0}
   Settings: {fileID: 0}
+  soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!114 &362884360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,6 +820,7 @@ MonoBehaviour:
   Action: 1
   mainMenu: {fileID: 924644213}
   Settings: {fileID: 602465052}
+  soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!1 &698629057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1973954195}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
 --- !u!4 &1490407831
@@ -2046,7 +2049,7 @@ GameObject:
   - component: {fileID: 1973954200}
   m_Layer: 5
   m_Name: Playgame
-  m_TagString: Untagged
+  m_TagString: play
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2159,6 +2162,7 @@ MonoBehaviour:
   Action: 0
   mainMenu: {fileID: 0}
   Settings: {fileID: 0}
+  soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!1 &2004047889
 GameObject:
   m_ObjectHideFlags: 0
