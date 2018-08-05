@@ -388,6 +388,7 @@ MonoBehaviour:
   Action: 3
   mainMenu: {fileID: 924644213}
   Settings: {fileID: 602465052}
+  activateScroll: 1
   soundChange: {fileID: 0}
 --- !u!1 &362884357
 GameObject:
@@ -442,6 +443,7 @@ MonoBehaviour:
   Action: 2
   mainMenu: {fileID: 0}
   Settings: {fileID: 0}
+  activateScroll: 1
   soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!114 &362884360
 MonoBehaviour:
@@ -820,6 +822,7 @@ MonoBehaviour:
   Action: 1
   mainMenu: {fileID: 924644213}
   Settings: {fileID: 602465052}
+  activateScroll: 1
   soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!1 &698629057
 GameObject:
@@ -2162,6 +2165,7 @@ MonoBehaviour:
   Action: 0
   mainMenu: {fileID: 0}
   Settings: {fileID: 0}
+  activateScroll: 0
   soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
 --- !u!1 &2004047889
 GameObject:
