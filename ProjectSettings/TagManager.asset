@@ -17,6 +17,7 @@ TagManager:
   - mainmenu
   - back
   - play
+  - UIScore
   layers:
   - Default
   - TransparentFX
