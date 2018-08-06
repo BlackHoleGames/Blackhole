@@ -18,6 +18,16 @@ TagManager:
   - back
   - play
   - UIScore
+  - ScoreNameA
+  - ScoreNameB
+  - ScoreNameC
+  - ScoreNameD
+  - ScoreNameE
+  - ScoreResultA
+  - ScoreResultB
+  - ScoreResultC
+  - ScoreResultD
+  - ScoreResultE
   layers:
   - Default
   - TransparentFX
