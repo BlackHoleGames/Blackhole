@@ -13,13 +13,14 @@ public class EnemyManager : MonoBehaviour {
     public float[] squadTime, delayTime;
     private int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
-    private bool waitForDelay, instantiatingSubSquads;
+    private bool waitForDelay, instantiatingSubSquads, startSpawning;
     private float waitingTime, subSquadDelay;
     private int subSquadEnemyCounter;
     private GameObject ChainSquadManager;
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
+        startSpawning = true;
         squadronIndex = 0;
         spawnToTransform = new Dictionary<SpawnPoint, Transform>();
         spawnToTransform.Add(SpawnPoint.TOPRIGHT, spawns[0]);
@@ -41,15 +42,16 @@ public class EnemyManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (waitForDelay) {
-            waitingTime -= Time.deltaTime;
-            if (waitingTime < 0.0f)
-            {
-                waitForDelay = false;
-                SpawnNext();
+        if (startSpawning) {
+            if (waitForDelay) {
+                waitingTime -= Time.deltaTime;
+                if (waitingTime < 0.0f) {
+                    waitForDelay = false;
+                    SpawnNext();
+                }
             }
+            if (instantiatingSubSquads) ManageChainSpawn();
         }
-        if (instantiatingSubSquads) ManageChainSpawn();
     }
 
     public void SpawnNext() {
@@ -88,8 +90,7 @@ public class EnemyManager : MonoBehaviour {
 
     public void ManageChainSpawn() {
         subSquadDelay -= Time.deltaTime;
-        if (subSquadDelay < 0.0f)
-        {
+        if (subSquadDelay < 0.0f) {
             subSquadDelay = ChainSquadManager.GetComponent<SquadManager>().subSquadUnitDelayTime;
             GameObject obj = Instantiate(ChainSquadManager.GetComponent<SquadManager>().subSquadron, spawnToTransform[squadronSpawnPoints[squadronIndex]].position, spawnToTransform[squadronSpawnPoints[squadronIndex]].rotation);
             obj.transform.parent = transform.parent;
@@ -97,8 +98,7 @@ public class EnemyManager : MonoBehaviour {
             obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
             obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
             --subSquadEnemyCounter;
-            if (subSquadEnemyCounter <= 0)
-            {
+            if (subSquadEnemyCounter <= 0) {
                 instantiatingSubSquads = false;
                 Destroy(ChainSquadManager);
                 StartWait();
@@ -106,5 +106,22 @@ public class EnemyManager : MonoBehaviour {
                 if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
         }
+    }
+
+    public void StartManager() {
+        startSpawning = true;
+    }
+
+    public void StopManager() {
+        startSpawning = true;
+    }
+
+    public bool IsManagerSpawning() {
+        return startSpawning;
+    }
+
+    public void StartNewPhase() {
+        GetComponentInParent<MapManger>().GoToNextStage();
+        StopManager();
     }
 }
