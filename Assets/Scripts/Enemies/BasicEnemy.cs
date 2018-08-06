@@ -9,16 +9,17 @@ public class BasicEnemy : MonoBehaviour {
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
-    public GameObject enemyProjectile;
-    public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter, shotCounter;
+    public float hitFeedbackDuration = 0.25f;
+    public float spawnDelay = 5.0f;
     public Material matOn, matOff;
+    public GameObject enemyProjectile, explosionPS;
+    public TimeBehaviour tb;
+    public AudioClip gunshot;
+
     private bool shielded, hit, materialHitOn;
     private SquadManager squadManager;
-    public GameObject explosionPS;
-    public TimeBehaviour tb;
+    private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
-    public AudioClip gunshot;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponents<AudioSource>()[0];
@@ -40,7 +41,7 @@ public class BasicEnemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (spawnCooldown <= 0.0f) {
+        if (spawnDelay <= 0.0f) {
             if (rateCounter <= 0.0f) {
                 if (shotCounter > 0)
                 {
@@ -61,10 +62,14 @@ public class BasicEnemy : MonoBehaviour {
             }
             else rateCounter -= Time.deltaTime* tb.scaleOfTime;
         }
-        else spawnCooldown -= Time.deltaTime* tb.scaleOfTime;
+        else spawnDelay -= Time.deltaTime* tb.scaleOfTime;
         if (materialHitOn) {
-            gameObject.GetComponent<Renderer>().material = matOff;
-            materialHitOn = false;
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else {
+                gameObject.GetComponent<Renderer>().material = matOff;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
         }
         if (hit)
         {
@@ -104,6 +109,11 @@ public class BasicEnemy : MonoBehaviour {
             }
         }
     }
+
+    public void SetSpawnDelay(float newDelay) {
+        spawnDelay = newDelay;
+    }
+
     IEnumerable vibratorOn()
     {
         GamePad.SetVibration(0, 0.0f, 2.0f);

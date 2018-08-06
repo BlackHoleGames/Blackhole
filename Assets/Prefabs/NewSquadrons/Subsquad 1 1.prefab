@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1646053309271298, guid: fca8763b5135490419eb9626425c574e,
     type: 2}
 --- !u!114 &114453595524283754
 MonoBehaviour:
@@ -182,4 +182,4 @@ MonoBehaviour:
   numOfMembers: 1
   Manager: {fileID: 0}
   speed: 2
-  timeToLive: -1
+  timeToStay: -1

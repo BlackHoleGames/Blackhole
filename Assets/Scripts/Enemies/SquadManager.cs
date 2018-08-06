@@ -15,8 +15,8 @@ public class SquadManager : MonoBehaviour {
     public int numOfMembers;
     public EnemyManager Manager;
     public float speed = 2.0f;
-    public float timeToLive = -1.0f;
-    private bool movingToPosition, liveIsDone, arrivedToStart;
+    public float timeToStay = -1.0f;
+    private bool movingToPosition, stayIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
     //private EnemyManager.SpawnPoint exitPoint = EnemyManager.SpawnPoint.NOT_SET;
     private Vector3 center = new Vector3(0.0f,0.0f,5.0f);
@@ -29,7 +29,7 @@ public class SquadManager : MonoBehaviour {
         initialPos = transform.position;
         movingToPosition = true;
         target = center;
-        liveIsDone = false;
+        stayIsDone = false;
         arrivedToStart = false;
 	}
 	
@@ -42,16 +42,16 @@ public class SquadManager : MonoBehaviour {
                 ManageMovement();
 
             }
-            if (!liveIsDone && arrivedToStart)
+            if (!stayIsDone && arrivedToStart)
             {
-                timeToLive -= Time.deltaTime;
-                if (timeToLive <= 0.0f)
+                timeToStay -= Time.deltaTime;
+                if (timeToStay <= 0.0f)
                 {
                     timeToMove = 0.0f;
                     target = exit;
                     initialPos = transform.position;
                     movingToPosition = true;
-                    liveIsDone = true;
+                    stayIsDone = true;
                 }
             }
         }
@@ -67,7 +67,7 @@ public class SquadManager : MonoBehaviour {
     }
 
     public void SetTimeToLive(float time) {
-        timeToLive = time;
+        timeToStay = time;
     }
 
     public void DecreaseNumber() {
@@ -76,6 +76,7 @@ public class SquadManager : MonoBehaviour {
         if (numOfMembers == 0)
         {
             Manager.StartWait();
+            Destroy(gameObject);
         }
     }
 
@@ -87,14 +88,21 @@ public class SquadManager : MonoBehaviour {
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
             if (Vector3.Distance(transform.position,target)< 1.0 ) {
                 movingToPosition = false;
-                if (!arrivedToStart) arrivedToStart = true;
-                if (timeToLive < 0.0f && numOfMembers > 0) {
+                if (arrivedToStart)
+                {
                     Manager.StartWait();
                     Destroy(gameObject);
                 }
+                else arrivedToStart = true;                
             }
         }
     }
+
+    /*
+                     if (timeToStay < 0.0f && numOfMembers > 0) {
+                        Destroy(gameObject);
+                    }
+         */
 
     /*public void ManageEntry() {
         switch (entryPoint)

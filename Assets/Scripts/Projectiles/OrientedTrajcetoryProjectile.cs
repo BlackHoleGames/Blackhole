@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrientedTrajcetoryProjectile : MonoBehaviour {
 
     public float speed = 2.0f;
-    public float timeToLive = 10.0f;
+    public float timeToLive = 20.0f;
     public float damage = 10.0f;
     private TimeBehaviour tb;
 
@@ -19,7 +19,11 @@ public class OrientedTrajcetoryProjectile : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime * tb.scaleOfTime;
-        if (timeToLive <= 0.0f) Destroy(gameObject);
+        if (timeToLive <= 0.0f)
+        {
+            Destroy(gameObject);
+            Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+        }
         transform.position += transform.forward * speed * tb.scaleOfTime;
 
 

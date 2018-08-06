@@ -25,8 +25,9 @@ public class ChargedShot : MonoBehaviour {
 	void Update () {
         if (chargeTime <= 0.0f) {
             if (chargePS) chargePS.GetComponent<ParticleSystem>().Stop();
-            timeToLive -= Time.deltaTime * tb.scaleOfTime;
-            if (timeToLive <= 0.0f) Destroy(gameObject);
+            //timeToLive -= Time.deltaTime * tb.scaleOfTime;
+            //if (timeToLive <= 0.0f) Destroy(gameObject);
+            if (transform.position.z < -15) Destroy(gameObject);
             gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
         }
         else chargeTime -= Time.deltaTime;

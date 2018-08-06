@@ -35,7 +35,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     public Transform cameraTrs;
@@ -63,6 +63,7 @@ public class SwitchablePlayerController : MonoBehaviour
         tm = GetComponent<TimeManager>();
         ghostArray = new List<GameObject>();
         camMovementEnemies = false;
+        playerHit = false;
         AudioSource[] audioSources = GetComponents<AudioSource>();
         slomo = audioSources[0];
         timebomb = audioSources[1];
@@ -86,6 +87,7 @@ public class SwitchablePlayerController : MonoBehaviour
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
         else {
             if (alarm.isPlaying) alarm.Stop();
+            playerHit = false;
         }
         if (readjustPosition) ReadjustPlayer();
         if (is_firing)
@@ -363,8 +365,9 @@ public class SwitchablePlayerController : MonoBehaviour
             if (alertModeTime > 0.0f)
             {
                 if (!alarm.isPlaying) alarm.Play();
-                if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                if (playerHit)
                 {
+                    //
                     if (!tm.InSlowMo())
                     {
                         slomo.Play();
@@ -377,20 +380,24 @@ public class SwitchablePlayerController : MonoBehaviour
                         }
                         ghostArray.Clear();
                     }
-                    actualLife = actualLife - (shield / 2.0f);
-                    alertModeTime = alertModeDuration;
-                    life.value = actualLife;
-                    if (actualLife < 0.0f)
+                    if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                     {
-                        fillLife.enabled = false;
-                        //mDestroyed = null;
-                        //pdestroyed.SetActive(true);
-                        //playerOk = null;
+                        actualLife = actualLife - (shield / 2.0f);
+                        alertModeTime = alertModeDuration;
+                        life.value = actualLife;
+                        if (actualLife < 0.0f)
+                        {
+                            fillLife.enabled = false;
+                            //mDestroyed = null;
+                            //pdestroyed.SetActive(true);
+                            //playerOk = null;
 
-                        TimerScript.gameover = true;
-                        //Remaining deaht animation before this bool.                        
-                    } // Death                
+                            TimerScript.gameover = true;
+                            //Remaining deaht animation before this bool.                        
+                        } // Death                
+                    }
                 }
+                else playerHit = true;
             }
             else alertModeTime = alertModeDuration;
 

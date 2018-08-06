@@ -12,7 +12,7 @@ public class TimeGhost : MonoBehaviour {
     public float ZLimit = 5.0f;
     public float invul = 1.0f;
     public float startDelayCounter = 0.0f;
-    private float firingCounter;
+    private float firingCounter, delayCounter;
     public bool is_firing;
     //------------------------------------------
 
@@ -43,6 +43,7 @@ public class TimeGhost : MonoBehaviour {
         oldest_index = 0;
         newest_index = 1;
         counter = Time.time;
+        delayCounter = startDelayCounter;
         if (blocksProjectiles) gameObject.tag = "ghost";
         else gameObject.tag = "Untagged";
     }
@@ -101,19 +102,20 @@ public class TimeGhost : MonoBehaviour {
     {
         if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
         {
-            counter += Time.unscaledDeltaTime;
-            int new_index = (newest_index + 1) % position_buffer.Length;
-            if (new_index != oldest_index) newest_index = new_index;
-            position_buffer[newest_index] = leader.position;
-            time_buffer[newest_index] = counter; //Time.fixedTime;
-            float newTime = counter - lagSeconds; //Time.fixedTime - lagSeconds;
-            int next;
-            while (time_buffer[next = (oldest_index + 1) % time_buffer.Length] < newTime) oldest_index = next;
-            float span = time_buffer[next] - time_buffer[oldest_index];
-            float delta = 0.0f;
-            if (span > 0) delta = (newTime - time_buffer[oldest_index]) / span;
-            transform.position = Vector3.Lerp(position_buffer[oldest_index], position_buffer[next], delta);
-        }    
+                counter += Time.unscaledDeltaTime;
+                int new_index = (newest_index + 1) % position_buffer.Length;
+                if (new_index != oldest_index) newest_index = new_index;
+                position_buffer[newest_index] = leader.position;
+                time_buffer[newest_index] = counter; //Time.fixedTime;
+                float newTime = counter - lagSeconds; //Time.fixedTime - lagSeconds;
+                int next;
+                while (time_buffer[next = (oldest_index + 1) % time_buffer.Length] < newTime) oldest_index = next;
+                float span = time_buffer[next] - time_buffer[oldest_index];
+                float delta = 0.0f;
+                if (span > 0) delta = (newTime - time_buffer[oldest_index]) / span;
+                transform.position = Vector3.Lerp(position_buffer[oldest_index], position_buffer[next], delta);
+
+        }
     }
 
     public void StartFiring() {

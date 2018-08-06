@@ -37,7 +37,7 @@ public class TimeBubble : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == "EnemyProjectile" || other.tag == "Enemy") && !toDestroy) {
+        if ((other.tag == "EnemyProjectile" || other.tag == "powerUp" || other.tag == "Enemy") && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
             if (tb) tb.SlowDown(0.2f, 0.5f);
         }

@@ -7,13 +7,17 @@ public class KamikazeEnemy : MonoBehaviour {
     public float speed = 0.5f;
     public float turbospeed = 10.0f;
     public float life = 50.0f;
+    public float hitFeedbackDuration = 0.25f;
+
     private SquadManager squadManager;
     public GameObject explosionPS;
     private TimeBehaviour tb;
     private GameObject player;
-    private float direction;
-    private bool turbo;
+    private float direction, hitFeedbackCounter;
+    private bool turbo, hit, materialHitOn;
     private AudioSource audioSource, hitAudioSource;
+    public Material matOn, matOff;
+
     // Use this for initialization
     void Start()
     {
@@ -37,6 +41,22 @@ public class KamikazeEnemy : MonoBehaviour {
         if (Mathf.Abs(transform.position.x - player.transform.position.x) < 0.1f) turbo = true;
         if (!turbo) transform.position += new Vector3(speed * Time.deltaTime * direction * tb.scaleOfTime, 0.0f, 0.0f);
         else transform.position += new Vector3(0.0f, 0.0f, -turbospeed * Time.deltaTime * tb.scaleOfTime);
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOff;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOn;
+            materialHitOn = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

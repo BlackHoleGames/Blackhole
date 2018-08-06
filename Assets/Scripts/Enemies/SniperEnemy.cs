@@ -8,9 +8,11 @@ public class SniperEnemy : MonoBehaviour {
     public float chargeTime = 1.0f;
     public GameObject enemyProjectile;
     public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter;
+    public float hitFeedbackDuration = 0.25f;
+
+    private float rateCounter, shotTimeCounter, hitFeedbackCounter;
     public Material matOn, matOff;
-    private bool shielded, playCharging;
+    private bool shielded, playCharging,hit, materialHitOn;
     private SquadManager squadManager;
     public GameObject explosionPS;
     private TimeBehaviour tb;
@@ -57,6 +59,22 @@ public class SniperEnemy : MonoBehaviour {
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
         else spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOff;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOn;
+            materialHitOn = true;
+        }
     }
 
     public void Unprotect()

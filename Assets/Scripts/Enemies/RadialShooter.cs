@@ -8,12 +8,14 @@ public class RadialShooter : MonoBehaviour {
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
+    public float hitFeedbackDuration = 0.25f;
+
     public GameObject enemyProjectile;
     public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter; //, shotCounter;
+    private float rateCounter, shotTimeCounter, hitFeedbackCounter; //, shotCounter;
     public float degreesPerProjectile;
     public Material matOn, matOff;
-    bool shielded;
+    bool shielded, hit, materialHitOn;
     private SquadManager squadManager;
     public GameObject explosionPS;
     private TimeBehaviour tb;
@@ -73,6 +75,22 @@ public class RadialShooter : MonoBehaviour {
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
         else spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOff;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOn;
+            materialHitOn = true;
+        }
     }
 
     public void Unprotect()
