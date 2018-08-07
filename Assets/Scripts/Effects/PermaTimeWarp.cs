@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PermaTimeWarp : MonoBehaviour {
 
-    float delay = 3.0f;
+    float delay = 1.5f;
 	// Use this for initialization
 	void Start () {
 	}

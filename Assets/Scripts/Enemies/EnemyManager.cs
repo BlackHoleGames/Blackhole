@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
-        startSpawning = true;
+        startSpawning = false;
         squadronIndex = 0;
         spawnToTransform = new Dictionary<SpawnPoint, Transform>();
         spawnToTransform.Add(SpawnPoint.TOPRIGHT, spawns[0]);
@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour {
         spawnToTransform.Add(SpawnPoint.TOPLEFT, spawns[10]);
         spawnToTransform.Add(SpawnPoint.TOP, spawns[11]);
 
-        SpawnNext();
+        //SpawnNext();
         waitForDelay = false;
     }
 
@@ -110,10 +110,11 @@ public class EnemyManager : MonoBehaviour {
 
     public void StartManager() {
         startSpawning = true;
+        SpawnNext();
     }
 
     public void StopManager() {
-        startSpawning = true;
+        startSpawning = false;
     }
 
     public bool IsManagerSpawning() {

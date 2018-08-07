@@ -105,7 +105,7 @@ public class TimeManager : MonoBehaviour {
             //if (inFasterGTL) returnToFasterGTL = true;
             //else returnToFasterGTL = false;
             inFasterGTL = false;
-            timewarpEffect.SetActive(true);
+            //timewarpEffect.SetActive(true);
             //targetGTL = timeWarp;
         }
     }
@@ -165,8 +165,16 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
-
     public bool InSlowMo() {
         return slowDown;
+    }
+
+    public void StopTimeWarp() {
+        Time.timeScale = 1.0f;
+        isMaxGTLReached = false;
+        inFasterGTL = false;
+        maxGTLCounter = 0.0f;
+        cb.SwitchCamPosRot();
+        sp.SwitchAxis();
     }
 }

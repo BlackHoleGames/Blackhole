@@ -93,7 +93,14 @@ public class SquadManager : MonoBehaviour {
                     Manager.StartWait();
                     Destroy(gameObject);
                 }
-                else arrivedToStart = true;                
+                else {
+                    if (GetComponentInChildren<MiniBossScript>()) {
+                        GetComponentInChildren<MiniBossScript>().InitiateBoss();
+                        Manager.StartNewPhase();
+                        Destroy(this);
+                    }
+                    else arrivedToStart = true;
+                }
             }
         }
     }

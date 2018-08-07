@@ -196,14 +196,14 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (is_vertical)
             {
-                //if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
-                //else camRotate = false;
+                if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
+                else camRotate = false;
                 parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
-                //if (camRotate)
-                //{
-                //    cameraTrs.Rotate(0, 0, Xinput*0.1f);
-                //    parentAxis.transform.Rotate(0,  Xinput*10,0);
-                //}
+                if (camRotate)
+                {
+                    cameraTrs.Rotate(0, 0, Xinput*0.1f);
+                    parentAxis.transform.Rotate(0,  Xinput*10,0);
+                }
             }
             else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
