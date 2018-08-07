@@ -3,19 +3,19 @@ guid: 803af7c90bc87774f95d68dd6e197c1d
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: GiantStruct
-    400000: Box001
-    400002: //RootNode
-    400004: GiantStruct
+    100000: //RootNode
+    100002: GiantStruct
+    100004: Window
+    400000: //RootNode
+    400002: GiantStruct
+    400004: Window
     2100000: No Name
-    2300000: Box001
-    2300002: GiantStruct
-    3300000: Box001
-    3300002: GiantStruct
+    2300000: GiantStruct
+    2300002: Window
+    3300000: GiantStruct
+    3300002: Window
     4300000: GiantStruct
-    4300002: Box001
+    4300002: Window
   externalObjects: {}
   materials:
     importMaterials: 1
