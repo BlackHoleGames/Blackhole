@@ -8,10 +8,11 @@ public class LeaderBoardScript : MonoBehaviour
 
     // Use this for initialization
     public Text splashLeaderBoards;
+    public Text time;
+    public Text Letter;
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
-    // Use this for initialization
     private Text ScoreNameA;
     private Text ScoreNameB;
     private Text ScoreNameC;
@@ -22,15 +23,33 @@ public class LeaderBoardScript : MonoBehaviour
     private Text ScoreResultC;
     private Text ScoreResultD;
     private Text ScoreResultE;
+    public Text GameOverText;
+    private int ScorePosition = 0;
     IEnumerator Start()
     {
         splashLeaderBoards.canvasRenderer.SetAlpha(0.0f);
-        ShowScore();
-        FadeInLeaderBoards();
-        yield return new WaitForSeconds(3.0f);
-        FadeOutLeaderBoards();
-        yield return new WaitForSeconds(3.0f);
+        GameOverText.canvasRenderer.SetAlpha(0.0f);
+        if (SaveGameStatsScript.GameStats.isGameOver) {
+            if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
+            else GameOverText.text = "THE END";
+            if (CompareScore()) {
+                //Congrats Name
+                ReasingScore();
 
+            }
+            ShowScore();
+            FadeInLeaderBoards();
+            yield return new WaitForSeconds(3.0f);
+            FadeOutLeaderBoards();
+            yield return new WaitForSeconds(3.0f);
+        }else
+        {
+            ShowScore();
+            FadeInLeaderBoards();
+            yield return new WaitForSeconds(3.0f);
+            FadeOutLeaderBoards();
+            yield return new WaitForSeconds(3.0f);
+        }
         SceneManager.LoadScene(1);
         
     }
@@ -55,9 +74,9 @@ public class LeaderBoardScript : MonoBehaviour
         ScoreResultC = GameObject.FindGameObjectWithTag("ScoreResultC").GetComponent<Text>();
         ScoreResultD = GameObject.FindGameObjectWithTag("ScoreResultD").GetComponent<Text>();
         ScoreResultE = GameObject.FindGameObjectWithTag("ScoreResultE").GetComponent<Text>();
-        ReasingLeaderBoard();
+        LeaderBoard();
     }
-    void ReasingLeaderBoard()
+    void LeaderBoard()
     {
         ScoreNameA.text = SaveGameStatsScript.GameStats.ScoreNames[0];
         ScoreNameB.text = SaveGameStatsScript.GameStats.ScoreNames[1];
@@ -70,5 +89,47 @@ public class LeaderBoardScript : MonoBehaviour
         ScoreResultC.text = SaveGameStatsScript.GameStats.ScoreResults[2].ToString();
         ScoreResultD.text = SaveGameStatsScript.GameStats.ScoreResults[3].ToString();
         ScoreResultE.text = SaveGameStatsScript.GameStats.ScoreResults[4].ToString();
+    }
+    void ReasingScore()
+    {
+        switch (ScorePosition)
+        {
+            case 0:
+                ScoreResultA = GameObject.FindGameObjectWithTag("ScoreResultA").GetComponent<Text>();
+                ScoreResultA.text = SaveGameStatsScript.GameStats.playerScore.ToString();
+                break;
+            case 1:
+                ScoreResultB = GameObject.FindGameObjectWithTag("ScoreResultB").GetComponent<Text>();
+                ScoreResultB.text = SaveGameStatsScript.GameStats.playerScore.ToString();
+                break;
+            case 2:
+                ScoreResultC = GameObject.FindGameObjectWithTag("ScoreResultC").GetComponent<Text>();
+                ScoreResultC.text = SaveGameStatsScript.GameStats.playerScore.ToString();
+                break;
+            case 3:
+                ScoreResultD = GameObject.FindGameObjectWithTag("ScoreResultD").GetComponent<Text>();
+                ScoreResultD.text = SaveGameStatsScript.GameStats.playerScore.ToString();
+                break;
+            case 4:
+                ScoreResultE = GameObject.FindGameObjectWithTag("ScoreResultE").GetComponent<Text>();
+                ScoreResultE.text = SaveGameStatsScript.GameStats.playerScore.ToString();
+                break;
+        }
+        SaveGameStatsScript.GameStats.SetScore("FFF", SaveGameStatsScript.GameStats.playerScore.ToString());
+    }
+
+
+    public bool CompareScore()
+    {
+        for (int i=0; i < 5; i++)
+        {
+            if (System.Int32.Parse(SaveGameStatsScript.GameStats.ScoreResults[i])
+                <= SaveGameStatsScript.GameStats.playerScore)
+            {
+                ScorePosition = i;
+                return true;
+            }
+        }
+        return false;
     }
 }
