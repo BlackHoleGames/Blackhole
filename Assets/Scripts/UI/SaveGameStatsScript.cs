@@ -9,18 +9,28 @@ public class SaveGameStatsScript : MonoBehaviour {
 
     //public int MaxScore = 0;
     public bool StatusUISequence = true;
+    public bool isGameOver = false;
+    public bool isGoodEnding = false;
+    public int playerScore = 0;
     public string[] ScoreNames;
     public string[] ScoreResults;
     public static SaveGameStatsScript GameStats;
     private String configFile;
     private String scoreFile;
+    public enum GameOverType
+    {
+        THEEND, GAMEOVER, NOTHING
+    }
+    public GameOverType GOTy;
     void Awake()
     {
         Debug.Log(Application.persistentDataPath); ///AppData/LocalLow/DefaultCompany/Blackhole + ....
         configFile = Application.persistentDataPath + "/config.dat";
         scoreFile = Application.persistentDataPath + "/score.dat";
+        GOTy = GameOverType.NOTHING;
         ScoreNames = new string[5];
         ScoreResults = new string[5];
+        
         if (GameStats == null)
         {
             GameStats = this;
@@ -50,7 +60,9 @@ public class SaveGameStatsScript : MonoBehaviour {
 
         //data.MaxScore = MaxScore;
         data.StatusUISequence = StatusUISequence;
-        
+        data.isGameOver = isGameOver;
+        data.isGoodEnding = isGoodEnding;
+        data.playerScore = playerScore;
         bf.Serialize(file, data);
 
         file.Close();
@@ -67,7 +79,9 @@ public class SaveGameStatsScript : MonoBehaviour {
 
             //MaxScore = data.MaxScore;
             StatusUISequence = data.StatusUISequence;
-
+            isGameOver = data.isGameOver;
+            isGoodEnding = data.isGoodEnding;
+            playerScore = data.playerScore;
             file.Close();
         }else
         {
@@ -154,4 +168,7 @@ public class SaveGameStatsScript : MonoBehaviour {
 class DataForSave
 {
     public bool StatusUISequence;
+    public bool isGameOver;
+    public bool isGoodEnding;
+    public int  playerScore;
 }

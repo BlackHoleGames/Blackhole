@@ -33,7 +33,7 @@ public class TitleScreen : MonoBehaviour {
         }
         //Score
         if (SaveGameStatsScript.GameStats.StatusUISequence) { 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
             SaveGameStatsScript.GameStats.StatusUISequence = false;
             SaveGameStatsScript.GameStats.SetStats();
         }
