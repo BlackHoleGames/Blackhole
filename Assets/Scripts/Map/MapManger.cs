@@ -10,14 +10,20 @@ public class MapManger : MonoBehaviour {
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
-    private bool minibossOn = false;
+    public MiniBossScript mbs;
+    public GameObject structure;
+    private StructMovement sm;
+    private EarthRotation er;
+    private bool structureMoving = false;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
         actualStage = Stages.METEORS_TIMEWARP;
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
-	}
+        er = GameObject.Find("Earth").GetComponent<EarthRotation>();
+        //sm = structure.GetComponent<StructMovement>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,17 +44,21 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.MINIBOSS:
-                if (!minibossOn) {
-                    minibossOn = true;
-                    GameObject.Find("MiniBoss").GetComponentInChildren<MiniBossScript>().InitiateBoss();
-                }
                 break;
             case Stages.STRUCT_TIMEWARP:
-                tm.StartTimeWarp();
+                Debug.Log("In struct warp");
+                if (!structureMoving)
+                {
+                    er.StartDownTransition();
+                    tm.StartTimeWarp();
+                    structure.SetActive(true);
+                    sm = structure.GetComponent<StructMovement>();
+                    sm.StartMovingStruct();
+                    structureMoving = true;
+                }
                 break;
             case Stages.STRUCT_ENEMIES:
-                if (!em.IsManagerSpawning())
-                {
+                if (!em.IsManagerSpawning()) {
                     em.StartManager();
                     tm.StopTimeWarp();
                 }

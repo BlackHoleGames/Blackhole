@@ -6,7 +6,7 @@ public class SniperEnemy : MonoBehaviour {
     public float life = 10.0f;
     public float shotCooldown = 5.0f;
     public float chargeTime = 1.0f;
-    public GameObject enemyProjectile;
+    public GameObject enemyProjectile, player;
     public float spawnCooldown = 5.0f;
     public float hitFeedbackDuration = 0.25f;
 
@@ -19,8 +19,8 @@ public class SniperEnemy : MonoBehaviour {
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
+        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -31,6 +31,7 @@ public class SniperEnemy : MonoBehaviour {
         gameObject.GetComponent<Renderer>().material = matOff;
         squadManager = GetComponentInParent<SquadManager>();
         ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
+
         if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
@@ -39,6 +40,7 @@ public class SniperEnemy : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(player.transform.position);
         if (spawnCooldown <= 0.0f)
         {
             if (rateCounter <= 0.0f)

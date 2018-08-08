@@ -22,8 +22,8 @@ public class FirstTrackProjectile : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //timeToLive -= Time.deltaTime * tb.scaleOfTime;
-        //if (timeToLive <= 0.0f) Destroy(gameObject);
+        timeToLive -= Time.deltaTime * tb.scaleOfTime;
+        if (timeToLive <= 0.0f) Destroy(gameObject);
         if (transform.position.z < -15) Destroy(gameObject);
         gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
         /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);

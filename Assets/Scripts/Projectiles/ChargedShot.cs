@@ -6,7 +6,7 @@ public class ChargedShot : MonoBehaviour {
 
 
     public float chargeTime = 1.0f;
-    public float timeToLive = 10.0f;
+    public float timeToLive = 20.0f;
     public float speed = 2.0f;
     public GameObject chargePS;
     private Vector3 target;
@@ -25,8 +25,8 @@ public class ChargedShot : MonoBehaviour {
 	void Update () {
         if (chargeTime <= 0.0f) {
             if (chargePS) chargePS.GetComponent<ParticleSystem>().Stop();
-            //timeToLive -= Time.deltaTime * tb.scaleOfTime;
-            //if (timeToLive <= 0.0f) Destroy(gameObject);
+            timeToLive -= Time.deltaTime * tb.scaleOfTime;
+            if (timeToLive <= 0.0f) Destroy(gameObject);
             if (transform.position.z < -15) Destroy(gameObject);
             gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
         }

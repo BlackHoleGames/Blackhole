@@ -96,18 +96,19 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StartTimeWarp() {
-        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) {
-            cb.SwitchToTimeWarp();
-            sp.SwitchAxis();
-            gtlCounter = 0.0f;
-            isMaxGTLReached = true;
-            gtlIncreasing = true;
-            //if (inFasterGTL) returnToFasterGTL = true;
-            //else returnToFasterGTL = false;
-            inFasterGTL = false;
-            //timewarpEffect.SetActive(true);
-            //targetGTL = timeWarp;
-        }
+        Time.timeScale = 1.0f;
+        cb.SwitchToTimeWarp();
+        sp.SwitchAxis();
+        gtlCounter = 0.0f;
+        slowDown = false;
+        speedUp = false;
+        isMaxGTLReached = true;
+        gtlIncreasing = true;
+        //if (inFasterGTL) returnToFasterGTL = true;
+        //else returnToFasterGTL = false;
+        inFasterGTL = false;
+        //timewarpEffect.SetActive(true);
+        //targetGTL = timeWarp;        
     }
 
     public void DoSlowDown() {
@@ -174,7 +175,7 @@ public class TimeManager : MonoBehaviour {
         isMaxGTLReached = false;
         inFasterGTL = false;
         maxGTLCounter = 0.0f;
-        cb.SwitchCamPosRot();
+        cb.SwitchToMiddle();
         sp.SwitchAxis();
     }
 }

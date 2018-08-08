@@ -15,13 +15,14 @@ public class BasicEnemy : MonoBehaviour {
     public GameObject enemyProjectile, explosionPS;
     public TimeBehaviour tb;
     public AudioClip gunshot;
-
+    private GameObject player;
     private bool shielded, hit, materialHitOn;
     private SquadManager squadManager;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
 	// Use this for initialization
 	void Start () {
+        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -41,6 +42,7 @@ public class BasicEnemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        transform.LookAt(player.transform.position);
         if (spawnDelay <= 0.0f) {
             if (rateCounter <= 0.0f) {
                 if (shotCounter > 0)

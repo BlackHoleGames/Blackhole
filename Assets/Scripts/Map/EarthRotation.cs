@@ -19,7 +19,7 @@ public class EarthRotation : MonoBehaviour {
         if (goDown) transform.Translate(new Vector3(0.0f, Time.deltaTime * downSpeed, 0.0f));
     }
 
-    void StartDownTransition() {
+    public void StartDownTransition() {
         goDown = true;
     }
 }

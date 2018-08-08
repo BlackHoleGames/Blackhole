@@ -8,18 +8,21 @@ public class MiniBossScript : MonoBehaviour {
 
     private float testTime = 10.0f;
     private EnemyManager em;
+    private MapManger mm;
 	// Use this for initialization
 	void Start () {
         em = GameObject.Find("Managers").GetComponentInChildren<EnemyManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (start) {
             testTime -= Time.unscaledDeltaTime;
             if (testTime <= 0.0f) {
+                //mm.GoToNextStage();
                 em.StartNewPhase();
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
 	}
