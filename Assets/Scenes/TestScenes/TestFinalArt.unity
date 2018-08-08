@@ -5569,7 +5569,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4834033713957570, guid: 2bea625e6304fbb49bcc481082798fc4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1688
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4834033713957570, guid: 2bea625e6304fbb49bcc481082798fc4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7725,6 +7725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualStage: 0
+  mbs: {fileID: 0}
+  structure: {fileID: 1555097223}
 --- !u!1 &615820671
 GameObject:
   m_ObjectHideFlags: 0
@@ -12511,6 +12513,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c777683619c3ba41a6460708dcbcd0c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1555097223 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1121568718615108, guid: 2bea625e6304fbb49bcc481082798fc4,
+    type: 2}
+  m_PrefabInternal: {fileID: 409793817}
+--- !u!114 &1555097225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1555097223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060c94b36f0622149b8ddb1127116031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1000
 --- !u!1 &1565135242
 GameObject:
   m_ObjectHideFlags: 0
