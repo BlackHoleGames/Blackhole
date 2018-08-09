@@ -11,10 +11,11 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure;
+    public GameObject structure,boss;
     private StructMovement sm;
     private EarthRotation er;
     private bool structureMoving = false;
+    private bool bossEnabled = false;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -46,7 +47,6 @@ public class MapManger : MonoBehaviour {
             case Stages.MINIBOSS:
                 break;
             case Stages.STRUCT_TIMEWARP:
-                Debug.Log("In struct warp");
                 if (!structureMoving)
                 {
                     er.StartDownTransition();
@@ -59,11 +59,16 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    Debug.Log("Managerspawning");
                     em.StartManager();
                     tm.StopTimeWarp();
                 }
                 break;
             case Stages.BOSS:
+                if (!bossEnabled) {
+                    boss.SetActive(true);
+                    bossEnabled = true;
+                }
                 break;
             case Stages.ESCAPE:
                 break;

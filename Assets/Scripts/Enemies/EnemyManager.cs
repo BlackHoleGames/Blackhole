@@ -75,7 +75,8 @@ public class EnemyManager : MonoBehaviour {
                 }
             }
             else {
-                TimerScript.gameover = true;
+                GetComponentInParent<MapManger>().GoToNextStage();
+                //TimerScript.gameover = true;
             }
         }
     }
