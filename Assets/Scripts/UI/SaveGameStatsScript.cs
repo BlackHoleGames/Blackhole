@@ -5,7 +5,8 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class SaveGameStatsScript : MonoBehaviour {
+public class SaveGameStatsScript : MonoBehaviour
+{
 
     //public int MaxScore = 0;
     public bool StatusUISequence = true;
@@ -30,28 +31,31 @@ public class SaveGameStatsScript : MonoBehaviour {
         GOTy = GameOverType.NOTHING;
         ScoreNames = new string[5];
         ScoreResults = new string[5];
-        
+
         if (GameStats == null)
         {
             GameStats = this;
             DontDestroyOnLoad(gameObject);
-        }else if (GameStats!= this)
+        }
+        else if (GameStats != this)
         {
             Destroy(gameObject);
         }
     }
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         GetStats();
         GetScore();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     public void SetStats()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -71,7 +75,7 @@ public class SaveGameStatsScript : MonoBehaviour {
     {
         if (File.Exists(configFile))
         {
-            
+
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(configFile, FileMode.Open);
 
@@ -83,7 +87,8 @@ public class SaveGameStatsScript : MonoBehaviour {
             isGoodEnding = data.isGoodEnding;
             playerScore = data.playerScore;
             file.Close();
-        }else
+        }
+        else
         {
             StatusUISequence = true;
         }
@@ -97,7 +102,7 @@ public class SaveGameStatsScript : MonoBehaviour {
             FileInfo file;
             file = new FileInfo(scoreFile);
             reader = file.OpenText();
-            for (int i = 0; i< 5; ++i)
+            for (int i = 0; i < 5; ++i)
             {
                 string text = reader.ReadLine();
                 string[] processedText = text.Split(',');
@@ -112,32 +117,33 @@ public class SaveGameStatsScript : MonoBehaviour {
         }
     }
 
-    public void SetScore(string Player,string CurrentScore)
+    public void SetScore(string Player, string CurrentScore)
     {
         GetScore();
-        File.Delete(scoreFile);
-        File.Create(scoreFile);
         bool found = false;
-        for(int i = 0; i < 5; i++)
+        string endingScore="";
+        for (int i = 0; i < 5; i++)
         {
-            if (!found) { 
+            if (!found)
+            {
                 if (int.Parse(ScoreResults[i]) <= int.Parse(CurrentScore))
                 {
                     found = true;
-                    using (StreamWriter sw = File.AppendText(scoreFile))
-                        sw.WriteLine(Player + "," + CurrentScore);
+                    endingScore = endingScore + Player + "," + CurrentScore + "\n";
                 }
                 else
                 {
-                    using (StreamWriter sw = File.AppendText(scoreFile))
-                        sw.WriteLine(ScoreNames[i]+","+ScoreResults[i]);
-                    
+                    endingScore = endingScore + ScoreNames[i] + "," + ScoreResults[i] + "\n";
                 }
-            }else
-            {
-                using (StreamWriter sw = File.AppendText(scoreFile))
-                    sw.WriteLine(ScoreNames[i-1] + "," + ScoreResults[i-1]);
             }
+            else
+            {
+                endingScore = endingScore + ScoreNames[i - 1] + "," + ScoreResults[i - 1] + "\n";
+            }
+        }
+        using (StreamWriter sw = new StreamWriter(scoreFile,false))// File.AppendText(scoreFile))
+        {
+            sw.WriteLine(endingScore);
         }
     }
     public void DefaultScore()
@@ -170,5 +176,5 @@ class DataForSave
     public bool StatusUISequence;
     public bool isGameOver;
     public bool isGoodEnding;
-    public int  playerScore;
+    public int playerScore;
 }

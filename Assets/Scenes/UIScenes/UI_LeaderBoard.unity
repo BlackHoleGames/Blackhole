@@ -710,6 +710,7 @@ GameObject:
   - component: {fileID: 862067656}
   - component: {fileID: 862067657}
   - component: {fileID: 862067659}
+  - component: {fileID: 862067658}
   m_Layer: 5
   m_Name: UI
   m_TagString: UIScore
@@ -830,6 +831,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41167a596bcf104a993328de8f76803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &862067658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 862067651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bc41e1c503a7b4384947dc16e2d4ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: {fileID: 1265089404}
+  initials: {fileID: 2078846832}
 --- !u!114 &862067659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,10 +856,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashLeaderBoards: {fileID: 1775333952}
-  time: {fileID: 1265089404}
   Letter: {fileID: 2078846832}
   loadLevel: 
-  PStart: 0
+  WaitingForName: 0
   isLeaderBoardTime: 1
   GameOverText: {fileID: 536507689}
 --- !u!1 &1019526772
