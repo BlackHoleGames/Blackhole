@@ -21,7 +21,6 @@ public class TunnelStageFinisher : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Managerspawning");
 
             mm.GoToNextStage();
             Destroy(transform.parent.gameObject);

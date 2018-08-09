@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 134676077}
   - component: {fileID: 134676076}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Entry/Exit3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 329914776}
   - component: {fileID: 329914775}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Entry/Exit1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3303,10 +3303,6 @@ MonoBehaviour:
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 637145680}
   pdestroyed: {fileID: 0}
-  timebomb: {fileID: 1084094429}
-  slomo: {fileID: 1084094430}
-  gunshot: {fileID: 1084094428}
-  timewarp: {fileID: 1084094427}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
@@ -5819,7 +5815,7 @@ GameObject:
   - component: {fileID: 1828909130}
   - component: {fileID: 1828909129}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Entry/Exit2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5903,7 +5899,7 @@ GameObject:
   - component: {fileID: 1849030153}
   - component: {fileID: 1849030152}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Entry/Exit4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

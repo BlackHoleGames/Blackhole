@@ -59,7 +59,6 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
-                    Debug.Log("Managerspawning");
                     em.StartManager();
                     tm.StopTimeWarp();
                 }
