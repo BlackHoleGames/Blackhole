@@ -7,7 +7,7 @@ public class LeaderBoardScript : MonoBehaviour
 {
 
     // Use this for initialization
-    public Text splashLeaderBoards;
+    public Text LeaderBoardsTitle;
     
     public Text Letter;
     public string loadLevel;
@@ -27,45 +27,41 @@ public class LeaderBoardScript : MonoBehaviour
     private int ScorePosition = 0;
     IEnumerator Start()
     {
-        splashLeaderBoards.canvasRenderer.SetAlpha(0.0f);
-        GameOverText.canvasRenderer.SetAlpha(0.0f);
-        //COMENTAT ARA!        if (SaveGameStatsScript.GameStats.isGameOver) {
-        //COMENTAT ARA!            if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
-        //COMENTAT ARA!            else GameOverText.text = "THE END";
-        //COMENTAT ARA!            if (CompareScore()) {
-        //COMENTAT ARA!                //Congrats Name
-        //COMENTAT ARA!                while (!WaitingForName)
-        //COMENTAT ARA!                {
-        //COMENTAT ARA!                    //if (time.text == "0") break;
-        //COMENTAT ARA!                }
-        //COMENTAT ARA!                SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
-        //COMENTAT ARA!                ReasingScore();
-        //COMENTAT ARA!
-        //COMENTAT ARA!            }
-        //COMENTAT ARA!            ShowScore();
-        //COMENTAT ARA!            FadeInLeaderBoards();
-        //COMENTAT ARA!            yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!            FadeOutLeaderBoards();
-        //COMENTAT ARA!            yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!        }else
-        //COMENTAT ARA!        {
-        //COMENTAT ARA!            ShowScore();
-        //COMENTAT ARA!            FadeInLeaderBoards();
-        //COMENTAT ARA!            yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!            FadeOutLeaderBoards();
-        //COMENTAT ARA!            yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!       }
+        //COMENTAT ARA!! LeaderBoardsTitle.canvasRenderer.SetAlpha(0.0f);
+        //COMENTAT ARA!! GameOverText.canvasRenderer.SetAlpha(0.0f);
+        //COMENTAT ARA!! if (SaveGameStatsScript.GameStats.isGameOver) {
+        //COMENTAT ARA!!      if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
+        //COMENTAT ARA!!      else GameOverText.text = "THE END";
+        //COMENTAT ARA!!      if (CompareScore()) {
+        //COMENTAT ARA!!          //Congrats Name
+        //COMENTAT ARA!!          while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
+//      //COMENTAT ARA!!            SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
+        //COMENTAT ARA!!          ReasingScore();
+        //COMENTAT ARA!! 
+        //COMENTAT ARA!!      }
+        //COMENTAT ARA!!      ShowScore();
+        //COMENTAT ARA!!      FadeInLeaderBoards();
+        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
+        //COMENTAT ARA!!      FadeOutLeaderBoards();
+        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
+        //COMENTAT ARA!! }else{
+        //COMENTAT ARA!!      ShowScore();
+        //COMENTAT ARA!!      FadeInLeaderBoards();
+        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
+        //COMENTAT ARA!!      FadeOutLeaderBoards();
+        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
+        //COMENTAT ARA!! }
         yield return new WaitForSeconds(5.0f);
-        //COMENTAT ARA! SceneManager.LoadScene(1);
+        //COMENTAT ARA!! SceneManager.LoadScene(1);
 
     }
     void FadeInLeaderBoards()
     {
-        splashLeaderBoards.CrossFadeAlpha(1.0f, 1.5f, false);
+        LeaderBoardsTitle.CrossFadeAlpha(1.0f, 1.5f, false);
     }
     void FadeOutLeaderBoards()
     {
-        splashLeaderBoards.CrossFadeAlpha(0.0f, 2.5f, false);
+        LeaderBoardsTitle.CrossFadeAlpha(0.0f, 2.5f, false);
     }
     void ShowScore()
     {

@@ -842,8 +842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bc41e1c503a7b4384947dc16e2d4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: {fileID: 1265089404}
-  initials: {fileID: 2078846832}
+  timerText: {fileID: 1265089404}
+  initialsText: {fileID: 2078846832}
+  isSending: 0
 --- !u!114 &862067659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,7 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089fa2d67bb65443adbd48792e9987a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splashLeaderBoards: {fileID: 1775333952}
+  LeaderBoardsTitle: {fileID: 1775333952}
   Letter: {fileID: 2078846832}
   loadLevel: 
   WaitingForName: 0
@@ -1002,7 +1003,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 59
+  m_Text: 29
 --- !u!222 &1265089405
 CanvasRenderer:
   m_ObjectHideFlags: 0
