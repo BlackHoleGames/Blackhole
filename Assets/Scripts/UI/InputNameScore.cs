@@ -12,6 +12,7 @@ public class InputNameScore : MonoBehaviour {
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private string letter = "Z";
     private float axisX;
+    private float RT;
     private string initialAux="";
     private bool initialAuxDone = false;
     private bool isDone = false;
@@ -28,6 +29,7 @@ public class InputNameScore : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         axisX = Input.GetAxis("Horizontal");
+        RT = Input.GetAxis("RT1");
         if (!isDone)
         {
 
@@ -97,6 +99,10 @@ public class InputNameScore : MonoBehaviour {
                 alphabetIncreaseSearch();
             }
             else if (axisX < 0)
+            {
+                alphabetDecreaseSearch();
+            }
+            else if (RT > 0)
             {
                 alphabetDecreaseSearch();
             }

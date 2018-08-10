@@ -79,11 +79,12 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
+        float RT = Input.GetAxis("RT1");
         Move(axisX, axisY);
         //ManagePitchRotation(axisY);
         ManageRollRotation(axisX);
         if (startRotatingRoll || startRotatingPitch) Rotate();
-        ManageInput();
+        ManageInput(RT);
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
         else {
             if (alarm.isPlaying) alarm.Stop();
@@ -99,20 +100,20 @@ public class SwitchablePlayerController : MonoBehaviour
         if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
     }
 
-    public void ManageInput()
+    public void ManageInput(float RightTrigger)
     {
-        if ((Input.GetButtonDown("Fire1") || Input.GetAxis("360_Triggers") > 0.001) && !is_firing)
+        if ((Input.GetButtonDown("Fire1") || RightTrigger > 0) && !is_firing)
         {
             is_firing = true;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
         }
-        if ((Input.GetButtonUp("Fire1") || Input.GetAxis("360_Triggers") > 0.001) && is_firing)
+        if ((Input.GetButtonUp("Fire1") || RightTrigger > 0) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
         }
-        if (Input.GetAxis("360_Triggers") > 0.001)
+        if (RightTrigger > 0)
         {
             is_firing = true;
         }
@@ -196,14 +197,7 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (is_vertical)
             {
-                if (parentAxis.transform.position.x != nextPosX && Xinput!=0.0f) camRotate = true;
-                else camRotate = false;
                 parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
-                if (camRotate)
-                {
-                    cameraTrs.Rotate(0, 0, Xinput*0.1f);
-                    parentAxis.transform.Rotate(0,  Xinput*10,0);
-                }
             }
             else parentAxis.transform.position += new Vector3(nextPosX, 0.0f, 0.0f);
         }
