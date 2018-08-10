@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XInputDotNetPure;
 
-public class BasicEnemy : MonoBehaviour {
+public class MiniBossScript : MonoBehaviour {
+
+    private bool start;
+
+    private float testTime = 10.0f;
+    private EnemyManager em;
+    private MapManger mm;
 
     public float life = 10.0f;
     public float shotCooldown = 5.0f;
@@ -16,37 +21,29 @@ public class BasicEnemy : MonoBehaviour {
     public TimeBehaviour tb;
     public AudioClip gunshot;
     private GameObject player;
-    private bool shielded, hit, materialHitOn;
-    private SquadManager squadManager;
+    private bool hit, materialHitOn, alive, secondPhase;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
-	// Use this for initialization
-	void Start () {
+
+
+
+    // Use this for initialization
+    void Start () {
+        em = GameObject.Find("Managers").GetComponentInChildren<EnemyManager>();
         player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
-        tb = gameObject.GetComponent<TimeBehaviour>();
-        shotCounter = numberOfShots;
-        shotTimeCounter = rateOfFire;
-        rateCounter = 0.0f;
-        shielded = false;
-        gameObject.GetComponent<Renderer>().material = matOn;
-        squadManager = GetComponentInParent<SquadManager>();
-        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
-        if (pe) pe.squadron.Add(gameObject);
-        audioSource.Play();
-        audioSource.clip = gunshot;
-        gameObject.GetComponent<Renderer>().material = matOff;
-
+        alive = true;
+        secondPhase = false;
     }
-
+         
     // Update is called once per frame
     void Update () {
         transform.LookAt(player.transform.position);
         if (spawnDelay <= 0.0f) {
             if (rateCounter <= 0.0f) {
                 if (shotCounter > 0) {
-                    shotTimeCounter -= Time.deltaTime* tb.scaleOfTime;
+                    shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
                     if (shotTimeCounter <= 0) {
                         shotTimeCounter = rateOfFire;
                         --shotCounter;
@@ -60,9 +57,9 @@ public class BasicEnemy : MonoBehaviour {
                     rateCounter = shotCooldown;
                 }
             }
-            else rateCounter -= Time.deltaTime* tb.scaleOfTime;
+            else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
-        else spawnDelay -= Time.deltaTime* tb.scaleOfTime;
+        else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
         if (materialHitOn) {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
             else {
@@ -75,46 +72,33 @@ public class BasicEnemy : MonoBehaviour {
             hit = false;
             gameObject.GetComponent<Renderer>().material = matOn;
             materialHitOn = true;
-        }
+        }        
+	}
+
+    public void InitiateBoss() {
+        start = true;
     }
 
-    public void Unprotect() {
-        shielded = false;
-        gameObject.GetComponent<Renderer>().material = matOff;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "PlayerProjectile")
-        {
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "PlayerProjectile" && alive) {
             hitAudioSource.Play();
-            if (!shielded) {
-                life -= other.gameObject.GetComponent<Projectile>().damage;
-                hit = true;
-            }
-            if (life <= 0.0f)
-            {
-                Instantiate(explosionPS,transform.position, transform.rotation);
-                Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
-                squadManager.DecreaseNumber();
-                //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
-                //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
-                vibratorOn();
-                Destroy(gameObject);
+            life -= other.gameObject.GetComponent<Projectile>().damage;
+            hit = true;            
+            if (life <= 0.0f) {
+                alive = false;
+                em.StartNewPhase();
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
-                
             }
         }
     }
 
-    public void SetSpawnDelay(float newDelay) {
-        spawnDelay = newDelay;
+    public bool IsSecondPhase() {
+        return secondPhase;
     }
 
-    IEnumerable vibratorOn()
-    {
-        GamePad.SetVibration(0, 0.0f, 2.0f);
-        yield return new WaitForSeconds(1.0f);
-        GamePad.SetVibration(0, 0.0f, 0.0f);
+
+    public void StartSecondPhase() {
+        secondPhase = true;
+        transform.parent.gameObject.GetComponent<MiniBossWeakpoint>().StartWeakPoint();
     }
 }

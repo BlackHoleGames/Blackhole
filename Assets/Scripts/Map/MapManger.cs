@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapManger : MonoBehaviour {
 
-    public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS, STRUCT_TIMEWARP,
+    public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
         STRUCT_ENEMIES, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
     private EnemyManager em;
@@ -44,7 +44,12 @@ public class MapManger : MonoBehaviour {
                     em.StartManager();
                 }
                 break;
-            case Stages.MINIBOSS:
+            case Stages.MINIBOSS_FIRSTPHASE:
+                break;
+            case Stages.MINIBOSS_SECONDPHASE:
+                if (!mbs.GetComponent<MiniBossScript>().IsSecondPhase()) {
+                    mbs.GetComponent<MiniBossScript>().StartSecondPhase();
+                }
                 break;
             case Stages.STRUCT_TIMEWARP:
                 if (!structureMoving)
