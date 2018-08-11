@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class InputCtrlUI : MonoBehaviour {
     public int scene = 0;
+    
 	// Use this for initialization
 	void Start () {
        
@@ -15,8 +16,8 @@ public class InputCtrlUI : MonoBehaviour {
         //float axisX = Input.GetAxis("Horizontal");
  //       float positionY = Input.GetAxis("Vertical");
  //       if(positionY!=0.0f)Move(positionY);
-        
-        if (Input.GetKeyDown("enter"))
+      //  if(SceneManager.GetActiveScene().buildIndex ==2)
+        if (Input.GetKeyDown("enter"))//|| Input.GetButtonDown("Start"))
         {
             switch (scene)
             {
@@ -38,10 +39,5 @@ public class InputCtrlUI : MonoBehaviour {
             }
         }
     }
-//    public void Move(float positionY)
-//    {
-//        if (Input.GetButtonDown("Fire1")){
-//
-//        }
-//    }
+
 }

@@ -124,7 +124,7 @@ public class SwitchablePlayerController : MonoBehaviour
             FireRutine = StoppingShoot(0.5f);
             StartCoroutine(FireRutine);
         }
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonUp("AButton")))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
         {
             if (fillTimeBomb.fillAmount == 1.0f)
             {
