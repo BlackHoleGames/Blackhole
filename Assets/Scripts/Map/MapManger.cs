@@ -23,6 +23,7 @@ public class MapManger : MonoBehaviour {
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("Earth").GetComponent<EarthRotation>();
+
         //sm = structure.GetComponent<StructMovement>();
     }
 	
@@ -45,10 +46,13 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
+                if (!mbs.MiniBossStarted()) {
+                    mbs.InitiateBoss();
+                }
                 break;
             case Stages.MINIBOSS_SECONDPHASE:
-                if (!mbs.GetComponent<MiniBossScript>().IsSecondPhase()) {
-                    mbs.GetComponent<MiniBossScript>().StartSecondPhase();
+                if (!mbs.IsSecondPhase()) {
+                    mbs.StartSecondPhase();
                 }
                 break;
             case Stages.STRUCT_TIMEWARP:
