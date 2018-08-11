@@ -40,43 +40,58 @@ public class MiniBossScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.LookAt(player.transform.position);
-        if (spawnDelay <= 0.0f) {
-            if (rateCounter <= 0.0f) {
-                if (shotCounter > 0) {
-                    shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-                    if (shotTimeCounter <= 0) {
+        if (start)
+        {
+            if (spawnDelay <= 0.0f)
+            {
+                if (rateCounter <= 0.0f)
+                {
+                    if (shotCounter > 0)
+                    {
+                        shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
+                        if (shotTimeCounter <= 0)
+                        {
+                            shotTimeCounter = rateOfFire;
+                            --shotCounter;
+                            Instantiate(enemyProjectile, transform.position, transform.rotation);
+                            audioSource.Play();
+                        }
+                    }
+                    else
+                    {
                         shotTimeCounter = rateOfFire;
-                        --shotCounter;
-                        Instantiate(enemyProjectile, transform.position, transform.rotation);
-                        audioSource.Play();
+                        shotCounter = numberOfShots;
+                        rateCounter = shotCooldown;
                     }
                 }
-                else {
-                    shotTimeCounter = rateOfFire;
-                    shotCounter = numberOfShots;
-                    rateCounter = shotCooldown;
+                else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+            }
+            else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
+            if (materialHitOn)
+            {
+                if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+                else
+                {
+                    gameObject.GetComponent<Renderer>().material = matOff;
+                    materialHitOn = false;
+                    hitFeedbackCounter = hitFeedbackDuration;
                 }
             }
-            else rateCounter -= Time.deltaTime * tb.scaleOfTime;
-        }
-        else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
-        if (materialHitOn) {
-            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-            else {
-                gameObject.GetComponent<Renderer>().material = matOff;
-                materialHitOn = false;
-                hitFeedbackCounter = hitFeedbackDuration;
+            if (hit)
+            {
+                hit = false;
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = true;
             }
         }
-        if (hit) {
-            hit = false;
-            gameObject.GetComponent<Renderer>().material = matOn;
-            materialHitOn = true;
-        }        
 	}
 
     public void InitiateBoss() {
         start = true;
+    }
+
+    public bool MiniBossStarted() {
+        return start;
     }
 
     private void OnTriggerEnter(Collider other) {

@@ -7,9 +7,8 @@ public class MiniBossWeakpoint : MonoBehaviour {
     public float life = 10.0f;
     public float hitFeedbackDuration = 0.25f;
     public Material matOn, matOff;
-    public GameObject enemyProjectile, explosionPS;
+    public GameObject explosionPS;
     public TimeBehaviour tb;
-    public AudioClip gunshot;
     private bool hit, materialHitOn;
     private float hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;

@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4207827024376844}
   - component: {fileID: 114211714087593678}
   - component: {fileID: 82276442174663218}
+  - component: {fileID: 114902498247155804}
   m_Layer: 0
   m_Name: Squad 1 1
   m_TagString: Untagged
@@ -289,7 +290,7 @@ MonoBehaviour:
   numOfMembers: 5
   Manager: {fileID: 0}
   speed: 3
-  timeToLive: -1
+  timeToStay: -1
 --- !u!114 &114292750361204870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +343,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyToInstantiate: {fileID: 1336138879871236, guid: 47328744d7d116e418752c4836e0522b,
     type: 2}
+--- !u!114 &114902498247155804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747372598155538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ca26ba0da75945b750ba33cd229c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleOfTime: 1
 --- !u!114 &114963725510042952
 MonoBehaviour:
   m_ObjectHideFlags: 1
