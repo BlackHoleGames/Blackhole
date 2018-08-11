@@ -41,6 +41,8 @@ public class SwitchablePlayerController : MonoBehaviour
     public Transform cameraTrs;
     public bool camRotate = false;
     public bool speedOn =false;
+    private IEnumerator FireRutine;
+
     // Use this for initialization
     void Start()
     {
@@ -70,7 +72,7 @@ public class SwitchablePlayerController : MonoBehaviour
         gunshot = audioSources[2];
         timewarp = audioSources[3];
         alarm = audioSources[4];
-
+        
         //parentAxis = gameObject;
     }
 
@@ -79,7 +81,7 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         float axisX = Input.GetAxis("Horizontal");
         float axisY = Input.GetAxis("Vertical");
-        float RT = Input.GetAxis("RT1");
+        double RT = Input.GetAxis("RT");
         Move(axisX, axisY);
         //ManagePitchRotation(axisY);
         ManageRollRotation(axisX);
@@ -100,24 +102,29 @@ public class SwitchablePlayerController : MonoBehaviour
         if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
     }
 
-    public void ManageInput(float RightTrigger)
+    public void ManageInput(double RT)
     {
-        if ((Input.GetButtonDown("Fire1") || RightTrigger > 0) && !is_firing)
+        
+        bool isShotingbyPath = false;
+        RT=System.Math.Round(RT, 2);
+        if (RT > 0) isShotingbyPath = true;
+        if ((Input.GetButtonDown("Fire1") || ((RT > 0) && (RT >= 1))) && !is_firing)
         {
             is_firing = true;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
         }
-        if ((Input.GetButtonUp("Fire1") || RightTrigger > 0) && is_firing)
+        if ((Input.GetButtonUp("Fire1")) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
         }
-        if (RightTrigger > 0)
+        if (isShotingbyPath)
         {
-            is_firing = true;
+            FireRutine = StoppingShoot(0.5f);
+            StartCoroutine(FireRutine);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonUp("AButton")))
         {
             if (fillTimeBomb.fillAmount == 1.0f)
             {
@@ -137,6 +144,14 @@ public class SwitchablePlayerController : MonoBehaviour
                 timewarp.Play();
             }
         }*/
+    }
+
+    IEnumerator StoppingShoot(float waitshoot)
+    {
+        yield return new WaitForSeconds(waitshoot);
+        is_firing = false;
+        //firingCounter = 0.0f;
+        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
     }
 
     public void Regen()
