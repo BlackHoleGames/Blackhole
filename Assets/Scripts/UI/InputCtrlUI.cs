@@ -17,7 +17,7 @@ public class InputCtrlUI : MonoBehaviour {
  //       float positionY = Input.GetAxis("Vertical");
  //       if(positionY!=0.0f)Move(positionY);
       //  if(SceneManager.GetActiveScene().buildIndex ==2)
-        if (Input.GetKeyDown("enter"))//|| Input.GetButtonDown("Start"))
+        if (Input.GetKeyDown("enter")|| Input.GetButtonDown("Start"))
         {
             switch (scene)
             {
