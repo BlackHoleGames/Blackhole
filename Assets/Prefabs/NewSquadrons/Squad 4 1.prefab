@@ -287,7 +287,7 @@ MonoBehaviour:
   subSquadCount: 0
   subSquadron: {fileID: 0}
   subSquadUnitDelayTime: 0
-  numOfMembers: 5
+  numOfMembers: 4
   Manager: {fileID: 0}
   speed: 3
   timeToStay: -1

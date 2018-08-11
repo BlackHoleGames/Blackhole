@@ -4,57 +4,74 @@ using UnityEngine;
 
 public class MiniBossWeakpoint : MonoBehaviour {
 
-    public float life = 10.0f;
+    public float life = 100.0f;
     public float hitFeedbackDuration = 0.25f;
     public Material matOn, matOff;
     public GameObject explosionPS;
     public TimeBehaviour tb;
-    private bool hit, materialHitOn;
+    private bool hit, materialHitOn, alive;
     private float hitFeedbackCounter;
-    private AudioSource audioSource, hitAudioSource;
+    private AudioSource  hitAudioSource;
+    public GameObject destroyedBody, destroyedHead, body;
+    public float destroyedTimer = 60.0f;
 
     // Use this for initialization
     void Start () {
-        audioSource = GetComponents<AudioSource>()[0];
-        hitAudioSource = GetComponents<AudioSource>()[1];
+        hitAudioSource = GetComponent<AudioSource>();
+        hit = false;
+        materialHitOn = false;
+        alive = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (materialHitOn)
+        if (alive)
         {
-            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-            else
+            if (materialHitOn)
             {
+                if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+                else
+                {
+                    gameObject.GetComponent<Renderer>().material = matOn;
+                    materialHitOn = false;
+                    hitFeedbackCounter = hitFeedbackDuration;
+                }
+            }
+            if (hit)
+            {
+                hit = false;
                 gameObject.GetComponent<Renderer>().material = matOff;
-                materialHitOn = false;
-                hitFeedbackCounter = hitFeedbackDuration;
+                materialHitOn = true;
             }
         }
-        if (hit)
-        {
-            hit = false;
-            gameObject.GetComponent<Renderer>().material = matOn;
-            materialHitOn = true;
+        else {
+            destroyedTimer -= Time.deltaTime;
+            if (destroyedTimer < 0.0f) {
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
             hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
-            if (life <= 0.0f)
-            {
-                Destroy(transform.parent.gameObject);
+            if (life <= 0.0f) {
+                SwitchToDestroy();
+                alive = false;
+                //Destroy(transform.parent.gameObject);
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
             }
         }
     }
 
-    public void StartWeakPoint() {
+    public void SwitchToDestroy() {
 
+        destroyedBody.SetActive(true);
+        destroyedHead.SetActive(true);
+        body.SetActive(false);
+        gameObject.SetActive(false);
     }
-
 }

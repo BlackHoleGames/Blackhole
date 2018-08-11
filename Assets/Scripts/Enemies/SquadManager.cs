@@ -94,8 +94,10 @@ public class SquadManager : MonoBehaviour {
                     Destroy(gameObject);
                 }
                 else {
-                    if (GetComponentInChildren<MiniBossScript>()) {
-                        GetComponentInChildren<MiniBossScript>().InitiateBoss();
+                    MiniBossScript script = GetComponentInChildren<MiniBossScript>();
+                    if (script) {
+                        transform.parent.GetComponent<MapManger>().mbs = script;
+                        script.InitiateBoss();                        
                         Manager.StartNewPhase();
                         Destroy(this);
                     }
