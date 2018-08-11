@@ -11,18 +11,18 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss;
+    public GameObject structure,boss, miniboss;
     private StructMovement sm;
-    private EarthRotation er;
+    public EarthRotation er;
     private bool structureMoving = false;
     private bool bossEnabled = false;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
-        actualStage = Stages.METEORS_TIMEWARP;
+        //actualStage = Stages.METEORS_TIMEWARP;
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
-        er = GameObject.Find("Earth").GetComponent<EarthRotation>();
+        er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
 
         //sm = structure.GetComponent<StructMovement>();
     }
@@ -46,20 +46,21 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
-                if (!mbs.MiniBossStarted()) {
-                    mbs.InitiateBoss();
+                if (mbs) {
+                    if (!mbs.MiniBossStarted()) mbs.InitiateBoss();
                 }
                 break;
             case Stages.MINIBOSS_SECONDPHASE:
                 if (!mbs.IsSecondPhase()) {
+                    tm.StartTimeWarp();
                     mbs.StartSecondPhase();
                 }
+                if (!mbs) GoToNextStage();
                 break;
             case Stages.STRUCT_TIMEWARP:
                 if (!structureMoving)
                 {
                     er.StartDownTransition();
-                    tm.StartTimeWarp();
                     structure.SetActive(true);
                     sm = structure.GetComponent<StructMovement>();
                     sm.StartMovingStruct();

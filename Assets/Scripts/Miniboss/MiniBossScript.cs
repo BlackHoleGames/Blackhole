@@ -10,7 +10,7 @@ public class MiniBossScript : MonoBehaviour {
     private EnemyManager em;
     private MapManger mm;
 
-    public float life = 10.0f;
+    public float life = 100.0f;
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
@@ -35,6 +35,9 @@ public class MiniBossScript : MonoBehaviour {
         hitAudioSource = GetComponents<AudioSource>()[1];
         alive = true;
         secondPhase = false;
+        tb = GetComponent<TimeBehaviour>();
+        hit = false;
+        materialHitOn = false;
     }
          
     // Update is called once per frame
@@ -72,7 +75,7 @@ public class MiniBossScript : MonoBehaviour {
                 if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
                 else
                 {
-                    gameObject.GetComponent<Renderer>().material = matOff;
+                    gameObject.GetComponent<Renderer>().material = matOn;
                     materialHitOn = false;
                     hitFeedbackCounter = hitFeedbackDuration;
                 }
@@ -80,7 +83,7 @@ public class MiniBossScript : MonoBehaviour {
             if (hit)
             {
                 hit = false;
-                gameObject.GetComponent<Renderer>().material = matOn;
+                gameObject.GetComponent<Renderer>().material = matOff;
                 materialHitOn = true;
             }
         }
@@ -114,6 +117,5 @@ public class MiniBossScript : MonoBehaviour {
 
     public void StartSecondPhase() {
         secondPhase = true;
-        transform.parent.gameObject.GetComponent<MiniBossWeakpoint>().StartWeakPoint();
     }
 }

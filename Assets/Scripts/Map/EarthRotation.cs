@@ -16,10 +16,14 @@ public class EarthRotation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(-speed*Time.deltaTime,0.0f,0.0f);
-        if (goDown) transform.Translate(new Vector3(0.0f, Time.deltaTime * downSpeed, 0.0f));
+        if (goDown) transform.position += new Vector3(0.0f, Time.deltaTime * -downSpeed, 0.0f);
     }
 
     public void StartDownTransition() {
         goDown = true;
+    }
+
+    public bool IsMovingDown() {
+        return goDown;
     }
 }
