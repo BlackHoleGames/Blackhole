@@ -29,7 +29,6 @@ public class InputNameScore : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         axisX = Input.GetAxis("Horizontal");
-        RT = Input.GetAxis("RT1");
         if (!isDone)
         {
 

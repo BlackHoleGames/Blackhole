@@ -13,10 +13,6 @@ public class InputCtrlUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //float axisX = Input.GetAxis("Horizontal");
- //       float positionY = Input.GetAxis("Vertical");
- //       if(positionY!=0.0f)Move(positionY);
-      //  if(SceneManager.GetActiveScene().buildIndex ==2)
         if (Input.GetKeyDown("enter")|| Input.GetButtonDown("Start"))
         {
             switch (scene)

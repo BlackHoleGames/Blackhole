@@ -103,6 +103,11 @@ public class TimeGhost : MonoBehaviour
             firingCounter = fireCooldown;
         }
     }
+    public void RotateGhosts()
+    {
+        transform.eulerAngles = new Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x, 
+            0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
+    }
 }
 
 

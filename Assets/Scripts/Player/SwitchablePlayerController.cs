@@ -234,7 +234,7 @@ public class SwitchablePlayerController : MonoBehaviour
     //parentAxis
     public void ManageRollRotation(float Xinput)
     {
-
+        
         if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0))
         {
             rotationTargetZ = 0.0f;
@@ -269,6 +269,7 @@ public class SwitchablePlayerController : MonoBehaviour
             }
 
         }
+        
     }
 
     public void ManagePitchRotation(float YZinput)
@@ -313,6 +314,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public void Rotate()
     {
         parentAxis.transform.eulerAngles = new Vector3(rotX.x, 0.0f, rotZ.z);
+        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().RotateGhosts();
     }
 
     public void ReadjustPlayer()
