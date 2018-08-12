@@ -8,7 +8,6 @@ public class SwitchablePlayerController : MonoBehaviour
 {
 
 
-    public bool is_vertical, is_firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
     public float rotationSpeed = 4.0f;
@@ -38,6 +37,9 @@ public class SwitchablePlayerController : MonoBehaviour
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit;
     private TimeManager tm;
     private List<GameObject> ghostArray;
+    private bool is_vertical, is_firing, play;
+
+
     public Transform cameraTrs;
     public bool camRotate = false;
     public bool speedOn =false;
@@ -47,7 +49,7 @@ public class SwitchablePlayerController : MonoBehaviour
     void Start()
     {
         //        mDestroyed = GetComponent<Mesh>();
-
+        play = true;
         actualLife = shield;
         life.value = actualLife;
         rotationTargetZ = 0.0f;
@@ -76,19 +78,32 @@ public class SwitchablePlayerController : MonoBehaviour
         //parentAxis = gameObject;
     }
 
+    /*
+        is_firing = false;
+        rotation = 0;
+        alertModeTime = 0
+        isPlaying -> stop
+        playerHit = false;
+        regenTimeBomb = 1.0f
+    */
+
     // Update is called once per frame
     void Update()
     {
-        float axisX = Input.GetAxis("Horizontal");
-        float axisY = Input.GetAxis("Vertical");
-        double RT = Input.GetAxis("RT");
-        Move(axisX, axisY);
-        //ManagePitchRotation(axisY);
-        ManageRollRotation(axisX);
+        if (play)
+        {
+            float axisX = Input.GetAxis("Horizontal");
+            float axisY = Input.GetAxis("Vertical");
+            double RT = Input.GetAxis("RT");
+            Move(axisX, axisY);
+            //ManagePitchRotation(axisY);
+            ManageRollRotation(axisX);
+            ManageInput(RT);
+        }
         if (startRotatingRoll || startRotatingPitch) Rotate();
-        ManageInput(RT);
         if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
-        else {
+        else
+        {
             if (alarm.isPlaying) alarm.Stop();
             playerHit = false;
         }
@@ -100,6 +115,7 @@ public class SwitchablePlayerController : MonoBehaviour
         }
         //if (actualLife < shield) Regen();
         if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
+        
     }
 
     public void ManageInput(double RT)
@@ -174,6 +190,10 @@ public class SwitchablePlayerController : MonoBehaviour
             gunshot.Play();
             firingCounter = fireCooldown;
         }
+    }
+
+    public bool IsFiring() {
+        return is_firing;
     }
 
     public void SwitchAxis()
@@ -446,5 +466,9 @@ public class SwitchablePlayerController : MonoBehaviour
             TimeWarpXLimit = newX;
             TimeWarpYLimit = newY;
         }
+    }
+
+    public void ActivatePlayer() {
+        play = true;
     }
 }

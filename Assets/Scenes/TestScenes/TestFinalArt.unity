@@ -587,7 +587,7 @@ MonoBehaviour:
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   - {fileID: 1807735217654372, guid: 1534cc3dc2f45fc409d6199e4943f84d, type: 2}
-  - {fileID: 1056524295903980, guid: 37d7aacfe1da539468e57171fa0b98d5, type: 2}
+  - {fileID: 1084684997022804, guid: 37d7aacfe1da539468e57171fa0b98d5, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
@@ -9283,7 +9283,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -10262,8 +10262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df0efc39956f446a60150f9dd1c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_vertical: 0
-  is_firing: 0
   fireCooldown: 0.1
   speedFactor: 8
   rotationSpeed: 3.5
@@ -14988,8 +14986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df0efc39956f446a60150f9dd1c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_vertical: 0
-  is_firing: 0
   fireCooldown: 0.1
   speedFactor: 7
   rotationSpeed: 2
@@ -15481,7 +15477,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
       propertyPath: m_LocalRotation.x
