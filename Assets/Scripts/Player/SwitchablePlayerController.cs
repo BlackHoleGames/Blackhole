@@ -44,7 +44,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool camRotate = false;
     public bool speedOn =false;
     private IEnumerator FireRutine;
-
+    public bool isDeath = false;
     // Use this for initialization
     void Start()
     {
@@ -90,32 +90,34 @@ public class SwitchablePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (play)
+        if (!isDeath)
         {
-            float axisX = Input.GetAxis("Horizontal");
-            float axisY = Input.GetAxis("Vertical");
-            double RT = Input.GetAxis("RT");
-            Move(axisX, axisY);
-            //ManagePitchRotation(axisY);
-            ManageRollRotation(axisX);
-            ManageInput(RT);
+            if (play)
+            {
+                float axisX = Input.GetAxis("Horizontal");
+                float axisY = Input.GetAxis("Vertical");
+                double RT = Input.GetAxis("RT");
+                Move(axisX, axisY);
+                //ManagePitchRotation(axisY);
+                ManageRollRotation(axisX);
+                ManageInput(RT);
+            }
+            if (startRotatingRoll || startRotatingPitch) Rotate();
+            if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
+            else
+            {
+                if (alarm.isPlaying) alarm.Stop();
+                playerHit = false;
+            }
+            if (readjustPosition) ReadjustPlayer();
+            if (is_firing)
+            {
+                Fire();
+                firingCounter -= Time.unscaledDeltaTime;
+            }
+            //if (actualLife < shield) Regen();
+            if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
-        if (startRotatingRoll || startRotatingPitch) Rotate();
-        if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
-        else
-        {
-            if (alarm.isPlaying) alarm.Stop();
-            playerHit = false;
-        }
-        if (readjustPosition) ReadjustPlayer();
-        if (is_firing)
-        {
-            Fire();
-            firingCounter -= Time.unscaledDeltaTime;
-        }
-        //if (actualLife < shield) Regen();
-        if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
-        
     }
 
     public void ManageInput(double RT)
@@ -418,6 +420,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (actualLife < 0.0f)
                         {
                             fillLife.enabled = false;
+                            isDeath = true;
                             //mDestroyed = null;
                             //pdestroyed.SetActive(true);
                             //playerOk = null;

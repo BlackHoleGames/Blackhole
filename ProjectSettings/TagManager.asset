@@ -28,6 +28,7 @@ TagManager:
   - ScoreResultC
   - ScoreResultD
   - ScoreResultE
+  - PlayerDestroyed
   layers:
   - Default
   - TransparentFX
