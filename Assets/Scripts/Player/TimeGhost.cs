@@ -32,7 +32,7 @@ public class TimeGhost : MonoBehaviour
     void Start()
     {
         firingCounter = 0.0f;
-        is_firing = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().is_firing;
+        is_firing = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().IsFiring();
 
         int length = Mathf.CeilToInt(lagSeconds * MAX_FPS);
         position_buffer = new Vector3[length];

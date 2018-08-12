@@ -14,7 +14,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private AudioSource  hitAudioSource;
     public GameObject destroyedBody, destroyedHead, body;
     public float destroyedTimer = 60.0f;
-
+    private GameObject explosion;
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
@@ -46,9 +46,14 @@ public class MiniBossWeakpoint : MonoBehaviour {
         }
         else {
             destroyedTimer -= Time.deltaTime;
-            if (destroyedTimer < 0.0f) {
-                Destroy(transform.parent.gameObject);
+            if (destroyedTimer < 1.0f && destroyedTimer > 0.0f) {
+                foreach (Transform child in transform) {
+                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Destroy(child);
+                }
             }
+            if (destroyedTimer <= 0.0f) Destroy(transform.parent.gameObject);
+
         }
     }
 
@@ -72,6 +77,8 @@ public class MiniBossWeakpoint : MonoBehaviour {
         destroyedBody.SetActive(true);
         destroyedHead.SetActive(true);
         body.SetActive(false);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(GetComponent<SphereCollider>());
+        GetComponent<Renderer>().enabled = false;
     }
 }
