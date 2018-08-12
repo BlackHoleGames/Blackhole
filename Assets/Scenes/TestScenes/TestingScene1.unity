@@ -3774,6 +3774,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f3bf89625b35143b63e45a8e3bb69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitingForDeath: 0
+  pdestroyed: {fileID: 2074911101}
+  parentAxis: {fileID: 1532430271}
+  propeller: {fileID: 1350667465}
 --- !u!1 &1288025880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4103,7 +4107,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -258117976
+  randomSeed: -1493520796
   InitialModule:
     serializedVersion: 3
     enabled: 1
