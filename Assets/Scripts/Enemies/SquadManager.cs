@@ -18,13 +18,16 @@ public class SquadManager : MonoBehaviour {
     public float timeToStay = -1.0f;
     private bool movingToPosition, stayIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
+
     //private EnemyManager.SpawnPoint exitPoint = EnemyManager.SpawnPoint.NOT_SET;
     private Vector3 center = new Vector3(0.0f,0.0f,5.0f);
     private Vector3 initialPos, target, exit;
     private float timeToMove;
+    private TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
         Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
+        tb = GetComponent<TimeBehaviour>();
         timeToMove = 0;
         initialPos = transform.position;
         movingToPosition = true;
@@ -84,7 +87,7 @@ public class SquadManager : MonoBehaviour {
 
         if (movingToPosition)
         {
-            timeToMove += Time.deltaTime / 3.0f;
+            timeToMove += Time.deltaTime*tb.scaleOfTime / 3.0f;
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
             if (Vector3.Distance(transform.position,target)< 1.0 ) {
                 movingToPosition = false;

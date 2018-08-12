@@ -5,16 +5,17 @@ using UnityEngine;
 public class EnemyLookAt : MonoBehaviour {
     Transform playerTransform;
     float rotationSpeed = 3.0f;
-    
+    private TimeBehaviour tb;
     // Use this for initialization
     void Start () {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        tb = GetComponent<TimeBehaviour>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         transform.rotation = Quaternion.Slerp(transform.rotation, 
             Quaternion.LookRotation(playerTransform.position - transform.position),
-            rotationSpeed * Time.deltaTime);
+            rotationSpeed * Time.deltaTime*tb.scaleOfTime);
     }
 }

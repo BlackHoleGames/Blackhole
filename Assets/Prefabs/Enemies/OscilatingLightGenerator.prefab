@@ -62,7 +62,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
+  - {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -300,7 +300,6 @@ MonoBehaviour:
   squadManager: {fileID: 0}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
-  explosionClip: {fileID: 8300000, guid: 510c9e60a54bbd1489280a68891ec437, type: 3}
 --- !u!114 &114369309942608462
 MonoBehaviour:
   m_ObjectHideFlags: 1

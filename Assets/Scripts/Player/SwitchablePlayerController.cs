@@ -392,7 +392,6 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
         {
-
             if (alertModeTime > 0.0f)
             {
                 if (!alarm.isPlaying) alarm.Play();

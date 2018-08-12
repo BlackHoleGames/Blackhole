@@ -2375,7 +2375,7 @@ MonoBehaviour:
   destroyedBody: {fileID: 1679286144418736}
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
-  destroyedTimer: 7.5
+  destroyedTimer: 3
 --- !u!114 &114586862630743478
 MonoBehaviour:
   m_ObjectHideFlags: 1

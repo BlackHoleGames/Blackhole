@@ -11,7 +11,7 @@ public class BasicEnemy : MonoBehaviour {
     public int numberOfShots = 3;
     public float hitFeedbackDuration = 0.25f;
     public float spawnDelay = 5.0f;
-    public Material matOn, matOff;
+    public Material matOn, matOff, matFlicker;
     public GameObject enemyProjectile, explosionPS;
     public TimeBehaviour tb;
     public AudioClip gunshot;
@@ -36,51 +36,64 @@ public class BasicEnemy : MonoBehaviour {
         if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
-        gameObject.GetComponent<Renderer>().material = matOff;
+        gameObject.GetComponent<Renderer>().material = matOn;
 
     }
 
     // Update is called once per frame
     void Update () {
-        transform.LookAt(player.transform.position);
-        if (spawnDelay <= 0.0f) {
-            if (rateCounter <= 0.0f) {
-                if (shotCounter > 0) {
-                    shotTimeCounter -= Time.deltaTime* tb.scaleOfTime;
-                    if (shotTimeCounter <= 0) {
-                        shotTimeCounter = rateOfFire;
-                        --shotCounter;
-                        Instantiate(enemyProjectile, transform.position, transform.rotation);
-                        audioSource.Play();
-                    }
-                }
-                else {
-                    shotTimeCounter = rateOfFire;
-                    shotCounter = numberOfShots;
-                    rateCounter = shotCooldown;
-                }
-            }
-            else rateCounter -= Time.deltaTime* tb.scaleOfTime;
-        }
-        else spawnDelay -= Time.deltaTime* tb.scaleOfTime;
-        if (materialHitOn) {
-            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-            else {
-                gameObject.GetComponent<Renderer>().material = matOff;
-                materialHitOn = false;
-                hitFeedbackCounter = hitFeedbackDuration;
-            }
-        }
-        if (hit) {
-            hit = false;
-            gameObject.GetComponent<Renderer>().material = matOn;
-            materialHitOn = true;
-        }
+        //transform.LookAt(player.transform.position);
+        if (spawnDelay <= 0.0f) ManageShot();
+        else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
+        ManageEnemyHit();
     }
 
     public void Unprotect() {
         shielded = false;
-        gameObject.GetComponent<Renderer>().material = matOff;
+        //gameObject.GetComponent<Renderer>().material = matOff;
+    }
+
+    public void ManageShot() {
+        if (rateCounter <= 0.0f)
+        {
+            if (shotCounter > 0)
+            {
+                shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
+                if (shotTimeCounter <= 0)
+                {
+                    shotTimeCounter = rateOfFire;
+                    --shotCounter;
+                    Instantiate(enemyProjectile, transform.position, transform.rotation);
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                shotTimeCounter = rateOfFire;
+                shotCounter = numberOfShots;
+                rateCounter = shotCooldown;
+            }
+        }
+        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+    }
+
+    public void ManageEnemyHit() {
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matFlicker;
+            materialHitOn = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

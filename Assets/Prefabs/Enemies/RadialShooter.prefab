@@ -60,7 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
+  - {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   shotCooldown: 5
   rateOfFire: 0.2
   numberOfShots: 12
+  hitFeedbackDuration: 0.25
   enemyProjectile: {fileID: 1527045921435876, guid: 268fb1625de2e184ab4160ff473f20dc,
     type: 2}
   spawnCooldown: 5
@@ -270,7 +271,6 @@ MonoBehaviour:
   matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
-  explosionClip: {fileID: 8300000, guid: 510c9e60a54bbd1489280a68891ec437, type: 3}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
 --- !u!114 &114794782270147574
 MonoBehaviour:

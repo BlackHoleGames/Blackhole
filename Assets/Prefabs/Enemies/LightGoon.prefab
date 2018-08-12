@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 54362080760941736}
   - component: {fileID: 82456701653251488}
   - component: {fileID: 82734822388576442}
+  - component: {fileID: 114120997528539416}
   m_Layer: 0
   m_Name: LightGoon
   m_TagString: Enemy
@@ -61,7 +62,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
+  - {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -275,6 +276,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114120997528539416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646053309271298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8549d734a900b74e8dfaf6d4409f16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114555720130290790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,11 +302,13 @@ MonoBehaviour:
   shotCooldown: 5
   rateOfFire: 0.2
   numberOfShots: 3
+  hitFeedbackDuration: 0.25
+  spawnDelay: 1
+  matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
+  matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
+  matFlicker: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
-  spawnDelay: 1
-  matOn: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
-  matOff: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
   tb: {fileID: 0}

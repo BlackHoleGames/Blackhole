@@ -48,7 +48,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             destroyedTimer -= Time.deltaTime;
             if (destroyedTimer < 1.0f && destroyedTimer > 0.0f) {
                 foreach (Transform child in transform) {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Instantiate(explosion, transform.position, transform.rotation);
                     Destroy(child);
                 }
             }
