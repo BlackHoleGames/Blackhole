@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour {
 
-    public Vector3 verticalPosition, middlePosition,  timeWarpPos;
-    public Vector3 verticalRotation, middleRotation,  timeWarpRot;
+    public Vector3 verticalPosition, middlePosition,  timeWarpPos, bossCamPos;
+    public Vector3 verticalRotation, middleRotation,  timeWarpRot, bossCamRot;
     public float speed = 5.0f;
     public float timeToMove = 12.0f;
     private float t = 0.0f;
@@ -43,6 +43,17 @@ public class CameraBehaviour : MonoBehaviour {
         targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
         t = 0;
         ScoreScript.multiplierScore = 1.5f;
+        startRotating = true;
+    }
+
+    public void SwitchToBoss() {
+        timeToMove = 6.0f;
+        startPos = transform.position;
+        startRot = transform.rotation; //Quaternion.Euler(targetRot.x, targetRot.y, targetRot.z);
+        targetPos = bossCamPos;
+        targetRot = Quaternion.Euler(bossCamRot.x, bossCamRot.y, bossCamRot.z);
+        t = 0;
+        ScoreScript.multiplierScore = 1.0f;
         startRotating = true;
     }
 

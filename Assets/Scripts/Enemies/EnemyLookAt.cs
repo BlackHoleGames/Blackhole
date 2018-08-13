@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyLookAt : MonoBehaviour {
     Transform playerTransform;
-    float rotationSpeed = 3.0f;
+    public float rotationSpeed = 3.0f;
     private TimeBehaviour tb;
     // Use this for initialization
     void Start () {

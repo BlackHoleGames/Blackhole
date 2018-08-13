@@ -6,29 +6,43 @@ public class WeakPointScript : MonoBehaviour {
 
     private SecondBossStage sbs;
     public Material matOn,matOff, hitMat;
-    private bool hit, materialHitOn;
-    public float life = 100.0f;
-	// Use this for initialization
-	void Start () {
+    private bool hit, materialHitOn, done;
+    public float life = 10.0f;
+    public float lifeCounter;
+
+    // Use this for initialization
+    void Start () {
         sbs = transform.parent.GetComponent<SecondBossStage>();
+        lifeCounter = life;
+        done = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (life > 0.0f)
+        if (!done)
         {
-            if (materialHitOn)
+            if (lifeCounter < life) Regen();
+            if (lifeCounter > 0.0f)
             {
-                gameObject.GetComponent<Renderer>().material = matOn;
-                materialHitOn = false;
-            }
-            if (hit)
-            {
-                hit = false;
-                gameObject.GetComponent<Renderer>().material = hitMat;
-                materialHitOn = true;
+                if (materialHitOn)
+                {
+                    gameObject.GetComponent<Renderer>().material = matOn;
+                    materialHitOn = false;
+                }
+                if (hit)
+                {
+                    hit = false;
+                    gameObject.GetComponent<Renderer>().material = hitMat;
+                    materialHitOn = true;
+                }
             }
         }
+    }
+
+    public void Regen()
+    {
+        lifeCounter += Time.deltaTime*2.5f;
+        transform.position += new Vector3(0.0f, 0.0f, -Time.deltaTime*2.5f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,14 +50,17 @@ public class WeakPointScript : MonoBehaviour {
         if (other.gameObject.tag == "PlayerProjectile")
         {
             hit = true;
-            if (life <= 0.0f)
+            if (lifeCounter <= 0.0f)
             {
+                done = true;
                 sbs.WeakPointDone();
-                gameObject.GetComponent<Renderer>().material = matOff;
+                GetComponent<Renderer>().material = matOff;
                 Destroy(this);
             }
-            else {
-                life -= other.GetComponent<Projectile>().damage;
+            else
+            {
+                lifeCounter -= 1.0f;
+                transform.position += new Vector3(0.0f, 0.0f, 1.0f);
             }
         }
     }

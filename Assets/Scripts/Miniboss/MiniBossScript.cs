@@ -38,54 +38,17 @@ public class MiniBossScript : MonoBehaviour {
         tb = GetComponent<TimeBehaviour>();
         hit = false;
         materialHitOn = false;
+        InitiateBoss();
     }
          
     // Update is called once per frame
     void Update () {
-        transform.LookAt(player.transform.position);
+        //transform.LookAt(player.transform.position);
         if (start)
         {
-            if (spawnDelay <= 0.0f)
-            {
-                if (rateCounter <= 0.0f)
-                {
-                    if (shotCounter > 0)
-                    {
-                        shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-                        if (shotTimeCounter <= 0)
-                        {
-                            shotTimeCounter = rateOfFire;
-                            --shotCounter;
-                            Instantiate(enemyProjectile, transform.position, transform.rotation);
-                            audioSource.Play();
-                        }
-                    }
-                    else
-                    {
-                        shotTimeCounter = rateOfFire;
-                        shotCounter = numberOfShots;
-                        rateCounter = shotCooldown;
-                    }
-                }
-                else rateCounter -= Time.deltaTime * tb.scaleOfTime;
-            }
+            if (spawnDelay <= 0.0f) ManageShot();
             else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
-            if (materialHitOn)
-            {
-                if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-                else
-                {
-                    gameObject.GetComponent<Renderer>().material = matOn;
-                    materialHitOn = false;
-                    hitFeedbackCounter = hitFeedbackDuration;
-                }
-            }
-            if (hit)
-            {
-                hit = false;
-                gameObject.GetComponent<Renderer>().material = matOff;
-                materialHitOn = true;
-            }
+            ManageHit();
         }
 	}
 
@@ -95,6 +58,49 @@ public class MiniBossScript : MonoBehaviour {
 
     public bool MiniBossStarted() {
         return start;
+    }
+
+    public void ManageShot() {
+        if (rateCounter <= 0.0f)
+        {
+            if (shotCounter > 0)
+            {
+                shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
+                if (shotTimeCounter <= 0)
+                {
+                    shotTimeCounter = rateOfFire;
+                    --shotCounter;
+                    Instantiate(enemyProjectile, transform.position, transform.rotation);
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                shotTimeCounter = rateOfFire;
+                shotCounter = numberOfShots;
+                rateCounter = shotCooldown;
+            }
+        }
+        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+    }
+
+    public void ManageHit() {
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOff;
+            materialHitOn = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other) {

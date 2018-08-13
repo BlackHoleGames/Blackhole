@@ -14,7 +14,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private AudioSource  hitAudioSource;
     public GameObject destroyedBody, destroyedHead, body;
     public float destroyedTimer = 60.0f;
-    private GameObject explosion;
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
@@ -22,38 +21,47 @@ public class MiniBossWeakpoint : MonoBehaviour {
         materialHitOn = false;
         alive = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (alive)
+
+    // Update is called once per frame
+    void Update () {
+        if (alive) ManageHit();
+        else
         {
-            if (materialHitOn)
-            {
-                if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-                else
-                {
-                    gameObject.GetComponent<Renderer>().material = matOn;
-                    materialHitOn = false;
-                    hitFeedbackCounter = hitFeedbackDuration;
-                }
-            }
-            if (hit)
-            {
-                hit = false;
-                gameObject.GetComponent<Renderer>().material = matOff;
-                materialHitOn = true;
-            }
-        }
-        else {
             destroyedTimer -= Time.deltaTime;
-            if (destroyedTimer < 1.0f && destroyedTimer > 0.0f) {
-                foreach (Transform child in transform) {
-                    Instantiate(explosion, transform.position, transform.rotation);
-                    Destroy(child);
+            if (destroyedTimer < 1.0f && destroyedTimer > 0.0f)
+            {
+                foreach (Transform child in destroyedBody.transform)
+                {
+                    Instantiate(explosionPS, child.position, child.rotation);
+                    Destroy(child.gameObject);
+                }
+                foreach (Transform child in destroyedHead.transform)
+                {
+                    Instantiate(explosionPS, child.position, child.rotation);
+                    Destroy(child.gameObject);
                 }
             }
             if (destroyedTimer <= 0.0f) Destroy(transform.parent.gameObject);
 
+        }
+    }
+
+    public void ManageHit() {
+        if (materialHitOn)
+        {
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
+        }
+        if (hit)
+        {
+            hit = false;
+            gameObject.GetComponent<Renderer>().material = matOff;
+            materialHitOn = true;
         }
     }
 
@@ -64,6 +72,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
+                Instantiate(explosionPS, transform.position, transform.rotation);
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);

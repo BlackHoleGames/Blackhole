@@ -13,6 +13,7 @@ public class MapManger : MonoBehaviour {
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss;
     private StructMovement sm;
+    public CameraBehaviour cb;
     public EarthRotation er;
     private bool structureMoving = false;
     private bool bossEnabled = false;
@@ -20,6 +21,7 @@ public class MapManger : MonoBehaviour {
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
         //actualStage = Stages.METEORS_TIMEWARP;
+        cb = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
@@ -75,6 +77,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.BOSS:
                 if (!bossEnabled) {
+                    cb.SwitchToBoss();
                     boss.SetActive(true);
                     bossEnabled = true;
                 }

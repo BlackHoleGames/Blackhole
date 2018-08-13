@@ -29,16 +29,28 @@ public class ThirdBossStage : MonoBehaviour {
 	void Update () {
         if (start)
         {
-            if (!defeated)
-            {
-                transform.position = parentAxis.transform.position;
-                foreach (GameObject g in eyes)
-                {
-                    g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-                    desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
-                    g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
-                }
-            }
+            if (!defeated) ManageMovement();
+        }
+    }
+
+    /*public void ManageMovement() {
+        transform.position = parentAxis.transform.position;
+        foreach (GameObject g in eyes)
+        {
+            g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+            desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
+            g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+        }
+    }*/
+
+    public void ManageMovement()
+    {
+        transform.position = Vector3.Lerp(parentAxis.transform.position, (parentAxis.transform.position-transform.position) , Time.deltaTime);
+        foreach (GameObject g in eyes)
+        {
+            g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+            desiredPosition = (g.transform.position - transform.position).normalized * radius + transform.position;
+            g.transform.position = Vector3.MoveTowards(g.transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
         }
     }
 

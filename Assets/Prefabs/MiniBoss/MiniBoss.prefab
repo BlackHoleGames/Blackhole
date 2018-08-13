@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 82082718283669432}
   - component: {fileID: 54218910819022886}
   - component: {fileID: 64012925092925488}
+  - component: {fileID: 114458318678410498}
   m_Layer: 0
   m_Name: MiniBossBody
   m_TagString: Untagged
@@ -216,6 +217,7 @@ GameObject:
   - component: {fileID: 135108615772941476}
   - component: {fileID: 54779135801814496}
   - component: {fileID: 82155444150749542}
+  - component: {fileID: 114549880833496666}
   m_Layer: 0
   m_Name: MiniBossHead
   m_TagString: Untagged
@@ -2376,6 +2378,30 @@ MonoBehaviour:
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
   destroyedTimer: 3
+--- !u!114 &114458318678410498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1169625942835322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8549d734a900b74e8dfaf6d4409f16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 3
+--- !u!114 &114549880833496666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406556666364898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8549d734a900b74e8dfaf6d4409f16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 3
 --- !u!114 &114586862630743478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2412,14 +2438,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 10
-  shotCooldown: 5
+  shotCooldown: 1.5
   rateOfFire: 0.2
-  numberOfShots: 3
+  numberOfShots: 10
   hitFeedbackDuration: 0.25
   spawnDelay: 5
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  enemyProjectile: {fileID: 1608848417862874, guid: 39967631d57764f4a97b91a232b270e1,
+  enemyProjectile: {fileID: 1608848417862874, guid: 191d514802cac9f4f81a51b8e9f305b4,
     type: 2}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}

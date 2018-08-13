@@ -3273,8 +3273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df0efc39956f446a60150f9dd1c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_vertical: 0
-  is_firing: 0
   fireCooldown: 0.2
   speedFactor: 7
   rotationSpeed: 2
@@ -3312,6 +3310,7 @@ MonoBehaviour:
   cameraTrs: {fileID: 0}
   camRotate: 0
   speedOn: 0
+  isDeath: 0
 --- !u!23 &1084094434
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3703,7 +3702,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   hitMat: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  life: 100
+  life: 10
+  lifeCounter: 0
 --- !u!1 &1165133552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4419,7 +4419,8 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   hitMat: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  life: 100
+  life: 10
+  lifeCounter: 0
 --- !u!1 &1514625867
 GameObject:
   m_ObjectHideFlags: 0
@@ -4773,9 +4774,11 @@ MonoBehaviour:
   verticalPosition: {x: 0, y: 26, z: 0}
   middlePosition: {x: 0, y: 20, z: -22}
   timeWarpPos: {x: 0, y: 2, z: -15}
+  bossCamPos: {x: 0, y: 0, z: 0}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
   timeWarpRot: {x: 0, y: 0, z: 0}
+  bossCamRot: {x: 0, y: 0, z: 0}
   speed: 0.1
   timeToMove: 1
   startRotating: 0
@@ -6750,7 +6753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803905aa3b2c3849b5469383f8e1730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 0
+  actualStage: 7
   goToPoints: []
   timeToMoveEachPhase: []
   thirdPhaseBoss: {fileID: 0}
@@ -7200,7 +7203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803905aa3b2c3849b5469383f8e1730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 0
+  actualStage: 3
   goToPoints:
   - {fileID: 761224933}
   - {fileID: 1319664333}
