@@ -13,7 +13,7 @@ public class LeaderBoardScript : MonoBehaviour
     public Text Letter;
     public string loadLevel;
     public bool WaitingForName = false;
-    public bool isLeaderBoardTime = true;
+    public bool isLeaderBoardTime = false;
     private Text ScoreNameA;
     private Text ScoreNameB;
     private Text ScoreNameC;
@@ -49,14 +49,14 @@ public class LeaderBoardScript : MonoBehaviour
             if (CompareScore()) {
                 //Congrats Name
                 GetComponent<InputNameScore>().IsInputName = true;
-                while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
-                  SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
-                ReasingScore();
-        
+                //while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
+                //  SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
+                //ReasingScore();
+            }else { 
+                ShowScore();
+                ScoreSequence = ScorePresentation(0.5f);
+                StartCoroutine(ScoreSequence);
             }
-            ShowScore();
-            ScoreSequence = ScorePresentation(0.5f);
-            StartCoroutine(ScoreSequence);
         }else{
              ShowScore();
             ScoreSequence = ScorePresentation(0.5f);
@@ -64,6 +64,18 @@ public class LeaderBoardScript : MonoBehaviour
         }
 //        SceneManager.LoadScene(1);
 
+    }
+    void Update()
+    {
+        if (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName && !isLeaderBoardTime)
+        {
+            isLeaderBoardTime = true;
+            //SaveGameStatsScript.GameStats.SetScore(GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().name, SaveGameStatsScript.GameStats.playerScore.ToString());
+            ReasingScore();
+            ShowScore();
+            ScoreSequence = ScorePresentation(0.5f);
+            StartCoroutine(ScoreSequence);
+        }
     }
     IEnumerator ScorePresentation(float delimitedTimer)
     {

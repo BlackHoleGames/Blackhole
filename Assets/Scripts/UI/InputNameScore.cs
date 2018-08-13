@@ -40,10 +40,10 @@ public class InputNameScore : MonoBehaviour {
     {
         if (IsInputName)
         {
+            WaitingForName = true;
             axisX = Input.GetAxis("Horizontal");
             if (!isDone)
             {
-
                 if (Input.GetButtonDown("AButton"))
                 {
                     initialAuxDone = true;
@@ -67,6 +67,9 @@ public class InputNameScore : MonoBehaviour {
                     }
                 }
             }
+        }else
+        {
+            GetComponent<LeaderBoardScript>().isLeaderBoardTime = true;
         }
     }
     void alphabetIncreaseSearch()
@@ -96,8 +99,8 @@ public class InputNameScore : MonoBehaviour {
             timerText.text = timeRemaining.ToString();
         }
         initialsText.text = initialAux;
+        WaitingForName = false;
         SaveGameStatsScript.GameStats.SetScore(initialsText.text, SaveGameStatsScript.GameStats.playerScore.ToString());
-        WaitingForName = true;
         FadeOutInputName();
         yield return new WaitForSeconds(seconds);
     }

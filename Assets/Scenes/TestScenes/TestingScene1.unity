@@ -4120,7 +4120,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -261200790
+  randomSeed: 1590851274
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7601,6 +7601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceff5b177aa7f1d4a82d760ee2709530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
   ScoreTextValue: {fileID: 1417650788}
 --- !u!114 &1417650788
 MonoBehaviour:
@@ -7846,9 +7847,11 @@ MonoBehaviour:
   verticalPosition: {x: 0, y: 26, z: 0}
   middlePosition: {x: 0, y: 17.5, z: -16.5}
   timeWarpPos: {x: 0, y: 0, z: -25}
+  bossCamPos: {x: 0, y: 0, z: 0}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
   timeWarpRot: {x: 0, y: 0, z: 0}
+  bossCamRot: {x: 0, y: 0, z: 0}
   speed: 0.1
   timeToMove: 1
   startRotating: 0
@@ -9392,6 +9395,7 @@ MonoBehaviour:
   structure: {fileID: 0}
   boss: {fileID: 0}
   miniboss: {fileID: 0}
+  cb: {fileID: 0}
   er: {fileID: 0}
 --- !u!1 &1952563482
 GameObject:

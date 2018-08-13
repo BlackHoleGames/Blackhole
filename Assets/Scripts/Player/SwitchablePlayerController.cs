@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -421,11 +422,10 @@ public class SwitchablePlayerController : MonoBehaviour
                         {
                             fillLife.enabled = false;
                             isDeath = true;
-                            //mDestroyed = null;
-                            //pdestroyed.SetActive(true);
-                            //playerOk = null;
-
-                            TimerScript.gameover = true;
+                            //SaveGameStatsScript.GameStats.isGameOver = true;
+                            //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                            //SceneManager.LoadScene(6);
+                            //TimerScript.gameover = true;
                             //Remaining deaht animation before this bool.                        
                         } // Death                
                     }

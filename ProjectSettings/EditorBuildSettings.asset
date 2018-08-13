@@ -21,11 +21,11 @@ EditorBuildSettings:
     path: Assets/Scenes/UIScenes/UI_Briefing.unity
     guid: 4b2628d01fcf8674fb43f9365005de4c
   - enabled: 1
-    path: Assets/Scenes/Scene1.unity
-    guid: e3d766e55ccee864f93ede82b6e8b01b
+    path: Assets/Scenes/TestScenes/TestingScene1.unity
+    guid: cd86d1da70017e64b904053c00682f42
   - enabled: 1
     path: Assets/Scenes/UIScenes/UI_LeaderBoard.unity
     guid: f607e003b00c87043910d98ee05bfc1f
   - enabled: 0
-    path: Assets/Scenes/UIScenes/UI_GameOver_Back.unity
-    guid: 9ff8055746b4dc945bd18ff8b0d1fad0
+    path: Assets/Scenes/Scene1.unity
+    guid: e3d766e55ccee864f93ede82b6e8b01b
