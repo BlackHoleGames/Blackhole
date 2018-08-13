@@ -17,41 +17,54 @@ public class InputNameScore : MonoBehaviour {
     private bool initialAuxDone = false;
     private bool isDone = false;
     public bool WaitingForName = false;
+    public bool IsInputName = false;
+    
     // Use this for initialization
     void Start () {
-        Timercoroutine = TimeRemaining(1.0f);
-        StartCoroutine(Timercoroutine);
-        Initialcoroutine = LetterRemaining(0.2f);
-        StartCoroutine(Initialcoroutine);
-        isDone = false;
+        if (SaveGameStatsScript.GameStats.isGameOver)
+        {
+            Timercoroutine = TimeRemaining(1.0f);
+            StartCoroutine(Timercoroutine);
+            Initialcoroutine = LetterRemaining(0.2f);
+            StartCoroutine(Initialcoroutine);
+            isDone = false;
+        }else
+        {
+            timerText.enabled = false;
+            initialsText.enabled = false;
+        }
     }
 
     // Update is called once per frame
-    void Update () {
-        axisX = Input.GetAxis("Horizontal");
-        if (!isDone)
+    void Update()
+    {
+        if (IsInputName)
         {
+            axisX = Input.GetAxis("Horizontal");
+            if (!isDone)
+            {
 
-            if (Input.GetButtonDown("AButton"))
-            {
-                initialAuxDone = true;
-                initialAux = initialAux + letter;
-                if (initialAux.Length == 3) isDone = true;
-            }
-            if (Input.GetButtonDown("BButton"))
-            {
-                initialAuxDone = false;
-                switch (initialAux.Length)
+                if (Input.GetButtonDown("AButton"))
                 {
-                    case 0:
-                        initialAux = letter;
+                    initialAuxDone = true;
+                    initialAux = initialAux + letter;
+                    if (initialAux.Length == 3) isDone = true;
+                }
+                if (Input.GetButtonDown("BButton"))
+                {
+                    initialAuxDone = false;
+                    switch (initialAux.Length)
+                    {
+                        case 0:
+                            initialAux = letter;
+                            break;
+                        case 1:
+                            initialAux = letter;
+                            break;
+                        case 2:
+                            initialAux = initialAux.Substring(initialAux.Length - 1) + letter;
                         break;
-                    case 1:
-                        initialAux = letter;
-                        break;
-                    case 2:
-                        initialAux = initialAux.Substring(initialAux.Length - 1) + letter;
-                        break;
+                    }
                 }
             }
         }

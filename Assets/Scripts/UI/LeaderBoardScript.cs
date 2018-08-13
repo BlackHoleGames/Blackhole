@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class LeaderBoardScript : MonoBehaviour
 {
@@ -25,58 +26,103 @@ public class LeaderBoardScript : MonoBehaviour
     private Text ScoreResultE;
     public Text GameOverText;
     private int ScorePosition = 0;
-    IEnumerator Start()
+    private int ObjectsToShow = 6;
+    private IEnumerator ScoreSequence;
+    void Start()
     {
-        //COMENTAT ARA!! LeaderBoardsTitle.canvasRenderer.SetAlpha(0.0f);
-        //COMENTAT ARA!! GameOverText.canvasRenderer.SetAlpha(0.0f);
-        //COMENTAT ARA!! if (SaveGameStatsScript.GameStats.isGameOver) {
-        //COMENTAT ARA!!      if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
-        //COMENTAT ARA!!      else GameOverText.text = "THE END";
-        //COMENTAT ARA!!      if (CompareScore()) {
-        //COMENTAT ARA!!          //Congrats Name
-        //COMENTAT ARA!!          while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
-//      //COMENTAT ARA!!            SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
-        //COMENTAT ARA!!          ReasingScore();
-        //COMENTAT ARA!! 
-        //COMENTAT ARA!!      }
-        //COMENTAT ARA!!      ShowScore();
-        //COMENTAT ARA!!      FadeInLeaderBoards();
-        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!!      FadeOutLeaderBoards();
-        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!! }else{
-        //COMENTAT ARA!!      ShowScore();
-        //COMENTAT ARA!!      FadeInLeaderBoards();
-        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!!      FadeOutLeaderBoards();
-        //COMENTAT ARA!!      yield return new WaitForSeconds(3.0f);
-        //COMENTAT ARA!! }
-        yield return new WaitForSeconds(5.0f);
-        //COMENTAT ARA!! SceneManager.LoadScene(1);
+        LeaderBoardsTitle.canvasRenderer.SetAlpha(0.0f);
+        GameOverText.canvasRenderer.SetAlpha(0.0f);
+        GettingTags();
+        ScoreNameA.canvasRenderer.SetAlpha(0.0f);
+        ScoreNameB.canvasRenderer.SetAlpha(0.0f);
+        ScoreNameC.canvasRenderer.SetAlpha(0.0f);
+        ScoreNameD.canvasRenderer.SetAlpha(0.0f);
+        ScoreNameE.canvasRenderer.SetAlpha(0.0f);
+        ScoreResultA.canvasRenderer.SetAlpha(0.0f);
+        ScoreResultB.canvasRenderer.SetAlpha(0.0f);
+        ScoreResultC.canvasRenderer.SetAlpha(0.0f);
+        ScoreResultD.canvasRenderer.SetAlpha(0.0f);
+        ScoreResultE.canvasRenderer.SetAlpha(0.0f);
+        if (SaveGameStatsScript.GameStats.isGameOver) {            
+            if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
+            else GameOverText.text = "Game Over";
+            if (CompareScore()) {
+                //Congrats Name
+                GetComponent<InputNameScore>().IsInputName = true;
+                while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
+                  SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
+                ReasingScore();
+        
+            }
+            ShowScore();
+            ScoreSequence = ScorePresentation(0.5f);
+            StartCoroutine(ScoreSequence);
+        }else{
+             ShowScore();
+            ScoreSequence = ScorePresentation(0.5f);
+            StartCoroutine(ScoreSequence);
+        }
+//        SceneManager.LoadScene(1);
 
     }
-    void FadeInLeaderBoards()
+    IEnumerator ScorePresentation(float delimitedTimer)
     {
-        LeaderBoardsTitle.CrossFadeAlpha(1.0f, 1.5f, false);
+        for (int i = 0; i < ObjectsToShow; i++) {
+            switch (i)
+            {
+                case 0:
+                    LeaderBoardsTitle.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                break;
+                case 1:
+                    ScoreNameA.CrossFadeAlpha(1.0f, 1.5f, false);
+                    ScoreResultA.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                break;
+                case 2:
+                    ScoreNameB.CrossFadeAlpha(1.0f, 1.5f, false);
+                    ScoreResultB.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                    break;
+                case 3:
+                    ScoreNameC.CrossFadeAlpha(1.0f, 1.5f, false);
+                    ScoreResultC.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                break;
+                case 4:
+                    ScoreNameD.CrossFadeAlpha(1.0f, 1.5f, false);
+                    ScoreResultD.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                break;
+                case 5:
+                    ScoreNameE.CrossFadeAlpha(1.0f, 1.5f, false);
+                    ScoreResultE.CrossFadeAlpha(1.0f, 1.5f, false);
+                    yield return new WaitForSeconds(delimitedTimer);
+                break;
+            }            
+        }
+        //Ending
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene(1);
     }
-    void FadeOutLeaderBoards()
+    void GettingTags()
     {
-        LeaderBoardsTitle.CrossFadeAlpha(0.0f, 2.5f, false);
-    }
-    void ShowScore()
-    {
-        //SaveGameStatsScript.GameStats.GetScore();
-        SaveGameStatsScript.GameStats.GetScore();
-        ScoreNameA =   GameObject.FindGameObjectWithTag("ScoreNameA").GetComponent<Text>();
-        ScoreNameB =   GameObject.FindGameObjectWithTag("ScoreNameB").GetComponent<Text>();
-        ScoreNameC =   GameObject.FindGameObjectWithTag("ScoreNameC").GetComponent<Text>();
-        ScoreNameD =   GameObject.FindGameObjectWithTag("ScoreNameD").GetComponent<Text>();
-        ScoreNameE =   GameObject.FindGameObjectWithTag("ScoreNameE").GetComponent<Text>();
+        ScoreNameA = GameObject.FindGameObjectWithTag("ScoreNameA").GetComponent<Text>();
+        ScoreNameB = GameObject.FindGameObjectWithTag("ScoreNameB").GetComponent<Text>();
+        ScoreNameC = GameObject.FindGameObjectWithTag("ScoreNameC").GetComponent<Text>();
+        ScoreNameD = GameObject.FindGameObjectWithTag("ScoreNameD").GetComponent<Text>();
+        ScoreNameE = GameObject.FindGameObjectWithTag("ScoreNameE").GetComponent<Text>();
         ScoreResultA = GameObject.FindGameObjectWithTag("ScoreResultA").GetComponent<Text>();
         ScoreResultB = GameObject.FindGameObjectWithTag("ScoreResultB").GetComponent<Text>();
         ScoreResultC = GameObject.FindGameObjectWithTag("ScoreResultC").GetComponent<Text>();
         ScoreResultD = GameObject.FindGameObjectWithTag("ScoreResultD").GetComponent<Text>();
         ScoreResultE = GameObject.FindGameObjectWithTag("ScoreResultE").GetComponent<Text>();
+    }
+    void ShowScore()
+    {
+        //SaveGameStatsScript.GameStats.GetScore();
+        SaveGameStatsScript.GameStats.GetScore();
+        GettingTags();
         LeaderBoard();
     }
     void LeaderBoard()

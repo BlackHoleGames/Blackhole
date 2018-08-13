@@ -3740,6 +3740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282365349}
   - component: {fileID: 1282365350}
+  - component: {fileID: 1282365351}
   m_Layer: 0
   m_Name: Parent
   m_TagString: Untagged
@@ -3778,6 +3779,18 @@ MonoBehaviour:
   pdestroyed: {fileID: 2074911101}
   parentAxis: {fileID: 1532430271}
   propeller: {fileID: 1350667465}
+--- !u!114 &1282365351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1282365348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9ff881e1cb4f84aa30c33943f7d1fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RumbleState: 0
 --- !u!1 &1288025880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4107,7 +4120,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1493520796
+  randomSeed: -261200790
   InitialModule:
     serializedVersion: 3
     enabled: 1
