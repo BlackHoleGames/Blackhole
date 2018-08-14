@@ -58,7 +58,7 @@ public class LeaderBoardScript : MonoBehaviour
                 StartCoroutine(ScoreSequence);
             }
         }else{
-             ShowScore();
+            ShowScore();
             ScoreSequence = ScorePresentation(0.5f);
             StartCoroutine(ScoreSequence);
         }
@@ -67,9 +67,9 @@ public class LeaderBoardScript : MonoBehaviour
     }
     void Update()
     {
-        if (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName && !isLeaderBoardTime)
+        if (isLeaderBoardTime)
         {
-            isLeaderBoardTime = true;
+            isLeaderBoardTime = false;
             //SaveGameStatsScript.GameStats.SetScore(GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().name, SaveGameStatsScript.GameStats.playerScore.ToString());
             ReasingScore();
             ShowScore();

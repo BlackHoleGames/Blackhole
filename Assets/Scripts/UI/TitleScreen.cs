@@ -31,6 +31,7 @@ public class TitleScreen : MonoBehaviour {
             FadeOut();
             yield return new WaitForSeconds(1.5f);
         }
+        SaveGameStatsScript.GameStats.isGameOver = false;
         //Score
         if (SaveGameStatsScript.GameStats.StatusUISequence) { 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);

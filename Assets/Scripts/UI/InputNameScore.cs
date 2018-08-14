@@ -100,9 +100,12 @@ public class InputNameScore : MonoBehaviour {
         }
         initialsText.text = initialAux;
         WaitingForName = false;
+
         SaveGameStatsScript.GameStats.SetScore(initialsText.text, SaveGameStatsScript.GameStats.playerScore.ToString());
         FadeOutInputName();
         yield return new WaitForSeconds(seconds);
+        GetComponent<LeaderBoardScript>().isLeaderBoardTime = true;
+
     }
     private IEnumerator LetterRemaining(float seconds)
     {
@@ -114,10 +117,6 @@ public class InputNameScore : MonoBehaviour {
                 alphabetIncreaseSearch();
             }
             else if (axisX < 0)
-            {
-                alphabetDecreaseSearch();
-            }
-            else if (RT > 0)
             {
                 alphabetDecreaseSearch();
             }

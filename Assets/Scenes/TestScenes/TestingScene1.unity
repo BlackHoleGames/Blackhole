@@ -240,7 +240,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &137239666
@@ -868,6 +868,7 @@ GameObject:
   - component: {fileID: 358593619}
   - component: {fileID: 358593618}
   - component: {fileID: 358593617}
+  - component: {fileID: 358593621}
   m_Layer: 5
   m_Name: UI_InGame
   m_TagString: Untagged
@@ -965,6 +966,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &358593621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 358593616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37286d419b9e96046b1a79cd44f28987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &360122539 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1746101471308290, guid: 9509e672e20e42a469f944975105efc6,
@@ -1839,7 +1851,7 @@ GameObject:
   - component: {fileID: 660990333}
   m_Layer: 5
   m_Name: TimeBombCharge2
-  m_TagString: Untagged
+  m_TagString: TimeBomb2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1907,7 +1919,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3654,7 +3666,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &1217266035
@@ -4120,7 +4132,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1590851274
+  randomSeed: -1031867592
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7601,7 +7613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceff5b177aa7f1d4a82d760ee2709530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   ScoreTextValue: {fileID: 1417650788}
 --- !u!114 &1417650788
 MonoBehaviour:
@@ -8839,7 +8850,7 @@ GameObject:
   - component: {fileID: 1668162499}
   m_Layer: 5
   m_Name: TimeBombCharge3
-  m_TagString: Untagged
+  m_TagString: TimeBomb3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8907,7 +8918,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9020,7 +9031,7 @@ GameObject:
   - component: {fileID: 1690573360}
   m_Layer: 5
   m_Name: TimeBombCharge
-  m_TagString: Untagged
+  m_TagString: TimeBomb1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

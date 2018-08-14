@@ -29,6 +29,9 @@ TagManager:
   - ScoreResultD
   - ScoreResultE
   - PlayerDestroyed
+  - TimeBomb1
+  - TimeBomb2
+  - TimeBomb3
   layers:
   - Default
   - TransparentFX
