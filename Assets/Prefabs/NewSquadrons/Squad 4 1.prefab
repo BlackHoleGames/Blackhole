@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!114 &114433700856174926
 MonoBehaviour:
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!114 &114511958167606532
 MonoBehaviour:
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!114 &114889893390662786
 MonoBehaviour:
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!114 &114907159141968566
 MonoBehaviour:

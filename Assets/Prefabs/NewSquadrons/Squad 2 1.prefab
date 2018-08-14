@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: e4f15f6f9d068d546b58e3ae0788e727,
+  enemyToInstantiate: {fileID: 1108982855423896, guid: 273e5baa898e4b84e99924725cebcc4b,
     type: 2}
 --- !u!114 &114344636350512526
 MonoBehaviour:
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: e4f15f6f9d068d546b58e3ae0788e727,
+  enemyToInstantiate: {fileID: 1108982855423896, guid: 273e5baa898e4b84e99924725cebcc4b,
     type: 2}
 --- !u!114 &114502597996130626
 MonoBehaviour:
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!114 &114742809263926072
 MonoBehaviour:
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: ac21fe94475608a4bbb4208778941d66,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
 --- !u!135 &135460252869603416
 SphereCollider:

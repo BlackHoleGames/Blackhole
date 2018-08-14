@@ -12,12 +12,11 @@ public class BasicEnemy : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
     public float spawnDelay = 5.0f;
     public Material matOn, matOff, matFlicker;
-    public GameObject enemyProjectile, explosionPS;
+    public GameObject enemyProjectile, explosionPS, enemyDestroyed;
     public TimeBehaviour tb;
     public AudioClip gunshot;
     private GameObject player;
     private bool shielded, hit, materialHitOn;
-    private SquadManager squadManager;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
 	// Use this for initialization
@@ -31,9 +30,8 @@ public class BasicEnemy : MonoBehaviour {
         rateCounter = 0.0f;
         shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
-        squadManager = GetComponentInParent<SquadManager>();
-        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
-        if (pe) pe.squadron.Add(gameObject);
+        //ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
+        //if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
         gameObject.GetComponent<Renderer>().material = matOn;
@@ -109,13 +107,12 @@ public class BasicEnemy : MonoBehaviour {
             {
                 Instantiate(explosionPS,transform.position, transform.rotation);
                 Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
-                squadManager.DecreaseNumber();
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
                 vibratorOn();
-                Destroy(gameObject);
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
-                
+                if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                Destroy(gameObject);
             }
         }
     }

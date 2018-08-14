@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInstantiate: {fileID: 1646053309271298, guid: fca8763b5135490419eb9626425c574e,
+  enemyToInstantiate: {fileID: 1201413291637864, guid: 3240c980b7ee3b64ca31d94243b693de,
     type: 2}
 --- !u!114 &114453595524283754
 MonoBehaviour:
