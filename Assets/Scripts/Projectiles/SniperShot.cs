@@ -65,7 +65,7 @@ public class SniperShot : MonoBehaviour {
     }
 
     public void SetTarget(Vector3 target) {
-        transform.LookAt(target);
+        //transform.LookAt(target);
         Debug.Log("lazooooor");
     }
 
