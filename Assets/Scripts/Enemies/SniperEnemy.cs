@@ -5,67 +5,110 @@ using UnityEngine;
 public class SniperEnemy : MonoBehaviour {
     public float life = 10.0f;
     public float shotCooldown = 5.0f;
-    public float chargeTime = 1.0f;
-    public GameObject enemyProjectile, player;
+    public float shotDuration = 1.0f;
+    public GameObject enemyProjectile;
+    private GameObject player;
     public float spawnCooldown = 5.0f;
     public float hitFeedbackDuration = 0.25f;
 
-    private float rateCounter, shotTimeCounter, hitFeedbackCounter;
+    private float rateCounter, hitFeedbackCounter, wingTimeCounter, shotDurationCounter;
     public Material matOn, matOff;
-    private bool shielded, playCharging,hit, materialHitOn;
+    private bool shielded, playCharging,hit, materialHitOn, increaseWings, decreaseWings;
     private SquadManager squadManager;
-    public GameObject explosionPS;
+    public GameObject explosionPS, wings;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
+    private Vector3 targetPos;
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
-        shotTimeCounter = chargeTime;
         rateCounter = 0.0f;
         shielded = false;
         playCharging = false;
         gameObject.GetComponent<Renderer>().material = matOff;
         squadManager = GetComponentInParent<SquadManager>();
-        ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
-
-        if (pe) pe.squadron.Add(gameObject);
         audioSource.Play();
         audioSource.clip = gunshot;
+        //shotTimeCounter = chargeTime;
+        shotDurationCounter = shotDuration;
+        wingTimeCounter = 0.0f;
+
+        foreach (Transform child in transform) {
+            if (child.gameObject.name == "AlienSniperWings") {
+                wings = child.gameObject;
+                break;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player.transform.position);
-        if (spawnCooldown <= 0.0f)
+        if (spawnCooldown > 0.0f) spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+        else ManageShot();
+    }
+    /*
+    public void ManageShot() {
+        if (rateCounter <= 0.0f)
         {
-            if (rateCounter <= 0.0f)
+            if (!playCharging)
             {
-                if (!playCharging) {
-                    playCharging = true;
-                    audioSource.Play();
-                }
-                shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-                if (shotTimeCounter <= 0)
-                {
-                    playCharging = false;
-                    shotTimeCounter = chargeTime;
-                    rateCounter = shotCooldown;
-                    Instantiate(enemyProjectile, transform.position, transform.rotation);
-                }
+                playCharging = true;
+                audioSource.Play();
+                targetPos = player.transform.position;
             }
-            else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+            //shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
+            if (shotTimeCounter <= 0)
+            {
+                playCharging = false;
+                //shotTimeCounter = chargeTime;
+                //rateCounter = shotCooldown;
+                Instantiate(enemyProjectile, transform.position, transform.rotation);
+            }
+            if ((increaseWings || decreaseWings) && !(increaseWings && decreaseWings)) ManageHit();
         }
-        else spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+    }*/
+
+    public void ManageShot()
+    {
+        if (rateCounter <= 0.0f)
+        {
+            if (!playCharging)
+            {
+                playCharging = true;
+                audioSource.Play();
+                targetPos = player.transform.position;
+                increaseWings = true;
+                Instantiate(enemyProjectile, transform.position, transform.rotation);
+                if (enemyProjectile.GetComponent<SniperShot>()) enemyProjectile.GetComponent<SniperShot>().SetTarget(targetPos);
+
+            }
+            if (shotDurationCounter <= 0)
+            {
+                playCharging = false;
+                rateCounter = shotCooldown;
+                shotDurationCounter = shotDuration;
+            }
+            else {
+                shotDurationCounter -= Time.deltaTime;
+                if (shotDurationCounter <= 0.5f && !decreaseWings) decreaseWings = true;
+            }
+            if ((increaseWings || decreaseWings) && !(increaseWings && decreaseWings)) ManageWings();
+        }
+        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
+    }
+
+
+    public void ManageHit() {
         if (materialHitOn)
         {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-            else
-            {
+            else {
                 gameObject.GetComponent<Renderer>().material = matOff;
                 materialHitOn = false;
                 hitFeedbackCounter = hitFeedbackDuration;
@@ -76,6 +119,29 @@ public class SniperEnemy : MonoBehaviour {
             hit = false;
             gameObject.GetComponent<Renderer>().material = matOn;
             materialHitOn = true;
+        }
+    }
+
+    public void ManageWings() {
+        if (increaseWings) {
+            wingTimeCounter += Time.deltaTime / 2.0f;
+            float lerpedScaleUnit = Mathf.Lerp(0.5f, 1.0f, wingTimeCounter);
+            Vector3 lerpedScaleVector = new Vector3(lerpedScaleUnit, lerpedScaleUnit, lerpedScaleUnit);
+            wings.transform.localScale = lerpedScaleVector;
+            if (lerpedScaleUnit >= 1) {
+                increaseWings = false;
+                wingTimeCounter = 0.0f;
+            }
+        }
+        if (decreaseWings) {
+            wingTimeCounter += Time.deltaTime / 0.5f;
+            float lerpedScaleUnit = Mathf.Lerp(1.0f, 0.5f, wingTimeCounter);
+            Vector3 lerpedScaleVector = new Vector3(lerpedScaleUnit, lerpedScaleUnit, lerpedScaleUnit);
+            wings.transform.localScale = lerpedScaleVector;
+            if (lerpedScaleUnit >= 1) {
+                decreaseWings = false;
+                wingTimeCounter = 0.0f;
+            }
         }
     }
 
@@ -97,7 +163,7 @@ public class SniperEnemy : MonoBehaviour {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
                 squadManager.DecreaseNumber();
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }
