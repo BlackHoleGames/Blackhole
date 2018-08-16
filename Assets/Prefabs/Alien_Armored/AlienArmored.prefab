@@ -918,8 +918,6 @@ MonoBehaviour:
   matFlicker: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   enemyProjectile: {fileID: 1608848417862874, guid: 39967631d57764f4a97b91a232b270e1,
     type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
   enemyDestroyed: {fileID: 1648217602641882}
   tb: {fileID: 0}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}

@@ -7951,6 +7951,11 @@ RectTransform:
   m_AnchoredPosition: {x: 9, y: 3.2}
   m_SizeDelta: {x: 27.9, y: 6.4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &583087391 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1986187248473330, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+    type: 2}
+  m_PrefabInternal: {fileID: 727290288}
 --- !u!1 &609360210
 GameObject:
   m_ObjectHideFlags: 0
@@ -7994,10 +7999,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualStage: 2
+  meteorDelayDuration: 0.2
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
   boss: {fileID: 469235696}
   miniboss: {fileID: 0}
+  meteors2d: {fileID: 583087391}
+  meteorsEnd: {fileID: 0}
 --- !u!1 &615820671
 GameObject:
   m_ObjectHideFlags: 0
