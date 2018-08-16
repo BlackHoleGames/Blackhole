@@ -7,16 +7,19 @@ public class MapManger : MonoBehaviour {
     public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
         STRUCT_ENEMIES, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
+    public float meteorDelayDuration = 0.2f;
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss;
+    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd;
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
     private bool structureMoving = false;
     private bool bossEnabled = false;
+    private bool meteorsDelayOn = false;
+    private float meteorDelayCounter = 0.0f;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -25,7 +28,7 @@ public class MapManger : MonoBehaviour {
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
-
+        
         //sm = structure.GetComponent<StructMovement>();
     }
 	
@@ -45,6 +48,7 @@ public class MapManger : MonoBehaviour {
                 if (!em.IsManagerSpawning()) {
                     tm.StopTimeWarp();
                     em.StartManager();
+                    meteorsDelayOn = true;
                 }
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
@@ -54,6 +58,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.MINIBOSS_SECONDPHASE:
                 if (!mbs.IsSecondPhase()) {
+                    meteorsDelayOn = true;
                     tm.StartTimeWarp();
                     mbs.StartSecondPhase();
                 }
@@ -84,6 +89,24 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.ESCAPE:
                 break;
+        }
+        if (meteorsDelayOn) ManageMeteor();
+    }
+
+    public void ManageMeteor() {
+        meteorDelayCounter += Time.deltaTime;
+        if (meteorDelayCounter > meteorDelayDuration) {
+            meteorDelayCounter = 0.0f;
+            meteorsDelayOn = false;
+            switch (actualStage) {
+                case Stages.METEORS_ENEMIES:
+                    meteors2d.SetActive(true);
+                    break;
+                case Stages.MINIBOSS_SECONDPHASE:
+                    meteors2d.SetActive(false);
+
+                    break;
+            }
         }
     }
 

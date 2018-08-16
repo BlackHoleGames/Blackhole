@@ -10,7 +10,6 @@ public class KamikazeEnemy : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
 
     private SquadManager squadManager;
-    public GameObject explosionPS;
     private TimeBehaviour tb;
     private GameObject player;
     private float direction, hitFeedbackCounter;
@@ -67,7 +66,7 @@ public class KamikazeEnemy : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
 
                 squadManager.DecreaseNumber();
                 Destroy(gameObject);

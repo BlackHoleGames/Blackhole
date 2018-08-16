@@ -15,7 +15,7 @@ public class SniperEnemy : MonoBehaviour {
     public Material matOn, matOff;
     private bool shielded, playCharging,hit, materialHitOn, increaseWings, decreaseWings;
     private SquadManager squadManager;
-    public GameObject explosionPS, wings;
+    public GameObject wings;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
@@ -163,7 +163,7 @@ public class SniperEnemy : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS, transform.parent.transform.position, transform.parent.transform.rotation);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
 
                 squadManager.DecreaseNumber();
                 Destroy(transform.parent.gameObject);

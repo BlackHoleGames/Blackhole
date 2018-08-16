@@ -12,7 +12,7 @@ public class BasicEnemy : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
     public float spawnDelay = 5.0f;
     public Material matOn, matOff, matFlicker;
-    public GameObject enemyProjectile, explosionPS, enemyDestroyed;
+    public GameObject enemyProjectile, enemyDestroyed;
     public TimeBehaviour tb;
     public AudioClip gunshot;
     private GameObject player;
@@ -98,6 +98,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            if (hitAudioSource.enabled) hitAudioSource.enabled = true;
             hitAudioSource.Play();
             if (!shielded) {
                 life -= other.gameObject.GetComponent<Projectile>().damage;
@@ -105,7 +106,7 @@ public class BasicEnemy : MonoBehaviour {
             }
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS,transform.position, transform.rotation);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                 Instantiate(Resources.Load("Life_PointsPowerup"), transform.position,transform.rotation);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
