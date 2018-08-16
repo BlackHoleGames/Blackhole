@@ -11,6 +11,8 @@ public class ShootAroundProjectile : MonoBehaviour {
     private Vector3 target;
     private TimeBehaviour tb;
     public float randomNumber = 0.0f;
+    private GameObject projectile;
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +24,7 @@ public class ShootAroundProjectile : MonoBehaviour {
         if (randomOffset < 0.0f) safetyOffset = -2.0f;
         target += new Vector3(randomOffset + safetyOffset, 0.0f, 0.0f);
         transform.LookAt(target);
+        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
 
     }
 

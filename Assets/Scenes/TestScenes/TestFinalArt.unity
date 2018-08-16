@@ -8005,7 +8005,7 @@ MonoBehaviour:
   boss: {fileID: 469235696}
   miniboss: {fileID: 0}
   meteors2d: {fileID: 583087391}
-  meteorsEnd: {fileID: 0}
+  meteorsEnd: {fileID: 1710844548096832, guid: 7ad2120c861a94e499aa53d2f061fe82, type: 2}
 --- !u!1 &615820671
 GameObject:
   m_ObjectHideFlags: 0

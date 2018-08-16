@@ -9,6 +9,7 @@ public class FirstTrackProjectile : MonoBehaviour {
     public float damage = 10.0f;
     private Vector3 target;
     private TimeBehaviour tb;
+    private GameObject projectile;
 
     // Use this for initialization
     void Start()
@@ -16,6 +17,7 @@ public class FirstTrackProjectile : MonoBehaviour {
         tb = gameObject.GetComponent<TimeBehaviour>();
         target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
         gameObject.transform.LookAt(target);
+        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
 
     }
 

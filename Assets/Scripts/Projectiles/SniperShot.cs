@@ -11,9 +11,12 @@ public class SniperShot : MonoBehaviour {
     public Vector3 target;
     private TimeBehaviour tb;
     private float lightCounter = 0.0f;
+    private BoxCollider bc;
     // Use this for initialization
     void Start()
     {
+        bc = GetComponent<BoxCollider>();
+        bc.enabled = false;
         tb = gameObject.GetComponent<TimeBehaviour>();
         target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
         //transform.LookAt(target);
@@ -30,13 +33,14 @@ public class SniperShot : MonoBehaviour {
     {
         if (timeToLive <= 0.0f)
         {
-            //if (chargePS) chargePS.GetComponent<ParticleSystem>().Stop();
             if (timeToLive <= 0.0f) Destroy(gameObject);
         }
         else {
             timeToLive -= Time.deltaTime * tb.scaleOfTime;
             if (lightningUp) StartLight();
+            if (timeToLive < 2.0f && timeToLive > 0.5f && !bc.enabled) bc.enabled = true;
             if (timeToLive <= 0.5) {
+                if (bc.enabled) bc.enabled = false;
                 if (light.intensity == 60.0f) light.intensity = 30.0f;
                 StopLight();
             }
@@ -67,16 +71,12 @@ public class SniperShot : MonoBehaviour {
         }
     }
 
-    public void SetTarget(Vector3 target) {
-        //transform.LookAt(target);
-        Debug.Log("lazooooor");
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

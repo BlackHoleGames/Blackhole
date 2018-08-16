@@ -103,11 +103,16 @@ public class MapManger : MonoBehaviour {
                     meteors2d.SetActive(true);
                     break;
                 case Stages.MINIBOSS_SECONDPHASE:
-                    meteors2d.SetActive(false);
-
+                    Destroy(meteors2d);
+                    Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
                     break;
+
             }
         }
+    }
+
+    public void EnteredStructure() {
+        Destroy(meteorsEnd);
     }
 
     public void GoToNextStage() {

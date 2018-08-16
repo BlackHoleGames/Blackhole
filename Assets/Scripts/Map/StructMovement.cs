@@ -31,6 +31,7 @@ public class StructMovement : MonoBehaviour {
             {
                 speed = 100.0f;
                 velocitySlowed = true;
+                mm.EnteredStructure();
                 //Destroy(gameObject);
             }
             if (transform.position.z < -5000.0f) {

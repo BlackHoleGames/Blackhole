@@ -7,7 +7,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
     public float life = 100.0f;
     public float hitFeedbackDuration = 0.25f;
     public Material matOn, matOff;
-    public GameObject explosionPS;
     public TimeBehaviour tb;
     private bool hit, materialHitOn, alive;
     private float hitFeedbackCounter;
@@ -32,12 +31,12 @@ public class MiniBossWeakpoint : MonoBehaviour {
             {
                 foreach (Transform child in destroyedBody.transform)
                 {
-                    Instantiate(explosionPS, child.position, child.rotation);
+                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                     Destroy(child.gameObject);
                 }
                 foreach (Transform child in destroyedHead.transform)
                 {
-                    Instantiate(explosionPS, child.position, child.rotation);
+                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                     Destroy(child.gameObject);
                 }
             }
@@ -72,7 +71,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                Instantiate(explosionPS, transform.position, transform.rotation);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);

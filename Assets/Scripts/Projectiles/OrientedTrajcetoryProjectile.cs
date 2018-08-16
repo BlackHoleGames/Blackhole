@@ -8,11 +8,14 @@ public class OrientedTrajcetoryProjectile : MonoBehaviour {
     public float timeToLive = 20.0f;
     public float damage = 10.0f;
     private TimeBehaviour tb;
+    private GameObject projectile;
 
     // Use this for initialization
     void Start()
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
+        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
+
     }
 
     // Update is called once per frame
