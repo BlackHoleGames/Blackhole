@@ -13,8 +13,8 @@ public class MapManger : MonoBehaviour {
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss;
     private StructMovement sm;
-    public CameraBehaviour cb;
-    public EarthRotation er;
+    private CameraBehaviour cb;
+    private EarthRotation er;
     private bool structureMoving = false;
     private bool bossEnabled = false;
 	// Use this for initialization

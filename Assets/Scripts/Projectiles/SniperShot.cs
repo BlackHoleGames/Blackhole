@@ -8,7 +8,7 @@ public class SniperShot : MonoBehaviour {
     //public GameObject chargePS, shotPS;
     private Light light;
     private bool lightningUp, lightningDown;
-    private Vector3 target;
+    public Vector3 target;
     private TimeBehaviour tb;
     private float lightCounter = 0.0f;
     // Use this for initialization
@@ -16,7 +16,10 @@ public class SniperShot : MonoBehaviour {
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
         target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
-        gameObject.transform.LookAt(target);
+        //transform.LookAt(target);
+        //transform.position = transform.forward;
+        Vector3 dir = target- transform.position ;
+        transform.rotation = Quaternion.FromToRotation(Vector3.up,dir);
         //if (chargePS) chargePS.GetComponent<ParticleSystem>().Play();
         lightningUp = true;
         light = GetComponentInChildren<Light>();

@@ -19,7 +19,7 @@ public class SniperEnemy : MonoBehaviour {
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
-    private Vector3 targetPos;
+    private EnemyLookAt ela;
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Parent");
@@ -36,6 +36,8 @@ public class SniperEnemy : MonoBehaviour {
         //shotTimeCounter = chargeTime;
         shotDurationCounter = shotDuration;
         wingTimeCounter = 0.0f;
+
+        ela = GetComponent<EnemyLookAt>();
 
         foreach (Transform child in transform) {
             if (child.gameObject.name == "AlienSniperWings") {
@@ -80,12 +82,12 @@ public class SniperEnemy : MonoBehaviour {
         {
             if (!playCharging)
             {
+                ela.enabled = false;
                 playCharging = true;
                 audioSource.Play();
-                targetPos = player.transform.position;
                 increaseWings = true;
-                Instantiate(enemyProjectile, transform.position, transform.rotation);
-                if (enemyProjectile.GetComponent<SniperShot>()) enemyProjectile.GetComponent<SniperShot>().SetTarget(targetPos);
+                GameObject laser = Instantiate(enemyProjectile, transform.position, transform.rotation);
+                laser.transform.parent = transform;
 
             }
             if (shotDurationCounter <= 0)
@@ -93,6 +95,7 @@ public class SniperEnemy : MonoBehaviour {
                 playCharging = false;
                 rateCounter = shotCooldown;
                 shotDurationCounter = shotDuration;
+                ela.enabled = true;
             }
             else {
                 shotDurationCounter -= Time.deltaTime;
@@ -160,7 +163,7 @@ public class SniperEnemy : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
+                Instantiate(explosionPS, transform.parent.transform.position, transform.parent.transform.rotation);
 
                 squadManager.DecreaseNumber();
                 Destroy(transform.parent.gameObject);

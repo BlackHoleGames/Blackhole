@@ -22,6 +22,8 @@ public class EnemyDestroyed : MonoBehaviour {
             }
         }
         transform.parent = null;
+        float randomYRot = Random.Range(0.0f,360.0f);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, randomYRot, transform.eulerAngles.z);
     }
         // Update is called once per frame
     void Update () {

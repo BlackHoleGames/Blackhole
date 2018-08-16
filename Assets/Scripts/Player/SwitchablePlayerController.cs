@@ -199,6 +199,10 @@ public class SwitchablePlayerController : MonoBehaviour
         return is_firing;
     }
 
+    public bool VerticalAxisOn() {
+        return is_vertical;
+    }
+
     public void SwitchAxis()
     {
         readjustInitialPos = transform.position;

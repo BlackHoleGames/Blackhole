@@ -98,7 +98,7 @@ public class TimeManager : MonoBehaviour {
     public void StartTimeWarp() {
         Time.timeScale = 1.0f;
         cb.SwitchToTimeWarp();
-        sp.SwitchAxis();
+        if (sp.VerticalAxisOn()) sp.SwitchAxis();
         gtlCounter = 0.0f;
         slowDown = false;
         speedUp = false;
@@ -176,6 +176,6 @@ public class TimeManager : MonoBehaviour {
         inFasterGTL = false;
         maxGTLCounter = 0.0f;
         cb.SwitchToMiddle();
-        sp.SwitchAxis();
+        if (!sp.VerticalAxisOn()) sp.SwitchAxis();
     }
 }
