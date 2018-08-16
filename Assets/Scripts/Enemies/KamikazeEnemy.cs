@@ -15,7 +15,7 @@ public class KamikazeEnemy : MonoBehaviour {
     private float direction, hitFeedbackCounter;
     private bool turbo, hit, materialHitOn;
     private AudioSource audioSource, hitAudioSource;
-    public Material matOn, matOff;
+    public Material matOn, matHit;
 
     // Use this for initialization
     void Start()
@@ -40,12 +40,16 @@ public class KamikazeEnemy : MonoBehaviour {
         if (Mathf.Abs(transform.position.x - player.transform.position.x) < 0.1f) turbo = true;
         if (!turbo) transform.position += new Vector3(speed * Time.deltaTime * direction * tb.scaleOfTime, 0.0f, 0.0f);
         else transform.position += new Vector3(0.0f, 0.0f, -turbospeed * Time.deltaTime * tb.scaleOfTime);
+        ManageHit();
+    }
+
+    public void ManageHit() {
         if (materialHitOn)
         {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
             else
             {
-                gameObject.GetComponent<Renderer>().material = matOff;
+                gameObject.GetComponent<Renderer>().material = matOn;
                 materialHitOn = false;
                 hitFeedbackCounter = hitFeedbackDuration;
             }
@@ -53,7 +57,7 @@ public class KamikazeEnemy : MonoBehaviour {
         if (hit)
         {
             hit = false;
-            gameObject.GetComponent<Renderer>().material = matOn;
+            gameObject.GetComponent<Renderer>().material = matHit;
             materialHitOn = true;
         }
     }
@@ -66,12 +70,16 @@ public class KamikazeEnemy : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
+                //squadManager.DecreaseNumber();
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-
-                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
            
+        }
+        if (other.gameObject.tag == "Player") {
+            //squadManager.DecreaseNumber();
+            Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 }
