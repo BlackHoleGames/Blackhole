@@ -13,7 +13,7 @@ public class SquadManager : MonoBehaviour {
 
     // If it's only a squadron
     public int numOfMembers;
-    public EnemyManager Manager;
+    private EnemyManager Manager;
     public float speed = 2.0f;
     public float timeToStay = -1.0f;
     private bool movingToPosition, stayIsDone, arrivedToStart;
@@ -26,7 +26,7 @@ public class SquadManager : MonoBehaviour {
     private TimeBehaviour tb;
 	// Use this for initialization
 	void Start () {
-        Manager = GameObject.FindGameObjectsWithTag("EnemyManager")[0].GetComponent<EnemyManager>();
+        Manager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
         tb = GetComponent<TimeBehaviour>();
         timeToMove = 0;
         initialPos = transform.position;
@@ -99,7 +99,7 @@ public class SquadManager : MonoBehaviour {
                 else {
                     MiniBossScript script = GetComponentInChildren<MiniBossScript>();
                     if (script) {
-                        transform.parent.GetComponent<MapManger>().mbs = script;
+                        transform.parent.GetComponent<MapManger>().SetMiniBoss(script);
                         script.InitiateBoss();                        
                         Manager.StartNewPhase();
                         Destroy(this);

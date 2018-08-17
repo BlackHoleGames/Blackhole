@@ -86,11 +86,9 @@ GameObject:
   - component: {fileID: 114211714087593678}
   - component: {fileID: 82276442174663218}
   - component: {fileID: 114902498247155804}
-  - component: {fileID: 135441818864299024}
-  - component: {fileID: 54059566892303702}
   m_Layer: 0
   m_Name: Squad 1 1
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,21 +192,6 @@ Transform:
   m_Father: {fileID: 4207827024376844}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54059566892303702
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747372598155538}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!82 &82276442174663218
 AudioSource:
   m_ObjectHideFlags: 1
@@ -305,7 +288,6 @@ MonoBehaviour:
   subSquadron: {fileID: 0}
   subSquadUnitDelayTime: 0
   numOfMembers: 4
-  Manager: {fileID: 0}
   speed: 3
   timeToStay: -1
 --- !u!114 &114292750361204870
@@ -384,15 +366,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyToInstantiate: {fileID: 0}
---- !u!135 &135441818864299024
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747372598155538}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

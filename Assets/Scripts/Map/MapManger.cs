@@ -11,11 +11,12 @@ public class MapManger : MonoBehaviour {
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
-    public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd;
+    private MiniBossScript mbs;
+    public GameObject structure,boss, meteors2d, meteorsEnd, TimeWarp;
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
+    private GameObject EndMeteors ;
     private bool structureMoving = false;
     private bool bossEnabled = false;
     private bool meteorsDelayOn = false;
@@ -28,7 +29,6 @@ public class MapManger : MonoBehaviour {
         am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
-        
         //sm = structure.GetComponent<StructMovement>();
     }
 	
@@ -42,11 +42,14 @@ public class MapManger : MonoBehaviour {
                 if (!am.AsteroidsAreMoving()){
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
+                    TimeWarp.SetActive(true);
                 }
                 break;
             case Stages.METEORS_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    Destroy(GameObject.Find("MeteorStormFull 1"));
                     tm.StopTimeWarp();
+                    TimeWarp.SetActive(false);
                     em.StartManager();
                     meteorsDelayOn = true;
                 }
@@ -60,6 +63,7 @@ public class MapManger : MonoBehaviour {
                 if (!mbs.IsSecondPhase()) {
                     meteorsDelayOn = true;
                     tm.StartTimeWarp();
+                    TimeWarp.SetActive(true);
                     mbs.StartSecondPhase();
                 }
                 if (!mbs) GoToNextStage();
@@ -78,6 +82,7 @@ public class MapManger : MonoBehaviour {
                 if (!em.IsManagerSpawning()) {
                     em.StartManager();
                     tm.StopTimeWarp();
+
                 }
                 break;
             case Stages.BOSS:
@@ -88,6 +93,8 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.ESCAPE:
+                tm.StartTimeWarp();
+                TimeWarp.SetActive(true);
                 break;
         }
         if (meteorsDelayOn) ManageMeteor();
@@ -104,7 +111,7 @@ public class MapManger : MonoBehaviour {
                     break;
                 case Stages.MINIBOSS_SECONDPHASE:
                     Destroy(meteors2d);
-                    Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
+                    EndMeteors = Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
                     break;
 
             }
@@ -112,11 +119,17 @@ public class MapManger : MonoBehaviour {
     }
 
     public void EnteredStructure() {
-        Destroy(meteorsEnd);
+        Destroy(EndMeteors);
+        TimeWarp.SetActive(false);
+
     }
 
     public void GoToNextStage() {
         ++actualStage;
     }
 
+    public void SetMiniBoss(MiniBossScript miniBossScript) {
+        mbs = miniBossScript;
+        Destroy(er.gameObject);
+    }
 }

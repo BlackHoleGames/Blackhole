@@ -30,6 +30,10 @@ public class ThirdBossStage : MonoBehaviour {
         if (start)
         {
             if (!defeated) ManageMovement();
+            else {
+                transform.parent.gameObject.GetComponentInChildren<BossManager>().BossDefeated();
+                Destroy(gameObject);
+            }
         }
     }
 

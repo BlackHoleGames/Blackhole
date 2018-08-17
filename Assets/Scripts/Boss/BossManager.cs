@@ -14,8 +14,11 @@ public class BossManager : MonoBehaviour {
     private FirstBossStage fbs;
     private SecondBossStage sbs;
     private Vector3 initialPos;
+    private MapManger mm;
 
-	void Start () {
+    void Start () {
+        //mm = GameObject.Find("Managers").GetComponent<MapManger>();
+
         //actualStage =   BossStage.ENTERING;
         lerpTime = 0.0f;
         fbs = GetComponentInChildren<FirstBossStage>();
@@ -97,5 +100,10 @@ public class BossManager : MonoBehaviour {
                 // StartLastSection
                 break;
         }
+    }
+
+    public void BossDefeated() {
+        mm.GoToNextStage() ;
+        Destroy(transform.parent.gameObject);
     }
 }

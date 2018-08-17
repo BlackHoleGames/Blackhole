@@ -7,7 +7,7 @@ public class BossTurretScript : MonoBehaviour {
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
-    public GameObject enemyProjectile;
+    public GameObject enemyProjectile,parent;
     private float rateCounter, shotTimeCounter, shotCounter;
     private GameObject player;
 
@@ -21,6 +21,7 @@ public class BossTurretScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //parent.transform.LookAt(player.transform.position);
         transform.LookAt(player.transform.position);
         if (rateCounter <= 0.0f) {
             if (shotCounter > 0) {

@@ -6,11 +6,11 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
 
     public float life = 30.0f;
     public Material matOn, matOff;
-    private bool hit, materialHitOn;
+    private bool hit, materialHitOn, exposed;
 
     // Use this for initialization
     void Start () {
-		
+        exposed = false;
 	}
 	
 	// Update is called once per frame
@@ -35,7 +35,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && exposed)
         {
             hit = true;
             if (life <= 0.0f)
@@ -50,4 +50,10 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
             }
         }
     }
+
+    public void ExposeWeakPoint() {
+        exposed = true;
+    }
+
+
 }
