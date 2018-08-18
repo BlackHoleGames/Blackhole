@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 137239665}
   m_Layer: 5
   m_Name: FillTimeBomb
-  m_TagString: Untagged
+  m_TagString: TimeBomb3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,8 +391,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 3.8, y: 3.2}
-  m_SizeDelta: {x: 7.7, y: 6.4}
+  m_AnchoredPosition: {x: 3.7999992, y: 3.540268}
+  m_SizeDelta: {x: 7.7, y: -1.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &148598039
 MonoBehaviour:
@@ -600,17 +600,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 244312451}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2056390254}
   m_Father: {fileID: 1690573359}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 6.6, y: -5.5}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &325865199 stripped
@@ -677,7 +677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &334636709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37286d419b9e96046b1a79cd44f28987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBombRegenPerSec: 1
 --- !u!1 &360122539 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1746101471308290, guid: 9509e672e20e42a469f944975105efc6,
@@ -1968,7 +1969,7 @@ GameObject:
   - component: {fileID: 660990333}
   m_Layer: 5
   m_Name: TimeBombCharge2
-  m_TagString: TimeBomb2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3905,7 +3906,7 @@ GameObject:
   - component: {fileID: 1217266034}
   m_Layer: 5
   m_Name: FillTimeBomb
-  m_TagString: Untagged
+  m_TagString: TimeBomb2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3982,17 +3983,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217618606}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 137239664}
   m_Father: {fileID: 1668162498}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 6.6000004, y: -5.5}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1247201115
@@ -4457,7 +4458,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1136408002
+  randomSeed: -81092208
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8435,15 +8436,18 @@ MonoBehaviour:
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 1282365348}
   pdestroyed: {fileID: 2074911101}
+  timebombUI: {fileID: 0}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
   rotZ: {x: 0, y: 0, z: 0}
   actualLife: 1
-  cameraTrs: {fileID: 1446077911}
-  camRotate: 0
-  speedOn: 0
+  speedOnProp: 0
+  StandByVertProp: 0
   isDeath: 0
+  emptyStockLives: 0
+  activateBomb: 0
+  emptyStockBombs: 0
 --- !u!82 &1532430273
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8870,8 +8874,12 @@ MonoBehaviour:
   MinIntensityPropeller: 0.6
   MaxIntensityPropeller: 1
   CurrentIntensityPropeller: 0.6
+  VerticalIntensityX: 1.2
+  VerticalIntensityY: 1
+  VerticalIntensityZ: 1
   IncreaseIntensityPropeller: 0.5
-  speedOn: 0
+  IntensityZ: 0.5
+  enableStartLifeTime: 1
 --- !u!82 &1532430283
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9120,8 +9128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 3.7999992, y: 3.2000008}
-  m_SizeDelta: {x: 7.7, y: 6.4}
+  m_AnchoredPosition: {x: 4.83, y: 4.5631104}
+  m_SizeDelta: {x: 9.75, y: -1.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1615639933
 MonoBehaviour:
@@ -9395,7 +9403,7 @@ GameObject:
   - component: {fileID: 1690573360}
   m_Layer: 5
   m_Name: TimeBombCharge
-  m_TagString: TimeBomb1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9715,17 +9723,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1924063428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1217266033}
   m_Father: {fileID: 660990332}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 8.700001, y: -5.4674187}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1929728961 stripped
@@ -10248,8 +10256,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 3.7999992, y: 3.2000008}
-  m_SizeDelta: {x: 7.7, y: 6.4}
+  m_AnchoredPosition: {x: 3.7999992, y: 3.88}
+  m_SizeDelta: {x: 7.7, y: -0.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2018003545
 MonoBehaviour:
@@ -10343,7 +10351,7 @@ GameObject:
   - component: {fileID: 2056390252}
   m_Layer: 5
   m_Name: FillTimeBomb
-  m_TagString: Untagged
+  m_TagString: TimeBomb1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

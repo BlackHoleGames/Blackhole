@@ -41,16 +41,15 @@ public class SwitchablePlayerController : MonoBehaviour
     private bool is_vertical, is_firing, play;
 
 
-    public Transform cameraTrs;
-    public bool camRotate = false;
-    public bool speedOnProp =false;
-    public bool StandByVertProp = false;
+    //public Transform cameraTrs;
+    //public bool camRotate = false;
+    public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
-    public bool isDeath = false;
+    public bool isDeath, emptyStockLives = false;
+    public bool activateBomb , emptyStockBombs = false;
     // Use this for initialization
     void Start()
     {
-        //        mDestroyed = GetComponent<Mesh>();
         play = true;
         actualLife = shield;
         life.value = actualLife;
@@ -76,7 +75,6 @@ public class SwitchablePlayerController : MonoBehaviour
         gunshot = audioSources[2];
         timewarp = audioSources[3];
         alarm = audioSources[4];
-        
         //parentAxis = gameObject;
     }
 
@@ -118,7 +116,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 firingCounter -= Time.unscaledDeltaTime;
             }
             //if (actualLife < shield) Regen();
-            if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
+            //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
     }
 
@@ -146,9 +144,11 @@ public class SwitchablePlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
         {
-            if (fillTimeBomb.fillAmount == 1.0f)
+            //            if (fillTimeBomb.fillAmount == 1.0f){
+            //                fillTimeBomb.fillAmount = 0.0f;            
+            if (!emptyStockBombs)
             {
-                fillTimeBomb.fillAmount = 0.0f;
+                activateBomb = true;
                 int clipIndex = (int)Random.Range(0, 3);
                 timebomb.clip = timeBombClips[clipIndex];
                 timebomb.Play();
