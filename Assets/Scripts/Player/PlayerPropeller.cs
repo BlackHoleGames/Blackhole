@@ -12,8 +12,9 @@ public class PlayerPropeller : MonoBehaviour {
     public float VerticalIntensityZ = 1.0f;
     public float IncreaseIntensityPropeller = 0.1f;
     public float IntensityZ = 0.5f;
-    public bool speedOn = false;
-    public bool StandByVertProp = false;
+    private bool speedOn = false;
+    private bool StandByVertProp = false;
+    public bool enableStartLifeTime = true;
     public static bool isStillAlive = true;
 	
 	// Update is called once per frame
@@ -27,14 +28,14 @@ public class PlayerPropeller : MonoBehaviour {
             {
                 CurrentIntensityPropeller = CurrentIntensityPropeller + IncreaseIntensityPropeller;
                 if (CurrentIntensityPropeller > MaxIntensityPropeller) CurrentIntensityPropeller = MaxIntensityPropeller;
-                prop.startLifetime = CurrentIntensityPropeller;
+                if(enableStartLifeTime) prop.startLifetime = CurrentIntensityPropeller;
                 propeller.transform.localScale = new Vector3(CurrentIntensityPropeller, CurrentIntensityPropeller, CurrentIntensityPropeller+ IntensityZ);
             }
             else
             {
                 if (CurrentIntensityPropeller <= MinIntensityPropeller) {
                     CurrentIntensityPropeller = MinIntensityPropeller;
-                    prop.startLifetime = CurrentIntensityPropeller;
+                    if (enableStartLifeTime) prop.startLifetime = CurrentIntensityPropeller;
                     if(StandByVertProp) propeller.transform.localScale = new Vector3(CurrentIntensityPropeller, CurrentIntensityPropeller, CurrentIntensityPropeller + IntensityZ);
                     else propeller.transform.localScale = new Vector3(VerticalIntensityX, VerticalIntensityY, VerticalIntensityZ);
 
@@ -42,7 +43,7 @@ public class PlayerPropeller : MonoBehaviour {
                 else
                 {
                     CurrentIntensityPropeller = CurrentIntensityPropeller - IncreaseIntensityPropeller;
-                    prop.startLifetime = CurrentIntensityPropeller;
+                    if (enableStartLifeTime) prop.startLifetime = CurrentIntensityPropeller;
                     if (StandByVertProp) propeller.transform.localScale = new Vector3(CurrentIntensityPropeller, CurrentIntensityPropeller, CurrentIntensityPropeller + IntensityZ);
                     else propeller.transform.localScale = new Vector3(VerticalIntensityX, VerticalIntensityY, VerticalIntensityZ);
                 }
