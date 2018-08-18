@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerPropeller : MonoBehaviour {
     public ParticleSystem propeller;
-    public float MinIntensityPropeller = 1.5f;
-    public float MaxIntensityPropeller = 3.0f;
-    public float CurrentIntensityPropeller = 1.0f;
+    public float MinIntensityPropeller = 0.6f;
+    public float MaxIntensityPropeller = 1.0f;
+    public float CurrentIntensityPropeller = 0.6f;
     public float VerticalIntensityX = 1.2f;
     public float VerticalIntensityY = 1.0f;
     public float VerticalIntensityZ = 1.0f;
-    public float IncreaseIntensityPropeller = 0.1f;
+    public float IncreaseIntensityPropeller = 0.5f;
     public float IntensityZ = 0.5f;
     private bool speedOn = false;
     private bool StandByVertProp = false;
