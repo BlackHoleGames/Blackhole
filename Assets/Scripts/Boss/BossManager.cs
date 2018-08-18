@@ -47,12 +47,10 @@ public class BossManager : MonoBehaviour {
             case BossStage.TOPHASE21:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[2];
                 if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[1].position, goToPoints[2].position, lerpTime);
-                else
-                {
+                else {
                     actualStage = BossStage.PHASE21;
                     sbs.StartBossPhase();
                     lerpTime = 0.0f;
-
                 }
                 break;
             case BossStage.TOPHASE22:
@@ -95,6 +93,37 @@ public class BossManager : MonoBehaviour {
                 thirdPhaseBoss.SetActive(true);
                 thirdPhaseBoss.GetComponent<ThirdBossStage>().enabled = true;
                 // StartLastSection
+                break;
+        }
+    }
+
+    // Add control to deactivate scripts
+    public void DebugNextStage() {
+        switch (actualStage)
+        {
+            case BossStage.ENTERING:
+                actualStage = BossStage.TOPHASE1;
+                break;
+            case BossStage.TOPHASE1:
+                actualStage = BossStage.PHASE1;
+                break;
+            case BossStage.PHASE1:
+                actualStage = BossStage.TOPHASE21;
+                break;
+            case BossStage.TOPHASE21:               
+                 actualStage = BossStage.PHASE21;
+                break;
+            case BossStage.PHASE21:
+                actualStage = BossStage.TOPHASE22;
+                break;
+            case BossStage.TOPHASE22:
+                actualStage = BossStage.PHASE22;               
+                break;
+            case BossStage.PHASE22:
+                actualStage = BossStage.TOPHASE3;
+                break;
+            case BossStage.TOPHASE3:               
+                actualStage = BossStage.PHASE3;
                 break;
         }
     }

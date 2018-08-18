@@ -35,7 +35,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit, godMode;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     private bool is_vertical, is_firing, play;
@@ -50,6 +50,7 @@ public class SwitchablePlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        godMode = false;
         play = true;
         actualLife = shield;
         life.value = actualLife;
@@ -395,6 +396,8 @@ public class SwitchablePlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDestroyScript>().waitToRespawn)
+        if (!godMode)
+        {
             if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
             {
                 if (alertModeTime > 0.0f)
@@ -437,6 +440,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 else alertModeTime = alertModeDuration;
 
             }
+        }
         //}
     }
 
@@ -475,5 +479,9 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void ActivatePlayer() {
         play = true;
+    }
+
+    public void SetPlayerGodMode(bool enabled) {
+        godMode = enabled;
     }
 }

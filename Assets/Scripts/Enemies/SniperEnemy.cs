@@ -50,8 +50,9 @@ public class SniperEnemy : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (spawnCooldown > 0.0f) spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
-        else ManageShot();
+        //if (spawnCooldown > 0.0f) spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+        //else
+        if (squadManager.ArrivedToCenter()) ManageShot();
     }
     /*
     public void ManageShot() {

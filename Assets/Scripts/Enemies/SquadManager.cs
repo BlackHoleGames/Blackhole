@@ -110,6 +110,10 @@ public class SquadManager : MonoBehaviour {
         }
     }
 
+    public bool ArrivedToCenter() {
+        return arrivedToStart;
+    }
+
     /*
                      if (timeToStay < 0.0f && numOfMembers > 0) {
                         Destroy(gameObject);

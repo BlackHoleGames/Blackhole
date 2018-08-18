@@ -12,7 +12,7 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd;
+    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd, spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
@@ -104,7 +104,7 @@ public class MapManger : MonoBehaviour {
                     break;
                 case Stages.MINIBOSS_SECONDPHASE:
                     Destroy(meteors2d);
-                    Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
+                    spawnedEndMeteors = Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
                     break;
 
             }
@@ -112,11 +112,53 @@ public class MapManger : MonoBehaviour {
     }
 
     public void EnteredStructure() {
-        Destroy(meteorsEnd);
+        Destroy(spawnedEndMeteors);
     }
 
     public void GoToNextStage() {
         ++actualStage;
     }
 
+    public void DebugGoToNextStage() {
+        switch (actualStage) {
+            case Stages.METEORS_TIMEWARP:
+                Destroy(am.gameObject.transform.parent.gameObject);
+                GoToNextStage();
+                break;
+            case Stages.METEORS_ENEMIES:
+                em.DebugSpawnMiniBoss();
+                GoToNextStage();
+                break;
+            case Stages.STRUCT_ENEMIES:
+                GoToNextStage();
+                break;
+            case Stages.MINIBOSS_FIRSTPHASE:
+                Destroy(mbs.gameObject.transform.parent.gameObject);
+                actualStage = Stages.STRUCT_TIMEWARP;
+                break;
+            case Stages.MINIBOSS_SECONDPHASE:
+                Destroy(mbs.gameObject.transform.parent.gameObject);
+                actualStage = Stages.STRUCT_TIMEWARP;
+                break;
+            case Stages.BOSS:
+                Destroy(boss.gameObject.transform.parent.gameObject);
+                GoToNextStage();
+                break;
+            case Stages.ESCAPE:
+                //Call gameover
+                break;
+            default:
+                GoToNextStage();
+                break;
+        }
+    }
+
+    public Stages GetStage() {
+        return actualStage;
+    }
+
+    public GameObject GetBoss() {
+        if (actualStage == Stages.BOSS) return boss;
+        else return null;
+    }
 }

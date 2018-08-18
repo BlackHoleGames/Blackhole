@@ -17,6 +17,9 @@ public class EnemyManager : MonoBehaviour {
     private float waitingTime, subSquadDelay;
     private int subSquadEnemyCounter;
     private GameObject ChainSquadManager;
+    // For debug
+    private GameObject actualSquad;
+
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
@@ -70,6 +73,7 @@ public class EnemyManager : MonoBehaviour {
                     obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
                     obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
                     obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
+                    actualSquad = obj;
                     ++squadronIndex;
                     if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
                 }
@@ -125,5 +129,35 @@ public class EnemyManager : MonoBehaviour {
     public void StartNewPhase() {
         GetComponentInParent<MapManger>().GoToNextStage();
         StopManager();
+    }
+
+    public void DebugSpawnNextWave() {
+        if (squadronIndex < squadrons.Length)
+        {
+            if (!instantiatingSubSquads) Destroy(actualSquad);
+            else
+            {
+                instantiatingSubSquads = false;
+                Destroy(ChainSquadManager);
+            }
+            ++squadronIndex;
+            StartWait();
+        }
+    }
+
+    public void DebugSpawnMiniBoss()
+    {
+        if (!instantiatingSubSquads) Destroy(actualSquad);
+        else {
+            instantiatingSubSquads = false;
+            Destroy(ChainSquadManager);
+        }
+        for (int i = squadronIndex; i < squadrons.Length; ++i) {
+            if (squadrons[i].GetComponent<MiniBossScript>()) {
+                squadronIndex = i;
+                break;
+            }             
+        }
+        StartWait();        
     }
 }
