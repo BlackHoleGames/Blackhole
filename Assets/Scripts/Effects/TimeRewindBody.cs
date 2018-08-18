@@ -10,7 +10,7 @@ public class TimeRewindBody : MonoBehaviour {
     private Rigidbody rb;
     public float recordingTime = 5.0f;
     public float timeBeforeRewind = 3.0f;
-    private bool done = false;
+    public static bool done = false;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();

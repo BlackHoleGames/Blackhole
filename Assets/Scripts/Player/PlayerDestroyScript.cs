@@ -22,7 +22,7 @@ public class PlayerDestroyScript : MonoBehaviour {
             if (GameObject.FindGameObjectWithTag("Player") != null && GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !waitingForDeath)
             {
                 waitingForDeath = true;
-                DeathTimerSequence = DeathSequence(2.0f);
+                DeathTimerSequence = DeathSequence(6.0f);
                 StartCoroutine(DeathTimerSequence);
 
             }
@@ -32,19 +32,25 @@ public class PlayerDestroyScript : MonoBehaviour {
 
     IEnumerator DeathSequence(float waitToDeath)
     {
+        Destroy();
+        yield return new WaitForSeconds(waitToDeath);
+        Restore();
+    }
+    public void Destroy()
+    {
         pdestroyed.SetActive(true);
+        Vector3 newPos = new Vector3(parentAxis.transform.position.x, parentAxis.transform.position.y, parentAxis.transform.position.z);
+        pdestroyed.transform.position = newPos;
         parentAxis.SetActive(false);
         propeller.SetActive(false);
-        yield return new WaitForSeconds(waitToDeath);
-
-        //transform.Find("Player").gameObject.SetActive(true);
+    }
+    public void Restore()
+    {
         pdestroyed.SetActive(false);
         pdestroyed.transform.position = DestroyedFirstPosition;
         parentAxis.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath = false;
         propeller.SetActive(true);
         waitingForDeath = false;
-        //parentAxis.gameObject.SetActive(true);
     }
-
 }

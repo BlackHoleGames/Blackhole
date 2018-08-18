@@ -43,7 +43,8 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public Transform cameraTrs;
     public bool camRotate = false;
-    public bool speedOn =false;
+    public bool speedOnProp =false;
+    public bool StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isDeath = false;
     // Use this for initialization
@@ -248,14 +249,10 @@ public class SwitchablePlayerController : MonoBehaviour
             if (is_vertical) parentAxis.transform.position += new Vector3(0.0f, 0.0f, nextPosYZ);
             else parentAxis.transform.position += new Vector3(0.0f, nextPosYZ, 0.0f);
         }
-        if (YZinput > 0.0f)// || Xinput != 0)
-        {
-            speedOn = true;
-        }
-        else
-        {
-            speedOn = false;
-        }
+        if (YZinput > 0.0f) speedOnProp = true;
+        else speedOnProp = false;
+        if (VerticalAxisOn()) StandByVertProp = true;
+        else StandByVertProp = false;
     }
 
     //parentAxis
@@ -397,48 +394,50 @@ public class SwitchablePlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
-        {
-            if (alertModeTime > 0.0f)
+        //if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDestroyScript>().waitToRespawn)
+            if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
             {
-                if (!alarm.isPlaying) alarm.Play();
-                if (playerHit)
+                if (alertModeTime > 0.0f)
                 {
-                    //
-                    if (!tm.InSlowMo())
+                    if (!alarm.isPlaying) alarm.Play();
+                    if (playerHit)
                     {
-                        slomo.Play();
-                        tm.StartSloMo();
-                        alertModeTime = alertModeDuration;
-                        while (ghostArray.Count > 0)
+                        //
+                        if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                         {
-                            Destroy(ghostArray[0]);
-                            ghostArray.Remove(ghostArray[0]);
+                            actualLife = actualLife - (shield / 2.0f);
+                            alertModeTime = alertModeDuration;
+                            life.value = actualLife;
+                            if (actualLife < 0.0f)
+                            {
+                                fillLife.enabled = false;
+                                //Comentat per no parar el joc isDeath = true;
+                                //SaveGameStatsScript.GameStats.isGameOver = true;
+                                //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                                //SceneManager.LoadScene(6);
+                                //TimerScript.gameover = true;
+                                //Remaining deaht animation before this bool.                        
+                            } // Death                
                         }
-                        ghostArray.Clear();
-                    }
-                    if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
-                    {
-                        actualLife = actualLife - (shield / 2.0f);
-                        alertModeTime = alertModeDuration;
-                        life.value = actualLife;
-                        if (actualLife < 0.0f)
+                        if (!tm.InSlowMo() && !isDeath)
                         {
-                            fillLife.enabled = false;
-                            isDeath = true;
-                            //SaveGameStatsScript.GameStats.isGameOver = true;
-                            //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
-                            //SceneManager.LoadScene(6);
-                            //TimerScript.gameover = true;
-                            //Remaining deaht animation before this bool.                        
-                        } // Death                
+                            slomo.Play();
+                            tm.StartSloMo();
+                            alertModeTime = alertModeDuration;
+                            while (ghostArray.Count > 0)
+                            {
+                                Destroy(ghostArray[0]);
+                                ghostArray.Remove(ghostArray[0]);
+                            }
+                            ghostArray.Clear();
+                        }
                     }
+                    else playerHit = true;
                 }
-                else playerHit = true;
-            }
-            else alertModeTime = alertModeDuration;
+                else alertModeTime = alertModeDuration;
 
-        }
+            }
+        //}
     }
 
     public void AddLife(float amount)
