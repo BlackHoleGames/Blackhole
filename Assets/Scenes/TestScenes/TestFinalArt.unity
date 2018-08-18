@@ -4565,7 +4565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057b7d93ecb90b4789beaeef4682d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 2
+  actualStage: 1
   meteorDelayDuration: 0.2
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
@@ -4573,6 +4573,7 @@ MonoBehaviour:
   miniboss: {fileID: 0}
   meteors2d: {fileID: 583087391}
   meteorsEnd: {fileID: 1710844548096832, guid: 7ad2120c861a94e499aa53d2f061fe82, type: 2}
+  spawnedEndMeteors: {fileID: 0}
 --- !u!114 &609360213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4584,9 +4585,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27ee07549afb174398d13ddabd8b11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyManager: {fileID: 0}
-  mapManager: {fileID: 0}
-  player: {fileID: 0}
+  enemyManager: {fileID: 75188796}
+  mapManager: {fileID: 609360212}
+  player: {fileID: 893946460}
 --- !u!1 &615820671
 GameObject:
   m_ObjectHideFlags: 0
@@ -7265,7 +7266,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 985453121}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92b0c6d1aae720b42a9f6dc0109a7c28, type: 3}
   m_Name: 
