@@ -16,7 +16,7 @@ public class RadialShooter : MonoBehaviour {
     public float degreesPerProjectile;
     public Material matOn, matOff;
     bool shielded, hit, materialHitOn;
-    private SquadManager squadManager;
+
     public GameObject explosionPS;
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
@@ -32,7 +32,6 @@ public class RadialShooter : MonoBehaviour {
         rateCounter = 0.0f;
         shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
-        squadManager = GetComponentInParent<SquadManager>();
         ProtectorEnemy pe = transform.parent.GetComponentInChildren<ProtectorEnemy>();
         if (pe) pe.squadron.Add(gameObject);
         degreesPerProjectile = 360.0f / (float)numberOfShots;
@@ -52,25 +51,7 @@ public class RadialShooter : MonoBehaviour {
                     shotTimeCounter = rateOfFire;
                     Instantiate(enemyProjectile, transform.position, Quaternion.Euler(new Vector3(0.0f, degreesPerProjectile * i, 0.0f)));
                 }
-                rateCounter = shotCooldown;
-                /*if (shotCounter > 0)
-                {
-                    shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-                    if (shotTimeCounter <= 0)
-                    {
-                        shotTimeCounter = rateOfFire;
-                        GameObject obj = Instantiate(enemyProjectile, transform.position, transform.rotation);
-                        obj.transform.eulerAngles = new Vector3(0.0f, degreesPerProjectile * (numberOfShots-shotCounter) , 0.0f);
-                        --shotCounter;
-
-                    }
-                }
-                else
-                {
-                    shotTimeCounter = rateOfFire;
-                    shotCounter = numberOfShots;
-                    rateCounter = shotCooldown;
-                }*/
+                rateCounter = shotCooldown;             
             }
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
@@ -108,8 +89,6 @@ public class RadialShooter : MonoBehaviour {
             if (life <= 0.0f)
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
-
-                //squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

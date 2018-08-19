@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4931594284693520}
   - component: {fileID: 114527527085339484}
+  - component: {fileID: 135777493238372996}
   m_Layer: 0
   m_Name: TimeBubbleGameObject
-  m_TagString: Untagged
+  m_TagString: timeBubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,3 +56,15 @@ MonoBehaviour:
   timeBubbleMaxRadius: 50
   timeToMaxSize: 0.4
   tmPartSys: {fileID: 1592929931469916, guid: fbf703056a335bf48b2eebbadcaa2c2a, type: 2}
+--- !u!135 &135777493238372996
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564934283649618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

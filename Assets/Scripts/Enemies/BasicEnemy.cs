@@ -96,7 +96,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
-            if (hitAudioSource.enabled) hitAudioSource.enabled = true;
+            if (!hitAudioSource.enabled) hitAudioSource.enabled = true;
             hitAudioSource.Play();
             if (!shielded) {
                 life -= other.gameObject.GetComponent<Projectile>().damage;

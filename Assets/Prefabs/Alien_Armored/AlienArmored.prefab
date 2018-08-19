@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDestroy: 1.5
-  flickerTime: 0.1
+  flickerTime: 0.05
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
   matFlicker: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
 --- !u!114 &114398641008116466

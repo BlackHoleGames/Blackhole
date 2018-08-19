@@ -814,8 +814,6 @@ MonoBehaviour:
   matFlicker: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   enemyProjectile: {fileID: 1608848417862874, guid: 961a2e75189f70a45a392db7b5737dcc,
     type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
   enemyDestroyed: {fileID: 1883625521307808}
   tb: {fileID: 0}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
@@ -831,7 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDestroy: 1.5
-  flickerTime: 0.1
+  flickerTime: 0.05
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
   matFlicker: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
 --- !u!135 &135018945426299470

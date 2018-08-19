@@ -6,7 +6,7 @@ public class MiniBossScript : MonoBehaviour {
 
     private bool start;
 
-    private float testTime = 10.0f;
+
     private EnemyManager em;
     private MapManger mm;
 
@@ -20,7 +20,7 @@ public class MiniBossScript : MonoBehaviour {
     public GameObject enemyProjectile, explosionPS;
     public TimeBehaviour tb;
     public AudioClip gunshot;
-    private GameObject player;
+
     private bool hit, materialHitOn, alive, secondPhase;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
@@ -30,7 +30,6 @@ public class MiniBossScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         em = GameObject.Find("Managers").GetComponentInChildren<EnemyManager>();
-        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         alive = true;
@@ -43,7 +42,6 @@ public class MiniBossScript : MonoBehaviour {
          
     // Update is called once per frame
     void Update () {
-        //transform.LookAt(player.transform.position);
         if (start)
         {
             if (spawnDelay <= 0.0f) ManageShot();

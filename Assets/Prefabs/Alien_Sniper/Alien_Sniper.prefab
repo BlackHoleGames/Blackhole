@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4335966810285444}
+  - component: {fileID: 114331190227223072}
   m_Layer: 0
   m_Name: AlienSniper_D
   m_TagString: Untagged
@@ -1106,6 +1107,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 3
+--- !u!114 &114331190227223072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151215261781000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9103028b0aa44944bacba15003f26ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeDestroy: 1.5
+  flickerTime: 0.05
+  matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
+  matFlicker: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
 --- !u!114 &114579719896582228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1138,8 +1154,6 @@ MonoBehaviour:
   hitFeedbackDuration: 0.25
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
   wings: {fileID: 0}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
 --- !u!135 &135667293569685786

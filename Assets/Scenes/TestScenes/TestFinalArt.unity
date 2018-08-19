@@ -6807,7 +6807,7 @@ MonoBehaviour:
   fillLife: {fileID: 1277672389}
   fillTimeBomb: {fileID: 566144385}
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
-  sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
+  sphere: {fileID: 1564934283649618, guid: 51a84d1ec19519a4d8624b2bfcfc93a3, type: 2}
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 30249562}
   pdestroyed: {fileID: 1753488558}
@@ -7189,7 +7189,7 @@ MonoBehaviour:
   verticalPosition: {x: 0, y: 26, z: 0}
   middlePosition: {x: 0, y: 17.5, z: -16.5}
   timeWarpPos: {x: 0, y: 0, z: -15}
-  bossCamPos: {x: 0, y: 11.5, z: -19}
+  bossCamPos: {x: 0, y: 11.5, z: -23}
   verticalRotation: {x: 90, y: 0, z: 0}
   middleRotation: {x: 45, y: 0, z: 0}
   timeWarpRot: {x: 0, y: 0, z: 0}
