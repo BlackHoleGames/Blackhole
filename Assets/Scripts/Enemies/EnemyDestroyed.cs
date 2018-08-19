@@ -18,6 +18,7 @@ public class EnemyDestroyed : MonoBehaviour {
         {
             if (child.name == "AlienEye") {
                 eye = child.gameObject;
+                Instantiate(Resources.Load("TimeBubble"), eye.transform.position, eye.transform.rotation);
                 break;
             }
         }
@@ -29,16 +30,21 @@ public class EnemyDestroyed : MonoBehaviour {
     void Update () {
         timeBeforeDestroy -= Time.deltaTime;
         if (timeBeforeDestroy < 0.0f) CallDestroy();
-        if (flickerCounter < 0.0f) {            
-            if (!matOn) {
-                eye.GetComponent<Renderer>().material = matFlicker;
-                matOn = true;
+        if (flickerCounter < 0.0f) {
+            foreach (Transform child in transform)
+            {
+                if (!matOn)
+                {
+                    child.GetComponent<Renderer>().material = matFlicker;
+                    matOn = true;
+                }
+                else
+                {
+                    child.GetComponent<Renderer>().material = matOff;
+                    matOn = false;
+                }
             }
-            else {
-                eye.GetComponent<Renderer>().material = matOff;
-                matOn = false;
-            }             
-            flickerCounter = flickerTime;            
+            flickerCounter = flickerTime;
         }
         else flickerCounter -= Time.deltaTime;
 	}
@@ -46,7 +52,8 @@ public class EnemyDestroyed : MonoBehaviour {
     public void CallDestroy() {
         foreach (Transform child in transform)
         {
-            Instantiate(Resources.Load("Explosion"), child.position, child.rotation);
+            GameObject obj = Instantiate(Resources.Load("Explosion"), child.position, child.rotation) as GameObject;
+            if (child.name != "AlienEye") obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             Destroy(child.gameObject);
         }
         squadManager.DecreaseNumber();
