@@ -14,7 +14,7 @@ public class TimeBubble : MonoBehaviour {
     // Use this for initialization
     void Start () {
         toDestroy = false;
-        Instantiate(tmPartSys, gameObject.transform.position, gameObject.transform.rotation);
+        Instantiate(tmPartSys, transform);
         t = 0;
         //if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
         //if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;

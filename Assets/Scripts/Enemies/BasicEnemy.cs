@@ -15,13 +15,11 @@ public class BasicEnemy : MonoBehaviour {
     public GameObject enemyProjectile, enemyDestroyed;
     public TimeBehaviour tb;
     public AudioClip gunshot;
-    private GameObject player;
     private bool shielded, hit, materialHitOn;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
 	// Use this for initialization
 	void Start () {
-        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();

@@ -166,7 +166,7 @@ public class SniperEnemy : MonoBehaviour {
             {
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
 
-                squadManager.DecreaseNumber();
+                //squadManager.DecreaseNumber();
                 Destroy(transform.parent.gameObject);
             }
         }

@@ -12,14 +12,11 @@ public class PowerUpScript : MonoBehaviour {
     private AudioSource audioSource;
     private bool alive;
     private TimeBehaviour tb;
-    private float direction;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
         alive = true;
-        float randvalue  = Random.Range(-1, 1);
-        if (randvalue < 0.0) direction = -1.0f;
-        else direction = 1.0f;
+
         tb = GetComponent<TimeBehaviour>();
     }
 	
@@ -27,15 +24,12 @@ public class PowerUpScript : MonoBehaviour {
 	void Update () {
         if (alive)
         {
-            //float nextPosX = (speedX * (Time.deltaTime)); // / Time.timeScale));
-            float nextPosZ = (speedZ * (Time.deltaTime)*tb.scaleOfTime);  // / Time.timeScale));
-            //if (transform.position.x + (nextPosX * direction) <= -XLimit) direction = 1.0f;
-            //else if (transform.position.x + (nextPosX * direction) >= XLimit) direction = -1.0f;
-            //transform.position += new Vector3(nextPosX * direction, 0.0f, 0.0f);
-            transform.position += new Vector3(0.0f, 0.0f, -nextPosZ);
+            float nextPosZ = (speedZ * (Time.deltaTime)*tb.scaleOfTime);  
+            
+            transform.parent.position += new Vector3(0.0f, 0.0f, -nextPosZ);
             if (transform.position.z < -10.0f) Destroy(transform.parent.gameObject);
         }
-        //else if (!audioSource.isPlaying) Destroy(gameObject);
+        else if (!audioSource.isPlaying) Destroy(gameObject);
         
     }
 

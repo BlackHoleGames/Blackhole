@@ -6,7 +6,7 @@ public class SniperShot : MonoBehaviour {
 
     public float timeToLive = 2.0f;
     //public GameObject chargePS, shotPS;
-    private Light light;
+    private Light projlight;
     private bool lightningUp, lightningDown;
     public Vector3 target;
     private TimeBehaviour tb;
@@ -25,7 +25,7 @@ public class SniperShot : MonoBehaviour {
         transform.rotation = Quaternion.FromToRotation(Vector3.up,dir);
         //if (chargePS) chargePS.GetComponent<ParticleSystem>().Play();
         lightningUp = true;
-        light = GetComponentInChildren<Light>();
+        projlight = GetComponentInChildren<Light>();
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class SniperShot : MonoBehaviour {
             if (timeToLive < 2.0f && timeToLive > 0.5f && !bc.enabled) bc.enabled = true;
             if (timeToLive <= 0.5) {
                 if (bc.enabled) bc.enabled = false;
-                if (light.intensity == 60.0f) light.intensity = 30.0f;
+                if (projlight.intensity == 60.0f) projlight.intensity = 30.0f;
                 StopLight();
             }
             
@@ -51,23 +51,23 @@ public class SniperShot : MonoBehaviour {
     public void StartLight() {
         lightCounter += Time.deltaTime / 2.0f;
         float lightIntensity = Mathf.Lerp(0.0f, 30.0f, lightCounter);
-        light.intensity = lightIntensity;
+        projlight.intensity = lightIntensity;
         if (lightIntensity >= 30) {
             lightCounter = 0.0f;
             lightningUp = false;
-            light.intensity = 60.0f;
+            projlight.intensity = 60.0f;
         }
     }
 
     public void StopLight() {
         lightCounter += Time.deltaTime / 0.5f;
         float lightIntensity = Mathf.Lerp(30.0f, 0.0f, lightCounter);
-        light.intensity = lightIntensity;
+        projlight.intensity = lightIntensity;
         if (lightIntensity <= 0.0f)
         {
             lightCounter = 0.0f;
             lightningUp = false;
-            light.intensity = 0.0f;
+            projlight.intensity = 0.0f;
         }
     }
 

@@ -9,7 +9,6 @@ public class KamikazeEnemy : MonoBehaviour {
     public float life = 50.0f;
     public float hitFeedbackDuration = 0.25f;
 
-    private SquadManager squadManager;
     private TimeBehaviour tb;
     private GameObject player;
     private float direction, hitFeedbackCounter;
@@ -28,7 +27,6 @@ public class KamikazeEnemy : MonoBehaviour {
         if (transform.position.x < 0.0f) direction = 1.0f;
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
-        squadManager = GetComponentInParent<SquadManager>();
         audioSource.Play();
 
         //transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
@@ -70,14 +68,12 @@ public class KamikazeEnemy : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                //squadManager.DecreaseNumber();
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                 Destroy(gameObject);
             }
            
         }
         if (other.gameObject.tag == "Player") {
-            //squadManager.DecreaseNumber();
             Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
             Destroy(gameObject);
         }

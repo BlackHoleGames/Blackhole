@@ -109,7 +109,7 @@ public class RadialShooter : MonoBehaviour {
             {
                 Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
 
-                squadManager.DecreaseNumber();
+                //squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

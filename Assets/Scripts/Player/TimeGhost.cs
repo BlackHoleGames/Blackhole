@@ -13,7 +13,7 @@ public class TimeGhost : MonoBehaviour
     public float ZLimit = 5.0f;
     public float invul = 1.0f;
     public float startDelayCounter = 0.0f;
-    private float firingCounter, delayCounter;
+    private float firingCounter;
     public bool is_firing;
     //------------------------------------------
 
@@ -44,7 +44,6 @@ public class TimeGhost : MonoBehaviour
         oldest_index = 0;
         newest_index = 1;
         counter = Time.time;
-        delayCounter = startDelayCounter;
         if (blocksProjectiles) gameObject.tag = "ghost";
         else gameObject.tag = "Untagged";
     }
