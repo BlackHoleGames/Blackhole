@@ -32,6 +32,9 @@ TagManager:
   - TimeBomb1
   - TimeBomb2
   - TimeBomb3
+  - MultiplierX1
+  - MultiplierX2
+  - MultiplierX3
   layers:
   - Default
   - TransparentFX

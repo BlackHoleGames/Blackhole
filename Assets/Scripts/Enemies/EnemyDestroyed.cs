@@ -7,6 +7,8 @@ public class EnemyDestroyed : MonoBehaviour {
     public float timeBeforeDestroy = 1.5f;
     public float flickerTime = 0.1f;
     private bool matOn;
+    private bool isFlickeringEye = true;
+    private bool isFlickeringParts = true;
     private float flickerCounter;
     public Material matOff, matFlicker;
     private SquadManager squadManager;
@@ -37,6 +39,7 @@ public class EnemyDestroyed : MonoBehaviour {
         // Update is called once per frame
     void Update () {
         timeBeforeDestroy -= Time.deltaTime;
+        if (timeBeforeDestroy <= 1.5f) isFlickeringEye = false;
         if (timeBeforeDestroy < 0.0f && eye) {
             Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation);
             CallDestroy();
@@ -64,21 +67,38 @@ public class EnemyDestroyed : MonoBehaviour {
                     }
                     toDestroy.Clear();
                 }
+                if (rd.GetRandTime()<1.0f) isFlickeringParts = false;
+                else isFlickeringParts = true;
             }
         }
         if (listRandDes.Count == 0 && !eye) Destroy(gameObject);
         if (flickerCounter < 0.0f) {
             foreach (Transform child in transform)
             {
-                if (!matOn)
+                if(child.name == "AlienEye")
+                { 
+                    if (!matOn && isFlickeringEye)
+                    {
+                        child.GetComponent<Renderer>().material = matFlicker;
+                        matOn = true;
+                    }
+                    else
+                    {
+                        child.GetComponent<Renderer>().material = matOff;
+                        matOn = false;
+                    }
+                }else
                 {
-                    child.GetComponent<Renderer>().material = matFlicker;
-                    matOn = true;
-                }
-                else
-                {
-                    child.GetComponent<Renderer>().material = matOff;
-                    matOn = false;
+                    if (!matOn && isFlickeringParts)
+                    {
+                        child.GetComponent<Renderer>().material = matFlicker;
+                        matOn = true;
+                    }
+                    else
+                    {
+                        child.GetComponent<Renderer>().material = matOff;
+                        matOn = false;
+                    }
                 }
             }
             flickerCounter = flickerTime;

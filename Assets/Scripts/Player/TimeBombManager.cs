@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimeBombManager : MonoBehaviour {
 //    public Image fillTimeBomb1, fillTimeBomb2, fillTimeBomb3;
-    public float timeBombRegenPerSec = 1.0f;
+    private float timeBombRegenPerSec = 1.0f;
     private int bombs = 3;
     //public Image fillTimeBomb;
     // Use this for initialization

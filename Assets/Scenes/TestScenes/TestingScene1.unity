@@ -368,7 +368,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &143005102
@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 358593618}
   - component: {fileID: 358593617}
   - component: {fileID: 358593621}
+  - component: {fileID: 358593622}
   m_Layer: 5
   m_Name: UI_InGame
   m_TagString: Untagged
@@ -1234,7 +1235,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37286d419b9e96046b1a79cd44f28987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBombRegenPerSec: 1
+--- !u!114 &358593622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 358593616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf3d37e4e097ea4295adc23dfb4d62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &360122539 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1746101471308290, guid: 9509e672e20e42a469f944975105efc6,
@@ -1718,7 +1729,7 @@ GameObject:
   - component: {fileID: 527838264}
   m_Layer: 5
   m_Name: FillX1
-  m_TagString: Untagged
+  m_TagString: MultiplierX1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1765,7 +1776,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &527838265
@@ -1901,7 +1912,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2592,7 +2603,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4155,7 +4166,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &1141729859
@@ -5250,7 +5261,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 28410298
+  randomSeed: -1036348724
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8600,7 +8611,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1163.1101, y: -277.11002}
-  m_SizeDelta: {x: 57.7, y: 120.5}
+  m_SizeDelta: {x: 61.5, y: 120.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1354057596
 MonoBehaviour:
@@ -10130,7 +10141,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
