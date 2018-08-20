@@ -3,7 +3,38 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerProjectile
+  - EnemyManager
+  - Enemy
+  - EnemyProjectile
+  - timeBubble
+  - ghost
+  - powerUp
+  - destroyed
+  - propeller
+  - settings
+  - mainmenu
+  - back
+  - play
+  - UIScore
+  - ScoreNameA
+  - ScoreNameB
+  - ScoreNameC
+  - ScoreNameD
+  - ScoreNameE
+  - ScoreResultA
+  - ScoreResultB
+  - ScoreResultC
+  - ScoreResultD
+  - ScoreResultE
+  - PlayerDestroyed
+  - TimeBomb1
+  - TimeBomb2
+  - TimeBomb3
+  - MultiplierX1
+  - MultiplierX2
+  - MultiplierX3
   layers:
   - Default
   - TransparentFX

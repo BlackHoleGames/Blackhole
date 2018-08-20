@@ -5,6 +5,12 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
+
 # Visual Studio 2015 cache directory
 /.vs/
 
@@ -32,3 +38,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Library/shadercompiler-UnityShaderCompiler.exe0.log
