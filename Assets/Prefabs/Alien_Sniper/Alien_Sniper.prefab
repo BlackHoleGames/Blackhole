@@ -1150,6 +1150,7 @@ MonoBehaviour:
   shotDuration: 4.5
   enemyProjectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17,
     type: 2}
+  enemyDestroyed: {fileID: 1151215261781000}
   spawnCooldown: 1
   hitFeedbackDuration: 0.25
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}

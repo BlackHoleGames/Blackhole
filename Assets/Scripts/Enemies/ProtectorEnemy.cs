@@ -77,7 +77,6 @@ public class ProtectorEnemy : MonoBehaviour {
                 }
             }
         }
-        squadManager.DecreaseNumber();
         //Instantiate(explosionPS, new Vector3(0.0f,0.0f,0.0f), new Quaternion());
         Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);

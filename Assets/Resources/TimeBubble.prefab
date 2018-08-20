@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 82707262969781508}
   m_Layer: 0
   m_Name: TimeBubble
-  m_TagString: Untagged
+  m_TagString: powerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

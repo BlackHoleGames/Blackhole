@@ -6,7 +6,7 @@ public class SniperEnemy : MonoBehaviour {
     public float life = 10.0f;
     public float shotCooldown = 5.0f;
     public float shotDuration = 1.0f;
-    public GameObject enemyProjectile;
+    public GameObject enemyProjectile, enemyDestroyed;
     private GameObject player;
     public float spawnCooldown = 5.0f;
     public float hitFeedbackDuration = 0.25f;
@@ -165,9 +165,8 @@ public class SniperEnemy : MonoBehaviour {
             if (life <= 0.0f)
             {
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-
-                //squadManager.DecreaseNumber();
-                Destroy(transform.parent.gameObject);
+                if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                Destroy(gameObject);
             }
         }
     }

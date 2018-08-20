@@ -10,7 +10,7 @@ public class KamikazeEnemy : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
 
     private TimeBehaviour tb;
-    private GameObject player;
+    private GameObject player, enemyDestroyed;
     private float direction, hitFeedbackCounter;
     private bool turbo, hit, materialHitOn;
     private AudioSource audioSource, hitAudioSource;
@@ -69,9 +69,9 @@ public class KamikazeEnemy : MonoBehaviour {
             if (life <= 0.0f)
             {
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 Destroy(gameObject);
-            }
-           
+            }          
         }
         if (other.gameObject.tag == "Player") {
             Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
