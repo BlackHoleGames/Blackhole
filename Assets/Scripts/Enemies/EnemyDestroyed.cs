@@ -47,11 +47,11 @@ public class EnemyDestroyed : MonoBehaviour {
         }
         if (listRandDes.Count > 0)
         {
+            List<RandomDestructible> toDestroy = new List<RandomDestructible>();
             foreach (RandomDestructible rd in listRandDes)
             {
                 float newTime = rd.GetRandTime();
                 newTime -= Time.deltaTime;
-                List<RandomDestructible> toDestroy = new List<RandomDestructible>();
                 if (newTime < 0.0f)
                 {
                     toDestroy.Add(rd);
@@ -59,16 +59,19 @@ public class EnemyDestroyed : MonoBehaviour {
                     obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 }
                 else rd.SetRandTime(newTime);
-                if (toDestroy.Count > 0) {
-                    foreach (RandomDestructible destroy in toDestroy) {
-                        Destroy(rd.GetPiece());
-                        listRandDes.Remove(destroy);
-
-                    }
-                    toDestroy.Clear();
-                }
+                
                 if (rd.GetRandTime()<1.0f) isFlickeringParts = false;
                 else isFlickeringParts = true;
+            }
+            if (toDestroy.Count > 0)
+            {
+                foreach (RandomDestructible destroy in toDestroy)
+                {
+                    Destroy(destroy.GetPiece());
+                    listRandDes.Remove(destroy);
+
+                }
+                toDestroy.Clear();
             }
         }
         if (listRandDes.Count == 0 && !eye) Destroy(gameObject);
