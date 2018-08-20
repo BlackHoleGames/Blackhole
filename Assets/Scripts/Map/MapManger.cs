@@ -7,7 +7,7 @@ public class MapManger : MonoBehaviour {
     public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
         STRUCT_ENEMIES, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
-    public float meteorDelayDuration = 0.2f;
+    public float meteorDelayDuration = 0.5f;
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
@@ -58,6 +58,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.MINIBOSS_SECONDPHASE:
                 if (!mbs.IsSecondPhase()) {
+                    structure.SetActive(true);
                     meteorsDelayOn = true;
                     tm.StartTimeWarp();
                     mbs.StartSecondPhase();
@@ -68,7 +69,6 @@ public class MapManger : MonoBehaviour {
                 if (!structureMoving)
                 {
                     er.StartDownTransition();
-                    structure.SetActive(true);
                     sm = structure.GetComponent<StructMovement>();
                     sm.StartMovingStruct();
                     structureMoving = true;

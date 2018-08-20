@@ -41,6 +41,7 @@ public class EnemyDestroyed : MonoBehaviour {
         timeBeforeDestroy -= Time.deltaTime;
         if (timeBeforeDestroy <= 1.5f) isFlickeringEye = false;
         if (timeBeforeDestroy < 0.0f && eye) {
+            Debug.Log("Sexplosion");
             Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation);
             CallDestroy();
             Destroy(eye);

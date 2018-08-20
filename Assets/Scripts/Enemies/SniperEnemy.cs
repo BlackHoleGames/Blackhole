@@ -128,7 +128,7 @@ public class SniperEnemy : MonoBehaviour {
 
     public void ManageWings() {
         if (increaseWings) {
-            wingTimeCounter += Time.deltaTime / 2.0f;
+            wingTimeCounter += Time.deltaTime / 0.5f;
             float lerpedScaleUnit = Mathf.Lerp(0.5f, 1.0f, wingTimeCounter);
             Vector3 lerpedScaleVector = new Vector3(lerpedScaleUnit, lerpedScaleUnit, lerpedScaleUnit);
             wings.transform.localScale = lerpedScaleVector;
