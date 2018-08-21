@@ -16,20 +16,25 @@ public class MiniBossWeakpoint : MonoBehaviour {
     public float destroyedTimer = 60.0f;
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
-    private float shotCounter = 0.0f; 
+    private float shotCounter; 
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
         hit = false;
         materialHitOn = false;
         alive = true;
+        shooting = false;
+        shotCounter = shotDuration;
         shotRechargeTime = Random.Range(4.0f,6.0f);
         ela = GetComponent<EnemyLookAt>();
     }
 
     // Update is called once per frame
     void Update () {
-        if (alive) ManageHit();
+        if (alive) {
+            ManageHit();
+            ManageShot();
+        }
         else
         {
             destroyedTimer -= Time.deltaTime;
@@ -48,26 +53,33 @@ public class MiniBossWeakpoint : MonoBehaviour {
             }
             if (destroyedTimer <= 0.0f) Destroy(transform.parent.gameObject);
         }
-        ManageShot();
     }
 
     public void ManageShot() {
-        if (shotRechargeTime <= 0.0f) {
-            if (!shooting) {
-                ela.enabled = false;
-                shooting = true;
+        if (shotRechargeTime <= 0.0f)
+        {
+
+            if (shotCounter <= 0.0f)
+            {
                 shotCounter = shotDuration;
-                GameObject laser = Instantiate(projectile, transform.position, transform.rotation);
-                laser.transform.parent = transform;
-            }
-            if (shotCounter <= 0.0f) {
+
                 ela.enabled = true;
                 shooting = false;
                 shotRechargeTime = Random.Range(4.0f, 6.0f);
             }
-            else shotCounter -= Time.deltaTime;
+            else {
+                if (!shooting && shotCounter < 4.0f) {
+                    ela.enabled = false;
+                    shooting = true;
+                    GameObject laser = Instantiate(projectile, transform.position, transform.rotation);
+                    laser.transform.parent = transform;
+                }
+
+                shotCounter -= Time.deltaTime;
+            }
         }
-        else shotRechargeTime -= Time.deltaTime;        
+        else  shotRechargeTime -= Time.deltaTime;
+        
     }
 
     public void ManageHit() {
