@@ -8,17 +8,23 @@ public class MiniBossWeakpoint : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
-    private bool hit, materialHitOn, alive;
+    public GameObject destroyedBody, destroyedHead, body, projectile;
+    private bool hit, materialHitOn, alive,shooting;
     private float hitFeedbackCounter;
     private AudioSource  hitAudioSource;
-    public GameObject destroyedBody, destroyedHead, body;
+    private EnemyLookAt ela;
     public float destroyedTimer = 60.0f;
+    private float shotRechargeTime;
+    private float shotDuration = 4.5f;
+    private float shotCounter = 0.0f; 
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
         hit = false;
         materialHitOn = false;
         alive = true;
+        shotRechargeTime = Random.Range(4.0f,6.0f);
+        ela = GetComponent<EnemyLookAt>();
     }
 
     // Update is called once per frame
@@ -41,8 +47,27 @@ public class MiniBossWeakpoint : MonoBehaviour {
                 }
             }
             if (destroyedTimer <= 0.0f) Destroy(transform.parent.gameObject);
-
         }
+        ManageShot();
+    }
+
+    public void ManageShot() {
+        if (shotRechargeTime <= 0.0f) {
+            if (!shooting) {
+                ela.enabled = false;
+                shooting = true;
+                shotCounter = shotDuration;
+                GameObject laser = Instantiate(projectile, transform.position, transform.rotation);
+                laser.transform.parent = transform;
+            }
+            if (shotCounter <= 0.0f) {
+                ela.enabled = true;
+                shooting = false;
+                shotRechargeTime = Random.Range(4.0f, 6.0f);
+            }
+            else shotCounter -= Time.deltaTime;
+        }
+        else shotRechargeTime -= Time.deltaTime;        
     }
 
     public void ManageHit() {
@@ -64,6 +89,8 @@ public class MiniBossWeakpoint : MonoBehaviour {
         }
     }
 
+
+
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
@@ -71,7 +98,11 @@ public class MiniBossWeakpoint : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                GameObject goHead = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+                goHead.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                GameObject goBody = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+                goBody.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);

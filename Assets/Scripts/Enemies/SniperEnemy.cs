@@ -47,35 +47,11 @@ public class SniperEnemy : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (spawnCooldown > 0.0f) spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
-        //else
         if (squadManager.ArrivedToCenter()) ManageShot();
     }
-    /*
-    public void ManageShot() {
-        if (rateCounter <= 0.0f)
-        {
-            if (!playCharging)
-            {
-                playCharging = true;
-                audioSource.Play();
-                targetPos = player.transform.position;
-            }
-            //shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-            if (shotTimeCounter <= 0)
-            {
-                playCharging = false;
-                //shotTimeCounter = chargeTime;
-                //rateCounter = shotCooldown;
-                Instantiate(enemyProjectile, transform.position, transform.rotation);
-            }
-            if ((increaseWings || decreaseWings) && !(increaseWings && decreaseWings)) ManageHit();
-        }
-        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
-    }*/
+
 
     public void ManageShot()
     {
@@ -89,7 +65,6 @@ public class SniperEnemy : MonoBehaviour {
                 increaseWings = true;
                 GameObject laser = Instantiate(enemyProjectile, transform.position, transform.rotation);
                 laser.transform.parent = transform;
-
             }
             if (shotDurationCounter <= 0)
             {
@@ -164,7 +139,8 @@ public class SniperEnemy : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 Destroy(gameObject);
             }

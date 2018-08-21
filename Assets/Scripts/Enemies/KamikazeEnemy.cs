@@ -68,13 +68,15 @@ public class KamikazeEnemy : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 Destroy(gameObject);
             }          
         }
         if (other.gameObject.tag == "Player") {
-            Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+            GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+            obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             Destroy(gameObject);
         }
     }

@@ -214,10 +214,10 @@ GameObject:
   - component: {fileID: 23885702761478456}
   - component: {fileID: 114041005571594922}
   - component: {fileID: 114586862630743478}
+  - component: {fileID: 114549880833496666}
   - component: {fileID: 135108615772941476}
   - component: {fileID: 54779135801814496}
   - component: {fileID: 82155444150749542}
-  - component: {fileID: 114549880833496666}
   m_Layer: 0
   m_Name: MiniBossHead
   m_TagString: Untagged
@@ -2371,12 +2371,11 @@ MonoBehaviour:
   hitFeedbackDuration: 0.25
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
   tb: {fileID: 0}
   destroyedBody: {fileID: 1679286144418736}
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
+  projectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17, type: 2}
   destroyedTimer: 3
 --- !u!114 &114458318678410498
 MonoBehaviour:
