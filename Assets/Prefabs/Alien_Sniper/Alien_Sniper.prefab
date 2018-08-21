@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26133ab702a662c4ea15420752672ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  life: 100
   shotCooldown: 3
   shotDuration: 4.5
   enemyProjectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17,
