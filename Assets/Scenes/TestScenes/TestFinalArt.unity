@@ -317,6 +317,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &34300459 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1321767749034060, guid: b3b9d48cd898cd34680eb2adf2678f34,
+    type: 2}
+  m_PrefabInternal: {fileID: 1760842487}
 --- !u!1 &42251903
 GameObject:
   m_ObjectHideFlags: 0
@@ -6293,6 +6298,7 @@ GameObject:
   - component: {fileID: 893946453}
   - component: {fileID: 893946452}
   - component: {fileID: 893946463}
+  - component: {fileID: 893946464}
   m_Layer: 0
   m_Name: CamSwitchable Player
   m_TagString: Player
@@ -6792,10 +6798,10 @@ MonoBehaviour:
   TimeWarpYLimit: 2.5
   RollLimit: 30
   PitchLimit: 30
-  invul: 1
+  invul: 0
   sloMo: 2
   alertModeDuration: 3
-  invulnerabilityDuration: 1
+  invulnerabilityDuration: 0
   shieldRegenPerSec: 1
   timeBombRegenPerSec: 1
   timeBombClips:
@@ -6822,6 +6828,7 @@ MonoBehaviour:
   emptyStockLives: 0
   activateBomb: 0
   emptyStockBombs: 0
+  isAlert: 0
 --- !u!23 &893946461
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6874,6 +6881,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28c47cbef54d4a4082dceab47ee1fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &893946464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 893946450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17837a513c0ddb5469c05a1ff9b48c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psAlert: {fileID: 34300459}
 --- !u!1 &943468712
 GameObject:
   m_ObjectHideFlags: 0
@@ -12198,6 +12217,7 @@ MonoBehaviour:
   emptyStockLives: 0
   activateBomb: 0
   emptyStockBombs: 0
+  isAlert: 0
 --- !u!23 &1738764858
 MeshRenderer:
   m_ObjectHideFlags: 0

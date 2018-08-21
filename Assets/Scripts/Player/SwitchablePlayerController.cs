@@ -46,7 +46,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs = false;
+    public bool activateBomb , emptyStockBombs, isAlert = false;
     // Use this for initialization
     void Start()
     {
@@ -408,6 +408,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         //
                         if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                         {
+                            isAlert = true;
                             actualLife = actualLife - (shield / 2.0f);
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
