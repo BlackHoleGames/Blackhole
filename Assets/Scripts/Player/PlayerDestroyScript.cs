@@ -19,12 +19,13 @@ public class PlayerDestroyScript : MonoBehaviour {
 	void Update () {
         if (!waitingForDeath)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null && GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !waitingForDeath)
+            if (GameObject.FindGameObjectWithTag("Player") != null && 
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath &&
+                !waitingForDeath)
             {
                 waitingForDeath = true;
                 DeathTimerSequence = DeathSequence(6.0f);
                 StartCoroutine(DeathTimerSequence);
-
             }
         }
 	}

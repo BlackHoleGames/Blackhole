@@ -18,7 +18,6 @@ public class InputNameScore : MonoBehaviour {
     private bool isDone = false;
     public bool WaitingForName = false;
     public bool IsInputName = false;
-    
     // Use this for initialization
     void Start () {
         if (SaveGameStatsScript.GameStats.isGameOver)

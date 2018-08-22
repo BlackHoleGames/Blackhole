@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAlert : MonoBehaviour {
     public GameObject psAlert;
-    private IEnumerator DeathTimerSequence;
+    private IEnumerator AlertTimerSequence;
     // Use this for initialization
     void Start () {
 		
@@ -15,11 +15,11 @@ public class PlayerAlert : MonoBehaviour {
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isAlert
             && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath)
         {
-            DeathTimerSequence = DeathSequence(3.0f);
-            StartCoroutine(DeathTimerSequence);
+            AlertTimerSequence = AlertSequence(3.0f);
+            StartCoroutine(AlertTimerSequence);
         }
 	}
-    IEnumerator DeathSequence(float waitToDeath)
+    IEnumerator AlertSequence(float waitToDeath)
     {
         //Destroy();
         psAlert.SetActive(true);

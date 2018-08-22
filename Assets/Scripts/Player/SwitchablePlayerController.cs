@@ -39,14 +39,13 @@ public class SwitchablePlayerController : MonoBehaviour
     private TimeManager tm;
     private List<GameObject> ghostArray;
     private bool is_vertical, is_firing, play;
-
-
+    public int lives = 2;
     //public Transform cameraTrs;
     //public bool camRotate = false;
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
-    public bool isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs, isAlert = false;
+    public bool isDestroying, isDeath, emptyStockLives = false;
+    public bool activateBomb , emptyStockBombs, isFinished, isAlert = false;
     // Use this for initialization
     void Start()
     {
@@ -414,8 +413,11 @@ public class SwitchablePlayerController : MonoBehaviour
                             life.value = actualLife;
                             if (actualLife < 0.0f)
                             {
-                                fillLife.enabled = false;
-                                //Comentat per no parar el joc isDeath = true;
+                                //fillLife.enabled = false;
+                                //isDestroying = true;
+                                //lives--;
+                                //if(lives<0)
+                                    isDeath = true;
                                 //SaveGameStatsScript.GameStats.isGameOver = true;
                                 //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
                                 //SceneManager.LoadScene(6);
