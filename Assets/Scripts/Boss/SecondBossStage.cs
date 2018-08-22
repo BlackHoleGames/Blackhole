@@ -7,12 +7,13 @@ public class SecondBossStage : MonoBehaviour {
 
     public GameObject LeftWeakSpot, RightWeakSpot, Eye, player;
     public GameObject[] Turrets;
-    private int WeakPointCounter;
     public Material Exposed;
-    private bool start, rotateEye;
-    private float lerpTime;
-    private float initialRot;
+
     public float eyeTimeToMove = 5.0f;
+    private int WeakPointCounter;
+    private bool start, rotateEye;
+    private float lerpTime, initialRot;
+
     // Use this for initialization
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -27,27 +28,29 @@ public class SecondBossStage : MonoBehaviour {
     void Update() {
         if (start) {
             foreach (GameObject g in Turrets) g.transform.LookAt(player.transform.position);
-            if (rotateEye) {
-                lerpTime += Time.deltaTime / eyeTimeToMove;
-                if (Eye.transform.eulerAngles.x > 90.0f)
-                {
-                    Eye.GetComponent<Renderer>().material = Exposed;
+            if (rotateEye) ManageEyeRotation();
+        }
+    }
 
-                }
-                else {
-                    float rot = Mathf.Lerp(initialRot, 90.0f, lerpTime);
-                    Eye.transform.eulerAngles = new Vector3(rot, 0.0f, 0.0f);
-                }
-            }
+    
+
+    public void ManageEyeRotation() {
+        lerpTime += Time.deltaTime / eyeTimeToMove;
+        if (Eye.transform.eulerAngles.x > 90.0f) Eye.GetComponent<Renderer>().material = Exposed;
+        else {
+            float rot = Mathf.Lerp(initialRot, 90.0f, lerpTime);
+            Eye.transform.eulerAngles = new Vector3(rot, 0.0f, 0.0f);
         }
     }
 
     public void WeakPointDone() {
         ++WeakPointCounter;
-        if (WeakPointCounter >= 2) {
-            GetComponentInParent<BossManager>().GoToNextPhase();
+        if (WeakPointCounter >= 2) GetComponentInParent<BossManager>().GoToNextPhase();
+        
+    }
 
-        }
+    public void WeakPointResurrected() {
+        --WeakPointCounter;
     }
 
     public void StartBossPhase() {
@@ -58,7 +61,10 @@ public class SecondBossStage : MonoBehaviour {
     public void StartBossPhase2() {
         lerpTime = 0.0f;
         rotateEye = true;
+    }
 
+    public int GetWeakPointCounter() {
+        return WeakPointCounter;
     }
 
     public void FinishBossPhase() {
