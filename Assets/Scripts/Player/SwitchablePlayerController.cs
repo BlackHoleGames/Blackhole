@@ -90,7 +90,7 @@ public class SwitchablePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDeath)
+        if (!isDeath && !isDestroying)
         {
             if (play)
             {
@@ -174,7 +174,7 @@ public class SwitchablePlayerController : MonoBehaviour
         foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
     }
 
-    public void Regen()
+    public void RegenLife()
     {
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
         life.value = actualLife;
@@ -413,19 +413,24 @@ public class SwitchablePlayerController : MonoBehaviour
                             life.value = actualLife;
                             if (actualLife < 0.0f)
                             {
-                                //fillLife.enabled = false;
-                                //isDestroying = true;
-                                //lives--;
-                                //if(lives<0)
+                                actualLife = 0.0f;
+                                tm.RestoreTime();
+                                fillLife.enabled = false;
+                                isDestroying = true;
+                                lives--;
+                                if (lives < 0)
+                                {
                                     isDeath = true;
-                                //SaveGameStatsScript.GameStats.isGameOver = true;
-                                //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                                    //SaveGameStatsScript.GameStats.isGameOver = true;
+                                    //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                                }
+                            
                                 //SceneManager.LoadScene(6);
                                 //TimerScript.gameover = true;
                                 //Remaining deaht animation before this bool.                        
                             } // Death                
                         }
-                        if (!tm.InSlowMo() && !isDeath)
+                        if (!tm.InSlowMo() && !isDestroying)
                         {
                             slomo.Play();
                             tm.StartSloMo();

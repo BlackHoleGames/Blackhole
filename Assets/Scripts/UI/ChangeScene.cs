@@ -10,6 +10,7 @@ public class ChangeScene : MonoBehaviour {
     private IEnumerator SceneTimerSequence;
     public Image BlackFade;
     private bool activate =false;
+    
     void Start()
     {
         BlackFade.canvasRenderer.SetAlpha(0.0f);
@@ -18,14 +19,16 @@ public class ChangeScene : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-//        if (activate && !changeScene)
-        if(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !changeScene)
+
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>() != null &&
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !changeScene)
         {
             changeScene = true;
             SceneTimerSequence = FadeToLevel(2.0f);
             StartCoroutine(SceneTimerSequence);
         }
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>()!= null &&
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
         {
             changeScene = true;
             SceneTimerSequence = FadeToLevel(2.0f);
@@ -37,6 +40,6 @@ public class ChangeScene : MonoBehaviour {
         BlackFade.CrossFadeAlpha(1.0f, 2.0f, false);
         //BlackFade.canvasRenderer.SetAlpha(1.0f);
         yield return new WaitForSeconds(levelTimer);
-        //SceneManager.LoadScene(6);
+        SceneManager.LoadScene(6);
     }
 }
