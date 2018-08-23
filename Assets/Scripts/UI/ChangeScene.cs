@@ -20,14 +20,14 @@ public class ChangeScene : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>() != null &&
+        if (GameObject.FindGameObjectWithTag("Player") != null &&
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !changeScene)
         {
             changeScene = true;
             SceneTimerSequence = FadeToLevel(2.0f);
             StartCoroutine(SceneTimerSequence);
         }
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>()!= null &&
+        if (GameObject.FindGameObjectWithTag("Player")!= null &&
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
         {
             changeScene = true;

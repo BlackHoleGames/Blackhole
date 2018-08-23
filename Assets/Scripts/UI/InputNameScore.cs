@@ -20,7 +20,8 @@ public class InputNameScore : MonoBehaviour {
     public bool IsInputName = false;
     // Use this for initialization
     void Start () {
-        if (SaveGameStatsScript.GameStats.isGameOver)
+        if (SaveGameStatsScript.GameStats!=null &&
+            SaveGameStatsScript.GameStats.isGameOver)
         {
             Timercoroutine = TimeRemaining(1.0f);
             StartCoroutine(Timercoroutine);

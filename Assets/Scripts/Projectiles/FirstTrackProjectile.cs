@@ -15,8 +15,15 @@ public class FirstTrackProjectile : MonoBehaviour {
     void Start()
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
-        gameObject.transform.LookAt(target);
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+            gameObject.transform.LookAt(target);
+        }else //isDestroying
+        {
+            target = GameObject.FindGameObjectWithTag("PlayerDestroyed").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+            gameObject.transform.LookAt(target);
+        }
         Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
 
     }

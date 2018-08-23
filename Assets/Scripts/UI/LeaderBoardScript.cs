@@ -43,7 +43,7 @@ public class LeaderBoardScript : MonoBehaviour
         ScoreResultC.canvasRenderer.SetAlpha(0.0f);
         ScoreResultD.canvasRenderer.SetAlpha(0.0f);
         ScoreResultE.canvasRenderer.SetAlpha(0.0f);
-        if (SaveGameStatsScript.GameStats.isGameOver) {            
+        if (SaveGameStatsScript.GameStats!=null && SaveGameStatsScript.GameStats.isGameOver) {            
             if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
             else GameOverText.text = "Game Over";
             if (CompareScore()) {
@@ -133,7 +133,8 @@ public class LeaderBoardScript : MonoBehaviour
     void ShowScore()
     {
         //SaveGameStatsScript.GameStats.GetScore();
-        SaveGameStatsScript.GameStats.GetScore();
+        //You can't invoke before menu
+        if(SaveGameStatsScript.GameStats!=null) SaveGameStatsScript.GameStats.GetScore();
         GettingTags();
         LeaderBoard();
     }

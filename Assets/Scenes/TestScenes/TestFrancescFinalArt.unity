@@ -14160,6 +14160,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
+      propertyPath: m_TagString
+      value: PlayerDestroyed
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
   m_IsPrefabParent: 0
