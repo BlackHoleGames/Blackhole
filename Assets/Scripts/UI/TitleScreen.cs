@@ -34,7 +34,7 @@ public class TitleScreen : MonoBehaviour {
         SaveGameStatsScript.GameStats.isGameOver = false;
         //Score
         if (SaveGameStatsScript.GameStats.StatusUISequence) { 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
             SaveGameStatsScript.GameStats.StatusUISequence = false;
             SaveGameStatsScript.GameStats.SetStats();
         }

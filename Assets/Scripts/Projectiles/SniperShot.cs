@@ -18,7 +18,14 @@ public class SniperShot : MonoBehaviour {
         bc = GetComponent<BoxCollider>();
         bc.enabled = false;
         tb = gameObject.GetComponent<TimeBehaviour>();
-        target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+        }
+        else
+        {
+            target = GameObject.FindGameObjectWithTag("PlayerDestroyed").transform.position;
+        }
         //transform.LookAt(target);
         //transform.position = transform.forward;
         Vector3 dir = target- transform.position ;

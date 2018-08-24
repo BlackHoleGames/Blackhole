@@ -23,7 +23,13 @@ public class KamikazeEnemy : MonoBehaviour {
         hitAudioSource = GetComponents<AudioSource>()[1];
 
         turbo = false;
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }else
+        {
+            player = GameObject.FindGameObjectWithTag("PlayerDestroyed");
+        }
         if (transform.position.x < 0.0f) direction = 1.0f;
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
