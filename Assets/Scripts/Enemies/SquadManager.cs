@@ -34,14 +34,7 @@ public class SquadManager : MonoBehaviour {
         target = center;
         stayIsDone = false;
         arrivedToStart = false;
-        MiniBossScript script = GetComponentInChildren<MiniBossScript>();
-        if (script)
-        {
-            transform.parent.GetComponent<MapManger>().mbs = script;
-            script.InitiateBoss();
-            Manager.StartNewPhase();
-            Destroy(this);
-        }
+        
     }
 	
 	// Update is called once per frame
@@ -105,8 +98,15 @@ public class SquadManager : MonoBehaviour {
                     Destroy(gameObject);
                 }
                 else {
-                    
-                     arrivedToStart = true;
+                    MiniBossScript script = GetComponentInChildren<MiniBossScript>();
+                    if (script)
+                    {
+                        transform.parent.GetComponent<MapManger>().mbs = script;
+                        script.InitiateBoss();
+                        Manager.StartNewPhase();
+                        Destroy(this);
+                    }
+                    arrivedToStart = true;
                 }
             }
         }
