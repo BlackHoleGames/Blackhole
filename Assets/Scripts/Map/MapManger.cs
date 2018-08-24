@@ -12,14 +12,17 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd, spawnedEndMeteors;
+    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd, timewarpEffect, timewarpBackground;
+    private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
     private bool structureMoving = false;
     private bool bossEnabled = false;
     private bool meteorsDelayOn = false;
+    private bool timewarpBackgroundDelay = false;
     private float meteorDelayCounter = 0.0f;
+    private float timewarpDelayCounter = 0.0f;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -42,6 +45,9 @@ public class MapManger : MonoBehaviour {
                 if (!am.AsteroidsAreMoving()){
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
+                    timewarpEffect.SetActive(true);
+                    timewarpBackground.SetActive(true);
+                    timewarpBackgroundDelay = true;
                 }
                 break;
             case Stages.METEORS_ENEMIES:
@@ -49,6 +55,7 @@ public class MapManger : MonoBehaviour {
                     tm.StopTimeWarp();
                     em.StartManager();
                     meteorsDelayOn = true;
+                    timewarpEffect.SetActive(false);
                 }
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
@@ -60,6 +67,9 @@ public class MapManger : MonoBehaviour {
                 if (!mbs.IsSecondPhase()) {
                     structure.SetActive(true);
                     meteorsDelayOn = true;
+                    timewarpEffect.SetActive(true);
+                    timewarpBackground.SetActive(true);
+                    timewarpBackgroundDelay = true;
                     tm.StartTimeWarp();
                     mbs.StartSecondPhase();
                 }
@@ -73,12 +83,12 @@ public class MapManger : MonoBehaviour {
             case Stages.STRUCT_TIMEWARP:
                 if (!structureMoving)
                 {
-                    er.StartDownTransition();
-                    
+                    er.StartDownTransition();                    
                 }
                 break;
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    timewarpEffect.SetActive(false);
                     em.StartManager();
                     tm.StopTimeWarp();
                 }
@@ -94,6 +104,7 @@ public class MapManger : MonoBehaviour {
                 break;
         }
         if (meteorsDelayOn) ManageMeteor();
+        if (timewarpBackgroundDelay) ManageTimeWarpBackground();
     }
 
     public void ManageMeteor() {
@@ -111,6 +122,13 @@ public class MapManger : MonoBehaviour {
                     break;
 
             }
+        }
+    }
+
+    public void ManageTimeWarpBackground() {
+        timewarpDelayCounter += Time.deltaTime;
+        if (timewarpDelayCounter >= 2.0f) {
+            timewarpBackground.SetActive(false);
         }
     }
 

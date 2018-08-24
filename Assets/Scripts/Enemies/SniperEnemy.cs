@@ -20,6 +20,7 @@ public class SniperEnemy : MonoBehaviour {
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
     private EnemyLookAt ela;
+
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Parent");
@@ -142,6 +143,7 @@ public class SniperEnemy : MonoBehaviour {
                 GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
                 obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

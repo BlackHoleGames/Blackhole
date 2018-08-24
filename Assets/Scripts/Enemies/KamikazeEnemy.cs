@@ -15,10 +15,13 @@ public class KamikazeEnemy : MonoBehaviour {
     private bool turbo, hit, materialHitOn;
     private AudioSource audioSource, hitAudioSource;
     public Material matOn, matHit;
+    private SquadManager squadManager;
 
     // Use this for initialization
     void Start()
     {
+        squadManager = GetComponentInParent<SquadManager>();
+
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
 
@@ -83,6 +86,7 @@ public class KamikazeEnemy : MonoBehaviour {
         if (other.gameObject.tag == "Player") {
             GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
             obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            squadManager.DecreaseNumber();
             Destroy(gameObject);
         }
     }

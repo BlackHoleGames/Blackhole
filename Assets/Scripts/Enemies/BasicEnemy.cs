@@ -18,8 +18,12 @@ public class BasicEnemy : MonoBehaviour {
     private bool shielded, hit, materialHitOn;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
-	// Use this for initialization
-	void Start () {
+    private SquadManager squadManager;
+
+    // Use this for initialization
+    void Start () {
+        squadManager = GetComponentInParent<SquadManager>();
+
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -111,6 +115,7 @@ public class BasicEnemy : MonoBehaviour {
                 vibratorOn();
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

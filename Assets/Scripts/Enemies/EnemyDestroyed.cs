@@ -117,7 +117,7 @@ public class EnemyDestroyed : MonoBehaviour {
             if (child.name != "AlienEye") obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             Destroy(child.gameObject);
         }*/
-        squadManager.DecreaseNumber();
+        //squadManager.DecreaseNumber();
         //Destroy(gameObject);
     }
 

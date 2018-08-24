@@ -21,9 +21,11 @@ public class RadialShooter : MonoBehaviour {
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
+    private SquadManager squadManager;
     // Use this for initialization
     void Start()
     {
+        squadManager = GetComponentInParent<SquadManager>();
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -42,20 +44,29 @@ public class RadialShooter : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        ManageShot();
+        ManageHit();        
+    }
+
+    public void ManageShot() {
         if (spawnCooldown <= 0.0f)
         {
             if (rateCounter <= 0.0f)
             {
                 audioSource.Play();
-                for (int i = 0; i < numberOfShots; ++i) {
+                for (int i = 0; i < numberOfShots; ++i)
+                {
                     shotTimeCounter = rateOfFire;
                     Instantiate(enemyProjectile, transform.position, Quaternion.Euler(new Vector3(0.0f, degreesPerProjectile * i, 0.0f)));
                 }
-                rateCounter = shotCooldown;             
+                rateCounter = shotCooldown;
             }
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
         else spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+    }
+
+    public void ManageHit() {
         if (materialHitOn)
         {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
@@ -90,6 +101,8 @@ public class RadialShooter : MonoBehaviour {
             {
                 GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
                 obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                squadManager.DecreaseNumber();
+
                 Destroy(gameObject);
             }
         }

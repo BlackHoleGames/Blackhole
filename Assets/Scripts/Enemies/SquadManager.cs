@@ -34,7 +34,15 @@ public class SquadManager : MonoBehaviour {
         target = center;
         stayIsDone = false;
         arrivedToStart = false;
-	}
+        MiniBossScript script = GetComponentInChildren<MiniBossScript>();
+        if (script)
+        {
+            transform.parent.GetComponent<MapManger>().mbs = script;
+            script.InitiateBoss();
+            Manager.StartNewPhase();
+            Destroy(this);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -91,20 +99,14 @@ public class SquadManager : MonoBehaviour {
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
             if (Vector3.Distance(transform.position,target)< 1.0 ) {
                 movingToPosition = false;
-                if (arrivedToStart)
+                if (stayIsDone)
                 {
                     Manager.StartWait();
                     Destroy(gameObject);
                 }
                 else {
-                    MiniBossScript script = GetComponentInChildren<MiniBossScript>();
-                    if (script) {
-                        transform.parent.GetComponent<MapManger>().mbs = script;
-                        script.InitiateBoss();                        
-                        Manager.StartNewPhase();
-                        Destroy(this);
-                    }
-                    else arrivedToStart = true;
+                    
+                     arrivedToStart = true;
                 }
             }
         }
