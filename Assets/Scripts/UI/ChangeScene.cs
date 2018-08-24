@@ -10,7 +10,7 @@ public class ChangeScene : MonoBehaviour {
     private IEnumerator SceneCloseTimerSequence;
     private IEnumerator SceneOpenTimerSequence;
     public Image BlackFade;
-    private bool activate =false;
+    private bool activate =false;    
     
     void Start()
     {
@@ -30,13 +30,20 @@ public class ChangeScene : MonoBehaviour {
             SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
             StartCoroutine(SceneCloseTimerSequence);
         }
-        if (GameObject.FindGameObjectWithTag("Player")!= null &&
-            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
+        //        if (GameObject.FindGameObjectWithTag("Player")!= null && GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
+        if(GetComponent<PlayerDestroyScript>()!=null &&
+            GetComponent<PlayerDestroyScript>().noLifesRemaining && !changeScene)
         {
             changeScene = true;
             SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
             StartCoroutine(SceneCloseTimerSequence);
         }
+    }
+    public void Shutdown()
+    {
+        changeScene = true;
+        SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
+        StartCoroutine(SceneCloseTimerSequence);
     }
     IEnumerator FadeToEndingLevel (float levelTimer)
     {

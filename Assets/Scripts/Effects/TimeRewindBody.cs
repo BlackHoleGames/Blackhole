@@ -5,12 +5,12 @@ using UnityEngine;
 public class TimeRewindBody : MonoBehaviour {
 
 
-    private bool rewinding = false;
+    public bool rewinding = false;
     private List<PointInTime> points = new List<PointInTime>();
     private Rigidbody rb;
     public float recordingTime = 5.0f;
     public float timeBeforeRewind = 3.0f;
-    public static bool done = false;
+    public bool done = false;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -23,8 +23,13 @@ public class TimeRewindBody : MonoBehaviour {
             rewinding = true;
             rb.isKinematic = true;
         }
-        else timeBeforeRewind -= Time.deltaTime;
-	}
+        else
+        {
+            timeBeforeRewind -= Time.deltaTime;
+            rb.isKinematic = false;
+        }
+
+    }
 
     private void FixedUpdate()
     {

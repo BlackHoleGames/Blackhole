@@ -421,6 +421,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 if (lives < 0)
                                 {
                                     isDeath = true;
+                                    isFinished = true;
                                     //SaveGameStatsScript.GameStats.isGameOver = true;
                                     //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
                                 }
