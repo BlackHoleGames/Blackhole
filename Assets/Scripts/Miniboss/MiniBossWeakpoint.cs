@@ -13,7 +13,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private float hitFeedbackCounter;
     private AudioSource  hitAudioSource;
     private EnemyLookAt ela;
-    public float destroyedTimer = 60.0f;
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
     private float shotCounter; 
@@ -35,34 +34,22 @@ public class MiniBossWeakpoint : MonoBehaviour {
             ManageHit();
             ManageShot();
         }
-        else
-        {
-            destroyedTimer -= Time.deltaTime;
-            if (destroyedTimer < 1.0f && destroyedTimer > 0.0f)
-            {
-                foreach (Transform child in destroyedBody.transform)
-                {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                    Destroy(child.gameObject);
-                }
-                foreach (Transform child in destroyedHead.transform)
-                {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                    Destroy(child.gameObject);
-                }
+        else { 
+            foreach (Transform child in destroyedBody.transform) {
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                Destroy(child.gameObject);
             }
-            if (destroyedTimer <= 0.0f) Destroy(transform.parent.gameObject);
+            foreach (Transform child in destroyedHead.transform) {
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                Destroy(child.gameObject);
+            }          
         }
     }
 
     public void ManageShot() {
-        if (shotRechargeTime <= 0.0f)
-        {
-
-            if (shotCounter <= 0.0f)
-            {
+        if (shotRechargeTime <= 0.0f) {
+            if (shotCounter <= 0.0f) {
                 shotCounter = shotDuration;
-
                 ela.enabled = true;
                 shooting = false;
                 shotRechargeTime = Random.Range(4.0f, 6.0f);
@@ -74,7 +61,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
                     GameObject laser = Instantiate(projectile, transform.position, transform.rotation);
                     laser.transform.parent = transform;
                 }
-
                 shotCounter -= Time.deltaTime;
             }
         }
@@ -83,18 +69,15 @@ public class MiniBossWeakpoint : MonoBehaviour {
     }
 
     public void ManageHit() {
-        if (materialHitOn)
-        {
+        if (materialHitOn) {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
-            else
-            {
+            else {
                 gameObject.GetComponent<Renderer>().material = matOn;
                 materialHitOn = false;
                 hitFeedbackCounter = hitFeedbackDuration;
             }
         }
-        if (hit)
-        {
+        if (hit) {
             hit = false;
             gameObject.GetComponent<Renderer>().material = matOff;
             materialHitOn = true;
@@ -104,8 +87,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
 
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "PlayerProjectile" && alive)
-        {
+        if (other.gameObject.tag == "PlayerProjectile" && alive) {
             hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
@@ -124,7 +106,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
     }
 
     public void SwitchToDestroy() {
-
         destroyedBody.SetActive(true);
         destroyedHead.SetActive(true);
         body.SetActive(false);

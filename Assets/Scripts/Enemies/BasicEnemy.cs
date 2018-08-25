@@ -19,11 +19,10 @@ public class BasicEnemy : MonoBehaviour {
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
     private SquadManager squadManager;
-
+    private GameObject eye;
     // Use this for initialization
     void Start () {
         squadManager = GetComponentInParent<SquadManager>();
-
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();

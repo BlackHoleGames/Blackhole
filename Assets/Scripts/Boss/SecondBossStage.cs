@@ -10,6 +10,7 @@ public class SecondBossStage : MonoBehaviour {
     public Material Exposed;
 
     public float eyeTimeToMove = 5.0f;
+    public float turretShotSpacing = 1.0f;
     private int WeakPointCounter;
     private bool start, rotateEye;
     private float lerpTime, initialRot;
@@ -27,7 +28,6 @@ public class SecondBossStage : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (start) {
-            foreach (GameObject g in Turrets) g.transform.LookAt(player.transform.position);
             if (rotateEye) ManageEyeRotation();
         }
     }

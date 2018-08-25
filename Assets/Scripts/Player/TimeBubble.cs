@@ -25,11 +25,11 @@ public class TimeBubble : MonoBehaviour {
 
         if (gameObject.transform.localScale.x < timeBubbleMaxRadius*sizeMultiplier)
         {
-            t += Time.unscaledDeltaTime / timeToMaxSize;
+            t += Time.deltaTime / timeToMaxSize;
             gameObject.transform.localScale = Vector3.Lerp(new Vector3(0.0f,0.0f,0.0f), (new Vector3(timeBubbleMaxRadius, timeBubbleMaxRadius, timeBubbleMaxRadius) * sizeMultiplier), t);            
         }
         else {
-            if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.unscaledDeltaTime;
+            if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.deltaTime;
             else Destroy(gameObject);
             
         }          
