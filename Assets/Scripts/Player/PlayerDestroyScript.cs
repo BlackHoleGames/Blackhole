@@ -7,7 +7,7 @@ public class PlayerDestroyScript : MonoBehaviour {
     public bool waitingForDeath = false;
     private IEnumerator DeathTimerSequence;
     //private IEnumerator EndingTimerSequence;
-    public GameObject pdestroyed,parentAxis,propeller,alert;
+    public GameObject pdestroyed,pspacecraft,propeller,playercontrol,alert;
     Vector3 playerFirstPosition;
     Vector3 DestroyedFirstPosition;
     private List<GameObject> destroyArray;
@@ -56,31 +56,37 @@ public class PlayerDestroyScript : MonoBehaviour {
     }
     public void Destroy()
     {
-        Vector3 newPos = new Vector3(parentAxis.transform.position.x, parentAxis.transform.position.y, parentAxis.transform.position.z);
+        Vector3 newPos = new Vector3(pspacecraft.transform.position.x, pspacecraft.transform.position.y, pspacecraft.transform.position.z);
         pdestroyed.transform.position = newPos;
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
         //pdestroyed.GetComponentInChildren<TimeRewindBody>() = new TimeRewindBody();
-        parentAxis.SetActive(false);
+        playercontrol.SetActive(false);
+        pspacecraft.SetActive(false);
         propeller.SetActive(false);
         alert.SetActive(false);
         pdestroyed.SetActive(true);
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
         foreach (Transform child in pdestroyed.transform)
         {
-            child.GetComponent<Transform>().transform.position = newPos;
-            child.GetComponent<TimeRewindBody>().rewinding = false;
-            //child.GetComponent<TimeRewindBody>().done = false;
-            child.GetComponent<TimeRewindBody>().timeBeforeRewind = 3.0f;
-            child.GetComponent<TimeRewindBody>().recordingTime = 5.0f;
-            //child.GetComponent<TimeRewindBody>();
+            if (child.name != "Impulse")
+            {
+                child.GetComponent<Transform>().transform.position = newPos;
+                child.GetComponent<TimeRewindBody>().rewinding = false;
+                child.GetComponent<TimeRewindBody>().timeBeforeRewind = 3.0f;
+                child.GetComponent<TimeRewindBody>().recordingTime = 5.0f;
+            }
+            else child.gameObject.SetActive(false);
         }
         
     }
     public void Restore()
     {
+        foreach (Transform child in pdestroyed.transform)
+            if(child.name=="Impulse") child.gameObject.SetActive(true);
         pdestroyed.SetActive(false);
         //pdestroyed.transform.position = DestroyedFirstPosition;
-        parentAxis.SetActive(true);
+        playercontrol.SetActive(true);
+        pspacecraft.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
