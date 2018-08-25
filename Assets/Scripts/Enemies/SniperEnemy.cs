@@ -145,6 +145,7 @@ public class SniperEnemy : MonoBehaviour {
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 squadManager.DecreaseNumber();
                 Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }
         }
     }

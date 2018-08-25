@@ -55,8 +55,16 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void IncreaseGTL() {
-        if (!inFasterGTL) targetGTL = gtlFast;
-        else targetGTL = gtlFaster;
+        if (!inFasterGTL)
+        {
+            targetGTL = gtlFast;
+            ScoreScript.multiplierScore = 2.0f;
+        }
+        else
+        {
+            targetGTL = gtlFaster;
+            ScoreScript.multiplierScore = 3.0f;
+        }
         gtlIncreasing = true;
     }
 
@@ -82,6 +90,7 @@ public class TimeManager : MonoBehaviour {
         if (slowDown) {
             Time.timeScale = 1.0f;
             slowDown = false;
+            ScoreScript.multiplierScore = 1.0f;
         }
         if (speedUp) {
             Time.timeScale = 1.0f;
@@ -91,6 +100,7 @@ public class TimeManager : MonoBehaviour {
         {
             Time.timeScale = 1.0f;
             gtlIncreasing = false;
+            ScoreScript.multiplierScore = 1.0f;
         }
         Time.timeScale = Time.timeScale * wormholeMultiplier;
     }

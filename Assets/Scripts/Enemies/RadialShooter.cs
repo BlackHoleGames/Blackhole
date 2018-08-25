@@ -104,6 +104,7 @@ public class RadialShooter : MonoBehaviour {
                 squadManager.DecreaseNumber();
 
                 Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }
         }
     }

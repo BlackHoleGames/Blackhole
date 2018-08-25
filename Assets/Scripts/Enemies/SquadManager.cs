@@ -81,6 +81,7 @@ public class SquadManager : MonoBehaviour {
         {
             Manager.StartWait();
             Destroy(gameObject);
+            ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
         }
     }
 

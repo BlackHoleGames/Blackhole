@@ -75,7 +75,6 @@ public class EnemyManager : MonoBehaviour {
                     obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
                     actualSquad = obj;
                     ++squadronIndex;
-                    if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
                 }
             }
             else {
@@ -108,7 +107,6 @@ public class EnemyManager : MonoBehaviour {
                 Destroy(ChainSquadManager);
                 StartWait();
                 ++squadronIndex;
-                if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
         }
     }

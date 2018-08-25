@@ -42,7 +42,6 @@ public class CameraBehaviour : MonoBehaviour {
         targetPos = middlePosition ;
         targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
         t = 0;
-        ScoreScript.multiplierScore = 1.5f;
         startRotating = true;
     }
 
@@ -53,7 +52,6 @@ public class CameraBehaviour : MonoBehaviour {
         targetPos = bossCamPos;
         targetRot = Quaternion.Euler(bossCamRot.x, bossCamRot.y, bossCamRot.z);
         t = 0;
-        ScoreScript.multiplierScore = 1.0f;
         startRotating = true;
     }
 
@@ -64,7 +62,6 @@ public class CameraBehaviour : MonoBehaviour {
         targetPos = verticalPosition;
         targetRot = Quaternion.Euler(verticalRotation.x, verticalRotation.y, verticalRotation.z);
         t = 0;
-        ScoreScript.multiplierScore = 1.0f;
         startRotating = true; 
     }
 
@@ -76,7 +73,6 @@ public class CameraBehaviour : MonoBehaviour {
         targetRot = Quaternion.Euler(middleRotation.x, middleRotation.y, middleRotation.z);
         t = 0;
         startRotating = true;
-        ScoreScript.multiplierScore = 2.0f;
     }
 
     public void SwitchToTimeWarp() {
@@ -87,6 +83,5 @@ public class CameraBehaviour : MonoBehaviour {
         targetRot = Quaternion.Euler(timeWarpRot.x, timeWarpRot.y, timeWarpRot.z);
         t = 0;
         startRotating = true;
-        ScoreScript.multiplierScore = 3.0f;
     }
 }

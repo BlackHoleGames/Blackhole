@@ -81,6 +81,7 @@ public class KamikazeEnemy : MonoBehaviour {
                 obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }          
         }
         if (other.gameObject.tag == "Player") {
