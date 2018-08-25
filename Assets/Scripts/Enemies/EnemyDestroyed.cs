@@ -27,7 +27,7 @@ public class EnemyDestroyed : MonoBehaviour {
                 break;
             }
             else {
-                float time = Random.Range(1.0f,2.0f);
+                float time = Random.Range(1.5f,2.5f);
                 RandomDestructible rd = new RandomDestructible(child.gameObject,time);
                 listRandDes.Add(rd);
             }
@@ -39,7 +39,8 @@ public class EnemyDestroyed : MonoBehaviour {
         // Update is called once per frame
     void Update () {
         timeBeforeDestroy -= Time.deltaTime;
-        if (timeBeforeDestroy <= 1.5f) isFlickeringEye = false;
+        float timeEye = Random.Range(0.6f, 1.2f);
+        if (timeBeforeDestroy <= timeEye) isFlickeringEye = false;
         if (timeBeforeDestroy < 0.0f && eye) {
             GameObject obj = Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation) as GameObject;
             obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -60,8 +61,8 @@ public class EnemyDestroyed : MonoBehaviour {
                     obj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 }
                 else rd.SetRandTime(newTime);
-                
-                if (rd.GetRandTime()<1.0f) isFlickeringParts = false;
+                float timeParts = Random.Range(0.6f, 1.2f);
+                if (rd.GetRandTime()< timeParts) isFlickeringParts = false;
                 else isFlickeringParts = true;
             }
             if (toDestroy.Count > 0)
@@ -105,7 +106,7 @@ public class EnemyDestroyed : MonoBehaviour {
                     }
                 }
             }
-            flickerCounter = flickerTime;
+            flickerCounter = Time.deltaTime;//flickerTime;
         }
         else flickerCounter -= Time.deltaTime;
 	}
