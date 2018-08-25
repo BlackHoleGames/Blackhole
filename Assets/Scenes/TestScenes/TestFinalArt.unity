@@ -2088,6 +2088,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1500758136286346, guid: ec646bb25bfa2734da04c9f3b2ca0924, type: 2}
+      propertyPath: m_TagString
+      value: PlayerDestroyed
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec646bb25bfa2734da04c9f3b2ca0924, type: 2}
   m_IsPrefabParent: 0
