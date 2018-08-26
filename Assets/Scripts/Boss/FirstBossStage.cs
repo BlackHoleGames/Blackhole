@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FirstBossStage : MonoBehaviour {
 
-    public float limitX = 10.0f;  
+    public float limitX = 9.52f;  
     public float timeBetweenReactorShots = 3.0f;
     public float shotDuration = 5.0f;
     public float windowOfOportunityDuration = 1.0f;

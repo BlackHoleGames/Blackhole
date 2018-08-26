@@ -8,6 +8,7 @@ public class ReactorWeakPoint : MonoBehaviour {
     public float life = 30.0f;
     private bool isVulnerable,alive, hit, materialHitOn;
     public Material matOn, matOff;
+    public GameObject destroyedReactor;
 	// Use this for initialization
 	void Start () {
         isVulnerable = false;

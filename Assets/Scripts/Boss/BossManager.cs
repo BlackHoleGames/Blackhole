@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossManager : MonoBehaviour {
 
-    public enum BossStage  {ENTERING, TOPHASE1, PHASE1, TOPHASE21, PHASE21, TOPHASE22, PHASE22,TOPHASE3, PHASE3}
+    public enum BossStage  {ENTERING, TOPHASE1, PHASE1, TOPHASE21, PHASE21, TOPHASE22, PHASE2,TOPHASE3, PHASE3}
     // Use this for initialization
     public BossStage actualStage;
     public Transform[] goToPoints;
@@ -41,7 +41,6 @@ public class BossManager : MonoBehaviour {
                     actualStage = BossStage.PHASE1;
                     fbs.StartBossPhase();
                     lerpTime = 0.0f;
-
                 }
                 break;
             case BossStage.TOPHASE21:
@@ -49,20 +48,20 @@ public class BossManager : MonoBehaviour {
                 if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[1].position, goToPoints[2].position, lerpTime);
                 else {
                     actualStage = BossStage.PHASE21;
-                    sbs.StartBossPhase();
                     lerpTime = 0.0f;
                 }
                 break;
             case BossStage.TOPHASE22:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[3];
                 if (Vector3.Distance(transform.position, goToPoints[3].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[2].position, goToPoints[3].position, lerpTime);
-                else
-                {
-                    actualStage = BossStage.PHASE22;
-                    sbs.StartBossPhase2();
+                else { 
+                    actualStage = BossStage.PHASE2;
                     lerpTime = 0.0f;
-
                 }
+                break;
+            case BossStage.PHASE2:
+                if (!sbs.HasStarted()) sbs.StartBossPhase();
+
                 break;
             case BossStage.TOPHASE3:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[4];
@@ -86,7 +85,7 @@ public class BossManager : MonoBehaviour {
             case BossStage.PHASE21:
                 actualStage = BossStage.TOPHASE22;
                 break;
-            case BossStage.PHASE22:
+            case BossStage.PHASE2:
                 actualStage = BossStage.TOPHASE3;
                 break;
             case BossStage.PHASE3:
@@ -117,9 +116,9 @@ public class BossManager : MonoBehaviour {
                 actualStage = BossStage.TOPHASE22;
                 break;
             case BossStage.TOPHASE22:
-                actualStage = BossStage.PHASE22;               
+                actualStage = BossStage.PHASE2;               
                 break;
-            case BossStage.PHASE22:
+            case BossStage.PHASE2:
                 actualStage = BossStage.TOPHASE3;
                 break;
             case BossStage.TOPHASE3:               

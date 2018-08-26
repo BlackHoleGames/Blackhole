@@ -43,6 +43,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()){
+                    GameObject.Find("MeteorStorm").SetActive(true);
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
@@ -95,7 +96,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.BOSS:
                 if (!bossEnabled) {
-                    cb.SwitchToBoss();
+                    //cb.SwitchToBoss();
                     boss.SetActive(true);
                     bossEnabled = true;
                 }
