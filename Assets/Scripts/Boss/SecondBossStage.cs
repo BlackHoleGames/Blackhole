@@ -8,11 +8,10 @@ public class SecondBossStage : MonoBehaviour {
     public GameObject LeftWeakSpot, RightWeakSpot, Eye;
     public GameObject[] Turrets;
     public Material Exposed;
-
     public float eyeTimeToMove = 5.0f;
     public float turretShotSpacing = 1.0f;
     private GameObject player;
-    private int WeakPointCounter;
+    private int WeakPointCounter, turretShootIndex;
     private bool start, rotateEye, inSecondStage;
     private float lerpTime, initialRot;
 
@@ -25,13 +24,12 @@ public class SecondBossStage : MonoBehaviour {
         inSecondStage = false;
         rotateEye = false;
         initialRot = Eye.transform.eulerAngles.x;
+        turretShootIndex = 0;
     }
 
     // Update is called once per frame
     void Update() {
-        if (start) {
-            if (rotateEye) ManageEyeRotation();
-        }
+
     }   
 
     public void ManageEyeRotation() {
@@ -45,7 +43,9 @@ public class SecondBossStage : MonoBehaviour {
 
     public void WeakPointDone() {
         ++WeakPointCounter;
-        if (WeakPointCounter >= 2) StartBossPhase2();
+        if (WeakPointCounter >= 2) {
+            StartBossPhase2();
+        }
     }
 
     public void WeakPointResurrected() {
@@ -54,13 +54,15 @@ public class SecondBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
-        foreach (GameObject t in Turrets) t.GetComponent<BossTurretScript>().enabled = true;
+        foreach (GameObject t in Turrets) t.GetComponentInChildren<BossTurretScript>().enabled = true;
     }
 
     public void StartBossPhase2() {
         inSecondStage = true;
         lerpTime = 0.0f;
         rotateEye = true;
+        GetComponentInChildren<BossSecondPhaseWeakpoint>().EnableSecondPhase();
+        GetComponentInParent<BossManager>().GoToNextPhase();
     }
 
     public int GetWeakPointCounter() {
@@ -68,7 +70,8 @@ public class SecondBossStage : MonoBehaviour {
     }
 
     public void FinishBossPhase() {
-        foreach (GameObject t in Turrets) t.GetComponent<BossTurretScript>().enabled = false;
+        foreach (GameObject t in Turrets) t.GetComponentInChildren<BossTurretScript>().enabled = false;
+        GetComponentInParent<BossManager>().GoToNextPhase();
     }
 
     public bool HasStarted(){

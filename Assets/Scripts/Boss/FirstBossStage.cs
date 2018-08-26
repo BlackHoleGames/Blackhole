@@ -13,6 +13,7 @@ public class FirstBossStage : MonoBehaviour {
     public float heightLimit = 1.0f;
     public float timeToMoveUp = 3.0f;
     public float initialHeight = 5.0f;
+    public float maxOffsetY = 5.0f;
     public GameObject reactorShot;
     public GameObject[] reactorPoints;
 
@@ -77,8 +78,8 @@ public class FirstBossStage : MonoBehaviour {
     public void ManageMovement() {
         if (readjustHeight) {
             lerpTime += Time.deltaTime / timeToMoveUp;
-            transform.parent.transform.position = Vector3.Lerp(initialPos, new Vector3(), lerpTime);
-            if (Mathf.Abs(transform.parent.transform.position.y - initialHeight) < 0.01) readjustHeight = false;
+            transform.parent.transform.position = Vector3.Lerp(initialPos, new Vector3(transform.parent.transform.position.x, transform.parent.transform.position.y, initialHeight), lerpTime);
+            if (Mathf.Abs(transform.parent.transform.position.z - initialHeight) < 0.01) readjustHeight = false;
         }
         else {
             if (direction > 0) {
@@ -88,15 +89,15 @@ public class FirstBossStage : MonoBehaviour {
                 if (transform.parent.transform.position.x < -limitX) direction = 1;
             }
             float offsetY = 0;
-            /*if (transform.position.y > heightLimit) offsetY = downwardSpeed * Time.deltaTime * tb.scaleOfTime;
-            if (transform.position.y < heightLimit && (transform.position.x <= 1.0f && transform.position.x >= -1.0f)) {
+            if (transform.position.z > heightLimit) offsetY = downwardSpeed * Time.deltaTime *10.0f* tb.scaleOfTime;
+            if (transform.position.z < heightLimit && (transform.position.x <= 1.0f && transform.position.x >= -1.0f)) {
                 readjustHeight = true;
                 lerpTime = 0.0f;
                 initialPos = transform.position;
             }
-            else {*/
-            transform.parent.transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, -offsetY, 0.0f);
-            //}
+            else {
+                transform.parent.transform.position += new Vector3(speed * Time.deltaTime * tb.scaleOfTime* direction, 0.0f, -offsetY);
+            }
         }
     }
 
@@ -128,10 +129,12 @@ public class FirstBossStage : MonoBehaviour {
     }
 
     public void SpawnShot(int index) {
-
-        GameObject obj = Instantiate(reactorShot,reactorPoints[index].transform.position+ new Vector3(0.0f,0.0f,-15.0f), reactorPoints[index].transform.rotation);
-        obj.transform.parent = reactorPoints[index].transform;
-        obj.GetComponent<BossLaser>().StartBehaviour(shotDuration);
+        if (reactorPoints[index]) {
+            GameObject obj = Instantiate(reactorShot, reactorPoints[index].transform.position, Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f)));
+            obj.transform.parent = reactorPoints[index].transform;
+            obj.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+        }
+        //obj.GetComponent<BossLaser>().StartBehaviour(shotDuration);
     }
 
     public void PlayOpeningHatch() {
@@ -140,19 +143,23 @@ public class FirstBossStage : MonoBehaviour {
 
     public void SwitchVulnerabilityOnReactors(bool vulnerability) {
         if (activeReactorsIndex < reactorSequence1.Length) {
+            GameObject reactor1 = reactorPoints[reactorSequence1[activeReactorsIndex]];
+            GameObject reactor2 = reactorPoints[reactorSequence2[activeReactorsIndex]];
             if (vulnerability) {
-                reactorPoints[reactorSequence1[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().UnProtect();
-                reactorPoints[reactorSequence2[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().UnProtect();
+                if (reactor1) reactor1.GetComponent<ReactorWeakPoint>().UnProtect();
+                if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().UnProtect();
             }
             else {
-                reactorPoints[reactorSequence1[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().Protect();
-                reactorPoints[reactorSequence2[activeReactorsIndex]].GetComponent<ReactorWeakPoint>().Protect();
+                if (reactor1) reactor1.GetComponent<ReactorWeakPoint>().Protect();
+                if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().Protect();
             }
         }
         else {
             foreach (GameObject g in reactorPoints) {
-                if (vulnerability) g.GetComponent<ReactorWeakPoint>().UnProtect();
-                else g.GetComponent<ReactorWeakPoint>().Protect();
+                if (g) {
+                    if (vulnerability) g.GetComponent<ReactorWeakPoint>().UnProtect();
+                    else g.GetComponent<ReactorWeakPoint>().Protect();
+                }
             }
         }
     }
@@ -163,12 +170,16 @@ public class FirstBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
+        initialHeight = transform.position.z;
+        heightLimit = transform.position.z - maxOffsetY;
     }
 
     public void ReactorDestroyed() {
         ++reactorDestroyedCount;
         if (reactorDestroyedCount >= 4) {
             GetComponentInParent<BossManager>().GoToNextPhase();
+            start = false;
+            Destroy(this);
         }
     }
 }

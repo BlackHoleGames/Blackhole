@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class WeakPointSecondStageScript : MonoBehaviour {
 
-    private SecondBossStage sbs;
     public Material matOn,matOff, hitMat;
     public float life = 10.0f;
-    public float lifeCounter;
     public float timeToWeakpointRevive = 6.0f;
     public float timeBeforeWeakpointRestart = 4.0f;
     public float flickerTime = 0.25f;
+    private float lifeCounter;
+    private SecondBossStage sbs;
     private bool hit, materialHitOn, flicker, revivingWeakpoint;
     private float weakpointTimeRestartCounter, weakpointReviveCounter, flickerCounter;
     // Use this for initialization
     void Start () {
-        sbs = transform.parent.GetComponent<SecondBossStage>();
+        sbs = transform.parent.parent.GetComponent<SecondBossStage>();
         lifeCounter = life;
         weakpointReviveCounter = 0.0f;
         revivingWeakpoint = false;
@@ -31,8 +31,7 @@ public class WeakPointSecondStageScript : MonoBehaviour {
             if (lifeCounter > 0.0f) ManageHit();
             
         }
-        if (sbs.GetWeakPointCounter() >= 2)
-        {
+        if (sbs.GetWeakPointCounter() >= 2) {
             gameObject.GetComponent<Renderer>().material = matOff;
             Destroy(this);
         }
