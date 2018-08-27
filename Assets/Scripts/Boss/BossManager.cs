@@ -13,7 +13,7 @@ public class BossManager : MonoBehaviour {
     private float lerpTime;
     private FirstBossStage fbs;
     private SecondBossStage sbs;
-    private Vector3 initialPos;
+    private Vector3 initialPos, lastPhase1Pos;
 
 	void Start () {
         //actualStage =   BossStage.ENTERING;
@@ -45,7 +45,7 @@ public class BossManager : MonoBehaviour {
                 break;
             case BossStage.TOPHASE21:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[2];
-                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[1].position, goToPoints[2].position, lerpTime);
+                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(lastPhase1Pos, goToPoints[2].position, lerpTime);
                 else {
                     actualStage = BossStage.PHASE21;
                     lerpTime = 0.0f;
@@ -98,8 +98,8 @@ public class BossManager : MonoBehaviour {
         {
             case BossStage.PHASE1:
                 actualStage = BossStage.TOPHASE21;
-                break;
-            
+                lastPhase1Pos = transform.position;
+                break;            
             case BossStage.PHASE2:
                 actualStage = BossStage.TOPHASE3;
                 break;

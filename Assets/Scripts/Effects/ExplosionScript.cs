@@ -6,7 +6,7 @@ public class ExplosionScript : MonoBehaviour {
 
 
     public ParticleSystem ps;
-    public AudioSource audioSource;
+    private AudioSource audioSource;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
