@@ -12,7 +12,7 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors2d, meteorsEnd, timewarpEffect, timewarpBackground;
+    public GameObject structure,boss, miniboss, meteors, meteors2d, meteorsEnd, timewarpEffect, timewarpBackground;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
@@ -43,7 +43,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()){
-                    GameObject.Find("MeteorStorm").SetActive(true);
+                    meteors.SetActive(true);
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
