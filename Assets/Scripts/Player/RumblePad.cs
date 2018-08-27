@@ -56,11 +56,8 @@ public class RumblePad : MonoBehaviour {
     IEnumerator RumbleTimer(float rumbleDuration, float rumbleIntensity)
     {
         WaitToRumble = true;
-        //GamePad.GetState(0, GamePadDeadZone.IndependentAxes);
-        //GamePad.GetState(0);
         GamePad.SetVibration(0, rumbleIntensity, rumbleIntensity);
         yield return new WaitForSeconds(rumbleDuration);
-        //GamePad.GetState(0, GamePadDeadZone.None);
         GamePad.SetVibration(0, 0.0f, 0.0f);
         RumbleState = 0;
         WaitToRumble = false;

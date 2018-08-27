@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeBombManager : MonoBehaviour {
-//    public Image fillTimeBomb1, fillTimeBomb2, fillTimeBomb3;
+
     private float timeBombRegenPerSec = 1.0f;
     private int bombs = 3;
-    //public Image fillTimeBomb;
-    // Use this for initialization
+    public GameObject timeBomb, timeBombPanel;
+    private IEnumerator BombAction;
+    public float secondsTimePanel = 0.2f;
     void Start () {
         bombs = 3;
+        timeBombPanel.SetActive(false);
+        timeBomb.SetActive(true);
     }
     void Update()
     {
@@ -35,7 +38,12 @@ public class TimeBombManager : MonoBehaviour {
                 GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
             break;
         }
-        if(bombs!=0)bombs--;
+        if (bombs != 0)
+        {
+            bombs--;
+            BombAction = PanelTimer(secondsTimePanel);
+            StartCoroutine(BombAction);
+        }
     }
     public void RegenTimeBomb()
     {
@@ -60,5 +68,13 @@ public class TimeBombManager : MonoBehaviour {
     {
         if (bombs!=0)return true;
         else return false;
+    }
+    IEnumerator PanelTimer(float panelDuration)
+    {
+        timeBombPanel.SetActive(true);
+        timeBomb.SetActive(false);
+        yield return new WaitForSeconds(panelDuration);
+        timeBombPanel.SetActive(false);
+        timeBomb.SetActive(true);
     }
 }
