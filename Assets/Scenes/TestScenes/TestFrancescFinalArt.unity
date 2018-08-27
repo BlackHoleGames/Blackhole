@@ -2220,6 +2220,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1541705320106962, guid: ec646bb25bfa2734da04c9f3b2ca0924, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec646bb25bfa2734da04c9f3b2ca0924, type: 2}
   m_IsPrefabParent: 0
@@ -7731,6 +7735,7 @@ MonoBehaviour:
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 30249562}
   pdestroyed: {fileID: 1753488558}
+  pShoot: {fileID: 1563952641}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
@@ -7850,6 +7855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBomb: {fileID: 1268008759}
   timeBombPanel: {fileID: 1734161937}
+  secondsTimePanel: 0.2
 --- !u!1 &913064364
 GameObject:
   m_ObjectHideFlags: 0
@@ -12175,6 +12181,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1000
   tunnel: {fileID: 1249003169}
+--- !u!1 &1563952641 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1541705320106962, guid: ec646bb25bfa2734da04c9f3b2ca0924,
+    type: 2}
+  m_PrefabInternal: {fileID: 303555650}
 --- !u!1 &1565135242
 GameObject:
   m_ObjectHideFlags: 0
@@ -13797,6 +13808,7 @@ MonoBehaviour:
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 30249562}
   pdestroyed: {fileID: 1753488558}
+  pShoot: {fileID: 0}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}

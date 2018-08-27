@@ -29,7 +29,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public AudioClip[] timeBombClips;
     public Slider life;
     public Image fillLife, fillTimeBomb;
-    public GameObject projectile, sphere, ghost, parentAxis, pdestroyed;
+    public GameObject projectile, sphere, ghost, parentAxis, pdestroyed, pShoot;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
@@ -123,21 +123,23 @@ public class SwitchablePlayerController : MonoBehaviour
     public void ManageInput(double RT)
     {
         
-        bool isShotingbyPath = false;
+        bool isShotingbyPad = false;
         RT=System.Math.Round(RT, 2);
-        if (RT > 0) isShotingbyPath = true;
+        if (RT > 0) isShotingbyPad = true;
         if ((Input.GetButtonDown("Fire1") || ((RT > 0) && (RT >= 1))) && !is_firing)
         {
             is_firing = true;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
+            
         }
         if ((Input.GetButtonUp("Fire1")) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
             foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+            
         }
-        if (isShotingbyPath)
+        if (isShotingbyPad)
         {
             FireRutine = StoppingShoot(0.5f);
             StartCoroutine(FireRutine);
@@ -172,7 +174,7 @@ public class SwitchablePlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitshoot);
         is_firing = false;
         //firingCounter = 0.0f;
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();       
     }
 
     public void RegenLife()
@@ -190,6 +192,7 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         if (firingCounter <= 0.0f)
         {
+            if (pShoot != null) pShoot.GetComponent<ParticleSystem>().Play();
             Transform t = transform;
             Instantiate(projectile, t.position, t.rotation);
             gunshot.Play();
