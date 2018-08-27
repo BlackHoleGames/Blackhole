@@ -15,7 +15,9 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private EnemyLookAt ela;
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
-    private float shotCounter; 
+    private float shotCounter;
+    private MapManger mm;
+    private float destructionDelayDuration = 1.5f;
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
@@ -34,15 +36,22 @@ public class MiniBossWeakpoint : MonoBehaviour {
             ManageHit();
             ManageShot();
         }
-        else { 
-            foreach (Transform child in destroyedBody.transform) {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                Destroy(child.gameObject);
+        else {
+            if (destructionDelayDuration <= 0)
+            {
+                foreach (Transform child in destroyedBody.transform)
+                {
+                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Destroy(child.gameObject);
+                }
+                foreach (Transform child in destroyedHead.transform)
+                {
+                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Destroy(child.gameObject);
+                }
+                Destroy(transform.parent.gameObject);
             }
-            foreach (Transform child in destroyedHead.transform) {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                Destroy(child.gameObject);
-            }          
+            else destructionDelayDuration -= Time.deltaTime;
         }
     }
 

@@ -23,7 +23,7 @@ public class AsteroidStageFinisher : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") {
+        if (other.tag == "Player" && !count) {
             mm.GoToNextStage();
             count = true;
             //Destroy(transform.parent.gameObject);

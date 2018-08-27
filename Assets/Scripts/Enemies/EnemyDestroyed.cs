@@ -78,12 +78,9 @@ public class EnemyDestroyed : MonoBehaviour {
         }
         if (listRandDes.Count == 0 && !eye) Destroy(gameObject);
         if (flickerCounter < 0.0f) {
-            foreach (Transform child in transform)
-            {
-                if(child.name == "AlienEye")
-                { 
-                    if (!matOn && isFlickeringEye)
-                    {
+            foreach (Transform child in transform) {
+                if(child.name == "AlienEye") { 
+                    if (!matOn && isFlickeringEye) {
                         child.GetComponent<Renderer>().material = matFlicker;
                         matOn = true;
                     }

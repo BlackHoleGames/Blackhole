@@ -78,12 +78,12 @@ public class MapManger : MonoBehaviour {
                     GoToNextStage();
                     sm = structure.GetComponent<StructMovement>();
                     sm.StartMovingStruct();
-                    structureMoving = true;
                 }
                 break;
             case Stages.STRUCT_TIMEWARP:
                 if (!structureMoving)
                 {
+                    structureMoving = true;
                     er.StartDownTransition();                    
                 }
                 break;

@@ -5,10 +5,12 @@ using UnityEngine;
 public class TunnelStageFinisher : MonoBehaviour {
 
     private MapManger mm;
+    private bool done;
     // Use this for initialization
     void Start()
     {
         mm = GameObject.Find("Managers").GetComponent<MapManger>();
+        done = false;
     }
 
     // Update is called once per frame
@@ -19,8 +21,9 @@ public class TunnelStageFinisher : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !done)
         {
+            done = true;
             mm.GoToNextStage();
             Destroy(transform.parent.gameObject);
         }

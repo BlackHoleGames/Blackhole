@@ -35,6 +35,7 @@ TagManager:
   - MultiplierX1
   - MultiplierX2
   - MultiplierX3
+  - SquadManager
   layers:
   - Default
   - TransparentFX

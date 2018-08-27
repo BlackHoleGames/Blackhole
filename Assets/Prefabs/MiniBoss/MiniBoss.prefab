@@ -2376,7 +2376,6 @@ MonoBehaviour:
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
   projectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17, type: 2}
-  destroyedTimer: 3
 --- !u!114 &114458318678410498
 MonoBehaviour:
   m_ObjectHideFlags: 1
