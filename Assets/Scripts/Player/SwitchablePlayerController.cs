@@ -148,6 +148,7 @@ public class SwitchablePlayerController : MonoBehaviour
             //                fillTimeBomb.fillAmount = 0.0f;            
             if (!emptyStockBombs)
             {
+                RumblePad.RumbleState = 3;
                 activateBomb = true;
                 int clipIndex = (int)Random.Range(0, 3);
                 timebomb.clip = timeBombClips[clipIndex];
@@ -399,6 +400,7 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
             {
+                RumblePad.RumbleState = 1;//Normal Impact
                 if (alertModeTime > 0.0f)
                 {
                     if (!alarm.isPlaying) alarm.Play();
@@ -411,8 +413,10 @@ public class SwitchablePlayerController : MonoBehaviour
                             actualLife = actualLife - (shield / 2.0f);
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
+                            
                             if (actualLife < 0.0f)
                             {
+                                RumblePad.RumbleState = 5;
                                 actualLife = 0.0f;
                                 tm.RestoreTime();
                                 fillLife.enabled = false;
@@ -429,10 +433,15 @@ public class SwitchablePlayerController : MonoBehaviour
                                 //SceneManager.LoadScene(6);
                                 //TimerScript.gameover = true;
                                 //Remaining deaht animation before this bool.                        
-                            } // Death                
+                            } // Death  
+                            else
+                            {
+                                //RumblePad.RumbleState = 1; //Alarm
+                            }              
                         }
                         if (!tm.InSlowMo() && !isDestroying)
                         {
+                            
                             slomo.Play();
                             tm.StartSloMo();
                             alertModeTime = alertModeDuration;
