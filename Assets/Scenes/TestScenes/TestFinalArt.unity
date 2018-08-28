@@ -7946,8 +7946,8 @@ MonoBehaviour:
   sphere: {fileID: 1564934283649618, guid: 51a84d1ec19519a4d8624b2bfcfc93a3, type: 2}
   ghost: {fileID: 1927995219293576, guid: 682227107f1b1c44cb51c65c303b1dce, type: 2}
   parentAxis: {fileID: 30249562}
-  pdestroyed: {fileID: 1753488558}
   pShoot: {fileID: 303555651}
+  pSpaceCraft: {fileID: 1009492329}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
@@ -7962,6 +7962,7 @@ MonoBehaviour:
   activateBomb: 0
   emptyStockBombs: 0
   isFinished: 0
+  isShotingbyPad: 0
   isAlert: 0
 --- !u!23 &893946461
 MeshRenderer:
@@ -14027,8 +14028,8 @@ MonoBehaviour:
   sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 30249562}
-  pdestroyed: {fileID: 1753488558}
   pShoot: {fileID: 0}
+  pSpaceCraft: {fileID: 0}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
@@ -14043,6 +14044,7 @@ MonoBehaviour:
   activateBomb: 0
   emptyStockBombs: 0
   isFinished: 0
+  isShotingbyPad: 0
   isAlert: 0
 --- !u!23 &1738764858
 MeshRenderer:
@@ -14254,10 +14256,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1748177485}
   m_Mesh: {fileID: 4300088, guid: e37c87b52370706429a26ccac4e3bbac, type: 3}
---- !u!1 &1753488558 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
-  m_PrefabInternal: {fileID: 1830687560}
 --- !u!4 &1753488559 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d4f6f3ad77f456e4fa5d9d27d9aa735b, type: 3}
