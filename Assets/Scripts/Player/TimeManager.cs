@@ -15,6 +15,7 @@ public class TimeManager : MonoBehaviour {
     private bool speedUp = false;
     private bool inFasterGTL = false;
     private bool returnToFasterGTL = false;
+    private bool inTimeWarp = false;
     private float slomoCounter = 0.0f;
     public bool isMaxGTLReached;
     public float gtlFast = 1.5f;
@@ -114,6 +115,7 @@ public class TimeManager : MonoBehaviour {
         speedUp = false;
         isMaxGTLReached = true;
         gtlIncreasing = true;
+        inTimeWarp = true;
         //if (inFasterGTL) returnToFasterGTL = true;
         //else returnToFasterGTL = false;
         inFasterGTL = false;
@@ -180,10 +182,15 @@ public class TimeManager : MonoBehaviour {
         return slowDown;
     }
 
+    public bool InTimeWarp() {
+        return inTimeWarp;
+    }
+
     public void StopTimeWarp() {
         Time.timeScale = 1.0f;
         isMaxGTLReached = false;
         inFasterGTL = false;
+        inTimeWarp = false;
         maxGTLCounter = 0.0f;
         cb.SwitchToMiddle();
         if (!sp.VerticalAxisOn()) sp.SwitchAxis();

@@ -15,20 +15,15 @@ public class AsteroidStageFinisher : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (transform.position.z < -10.0f && !count) {
+            count = true;
+            mm.GoToNextStage();
+        }
         if (count) {
             delayBeforeDestroy -= Time.deltaTime;
             if (delayBeforeDestroy < 0.0f) CallDestruction();
         }
 	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player" && !count) {
-            mm.GoToNextStage();
-            count = true;
-            //Destroy(transform.parent.gameObject);
-        }
-    }
 
     public void CallDestruction() {
         Destroy(transform.root.gameObject);

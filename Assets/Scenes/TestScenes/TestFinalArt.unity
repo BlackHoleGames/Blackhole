@@ -2876,7 +2876,7 @@ Prefab:
     - target: {fileID: 114299313591141618, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
       propertyPath: actualStage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114235713587323288, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
@@ -5489,7 +5489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057b7d93ecb90b4789beaeef4682d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 7
+  actualStage: 5
   meteorDelayDuration: 0.2
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
@@ -5498,6 +5498,7 @@ MonoBehaviour:
   meteors: {fileID: 1792603414}
   meteors2d: {fileID: 460068251}
   meteorsEnd: {fileID: 1710844548096832, guid: 7ad2120c861a94e499aa53d2f061fe82, type: 2}
+  asteroidsDodge: {fileID: 1513185417}
   timewarpEffect: {fileID: 1903532201}
   timewarpBackground: {fileID: 576858471}
 --- !u!114 &609360213
@@ -7147,9 +7148,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 863099924}
-  - component: {fileID: 863099926}
   - component: {fileID: 863099925}
-  - component: {fileID: 863099927}
   m_Layer: 0
   m_Name: TunnelFinish
   m_TagString: Untagged
@@ -7181,33 +7180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5984949530b5db542ba248a25b3cfd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &863099926
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 863099923}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &863099927
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 863099923}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &875645205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7947,7 +7919,6 @@ MonoBehaviour:
   ghost: {fileID: 1927995219293576, guid: 682227107f1b1c44cb51c65c303b1dce, type: 2}
   parentAxis: {fileID: 30249562}
   pShoot: {fileID: 303555651}
-  pSpaceCraft: {fileID: 1009492329}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
@@ -9403,7 +9374,13 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1753159079394458, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65951671295810238, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
+    - {fileID: 54770421826412582, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1003571576 stripped
@@ -12361,6 +12338,11 @@ Transform:
   m_Father: {fileID: 2110228689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1513185417 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1753159079394458, guid: 0b245cf0e71342448a7dde6a36aab0b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 989604605}
 --- !u!1001 &1532186525
 Prefab:
   m_ObjectHideFlags: 0
@@ -14029,7 +14011,6 @@ MonoBehaviour:
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 30249562}
   pShoot: {fileID: 0}
-  pSpaceCraft: {fileID: 0}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}

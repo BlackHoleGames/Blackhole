@@ -12,7 +12,7 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors, meteors2d, meteorsEnd, timewarpEffect, timewarpBackground;
+    public GameObject structure,boss, miniboss, meteors, meteors2d, meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
@@ -28,7 +28,7 @@ public class MapManger : MonoBehaviour {
         em = GetComponentInChildren<EnemyManager>();
         //actualStage = Stages.METEORS_TIMEWARP;
         cb = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
-        am = GameObject.Find("AsteroidsDodge").GetComponent<AsteroidsMovement>();
+        am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
         
@@ -44,6 +44,7 @@ public class MapManger : MonoBehaviour {
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()){
                     meteors.SetActive(true);
+                    asteroidsDodge.SetActive(false);
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
@@ -81,8 +82,15 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.STRUCT_TIMEWARP:
-                if (!structureMoving)
-                {
+                if (!sm) {
+                    structure.SetActive(true);
+                    timewarpEffect.SetActive(true);
+                    timewarpBackground.SetActive(true);
+                    if (!tm.InTimeWarp()) tm.StartTimeWarp();
+                    sm = structure.GetComponent<StructMovement>();
+                    sm.StartMovingStruct();
+                }
+                if (!structureMoving) { 
                     structureMoving = true;
                     er.StartDownTransition();                    
                 }

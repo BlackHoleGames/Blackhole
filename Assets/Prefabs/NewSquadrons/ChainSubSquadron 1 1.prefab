@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114041826990536898}
   m_Layer: 0
   m_Name: ChainSubSquadron 1 1
-  m_TagString: Untagged
+  m_TagString: SquadManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,4 +59,4 @@ MonoBehaviour:
   numOfMembers: 0
   Manager: {fileID: 0}
   speed: 2
-  timeToLive: -1
+  timeToStay: -1
