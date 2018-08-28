@@ -46,6 +46,9 @@ public class SwitchablePlayerController : MonoBehaviour
     private IEnumerator FireRutine;
     public bool isDestroying, isDeath, emptyStockLives = false;
     public bool activateBomb , emptyStockBombs, isFinished, isAlert = false;
+    private IEnumerator DisableAction;
+    private float disableTimer = 2.0f;
+    private bool disableSecure = false;
     // Use this for initialization
     void Start()
     {
@@ -342,7 +345,14 @@ public class SwitchablePlayerController : MonoBehaviour
     public void Rotate()
     {
         parentAxis.transform.eulerAngles = new Vector3(rotX.x, 0.0f, rotZ.z);
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().RotateGhosts();
+        foreach (GameObject g in ghostArray)
+        {
+            g.GetComponent<TimeGhost>().RotateGhosts();
+            //g.GetComponent<TimeGhost>().transform.localRotation = Quaternion.Euler(rotX.x,0.0f,rotZ.z);
+            
+//            Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x,
+//            0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
+        }
     }
 
     public void ReadjustPlayer()
@@ -448,12 +458,13 @@ public class SwitchablePlayerController : MonoBehaviour
                             slomo.Play();
                             tm.StartSloMo();
                             alertModeTime = alertModeDuration;
-                            while (ghostArray.Count > 0)
-                            {
-                                Destroy(ghostArray[0]);
-                                ghostArray.Remove(ghostArray[0]);
+                            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().DisableGhosts();
+                            //2 Seconds to disapear
+                            if (!disableSecure) {
+                                disableSecure = true;
+                                DisableAction = DisableGhotTimer(disableTimer);
+                                StartCoroutine(DisableAction);
                             }
-                            ghostArray.Clear();
                         }
                     }
                     else playerHit = true;
@@ -504,5 +515,17 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void SetPlayerGodMode(bool enabled) {
         godMode = enabled;
+    }
+    IEnumerator DisableGhotTimer(float disableDuration)
+    {
+        yield return new WaitForSeconds(disableDuration);
+        while (ghostArray.Count > 0)
+        {
+
+            Destroy(ghostArray[0]);
+            ghostArray.Remove(ghostArray[0]);
+        }
+        ghostArray.Clear();
+        disableSecure = false;
     }
 }

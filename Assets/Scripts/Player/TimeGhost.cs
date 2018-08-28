@@ -8,13 +8,14 @@ public class TimeGhost : MonoBehaviour
     public bool firing;
     public float fireCooldown;
     public float speedFactor = 1.0f;
-    public GameObject projectile;
+    public GameObject projectile,pShootGhost;
     public float XLimit = 10.0f;
     public float ZLimit = 5.0f;
     public float invul = 1.0f;
     public float startDelayCounter = 0.0f;
     private float firingCounter;
     public bool is_firing;
+    private ParticleSystem partSys;
     //------------------------------------------
 
     const int MAX_FPS = 60;
@@ -46,6 +47,7 @@ public class TimeGhost : MonoBehaviour
         counter = Time.time;
         if (blocksProjectiles) gameObject.tag = "ghost";
         else gameObject.tag = "Untagged";
+        partSys = GetComponent<ParticleSystem>();
     }
 
     public void SetFiringCounter(float newFiringCounter)
@@ -97,6 +99,7 @@ public class TimeGhost : MonoBehaviour
     {
         if (firingCounter <= 0.0f)
         {
+            if (pShootGhost != null) pShootGhost.GetComponent<ParticleSystem>().Play();
             Transform t = gameObject.transform;
             Instantiate(projectile, t.position, t.rotation);
             firingCounter = fireCooldown;
@@ -104,8 +107,32 @@ public class TimeGhost : MonoBehaviour
     }
     public void RotateGhosts()
     {
-        transform.eulerAngles = new Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x, 
-            0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
+        foreach (Transform child in transform)
+        {
+            if (child.name == "PS_TimeGhost")
+            {
+                var main = child.GetComponent<ParticleSystem>().main;
+                main.startRotationX = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x;
+                main.startRotationY = 0.0f;
+                main.startRotationZ = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z;
+            }
+
+        }
+        //var main = partSys.main;
+        //main.startRotationXMultiplier = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x;
+        //main.startRotationYMultiplier = 0.0f;
+        //main.startRotationZMultiplier = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z;
+        //transform.eulerAngles = new Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x, 
+        //    0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
+    }
+    public void DisableGhosts()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "PS_PlayerShoot") child.gameObject.SetActive(false);
+            if (child.name == "PS_TimeGhost") child.gameObject.SetActive(false);
+            if (child.name == "PS_TimeGhost_D") child.gameObject.SetActive(true);
+        }
     }
 }
 

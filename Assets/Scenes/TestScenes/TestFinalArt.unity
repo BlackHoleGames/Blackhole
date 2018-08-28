@@ -2135,6 +2135,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec646bb25bfa2734da04c9f3b2ca0924, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &303555651 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1541705320106962, guid: ec646bb25bfa2734da04c9f3b2ca0924,
+    type: 2}
+  m_PrefabInternal: {fileID: 303555650}
 --- !u!1 &308536879
 GameObject:
   m_ObjectHideFlags: 0
@@ -7567,10 +7572,10 @@ MonoBehaviour:
   fillTimeBomb: {fileID: 566144385}
   projectile: {fileID: 1596532131519770, guid: 326ee91a8e342ce49aa79c0f8e6bf138, type: 2}
   sphere: {fileID: 1564934283649618, guid: 51a84d1ec19519a4d8624b2bfcfc93a3, type: 2}
-  ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
+  ghost: {fileID: 1927995219293576, guid: 682227107f1b1c44cb51c65c303b1dce, type: 2}
   parentAxis: {fileID: 30249562}
   pdestroyed: {fileID: 1753488558}
-  pShoot: {fileID: 0}
+  pShoot: {fileID: 303555651}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
