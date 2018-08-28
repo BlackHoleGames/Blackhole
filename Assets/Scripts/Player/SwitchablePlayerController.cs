@@ -29,7 +29,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public AudioClip[] timeBombClips;
     public Slider life;
     public Image fillLife, fillTimeBomb;
-    public GameObject projectile, sphere, ghost, parentAxis, pdestroyed, pShoot;
+    public GameObject projectile, sphere, ghost, parentAxis, pShoot;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
@@ -45,10 +45,11 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isDestroying, isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs, isFinished, isAlert = false;
+    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    private bool disableSecure = false;
+    private bool ghostEnabled,disableSecure = false;
+    
     // Use this for initialization
     void Start()
     {
@@ -100,6 +101,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 float axisX = Input.GetAxis("Horizontal");
                 float axisY = Input.GetAxis("Vertical");
                 double RT = Input.GetAxis("RT");
+
                 Move(axisX, axisY);
                 //ManagePitchRotation(axisY);
                 ManageRollRotation(axisX);
@@ -126,20 +128,20 @@ public class SwitchablePlayerController : MonoBehaviour
     public void ManageInput(double RT)
     {
         
-        bool isShotingbyPad = false;
+        isShotingbyPad = false;
         RT=System.Math.Round(RT, 2);
         if (RT > 0) isShotingbyPad = true;
-        if ((Input.GetButtonDown("Fire1") || ((RT > 0) && (RT >= 1))) && !is_firing)
+        if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing)
         {
             is_firing = true;
-            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
+            if(ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
             
         }
         if ((Input.GetButtonUp("Fire1")) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
-            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+            if(ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
             
         }
         if (isShotingbyPad)
@@ -197,7 +199,8 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (pShoot != null) pShoot.GetComponent<ParticleSystem>().Play();
             Transform t = transform;
-            Instantiate(projectile, t.position, t.rotation);
+            //Instantiate(projectile, t.position, t.rotation);
+            Instantiate(projectile, transform.position, transform.rotation);
             gunshot.Play();
             firingCounter = fireCooldown;
         }
@@ -348,10 +351,6 @@ public class SwitchablePlayerController : MonoBehaviour
         foreach (GameObject g in ghostArray)
         {
             g.GetComponent<TimeGhost>().RotateGhosts();
-            //g.GetComponent<TimeGhost>().transform.localRotation = Quaternion.Euler(rotX.x,0.0f,rotZ.z);
-            
-//            Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x,
-//            0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
         }
     }
 
@@ -403,6 +402,7 @@ public class SwitchablePlayerController : MonoBehaviour
             obj.transform.rotation = Quaternion.identity;
             obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
             ghostArray.Add(obj);
+            ghostEnabled = true;
         }
     }
 
@@ -430,6 +430,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             if (actualLife < 0.0f)
                             {
                                 RumblePad.RumbleState = 5;
+                                DestroyGhots();
                                 actualLife = 0.0f;
                                 tm.RestoreTime();
                                 fillLife.enabled = false;
@@ -458,13 +459,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             slomo.Play();
                             tm.StartSloMo();
                             alertModeTime = alertModeDuration;
-                            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().DisableGhosts();
-                            //2 Seconds to disapear
-                            if (!disableSecure) {
-                                disableSecure = true;
-                                DisableAction = DisableGhotTimer(disableTimer);
-                                StartCoroutine(DisableAction);
-                            }
+                            DestroyGhots();
                         }
                     }
                     else playerHit = true;
@@ -516,12 +511,24 @@ public class SwitchablePlayerController : MonoBehaviour
     public void SetPlayerGodMode(bool enabled) {
         godMode = enabled;
     }
+    public void DestroyGhots()
+    {
+        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().DisableGhosts();
+        //2 Seconds to disapear
+        if (!disableSecure)
+        {
+            ghostEnabled = false;
+            disableSecure = true;
+            DisableAction = DisableGhotTimer(disableTimer);
+            StartCoroutine(DisableAction);
+        }
+    }
+
     IEnumerator DisableGhotTimer(float disableDuration)
     {
         yield return new WaitForSeconds(disableDuration);
         while (ghostArray.Count > 0)
         {
-
             Destroy(ghostArray[0]);
             ghostArray.Remove(ghostArray[0]);
         }

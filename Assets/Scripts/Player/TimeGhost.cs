@@ -92,7 +92,7 @@ public class TimeGhost : MonoBehaviour
     public void StopFiring()
     {
         is_firing = false;
-        firingCounter = 0.0f;
+        if(!GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isShotingbyPad) firingCounter = 0.0f;
     }
 
     public void Fire()
@@ -124,6 +124,15 @@ public class TimeGhost : MonoBehaviour
         //main.startRotationZMultiplier = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z;
         //transform.eulerAngles = new Vector3(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x, 
         //    0.0f, GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z);
+    }
+    public void EnableGhosts()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "PS_PlayerShoot") child.gameObject.SetActive(true);
+            if (child.name == "PS_TimeGhost") child.gameObject.SetActive(true);
+            if (child.name == "PS_TimeGhost_D") child.gameObject.SetActive(false);
+        }
     }
     public void DisableGhosts()
     {
