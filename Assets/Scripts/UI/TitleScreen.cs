@@ -7,6 +7,7 @@ public class TitleScreen : MonoBehaviour {
 
     public Text TitleText;
     public Text PressStartText;
+    public Image Curtain;
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
@@ -14,16 +15,12 @@ public class TitleScreen : MonoBehaviour {
 
 
     IEnumerator Start() {
-        //        if(GameObject.FindGameObjectWithTag("UIScore").GetComponent<SwitchablePlayerController>().speedOn==null)
-        //if (GameObject.FindGameObjectWithTag("UIScore").GetComponent<LeaderBoardScript>() != null)
-        //{
-        //    isLeaderBoardTime = GameObject.FindGameObjectWithTag("UIScore").GetComponent<LeaderBoardScript>().isLeaderBoardTime;
-        //}else
-        //{
-        //    isLeaderBoardTime = true;
-        //}
+
         TitleText.canvasRenderer.SetAlpha(0.0f);
         PressStartText.canvasRenderer.SetAlpha(0.0f);
+        Curtain.canvasRenderer.SetAlpha(1.0f);
+        Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
+        yield return new WaitForSeconds(1.0f);
         FadeInImage();
         for (int i = 0; i < 5; i++) {
             FadeInText();
