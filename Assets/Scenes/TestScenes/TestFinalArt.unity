@@ -4850,7 +4850,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1121568718615108, guid: 2bea625e6304fbb49bcc481082798fc4, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4367383558571764, guid: 2bea625e6304fbb49bcc481082798fc4, type: 2}
       propertyPath: m_RootOrder
@@ -5548,7 +5548,7 @@ MonoBehaviour:
   asteroidsDodge: {fileID: 1513185417}
   timewarpEffect: {fileID: 1903532201}
   timewarpBackground: {fileID: 576858471}
-  battleTunnel: {fileID: 0}
+  battleTunnel: {fileID: 2043861403}
 --- !u!114 &609360213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9447,6 +9447,10 @@ Prefab:
       propertyPath: speed
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 1201304674198998, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65951671295810238, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
     - {fileID: 54770421826412582, guid: 0b245cf0e71342448a7dde6a36aab0b3, type: 2}
@@ -10934,7 +10938,7 @@ Transform:
   - {fileID: 1875235872}
   - {fileID: 863099924}
   m_Father: {fileID: 1555097224}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1258197840
 GameObject:
@@ -14358,7 +14362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19549,6 +19553,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2029513494}
+--- !u!1 &2043861403 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1488275980804708, guid: 773d6e2edb4eea94da97785a80f8a16a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1807203158}
 --- !u!1 &2050431658 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1954789536502804, guid: ec646bb25bfa2734da04c9f3b2ca0924,
