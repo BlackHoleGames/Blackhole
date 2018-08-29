@@ -5,8 +5,8 @@ using System.Collections;
 
 public class TitleScreen : MonoBehaviour {
 
-    public Image splashImage;
-    public Text splashText;
+    public Text TitleText;
+    public Text PressStartText;
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
@@ -22,8 +22,8 @@ public class TitleScreen : MonoBehaviour {
         //{
         //    isLeaderBoardTime = true;
         //}
-        splashImage.canvasRenderer.SetAlpha(0.0f);
-        splashText.canvasRenderer.SetAlpha(0.0f);
+        TitleText.canvasRenderer.SetAlpha(0.0f);
+        PressStartText.canvasRenderer.SetAlpha(0.0f);
         FadeInImage();
         for (int i = 0; i < 5; i++) {
             FadeInText();
@@ -58,14 +58,14 @@ public class TitleScreen : MonoBehaviour {
 
     void FadeInText()
     {
-        splashText.CrossFadeAlpha(1.0f, 1.5f, false);
+        PressStartText.CrossFadeAlpha(0.5f, 1.5f, false);
     }
     void FadeInImage()
     {
-        splashImage.CrossFadeAlpha(1.0f, 1.5f, false);      
+        TitleText.CrossFadeAlpha(1.0f, 1.5f, false);      
     }
     void FadeOut()
     {
-        splashText.CrossFadeAlpha(0.0f, 2.5f, false);
+        PressStartText.CrossFadeAlpha(0.0f, 2.5f, false);
     }
 }
