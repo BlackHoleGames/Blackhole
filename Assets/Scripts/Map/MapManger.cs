@@ -12,7 +12,9 @@ public class MapManger : MonoBehaviour {
     private AsteroidsMovement am;
     private TimeManager tm;
     public MiniBossScript mbs;
-    public GameObject structure,boss, miniboss, meteors, meteors2d, meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground;
+    public GameObject structure,boss, miniboss, meteors, meteors2d,
+        meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
+        battleTunnel;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
@@ -23,6 +25,7 @@ public class MapManger : MonoBehaviour {
     private bool timewarpBackgroundDelay = false;
     private float meteorDelayCounter = 0.0f;
     private float timewarpDelayCounter = 0.0f;
+    private bool removeBattleStruct = true;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -30,7 +33,7 @@ public class MapManger : MonoBehaviour {
         cb = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
         am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
-        er = GameObject.Find("EarthMapped").GetComponent<EarthRotation>();
+        er = GameObject.Find("EarthHighFull").GetComponent<EarthRotation>();
         
         //sm = structure.GetComponent<StructMovement>();
     }
@@ -97,16 +100,30 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    em.SetSecondWaveIndex();
                     timewarpEffect.SetActive(false);
                     em.StartManager();
                     tm.StopTimeWarp();
+                    foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.enabled = true;
+                    removeBattleStruct = false;
                 }
                 break;
             case Stages.BOSS:
-                if (!bossEnabled) {
-                    //cb.SwitchToBoss();
-                    boss.SetActive(true);
-                    bossEnabled = true;
+                if (!removeBattleStruct) {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
+                    {
+                        foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();                        
+                    }
+                    else {
+                        Destroy(battleTunnel);
+                        removeBattleStruct = true;
+                    }
+                }
+                else {
+                    if (!bossEnabled) {
+                        boss.SetActive(true);
+                        bossEnabled = true;
+                    }
                 }
                 break;
             case Stages.ESCAPE:

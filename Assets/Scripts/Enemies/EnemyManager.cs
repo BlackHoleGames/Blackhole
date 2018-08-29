@@ -158,4 +158,8 @@ public class EnemyManager : MonoBehaviour {
         }
         StartWait();        
     }
+
+    public void SetSecondWaveIndex() {
+        squadronIndex = 6;
+    }
 }

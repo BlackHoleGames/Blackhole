@@ -148,8 +148,6 @@ MonoBehaviour:
   life: 30
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  matHit: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!4 &100258839
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,6 +1002,7 @@ MonoBehaviour:
   LeftWeakSpot: {fileID: 1368726877}
   RightWeakSpot: {fileID: 1134861727}
   Eye: {fileID: 100258837}
+  player: {fileID: 0}
   Turrets:
   - {fileID: 1805151600}
   - {fileID: 1174642370}
@@ -1013,7 +1012,6 @@ MonoBehaviour:
   - {fileID: 1088617877}
   Exposed: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   eyeTimeToMove: 5
-  turretShotSpacing: 1
 --- !u!1 &446274680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,9 +1628,6 @@ MonoBehaviour:
   life: 30
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  matHit: {fileID: 0}
-  reactor: {fileID: 0}
-  destroyedReactor: {fileID: 0}
 --- !u!54 &627421324
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2572,52 +2567,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0}
---- !u!1001 &1002431985
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4653174224052804, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1488275980804708, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 773d6e2edb4eea94da97785a80f8a16a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1007997036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,9 +2748,6 @@ MonoBehaviour:
   life: 30
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  matHit: {fileID: 0}
-  reactor: {fileID: 0}
-  destroyedReactor: {fileID: 0}
 --- !u!54 &1008733755
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3026,7 +2972,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3106,7 +3052,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3186,7 +3132,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3266,7 +3212,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3355,22 +3301,18 @@ MonoBehaviour:
   sphere: {fileID: 1846010627454456, guid: 80f855e43d296924f812d334fa906e2c, type: 2}
   ghost: {fileID: 1234155549769150, guid: eb92beb41fd37fb479160ba06b2fc048, type: 2}
   parentAxis: {fileID: 637145680}
-  pShoot: {fileID: 0}
+  pdestroyed: {fileID: 0}
   readjustInitialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0}
   rotX: {x: 0, y: 0, z: 0}
   rotZ: {x: 0, y: 0, z: 0}
   actualLife: 0
-  lives: 2
   speedOnProp: 0
   StandByVertProp: 0
-  isDestroying: 0
   isDeath: 0
   emptyStockLives: 0
   activateBomb: 0
   emptyStockBombs: 0
-  isFinished: 0
-  isShotingbyPad: 0
   isAlert: 0
 --- !u!23 &1084094434
 MeshRenderer:
@@ -3480,7 +3422,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3764,6 +3706,7 @@ MonoBehaviour:
   matOff: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   hitMat: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   life: 3
+  lifeCounter: 0
   timeToWeakpointRevive: 6
   timeBeforeWeakpointRestart: 4
   flickerTime: 0.25
@@ -4483,6 +4426,7 @@ MonoBehaviour:
   matOff: {fileID: 2100000, guid: fbe4fa62ad499b045a59f9df61e9b129, type: 2}
   hitMat: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   life: 3
+  lifeCounter: 0
   timeToWeakpointRevive: 6
   timeBeforeWeakpointRestart: 4
   flickerTime: 0.25
@@ -4904,13 +4848,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1560538795}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 26, z: 0}
+  m_LocalRotation: {x: 0.13052739, y: -0, z: -0, w: 0.9914447}
+  m_LocalPosition: {x: 0, y: 11.5, z: -19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15.000001, y: 0, z: 0}
 --- !u!1 &1578990248
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,7 +4913,6 @@ MonoBehaviour:
   heightLimit: 0
   timeToMoveUp: 3
   initialHeight: 5
-  maxOffsetY: 5
   reactorShot: {fileID: 1513744875487796, guid: df8d4752acd56474aae82027b4760b1a,
     type: 2}
   reactorPoints:
@@ -6322,9 +6265,6 @@ MonoBehaviour:
   life: 30
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  matHit: {fileID: 0}
-  reactor: {fileID: 0}
-  destroyedReactor: {fileID: 0}
 --- !u!54 &1887797143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6647,9 +6587,6 @@ MonoBehaviour:
   life: 30
   matOn: {fileID: 2100000, guid: dce1d07d8e2d3734292f059cdfee31ac, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  matHit: {fileID: 0}
-  reactor: {fileID: 0}
-  destroyedReactor: {fileID: 0}
 --- !u!54 &2048562572
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7166,7 +7103,6 @@ MonoBehaviour:
   heightLimit: 0
   timeToMoveUp: 3
   initialHeight: 5
-  maxOffsetY: 5
   reactorShot: {fileID: 1513744875487796, guid: df8d4752acd56474aae82027b4760b1a,
     type: 2}
   reactorPoints:
@@ -7264,7 +7200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2146820993
 MonoBehaviour:
   m_ObjectHideFlags: 0
