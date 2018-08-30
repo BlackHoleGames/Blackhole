@@ -48,7 +48,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    private bool ghostEnabled,disableSecure = false;
+    public bool ghostEnabled,disableSecure = false;
     
     // Use this for initialization
     void Start()
@@ -432,6 +432,9 @@ public class SwitchablePlayerController : MonoBehaviour
                             lifePoints = (int)actualLife;
                             if (actualLife < 0.0f)
                             {
+                                is_firing = false;
+                                firingCounter = 0.0f;
+                                if (ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
                                 RumblePad.RumbleState = 5;
                                 DestroyGhots();
                                 actualLife = 0.0f;

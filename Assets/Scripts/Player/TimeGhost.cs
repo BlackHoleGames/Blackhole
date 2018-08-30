@@ -57,7 +57,10 @@ public class TimeGhost : MonoBehaviour
 
     void Update()
     {
-        if (is_firing)
+        if (is_firing
+            && GameObject.FindGameObjectWithTag("Player")!=null
+            && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath
+            && GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().ghostEnabled)
         {
             Fire();
             firingCounter -= Time.deltaTime;
