@@ -18,9 +18,9 @@ public class LifeManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (GameObject.FindGameObjectWithTag("Player") != null &&
-                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isImpacted)
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isUpdatingLife)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isImpacted = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isUpdatingLife = false;
             UpdateLifeBar();
         }
 

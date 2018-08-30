@@ -44,7 +44,7 @@ public class SwitchablePlayerController : MonoBehaviour
     //public bool camRotate = false;
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
-    public bool isImpacted, isDestroying, isDeath, emptyStockLives = false;
+    public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
@@ -424,7 +424,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         //
                         if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                         {
-                            isImpacted = true;
+                            isUpdatingLife = true;
                             isAlert = true;
                             actualLife = actualLife - (shield / 2.0f);
                             alertModeTime = alertModeDuration;
@@ -457,7 +457,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 //RumblePad.RumbleState = 1; //Alarm
                             }              
                         }
-                        if (!tm.InSlowMo() && !isDestroying)
+                        if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
                         {
                             
                             slomo.Play();
