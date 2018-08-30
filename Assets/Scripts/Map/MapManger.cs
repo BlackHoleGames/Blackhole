@@ -110,8 +110,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.BOSS:
                 if (!removeBattleStruct) {
-                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
-                    {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
                         foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();                        
                     }
                     else {

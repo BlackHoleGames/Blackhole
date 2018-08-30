@@ -1792,12 +1792,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065149dbbe334094ea8198552b3ead83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 30
+  life: 200
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
-  matHit: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
+  matHit: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   reactor: {fileID: 0}
   destroyedReactor: {fileID: 1828617460}
+  hitFeedbackDuration: 0.1
 --- !u!1 &251406514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,12 +2873,12 @@ Prefab:
       objectReference: {fileID: 369771561}
     - target: {fileID: 1870213922149536, guid: 3a01465876ac82d4288e2ec648296b49, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114299313591141618, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
       propertyPath: actualStage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114235713587323288, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
@@ -2930,6 +2931,11 @@ Prefab:
       propertyPath: timeToMoveEachPhase.Array.data[3]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 23908244398825230, guid: 3a01465876ac82d4288e2ec648296b49,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a01465876ac82d4288e2ec648296b49, type: 2}
   m_IsPrefabParent: 0
@@ -5194,12 +5200,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065149dbbe334094ea8198552b3ead83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 30
+  life: 200
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
-  matHit: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
+  matHit: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   reactor: {fileID: 0}
   destroyedReactor: {fileID: 2083771973}
+  hitFeedbackDuration: 0.1
 --- !u!1 &524632444 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1560538684467858, guid: 3a01465876ac82d4288e2ec648296b49,
@@ -5243,12 +5250,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065149dbbe334094ea8198552b3ead83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 30
+  life: 200
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
-  matHit: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
+  matHit: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   reactor: {fileID: 0}
   destroyedReactor: {fileID: 1580702424}
+  hitFeedbackDuration: 0.1
 --- !u!1001 &525551800
 Prefab:
   m_ObjectHideFlags: 0
@@ -5536,7 +5544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057b7d93ecb90b4789beaeef4682d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 5
+  actualStage: 7
   meteorDelayDuration: 0.2
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
@@ -8163,12 +8171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065149dbbe334094ea8198552b3ead83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 30
+  life: 200
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
-  matHit: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
+  matHit: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   reactor: {fileID: 0}
   destroyedReactor: {fileID: 510393105}
+  hitFeedbackDuration: 0.1
 --- !u!1 &943468712
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class ExplosionScript : MonoBehaviour {
 
     public ParticleSystem ps;
     private AudioSource audioSource;
+    public float timeToLive = 2.0f;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
@@ -16,8 +17,12 @@ public class ExplosionScript : MonoBehaviour {
 	void Update () {
         if (ps)
         {
-            if (!ps.IsAlive()) ps.Stop();
-            if (!audioSource.isPlaying)Destroy(gameObject);            
+            timeToLive -= Time.deltaTime;
+            if (timeToLive <= 0.0f)
+            {
+                ps.Stop();
+                Destroy(gameObject);
+            }
         }
 	}
 }

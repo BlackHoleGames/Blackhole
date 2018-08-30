@@ -45,7 +45,7 @@ public class EnemyManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (startSpawning) {
+        if (startSpawning) {           
             if (waitForDelay) {
                 waitingTime -= Time.deltaTime;
                 if (waitingTime < 0.0f) {
@@ -77,18 +77,20 @@ public class EnemyManager : MonoBehaviour {
                     ++squadronIndex;
                 }
             }
-            else {
-                GetComponentInParent<MapManger>().GoToNextStage();
-                //TimerScript.gameover = true;
-            }
         }
     }
 
     public void StartWait() {
-        if (!instantiatingSubSquads)
-        {
-            waitForDelay = true;
-            waitingTime = delayTime[squadronIndex-1];
+        if (squadronIndex >= squadrons.Length) {
+            GetComponentInParent<MapManger>().GoToNextStage();
+            Destroy(gameObject);
+        }
+        else {
+            if ((!instantiatingSubSquads))
+            {
+                waitForDelay = true;
+                waitingTime = delayTime[squadronIndex - 1];
+            }
         }
     }
 

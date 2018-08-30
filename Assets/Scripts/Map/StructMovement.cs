@@ -35,7 +35,6 @@ public class StructMovement : MonoBehaviour {
                 //Destroy(gameObject);
             }
             if (transform.position.z < -5000.0f) {
-                mm.GoToNextStage();
                 Destroy(this);
                 //GetComponent<Renderer>().enabled = false;
             }

@@ -9,27 +9,34 @@ public class ReactorWeakPoint : MonoBehaviour {
     private bool isVulnerable,alive, hit, materialHitOn;
     public Material matOn, matOff, matHit;
     public GameObject reactor, destroyedReactor;
-	// Use this for initialization
-	void Start () {
+    public float hitFeedbackDuration = 0.25f;
+    private float hitFeedbackCounter;
+    // Use this for initialization
+    void Start () {
         isVulnerable = false;
         alive = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+        ManageHit();
     }
 
     private void ManageHit() {
         if (materialHitOn)
         {
-            gameObject.GetComponent<Renderer>().material = matOff;
-            materialHitOn = false;
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
         }
         if (hit)
         {
             hit = false;
-            gameObject.GetComponent<Renderer>().material = matOn;
+            gameObject.GetComponent<Renderer>().material = matHit;
             materialHitOn = true;
         }
     }
@@ -50,18 +57,22 @@ public class ReactorWeakPoint : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile" && alive && isVulnerable)
         {
-            if (life <= 0.0f) {
-                // add a destroyed prefab
-                hit = true;
+            if (life <= 0.0f)
+            {
+                // add a destroyed prefab                
                 alive = false;
                 gameObject.GetComponent<Renderer>().material = matOff;
-                transform.parent.parent.GetComponent<FirstBossStage>().ReactorDestroyed();                
+                transform.parent.parent.GetComponent<FirstBossStage>().ReactorDestroyed();
+                float rotZ = Random.Range(0.0f, 360.0f);
                 destroyedReactor.SetActive(true);
+                destroyedReactor.transform.eulerAngles = new Vector3(-180.0f, 0.0f, rotZ);
                 Instantiate(Resources.Load("Explosion"), destroyedReactor.transform);
                 Destroy(gameObject);
             }
-            else life -= other.GetComponent<Projectile>().damage;
-            
+            else {
+                hit = true;
+                life -= other.GetComponent<Projectile>().damage;
+            }
         }
     }
 }
