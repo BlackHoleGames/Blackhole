@@ -47,7 +47,7 @@ public class MapManger : MonoBehaviour {
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()){
                     meteors.SetActive(true);
-                    asteroidsDodge.SetActive(false);
+                    asteroidsDodge.SetActive(true);
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
