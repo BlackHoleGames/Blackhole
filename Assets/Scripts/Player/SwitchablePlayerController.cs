@@ -39,12 +39,12 @@ public class SwitchablePlayerController : MonoBehaviour
     private TimeManager tm;
     private List<GameObject> ghostArray;
     private bool is_vertical, is_firing, play;
-    public int lives = 2;
+    public int lifePoints, lives = 2;
     //public Transform cameraTrs;
     //public bool camRotate = false;
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
-    public bool isDestroying, isDeath, emptyStockLives = false;
+    public bool isImpacted, isDestroying, isDeath, emptyStockLives = false;
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
@@ -57,6 +57,7 @@ public class SwitchablePlayerController : MonoBehaviour
         play = true;
         actualLife = shield;
         life.value = actualLife;
+        lifePoints = (int)actualLife;
         rotationTargetZ = 0.0f;
         rotationTargetX = 0.0f;
         firingCounter = 0.0f;
@@ -186,6 +187,7 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
         life.value = actualLife;
+        lifePoints = (int)actualLife;
     }
 
     public void RegenTimeBomb()
@@ -422,16 +424,18 @@ public class SwitchablePlayerController : MonoBehaviour
                         //
                         if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                         {
+                            isImpacted = true;
                             isAlert = true;
                             actualLife = actualLife - (shield / 2.0f);
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
-                            
+                            lifePoints = (int)actualLife;
                             if (actualLife < 0.0f)
                             {
                                 RumblePad.RumbleState = 5;
                                 DestroyGhots();
                                 actualLife = 0.0f;
+                                lifePoints = (int)actualLife;
                                 tm.RestoreTime();
                                 fillLife.enabled = false;
                                 isDestroying = true;
@@ -476,6 +480,7 @@ public class SwitchablePlayerController : MonoBehaviour
         if (actualLife + amount > shield) actualLife = shield;
         else actualLife += amount;
         life.value = actualLife;
+        lifePoints = (int)actualLife;
     }
 
     public void InitiateWormHole()
