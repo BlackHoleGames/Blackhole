@@ -54,7 +54,9 @@ public class SecondBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
-        foreach (GameObject t in Turrets) t.GetComponentInChildren<BossTurretScript>().enabled = true;
+        foreach (GameObject t in Turrets) {
+            t.GetComponentInChildren<BossTurretScript>().enabled = true;
+        }
     }
 
     public void StartBossPhase2() {

@@ -26,6 +26,6 @@ public class AsteroidStageFinisher : MonoBehaviour {
 	}
 
     public void CallDestruction() {
-        Destroy(transform.root.gameObject);
+        Destroy(gameObject);
     }
 }

@@ -17,7 +17,8 @@ public class WeakPointSecondStageScript : MonoBehaviour {
     void Start () {
         sbs = transform.parent.parent.GetComponent<SecondBossStage>();
         lifeCounter = life;
-        weakpointReviveCounter = 0.0f;
+        weakpointReviveCounter = timeToWeakpointRevive;
+        weakpointTimeRestartCounter = timeBeforeWeakpointRestart;
         revivingWeakpoint = false;
         flicker = false;
         flickerCounter = flickerTime;
@@ -94,15 +95,18 @@ public class WeakPointSecondStageScript : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PlayerProjectile" && !revivingWeakpoint) {
-            hit = true;
-            if (lifeCounter <= 0.0f  ) {
+            if (lifeCounter <= 0.0f)
+            {
                 sbs.WeakPointDone();
                 GetComponent<Renderer>().material = matOff;
                 revivingWeakpoint = true;
                 materialHitOn = false;
                 //Destroy(this);
             }
-            else lifeCounter -= 1.0f;            
+            else {
+                lifeCounter -= 1.0f;
+                hit = true;
+            }
         }
     }
 }

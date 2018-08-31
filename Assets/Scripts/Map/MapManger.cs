@@ -52,7 +52,6 @@ public class MapManger : MonoBehaviour {
                     tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
                     timewarpBackground.SetActive(true);
-                    timewarpBackgroundDelay = true;
                 }
                 break;
             case Stages.METEORS_ENEMIES:
@@ -61,6 +60,7 @@ public class MapManger : MonoBehaviour {
                     tm.StopTimeWarp();
                     em.StartManager();
                     meteorsDelayOn = true;
+                    timewarpBackgroundDelay = true;
                     timewarpEffect.SetActive(false);
                 }
                 break;
@@ -82,7 +82,6 @@ public class MapManger : MonoBehaviour {
                     meteorsDelayOn = true;
                     timewarpEffect.SetActive(true);
                     timewarpBackground.SetActive(true);
-                    timewarpBackgroundDelay = true;
                     tm.StartTimeWarp();
                     mbs.StartSecondPhase();
                 }
@@ -108,6 +107,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    timewarpBackgroundDelay = true;
                     em.SetSecondWaveIndex();
                     timewarpEffect.SetActive(false);
                     em.StartManager();
@@ -149,6 +149,7 @@ public class MapManger : MonoBehaviour {
             meteorsDelayOn = false;
             switch (actualStage) {
                 case Stages.METEORS_ENEMIES:
+                    meteors.SetActive(false);
                     meteors2d.SetActive(true);
                     break;
                 case Stages.MINIBOSS_SECONDPHASE:

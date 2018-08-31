@@ -13,6 +13,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
     private float shotCounter;
+    private GameObject actualLaser;
     // Use this for initialization
     void Start () {
         ela = GetComponent<EnemyLookAt>();
@@ -50,6 +51,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
                     shooting = true;
                     GameObject laser = Instantiate(projectile, transform.position, transform.rotation);
                     laser.transform.parent = transform;
+                    actualLaser = laser;
                 }
                 shotCounter -= Time.deltaTime;
             }
@@ -80,6 +82,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
             hit = true;
             if (life <= 0.0f)
             {
+                if (actualLaser) Destroy(actualLaser);
                 transform.parent.GetComponent<SecondBossStage>().FinishBossPhase();
                 GetComponent<Renderer>().material = matOff;
                 Destroy(this);
