@@ -43,6 +43,10 @@ public class MapManger : MonoBehaviour {
         switch (actualStage)
         {
             case Stages.INTRO:
+                if (!em.IsManagerSpawning())
+                {
+                    em.StartManager();
+                }
                 break;
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()){

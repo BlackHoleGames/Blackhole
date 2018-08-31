@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour {
     public SpawnPoint[] squadronSpawnPoints;
     public SpawnPoint[] squadronExitPoints;
     public float[] squadTime, delayTime;
+    public int lastIntroEnemyIndex;
     private int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
     private bool waitForDelay, instantiatingSubSquads, startSpawning;
@@ -80,20 +81,6 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    public void StartWait() {
-        if (squadronIndex >= squadrons.Length) {
-            GetComponentInParent<MapManger>().GoToNextStage();
-            Destroy(gameObject);
-        }
-        else {
-            if ((!instantiatingSubSquads))
-            {
-                waitForDelay = true;
-                waitingTime = delayTime[squadronIndex - 1];
-            }
-        }
-    }
-
     public void ManageChainSpawn() {
         subSquadDelay -= Time.deltaTime;
         if (subSquadDelay < 0.0f) {
@@ -109,6 +96,28 @@ public class EnemyManager : MonoBehaviour {
                 Destroy(ChainSquadManager);
                 StartWait();
                 ++squadronIndex;
+            }
+        }
+    }
+
+    public void StartWait()
+    {
+        if (squadronIndex >= squadrons.Length)
+        {
+            GetComponentInParent<MapManger>().GoToNextStage();
+            Destroy(gameObject);
+        }
+        else
+        {
+            if ((squadronIndex == lastIntroEnemyIndex) && (GetComponentInParent<MapManger>().GetStage() == MapManger.Stages.INTRO)) {
+                StartNewPhase();
+            }
+            else {
+                if ((!instantiatingSubSquads))
+                {
+                    waitForDelay = true;
+                    waitingTime = delayTime[squadronIndex - 1];
+                }
             }
         }
     }

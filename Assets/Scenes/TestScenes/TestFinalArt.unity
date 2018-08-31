@@ -935,6 +935,7 @@ MonoBehaviour:
   - 2
   - 2
   - 2
+  lastIntroEnemyIndex: 3
 --- !u!1 &82596986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,12 +3306,12 @@ Prefab:
       objectReference: {fileID: 369771561}
     - target: {fileID: 1870213922149536, guid: 3a01465876ac82d4288e2ec648296b49, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114299313591141618, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
       propertyPath: actualStage
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114235713587323288, guid: 3a01465876ac82d4288e2ec648296b49,
         type: 2}
@@ -6278,7 +6279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057b7d93ecb90b4789beaeef4682d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 7
+  actualStage: 0
   meteorDelayDuration: 0.2
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
