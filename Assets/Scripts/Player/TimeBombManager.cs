@@ -5,100 +5,93 @@ using UnityEngine.UI;
 
 public class TimeBombManager : MonoBehaviour {
 
-    private float timeBombRegenPerSec = 3.0f;
+    private float timeBombRegenPerSec = 0.12f;
     private int bombs = 1;
     public GameObject timeBomb, timeBombPanel;
     private IEnumerator BombAction;
-    private IEnumerator BombRegenerator;
-    public bool activateBomb2, activateBomb3 = false;
-    public float secondsTimePanel = 0.2f;
-    private bool isTimeToRegenBomb = false;
+    public bool isUsingBomb = false;
+    public static bool activateBomb2, activateBomb3 = false;
+    public float secondsTimePanel = 0.1f;
     void Start () {
-        bombs = 1;
         timeBombPanel.SetActive(false);
         timeBomb.SetActive(true);
     }
     void Update()
     {
         if (GameObject.FindGameObjectWithTag("Player")!=null &&
-            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().activateBomb)
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().activateBomb &&
+            bombs > 0)
         {
             UsingBomb();
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().activateBomb = false;
         }
-        if (!isTimeToRegenBomb) { 
-            if (GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount < 1.0f ||
-                GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount < 1.0f ||
-                GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f)
-            {
-                isTimeToRegenBomb = true;                
-                BombRegenerator = RegenTimeBomb(secondsTimePanel);
-                StartCoroutine(BombRegenerator);
-            }
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            if (GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount < 1.0f && bombs == 0) RegenTimeBomb1();
+            if (GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount < 1.0f && activateBomb2 && bombs==1) RegenTimeBomb2();
+            if (GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f && activateBomb3 && bombs==2) RegenTimeBomb3();
         }
     }
-    public void UsingBomb()
+    private void UsingBomb()
     {
+        isUsingBomb = true;
         switch (bombs)
         {
             case 1:
                 GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount = 0.0f;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = true;
-                break;
+                if (activateBomb2 && GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount < 1.0f)
+                    GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount = 0.0f;
+                if (activateBomb3 && GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f)
+                    GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
+            break;
             case 2:
-                if (activateBomb2) GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount = 0.0f;
+                GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount = 0.0f;
+                if (activateBomb3 && GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f)
+                    GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;                
             break;
             case 3:
-                if (activateBomb3) GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
+                GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
             break;
         }
-        if (bombs != 0)
-        {
-            bombs--;
-            BombAction = PanelTimer(secondsTimePanel);
-            StartCoroutine(BombAction);
-        }
+        bombs--;
+        BombAction = PanelTimer(secondsTimePanel);
+        StartCoroutine(BombAction);
     }
 
-    public bool RemainingBombs()
+    private bool RemainingBombs()
     {
         if (bombs!=0)return true;
         else return false;
     }
 
-    public void fillAmountBomb()
+    private void RegenTimeBomb1()
     {
-        //public void RegenTimeBomb()
-        //{ 
-        switch (bombs)
+        GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount += timeBombRegenPerSec * Time.unscaledDeltaTime;
+        if (GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount >= 1.0)
         {
-            case 0:
-                GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount +=
-                    timeBombRegenPerSec * Time.unscaledDeltaTime;
-                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
-                break;
-            case 1:
-                if (activateBomb2)
-                { 
-                    GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount +=
-                    timeBombRegenPerSec * Time.unscaledDeltaTime;
-                }
-                break;
-            case 2:
-                if (activateBomb3)
-                {
-                    GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount +=
-                    timeBombRegenPerSec * Time.unscaledDeltaTime;
-                }
-                break;
+            bombs++;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
         }
-        isTimeToRegenBomb = false;
     }
-
-    IEnumerator RegenTimeBomb(float timeToRegen)
+    private void RegenTimeBomb2()
     {
-        yield return new WaitForSeconds(timeToRegen);
-        fillAmountBomb();
+        GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount += timeBombRegenPerSec * Time.unscaledDeltaTime;
+        if (GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount >= 1.0)
+        {
+            bombs++;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
+        }
+    }
+    private void RegenTimeBomb3()
+    {
+        GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount += timeBombRegenPerSec * Time.unscaledDeltaTime;
+        if (GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount >= 1.0)
+        {
+            bombs++;
+            if (bombs > 3) bombs = 3;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
+        }
     }
 
     IEnumerator PanelTimer(float panelDuration)

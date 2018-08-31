@@ -152,7 +152,7 @@ public class SwitchablePlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
         {        
-            if (!emptyStockBombs)
+            if (!emptyStockBombs && !activateBomb)
             {
                 RumblePad.RumbleState = 3;
                 activateBomb = true;

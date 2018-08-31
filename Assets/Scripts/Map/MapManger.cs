@@ -57,6 +57,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.METEORS_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    TimeBombManager.activateBomb2 = true;
                     tm.StopTimeWarp();
                     em.StartManager();
                     meteorsDelayOn = true;
@@ -65,11 +66,18 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
                 if (mbs) {
-                    if (!mbs.MiniBossStarted()) mbs.InitiateBoss();
+                    if (!mbs.MiniBossStarted())
+                    {
+                        mbs.InitiateBoss();
+                        TimeBombManager.activateBomb2 = true;
+                        TimeBombManager.activateBomb3 = true;
+                    }
                 }
                 break;
             case Stages.MINIBOSS_SECONDPHASE:
                 if (!mbs.IsSecondPhase()) {
+                    TimeBombManager.activateBomb2 = true;
+                    TimeBombManager.activateBomb3 = true;
                     structure.SetActive(true);
                     meteorsDelayOn = true;
                     timewarpEffect.SetActive(true);
@@ -109,6 +117,8 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.BOSS:
+                TimeBombManager.activateBomb2 = true;
+                TimeBombManager.activateBomb3 = true;
                 if (!removeBattleStruct) {
                     if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
                         foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();                        
