@@ -151,9 +151,7 @@ public class SwitchablePlayerController : MonoBehaviour
             StartCoroutine(FireRutine);
         }
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
-        {
-            //            if (fillTimeBomb.fillAmount == 1.0f){
-            //                fillTimeBomb.fillAmount = 0.0f;            
+        {        
             if (!emptyStockBombs)
             {
                 RumblePad.RumbleState = 3;
@@ -432,6 +430,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             lifePoints = (int)actualLife;
                             if (actualLife < 0.0f)
                             {
+                                if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;
                                 firingCounter = 0.0f;
                                 if (ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
@@ -480,7 +479,11 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void AddLife(float amount)
     {
-        if (actualLife + amount > shield) actualLife = shield;
+        if (actualLife + amount > shield)
+        {
+            actualLife = shield;
+            ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
+        }
         else actualLife += amount;
         life.value = actualLife;
         lifePoints = (int)actualLife;
