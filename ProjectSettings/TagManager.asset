@@ -37,6 +37,7 @@ TagManager:
   - MultiplierX3
   - SquadManager
   - TimeBombManager
+  - LiveValue
   layers:
   - Default
   - TransparentFX

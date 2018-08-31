@@ -29,6 +29,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public AudioClip[] timeBombClips;
     public Slider life;
     public Image fillLife, fillTimeBomb;
+    public Text liveValue;
     public GameObject projectile, sphere, ghost, parentAxis, pShoot;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
@@ -80,6 +81,7 @@ public class SwitchablePlayerController : MonoBehaviour
         gunshot = audioSources[2];
         timewarp = audioSources[3];
         alarm = audioSources[4];
+        liveValue.text = "X3";
         //parentAxis = gameObject;
     }
 
@@ -442,12 +444,18 @@ public class SwitchablePlayerController : MonoBehaviour
                                 fillLife.enabled = false;
                                 isDestroying = true;
                                 lives--;
+                                
                                 if (lives < 0)
                                 {
                                     isDeath = true;
                                     isFinished = true;
+                                    liveValue.text = "";
                                     //SaveGameStatsScript.GameStats.isGameOver = true;
                                     //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                                }
+                                else
+                                {
+                                    liveValue.text = "X" + lives.ToString();
                                 }
                             
                                 //SceneManager.LoadScene(6);
