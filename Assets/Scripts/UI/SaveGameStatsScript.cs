@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveGameStatsScript : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class SaveGameStatsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //if(SceneManager.GetActiveScene().buildIndex ==1)
     }
     public void SetStats()
     {

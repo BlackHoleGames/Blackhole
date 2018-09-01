@@ -50,7 +50,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool ghostEnabled,disableSecure = false;
-    
+    //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
     {
@@ -416,6 +416,9 @@ public class SwitchablePlayerController : MonoBehaviour
             if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
             {
                 RumblePad.RumbleState = 1;//Normal Impact
+//                StartCoroutine(GetComponent<CameraBehaviour>().CrashShake(0.15f, 0.4f));
+//                GetComponent()CrashShake(0.15f, 0.4f));
+                //StartCoroutine(cameraShaking.CrashShake(0.15f, 0.4f));
                 if (alertModeTime > 0.0f)
                 {
                     if (!alarm.isPlaying) alarm.Play();
