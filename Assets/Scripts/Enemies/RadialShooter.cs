@@ -99,8 +99,7 @@ public class RadialShooter : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                 squadManager.DecreaseNumber();
 
                 Destroy(gameObject);

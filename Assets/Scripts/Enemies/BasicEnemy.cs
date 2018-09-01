@@ -107,8 +107,9 @@ public class BasicEnemy : MonoBehaviour {
             }
             if (life <= 0.0f)
             {
-                GameObject obj  = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                if (gameObject.name != "AlienArmored") obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                if (gameObject.name != "AlienArmored") Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);                
+                else Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
+                
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
                 vibratorOn();

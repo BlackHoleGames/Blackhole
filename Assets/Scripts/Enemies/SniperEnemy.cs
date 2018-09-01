@@ -140,8 +140,8 @@ public class SniperEnemy : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 squadManager.DecreaseNumber();
                 Destroy(gameObject);

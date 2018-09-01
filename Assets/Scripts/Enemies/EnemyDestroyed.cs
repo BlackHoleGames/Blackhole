@@ -42,8 +42,7 @@ public class EnemyDestroyed : MonoBehaviour {
         float timeEye = Random.Range(0.6f, 1.2f);
         if (timeBeforeDestroy <= timeEye) isFlickeringEye = false;
         if (timeBeforeDestroy < 0.0f && eye) {
-            GameObject obj = Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation) as GameObject;
-            obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation);
             CallDestroy();
             Destroy(eye);
         }

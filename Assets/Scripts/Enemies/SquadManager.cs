@@ -33,8 +33,7 @@ public class SquadManager : MonoBehaviour {
         movingToPosition = true;
         target = center;
         stayIsDone = false;
-        arrivedToStart = false;
-        
+        arrivedToStart = false;        
     }
 	
 	// Update is called once per frame
