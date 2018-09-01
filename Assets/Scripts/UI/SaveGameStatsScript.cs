@@ -19,6 +19,7 @@ public class SaveGameStatsScript : MonoBehaviour
     public static SaveGameStatsScript GameStats;
     private String configFile;
     private String scoreFile;
+    private List<GameObject> earthArray;
     public enum GameOverType
     {
         THEEND, GAMEOVER, NOTHING
@@ -48,6 +49,11 @@ public class SaveGameStatsScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        earthArray = new List<GameObject>();
+        foreach (Transform child in transform)
+        {
+            earthArray.Add(child.gameObject);
+        }
         GetStats();
         GetScore();
     }
@@ -55,7 +61,19 @@ public class SaveGameStatsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(SceneManager.GetActiveScene().buildIndex ==1)
+        if(SceneManager.GetActiveScene().buildIndex == 5)
+        {
+            foreach(Transform earth in transform)
+            {
+                earth.gameObject.SetActive(false);
+            }
+        }else
+        {
+            foreach (Transform earth in transform)
+            {
+                earth.gameObject.SetActive(true);
+            }
+        }
     }
     public void SetStats()
     {
