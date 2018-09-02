@@ -14,7 +14,7 @@ public class OrientedTrajcetoryProjectile : MonoBehaviour {
     void Start()
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
+        Instantiate(Resources.Load("EnemyBasicProjectile"), transform);
 
     }
 

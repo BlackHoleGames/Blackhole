@@ -24,7 +24,7 @@ public class FirstTrackProjectile : MonoBehaviour {
             target = GameObject.FindGameObjectWithTag("PlayerDestroyed").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
             gameObject.transform.LookAt(target);
         }
-        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
+        Instantiate(Resources.Load("EnemyBasicProjectile"), transform);
 
     }
 

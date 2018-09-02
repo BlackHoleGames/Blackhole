@@ -14,7 +14,7 @@ public class EnemyProjectile : MonoBehaviour {
     // Use this for initialization
     void Start () {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
+        Instantiate(Resources.Load("EnemyBasicProjectile"), transform);
 	}
 	
 	// Update is called once per frame
@@ -30,6 +30,7 @@ public class EnemyProjectile : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
         {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
