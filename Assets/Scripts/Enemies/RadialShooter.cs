@@ -57,6 +57,7 @@ public class RadialShooter : MonoBehaviour {
                 for (int i = 0; i < numberOfShots; ++i)
                 {
                     shotTimeCounter = rateOfFire;
+                    Instantiate(Resources.Load("PS_EnemyShoot"), transform);
                     Instantiate(enemyProjectile, transform.position, Quaternion.Euler(new Vector3(0.0f, degreesPerProjectile * i, 0.0f)));
                 }
                 rateCounter = shotCooldown;

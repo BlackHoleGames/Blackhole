@@ -25,8 +25,9 @@ public class OrientedTrajcetoryProjectile : MonoBehaviour {
         if (timeToLive <= 0.0f)
         {
             Destroy(gameObject);
-            GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-            obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
+            //GameObject obj = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+            //obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         }
         transform.position += transform.forward * speed * tb.scaleOfTime;
 
@@ -37,6 +38,7 @@ public class OrientedTrajcetoryProjectile : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag =="ghost")
         {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

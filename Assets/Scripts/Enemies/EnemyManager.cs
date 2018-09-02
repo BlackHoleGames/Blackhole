@@ -171,10 +171,10 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void SetAsteroidWaveIndex() {
-        squadronIndex = 6;
+        squadronIndex = 7;
     }
 
     public void SetStructureWaveIndex() {
-
+        squadronIndex = 8;
     }
 }

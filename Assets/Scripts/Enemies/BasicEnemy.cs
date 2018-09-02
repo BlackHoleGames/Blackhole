@@ -62,6 +62,9 @@ public class BasicEnemy : MonoBehaviour {
                 {
                     shotTimeCounter = rateOfFire;
                     --shotCounter;
+                    GameObject fx = Instantiate(Resources.Load("PS_EnemyShoot"), transform) as GameObject;
+                    fx.transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
+                    if (gameObject.name == "AlienArmored") fx.transform.localScale = new Vector3(2.0f,2.0f,2.0f);
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
                     audioSource.Play();
                 }

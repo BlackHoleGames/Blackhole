@@ -68,6 +68,10 @@ public class MiniBossScript : MonoBehaviour {
                 {
                     shotTimeCounter = rateOfFire;
                     --shotCounter;
+                    GameObject fx = Instantiate(Resources.Load("PS_EnemyShoot"), transform) as GameObject;
+                    fx.transform.eulerAngles += new Vector3(0.0f, 180.0f, 0.0f);
+                    fx.transform.position += new Vector3(0.0f, 1.0f, -1.0f);
+                    fx.transform.localScale = new Vector3(50.0f, 50.0f, 50.0f);
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
                     audioSource.Play();
                 }

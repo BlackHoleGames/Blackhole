@@ -9,7 +9,6 @@ public class EnemyProjectile : MonoBehaviour {
     public float timeToLive = 20.0f;
     public float damage = 10.0f;
     private TimeBehaviour tb;
-    private GameObject projectile;
 
     // Use this for initialization
     void Start () {
@@ -20,7 +19,10 @@ public class EnemyProjectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timeToLive -= Time.deltaTime*tb.scaleOfTime;
-        if (timeToLive <= 0.0f) Destroy(gameObject);
+        if (timeToLive <= 0.0f) {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
         if (transform.position.z < -15) Destroy(gameObject);
         gameObject.transform.Translate(0.0f, 0.0f,  speed * Time.deltaTime*tb.scaleOfTime);
 

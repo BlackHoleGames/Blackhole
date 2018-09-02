@@ -32,7 +32,10 @@ public class FirstTrackProjectile : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime * tb.scaleOfTime;
-        if (timeToLive <= 0.0f) Destroy(gameObject);
+        if (timeToLive <= 0.0f) {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
         if (transform.position.z < -15) Destroy(gameObject);
         gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
         /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
@@ -46,6 +49,7 @@ public class FirstTrackProjectile : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
         {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
