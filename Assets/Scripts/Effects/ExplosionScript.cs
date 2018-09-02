@@ -7,7 +7,7 @@ public class ExplosionScript : MonoBehaviour {
 
     public ParticleSystem ps;
     private AudioSource audioSource;
-    public float timeToLive = 2.0f;
+    public float timeToLive = 1.8f;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();

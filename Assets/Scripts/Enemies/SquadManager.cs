@@ -90,7 +90,7 @@ public class SquadManager : MonoBehaviour {
         {
             timeToMove += Time.deltaTime*tb.scaleOfTime / 3.0f;
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
-            if (Vector3.Distance(transform.position,target)< 1.0 ) {
+            if (Vector3.Distance(transform.position,target) < 1.0 ) {
                 movingToPosition = false;
                 if (stayIsDone)
                 {
