@@ -454,7 +454,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     isFinished = true;
                                     liveValue.text = "";
                                     //SaveGameStatsScript.GameStats.isGameOver = true;
-                                    //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
+                                    SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                                 }
                                 else
                                 {
