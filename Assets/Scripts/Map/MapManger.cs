@@ -43,13 +43,12 @@ public class MapManger : MonoBehaviour {
         switch (actualStage)
         {
             case Stages.INTRO:
-                if (!em.IsManagerSpawning())
-                {
+                if (!em.IsManagerSpawning()) {
                     em.StartManager();
                 }
                 break;
             case Stages.METEORS_TIMEWARP:
-                if (!am.AsteroidsAreMoving()){
+                if (!am.AsteroidsAreMoving()) {
                     meteors.SetActive(true);
                     asteroidsDodge.SetActive(true);
                     am.StartMovingAsteroids();
@@ -60,6 +59,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.METEORS_ENEMIES:
                 if (!em.IsManagerSpawning()) {
+                    em.SetAsteroidWaveIndex();
                     TimeBombManager.activateBomb2 = true;
                     tm.StopTimeWarp();
                     em.StartManager();
@@ -70,8 +70,7 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
                 if (mbs) {
-                    if (!mbs.MiniBossStarted())
-                    {
+                    if (!mbs.MiniBossStarted()) {
                         mbs.InitiateBoss();
                         TimeBombManager.activateBomb2 = true;
                         TimeBombManager.activateBomb3 = true;
@@ -112,7 +111,7 @@ public class MapManger : MonoBehaviour {
             case Stages.STRUCT_ENEMIES:
                 if (!em.IsManagerSpawning()) {
                     timewarpBackgroundDelay = true;
-                    em.SetSecondWaveIndex();
+                    em.SetStructureWaveIndex();
                     timewarpEffect.SetActive(false);
                     em.StartManager();
                     tm.StopTimeWarp();

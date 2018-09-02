@@ -901,31 +901,40 @@ MonoBehaviour:
   - {fileID: 804850469}
   - {fileID: 1230035441}
   squadrons:
+  - {fileID: 1783847063888482, guid: 968d1d0cf441b6346934aa26ee48c0b4, type: 2}
+  - {fileID: 1080626641104632, guid: 497e49b02c6ab474aa89cb2d18978515, type: 2}
+  - {fileID: 1420059531770890, guid: 4057a3b98c9580642a0cbf1c93b92234, type: 2}
   - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
-  - {fileID: 1002930678101068, guid: a0fc6bb8a465b0c439d4a13387323ec9, type: 2}
-  - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
-  - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   - {fileID: 1807735217654372, guid: 1534cc3dc2f45fc409d6199e4943f84d, type: 2}
+  - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
+  - {fileID: 1002930678101068, guid: a0fc6bb8a465b0c439d4a13387323ec9, type: 2}
   - {fileID: 1084684997022804, guid: 37d7aacfe1da539468e57171fa0b98d5, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
+  - {fileID: 1326271299020920, guid: 8a620f03e34d7d242912a22ef471f2dd, type: 2}
   - {fileID: 1747372598155538, guid: 32413b0d5436f5247abc9a03ce74fbb3, type: 2}
   - {fileID: 1156871886942860, guid: 61b08969b4d238949b748381891c32f4, type: 2}
-  squadronSpawnPoints: 0a00000000000000010000000800000008000000040000000b000000060000000400000004000000
-  squadronExitPoints: 0600000004000000090000000200000000000000020000000500000004000000060000000b000000
+  squadronSpawnPoints: 0a00000000000000010000000800000008000000040000000b000000060000000400000002000000080000000900000001000000
+  squadronExitPoints: 06000000040000000900000002000000000000000200000005000000040000000600000008000000020000000100000009000000
   squadTime:
-  - 3
-  - 11
-  - 4
-  - 1
   - 3
   - 3
   - 4
   - 1
   - 0
+  - 3
+  - 11
   - 1
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
   delayTime:
   - 3
+  - 2
+  - 2
+  - 2
   - 2
   - 2
   - 2
@@ -8014,7 +8023,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 804850468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 15}
+  m_LocalPosition: {x: -10, y: 0, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 680096924}
@@ -11889,7 +11898,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1153953271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 15}
+  m_LocalPosition: {x: 10, y: 0, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 680096924}
@@ -12739,7 +12748,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1230035440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 680096924}
