@@ -12,7 +12,7 @@ public class Briefing : MonoBehaviour {
         briefingText.canvasRenderer.SetAlpha(0.0f);
         curtainImage.canvasRenderer.SetAlpha(0.0f);
         FadeIn();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(17.5f);
         FadeOut();
         yield return new WaitForSeconds(2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
