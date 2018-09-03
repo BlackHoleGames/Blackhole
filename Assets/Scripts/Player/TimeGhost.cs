@@ -114,10 +114,10 @@ public class TimeGhost : MonoBehaviour
         {
             if (child.name == "PS_TimeGhost")
             {
-                var main = child.GetComponent<ParticleSystem>().main;
-                main.startRotationX = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x;
-                main.startRotationY = 0.0f;
-                main.startRotationZ = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z;
+                //var main = child.GetComponent<ParticleSystem>().main;
+                //main.startRotationX = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotX.x;
+                //main.startRotationY = 0.0f;
+                //main.startRotationZ = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().rotZ.z;
             }
 
         }

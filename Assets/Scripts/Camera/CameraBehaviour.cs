@@ -9,6 +9,8 @@ public class CameraBehaviour : MonoBehaviour {
     public Vector3 verticalRotation, middleRotation,  timeWarpRot, bossCamRot;
     public float speed = 5.0f;
     public float timeToMove = 12.0f;
+    public float rumbleDuration = 1.0f;
+    public float rumbleScope = 0.5f;
     private float t = 0.0f;
     public bool startRotating;
     public bool toVerticalPos;
@@ -38,7 +40,7 @@ public class CameraBehaviour : MonoBehaviour {
         {
             //Not working in this map.
             isShaking = true;
-            cameraShake = CrashShake(1.0f, 0.5f);
+            cameraShake = CrashShake(rumbleDuration, rumbleScope);
             StartCoroutine(cameraShake);
         }
         
@@ -95,33 +97,30 @@ public class CameraBehaviour : MonoBehaviour {
         t = 0;
         startRotating = true;
     }
-    public IEnumerator CrashShake(float duration, float magnitude)
+    public IEnumerator CrashShake(float Shakeduration, float ShakeScope)
     {
         Vector3 originalPosition = transform.localPosition;
         Vector3 earthoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
 
         float elapsed = 0.0f;
 
-        while (elapsed < duration)
+        while (elapsed < Shakeduration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-            float z = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-1f, 1f) * ShakeScope;
+            float y = Random.Range(-1f, 1f) * ShakeScope;
+            float z = Random.Range(-1f, 1f) * ShakeScope;
             switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
             {
                 case MapManger.Stages.INTRO:
-                    //Working
                     transform.localPosition = new Vector3(x, originalPosition.y, z);
                 break;
                 case MapManger.Stages.METEORS_TIMEWARP:
-                    //Working
                     transform.localPosition = new Vector3(x, y, originalPosition.z);
                     break;
                 case MapManger.Stages.METEORS_ENEMIES:
                     transform.localPosition = new Vector3(x, y, originalPosition.z);
                     break;
                 case MapManger.Stages.MINIBOSS_FIRSTPHASE:
-                    //Not working in this map.
                     transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                     break;
                 case MapManger.Stages.MINIBOSS_SECONDPHASE:
@@ -131,11 +130,9 @@ public class CameraBehaviour : MonoBehaviour {
                     transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                 break;
                 case MapManger.Stages.STRUCT_ENEMIES:
-                    //Not working in this map.
                     transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                 break;
                 case MapManger.Stages.BOSS:
-                    //Not working in this map.
                     transform.localPosition = new Vector3(x, originalPosition.y, z);
                 break;
                 }
