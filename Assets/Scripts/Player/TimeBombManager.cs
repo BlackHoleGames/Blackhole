@@ -12,6 +12,7 @@ public class TimeBombManager : MonoBehaviour {
     public bool isUsingBomb = false;
     public static bool activateBomb2, activateBomb3 = false;
     public float secondsTimePanel = 0.1f;
+    private bool bomb1Ok, bomb2Ok, bomb3Ok;
     void Start () {
         timeBombPanel.SetActive(false);
         timeBomb.SetActive(true);
@@ -28,8 +29,8 @@ public class TimeBombManager : MonoBehaviour {
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             if (GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().fillAmount < 1.0f && bombs == 0) RegenTimeBomb1();
-            if (GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount < 1.0f && activateBomb2 && bombs==1) RegenTimeBomb2();
-            if (GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f && activateBomb3 && bombs==2) RegenTimeBomb3();
+            if (GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount < 1.0f && bomb1Ok && activateBomb2 && bombs==1) RegenTimeBomb2();
+            if (GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f && bomb2Ok && activateBomb3 && bombs==2) RegenTimeBomb3();
         }
     }
     private void UsingBomb()
@@ -44,14 +45,17 @@ public class TimeBombManager : MonoBehaviour {
                     GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount = 0.0f;
                 if (activateBomb3 && GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f)
                     GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
+                bomb1Ok = false;
             break;
             case 2:
                 GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().fillAmount = 0.0f;
                 if (activateBomb3 && GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount < 1.0f)
-                    GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;                
+                    GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
+                bomb2Ok = false;
             break;
             case 3:
                 GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().fillAmount = 0.0f;
+                bomb3Ok = false;
             break;
         }
         bombs--;
@@ -72,6 +76,7 @@ public class TimeBombManager : MonoBehaviour {
         {
             bombs++;
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
+            bomb1Ok = true;
         }
     }
     private void RegenTimeBomb2()
@@ -81,6 +86,7 @@ public class TimeBombManager : MonoBehaviour {
         {
             bombs++;
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
+            bomb2Ok = true;
         }
     }
     private void RegenTimeBomb3()
@@ -91,6 +97,7 @@ public class TimeBombManager : MonoBehaviour {
             bombs++;
             if (bombs > 3) bombs = 3;
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().emptyStockBombs = false;
+            bomb3Ok = true;
         }
     }
 
