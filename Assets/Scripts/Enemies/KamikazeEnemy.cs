@@ -44,7 +44,15 @@ public class KamikazeEnemy : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) < 0.1f) turbo = true;
+        if (transform.position.z < -15.0f) {
+            squadManager.DecreaseNumber();
+            Destroy(gameObject);
+        }
+        if ((Mathf.Abs(transform.position.x - player.transform.position.x ) < 0.1f) && !turbo)
+        {
+            turbo = true;
+            gameObject.transform.parent = null;
+        }
         if (!turbo) transform.position += new Vector3(speed * Time.deltaTime * direction * tb.scaleOfTime, 0.0f, 0.0f);
         else transform.position += new Vector3(0.0f, 0.0f, -turbospeed * Time.deltaTime * tb.scaleOfTime);
         ManageHit();
@@ -78,6 +86,7 @@ public class KamikazeEnemy : MonoBehaviour {
             if (life <= 0.0f)
             {
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                squadManager.DecreaseNumber();
 
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
                 Destroy(gameObject);

@@ -7,7 +7,6 @@ public class SniperEnemy : MonoBehaviour {
     public float shotCooldown = 5.0f;
     public float shotDuration = 1.0f;
     public GameObject enemyProjectile, enemyDestroyed;
-    private GameObject player;
     public float spawnCooldown = 5.0f;
     public float hitFeedbackDuration = 0.25f;
 
@@ -23,7 +22,6 @@ public class SniperEnemy : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();

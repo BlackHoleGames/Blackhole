@@ -12,7 +12,8 @@ public class RadialShooter : MonoBehaviour {
 
     public GameObject enemyProjectile;
     public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter, hitFeedbackCounter; //, shotCounter;
+    private float rateCounter,  hitFeedbackCounter; //, shotCounter;
+    //private float shotTimeCounter;
     public float degreesPerProjectile;
     public Material matOn, matOff;
     bool shielded, hit, materialHitOn;
@@ -30,7 +31,7 @@ public class RadialShooter : MonoBehaviour {
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
         //shotCounter = numberOfShots;
-        shotTimeCounter = rateOfFire;
+        //shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
         shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
@@ -56,7 +57,7 @@ public class RadialShooter : MonoBehaviour {
                 audioSource.Play();
                 for (int i = 0; i < numberOfShots; ++i)
                 {
-                    shotTimeCounter = rateOfFire;
+                    //shotTimeCounter = rateOfFire;
                     Instantiate(Resources.Load("PS_EnemyShoot"), transform);
                     Instantiate(enemyProjectile, transform.position, Quaternion.Euler(new Vector3(0.0f, degreesPerProjectile * i, 0.0f)));
                 }

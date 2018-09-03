@@ -7,7 +7,7 @@ public class GameDebugOptions : MonoBehaviour {
     public EnemyManager enemyManager;
     public MapManger mapManager;
     public SwitchablePlayerController player;
-    private Camera cam, debugCam;
+    //private Camera cam, debugCam;
     //private TimeManager timeManager;
     private bool godModeEnabled = false;
     private bool debugCamEnabled = false;
@@ -36,7 +36,7 @@ public class GameDebugOptions : MonoBehaviour {
             else godModeEnabled = true;
             player.SetPlayerGodMode(godModeEnabled);
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        /*if (Input.GetKeyDown(KeyCode.K))
         {
             if (!debugCamEnabled)
             {
@@ -52,6 +52,6 @@ public class GameDebugOptions : MonoBehaviour {
                 debugCam.enabled = false;
                
             }
-        }
+        }*/
     }
 }

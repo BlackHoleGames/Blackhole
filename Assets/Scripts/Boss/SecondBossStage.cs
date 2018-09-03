@@ -10,21 +10,19 @@ public class SecondBossStage : MonoBehaviour {
     public Material Exposed;
     public float eyeTimeToMove = 5.0f;
     public float turretShotSpacing = 1.0f;
-    private GameObject player;
-    private int WeakPointCounter, turretShootIndex;
-    private bool start, rotateEye, inSecondStage;
+
+    private int WeakPointCounter;//, turretShootIndex;
+    private bool start,  inSecondStage;
     private float lerpTime, initialRot;
 
     // Use this for initialization
     void Start() {
-        player = GameObject.FindGameObjectWithTag("Player");
         WeakPointCounter = 0;
         lerpTime = 0.0f;
         start = false;
         inSecondStage = false;
-        rotateEye = false;
         initialRot = Eye.transform.eulerAngles.x;
-        turretShootIndex = 0;
+        //turretShootIndex = 0;
     }
 
     // Update is called once per frame
@@ -62,7 +60,6 @@ public class SecondBossStage : MonoBehaviour {
     public void StartBossPhase2() {
         inSecondStage = true;
         lerpTime = 0.0f;
-        rotateEye = true;
         GetComponentInChildren<BossSecondPhaseWeakpoint>().EnableSecondPhase();
         GetComponentInParent<BossManager>().GoToNextPhase();
     }

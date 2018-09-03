@@ -5,12 +5,10 @@ using UnityEngine;
 public class TunnelStageFinisher : MonoBehaviour {
 
     private MapManger mm;
-    private bool done;
     // Use this for initialization
     void Start()
     {
         mm = GameObject.Find("Managers").GetComponent<MapManger>();
-        done = false;
     }
 
     // Update is called once per frame
