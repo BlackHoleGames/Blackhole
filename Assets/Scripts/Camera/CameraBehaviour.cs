@@ -36,43 +36,12 @@ public class CameraBehaviour : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().playerHit 
             && !isShaking)
         {
-            switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
-            {
-                case MapManger.Stages.INTRO:
-                    //Not working in this map.
-                    break;
-                case MapManger.Stages.METEORS_TIMEWARP: 
-                    //Working
-                    isShaking = true;
-                    cameraShake = CrashShake(1.0f, 1.0f);
-                    StartCoroutine(cameraShake);
-                    break;
-                case MapManger.Stages.METEORS_ENEMIES:
-                    isShaking = true;
-                    cameraShake = CrashShake(1.0f, 1.0f);
-                    StartCoroutine(cameraShake);
-                    break;
-                case MapManger.Stages.MINIBOSS_FIRSTPHASE:
-                    //Not working in this map.
-                    break;
-                case MapManger.Stages.MINIBOSS_SECONDPHASE:
-                    isShaking = true;
-                    cameraShake = CrashShake(1.0f, 1.0f);
-                    StartCoroutine(cameraShake);
-                    break;
-                case MapManger.Stages.STRUCT_TIMEWARP:
-                    isShaking = true;
-                    cameraShake = CrashShake(1.0f, 1.0f);
-                    StartCoroutine(cameraShake);
-                    break;
-                case MapManger.Stages.STRUCT_ENEMIES:
-                    //Not working in this map.
-                    break;
-                case MapManger.Stages.BOSS:
-                    //Not working in this map.
-                    break;
-            }
+            //Not working in this map.
+            isShaking = true;
+            cameraShake = CrashShake(1.0f, 0.5f);
+            StartCoroutine(cameraShake);
         }
+        
 	}
 
     public void SwitchCamPosRot() {
@@ -137,14 +106,44 @@ public class CameraBehaviour : MonoBehaviour {
         {
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
+            float z = Random.Range(-1f, 1f) * magnitude;
+            switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
+            {
+                case MapManger.Stages.INTRO:
+                    //Working
+                    transform.localPosition = new Vector3(x, originalPosition.y, z);
+                break;
+                case MapManger.Stages.METEORS_TIMEWARP:
+                    //Working
+                    transform.localPosition = new Vector3(x, y, originalPosition.z);
+                    break;
+                case MapManger.Stages.METEORS_ENEMIES:
+                    transform.localPosition = new Vector3(x, y, originalPosition.z);
+                    break;
+                case MapManger.Stages.MINIBOSS_FIRSTPHASE:
+                    //Not working in this map.
+                    transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
+                    break;
+                case MapManger.Stages.MINIBOSS_SECONDPHASE:
+                    transform.localPosition = new Vector3(x, y, originalPosition.z);
+                break;
+                case MapManger.Stages.STRUCT_TIMEWARP:
+                    transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
+                break;
+                case MapManger.Stages.STRUCT_ENEMIES:
+                    //Not working in this map.
+                    transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
+                break;
+                case MapManger.Stages.BOSS:
+                    //Not working in this map.
+                    transform.localPosition = new Vector3(x, originalPosition.y, z);
+                break;
+                }
+                    
+                GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(x, y, earthoriginalPosition.z);
+                elapsed += Time.deltaTime;
 
-            transform.localPosition = new Vector3(x, y, originalPosition.z);
-            GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(x, y, earthoriginalPosition.z);
-            elapsed += Time.deltaTime;
-
-            yield return null;
-
-
+                yield return null;
         }
         transform.localPosition = originalPosition;
         GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = earthoriginalPosition;
