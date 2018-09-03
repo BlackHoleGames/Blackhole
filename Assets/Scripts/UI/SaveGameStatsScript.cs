@@ -112,7 +112,7 @@ public class SaveGameStatsScript : MonoBehaviour
                 if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView > Scene4_maxFieldofView)
                 {
                     GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView - 0.10f;
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles += new Vector3(0.0f, +0.01f, 0.0f);
+                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles += new Vector3(0.0f, 0.01f, 0.0f);
                 }
                 //Other Position to be Done.
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(563f, -7f, -374.5f);

@@ -55,12 +55,6 @@ public class PlayerDestroyScript : MonoBehaviour {
         }
     }
 
-    private void DestroyNoReturn()
-    {
-
-
-    }
-
     public void Destroy()
     {
         Vector3 newPos = new Vector3(pspacecraft.transform.position.x, pspacecraft.transform.position.y, pspacecraft.transform.position.z);

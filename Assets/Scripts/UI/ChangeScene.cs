@@ -23,23 +23,12 @@ public class ChangeScene : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-
-//        if (GameObject.FindGameObjectWithTag("Player") != null &&
-//            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath && !changeScene)
         if(shutdown)
         {
             changeScene = true;
             SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
             StartCoroutine(SceneCloseTimerSequence);
         }
-        //        if (GameObject.FindGameObjectWithTag("Player")!= null && GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished && !changeScene)
-        //if(GetComponent<PlayerDestroyScript>()!=null &&
-        //    GetComponent<PlayerDestroyScript>().noLifesRemaining && !changeScene)
-        //{
-        //    changeScene = true;
-        //    SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
-        //    StartCoroutine(SceneCloseTimerSequence);
-        //}
     }
     public void Shutdown()
     {

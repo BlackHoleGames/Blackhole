@@ -13,7 +13,8 @@ public class CameraBehaviour : MonoBehaviour {
     public bool toVerticalPos;
     private Vector3 startPos, targetPos;
     private Quaternion startRot, targetRot;
-
+    private bool isShaking = false;
+    private IEnumerator cameraShake;
 	// Use this for initialization
 	void Start () {
         startRotating = false;
@@ -30,6 +31,13 @@ public class CameraBehaviour : MonoBehaviour {
             transform.rotation = Quaternion.Euler( Vector3.Lerp(startRot.eulerAngles, targetRot.eulerAngles, t));
             if ((Mathf.Abs(transform.position.x - targetPos.x) < 0.01) &&
             (Mathf.Abs(transform.rotation.eulerAngles.x - targetRot.eulerAngles.x) < 0.01) ) startRotating = false;
+        }else if (GameObject.FindGameObjectWithTag("Player")!=null &&
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().playerHit 
+            && !isShaking)
+        {
+            isShaking = true;
+            cameraShake = CrashShake(1.0f,1.0f);
+            StartCoroutine(cameraShake);
         }
 	}
 
@@ -87,6 +95,7 @@ public class CameraBehaviour : MonoBehaviour {
     public IEnumerator CrashShake(float duration, float magnitude)
     {
         Vector3 originalPosition = transform.localPosition;
+        Vector3 earthoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
 
         float elapsed = 0.0f;
 
@@ -96,7 +105,7 @@ public class CameraBehaviour : MonoBehaviour {
             float y = Random.Range(-1f, 1f) * magnitude;
 
             transform.localPosition = new Vector3(x, y, originalPosition.z);
-
+            GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(x, y, earthoriginalPosition.z);
             elapsed += Time.deltaTime;
 
             yield return null;
@@ -104,6 +113,8 @@ public class CameraBehaviour : MonoBehaviour {
 
         }
         transform.localPosition = originalPosition;
+        GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = earthoriginalPosition;
+        isShaking = false;
     }
 
 

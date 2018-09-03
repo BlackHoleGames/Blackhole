@@ -36,7 +36,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit, godMode;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
     private List<GameObject> ghostArray;
     private bool is_vertical, is_firing, play;
@@ -46,7 +46,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, isAlert = false;
+    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool ghostEnabled,disableSecure = false;
