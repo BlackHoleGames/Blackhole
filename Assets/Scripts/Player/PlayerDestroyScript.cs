@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,18 +43,24 @@ public class PlayerDestroyScript : MonoBehaviour {
     IEnumerator DeathSequence(float waitToDeath)
     {
         noLifesRemaining = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished;
-        Destroy();
-        yield return new WaitForSeconds(waitToDeath);
-        Restore();
-        //if (!noLifesRemaining)
-        //{
+        if (!noLifesRemaining)
+        { 
+            Destroy();
+            yield return new WaitForSeconds(waitToDeath);
+            Restore();
+        }else
+        {
+            GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
+            Destroy();
+        }
+    }
 
-        //}
-        //else yield return new WaitForSeconds(1.0f);
-
+    private void DestroyNoReturn()
+    {
 
 
     }
+
     public void Destroy()
     {
         Vector3 newPos = new Vector3(pspacecraft.transform.position.x, pspacecraft.transform.position.y, pspacecraft.transform.position.z);
@@ -89,7 +96,7 @@ public class PlayerDestroyScript : MonoBehaviour {
         pspacecraft.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
+        while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
         waitingForDeath = false;
     }

@@ -38,6 +38,7 @@ TagManager:
   - SquadManager
   - TimeBombManager
   - LiveValue
+  - UI_InGame
   layers:
   - Default
   - TransparentFX

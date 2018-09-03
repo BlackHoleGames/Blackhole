@@ -188,6 +188,7 @@ public class SwitchablePlayerController : MonoBehaviour
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
         life.value = actualLife;
         lifePoints = (int)actualLife;
+        isUpdatingLife = true;
     }
 
     public void RegenTimeBomb()
@@ -453,7 +454,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     isDeath = true;
                                     isFinished = true;
                                     liveValue.text = "";
-                                    //SaveGameStatsScript.GameStats.isGameOver = true;
+                                    SaveGameStatsScript.GameStats.isGameOver = true;
                                     SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                                 }
                                 else
