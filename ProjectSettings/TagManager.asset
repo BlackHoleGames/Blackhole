@@ -41,6 +41,7 @@ TagManager:
   - UI_InGame
   - Earth
   - UI_Panel
+  - Managers
   layers:
   - Default
   - TransparentFX

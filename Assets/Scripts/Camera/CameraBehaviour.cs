@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CameraBehaviour : MonoBehaviour {
 
     public Vector3 verticalPosition, middlePosition,  timeWarpPos, bossCamPos;
@@ -35,9 +36,42 @@ public class CameraBehaviour : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().playerHit 
             && !isShaking)
         {
-            isShaking = true;
-            cameraShake = CrashShake(1.0f,1.0f);
-            StartCoroutine(cameraShake);
+            switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
+            {
+                case MapManger.Stages.INTRO:
+                    //Not working in this map.
+                    break;
+                case MapManger.Stages.METEORS_TIMEWARP: 
+                    //Working
+                    isShaking = true;
+                    cameraShake = CrashShake(1.0f, 1.0f);
+                    StartCoroutine(cameraShake);
+                    break;
+                case MapManger.Stages.METEORS_ENEMIES:
+                    isShaking = true;
+                    cameraShake = CrashShake(1.0f, 1.0f);
+                    StartCoroutine(cameraShake);
+                    break;
+                case MapManger.Stages.MINIBOSS_FIRSTPHASE:
+                    //Not working in this map.
+                    break;
+                case MapManger.Stages.MINIBOSS_SECONDPHASE:
+                    isShaking = true;
+                    cameraShake = CrashShake(1.0f, 1.0f);
+                    StartCoroutine(cameraShake);
+                    break;
+                case MapManger.Stages.STRUCT_TIMEWARP:
+                    isShaking = true;
+                    cameraShake = CrashShake(1.0f, 1.0f);
+                    StartCoroutine(cameraShake);
+                    break;
+                case MapManger.Stages.STRUCT_ENEMIES:
+                    //Not working in this map.
+                    break;
+                case MapManger.Stages.BOSS:
+                    //Not working in this map.
+                    break;
+            }
         }
 	}
 
