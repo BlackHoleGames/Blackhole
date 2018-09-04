@@ -25,6 +25,8 @@ public class LeaderBoardScript : MonoBehaviour
     private Text ScoreResultD;
     private Text ScoreResultE;
     public Text GameOverText;
+    public Text Timer;
+    public Text Initials;
     private int ScorePosition = 0;
     private int ObjectsToShow = 6;
     private IEnumerator ScoreSequence;
@@ -49,15 +51,22 @@ public class LeaderBoardScript : MonoBehaviour
             if (CompareScore()) {
                 //Congrats Name
                 GetComponent<InputNameScore>().IsInputName = true;
+                Timer.gameObject.SetActive(true);
+                Initials.gameObject.SetActive(true);
                 //while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
                 //  SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
                 //ReasingScore();
-            }else { 
+            }
+            else {
+                Timer.gameObject.SetActive(false);
+                Initials.gameObject.SetActive(false);
                 ShowScore();
                 ScoreSequence = ScorePresentation(0.5f);
                 StartCoroutine(ScoreSequence);
             }
         }else{
+            Timer.gameObject.SetActive(false);
+            Initials.gameObject.SetActive(false);
             ShowScore();
             ScoreSequence = ScorePresentation(0.5f);
             StartCoroutine(ScoreSequence);

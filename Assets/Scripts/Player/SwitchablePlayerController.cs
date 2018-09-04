@@ -439,8 +439,6 @@ public class SwitchablePlayerController : MonoBehaviour
                                 if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;
                                 firingCounter = 0.0f;
-                                if (ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
-                                RumblePad.RumbleState = 5;
                                 DestroyGhots();
                                 actualLife = 0.0f;
                                 lifePoints = (int)actualLife;
@@ -451,6 +449,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 
                                 if (lives < 0)
                                 {
+                                    RumblePad.RumbleState = 6;
                                     isDeath = true;
                                     isFinished = true;
                                     liveValue.text = "";
@@ -460,6 +459,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 else
                                 {
                                     liveValue.text = "X" + lives.ToString();
+                                    RumblePad.RumbleState = 5;
                                 }
                             
                                 //SceneManager.LoadScene(6);
@@ -536,7 +536,11 @@ public class SwitchablePlayerController : MonoBehaviour
     }
     public void DestroyGhots()
     {
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().DisableGhosts();
+        foreach (GameObject g in ghostArray)
+        {
+            g.GetComponent<TimeGhost>().StopFiring();
+            g.GetComponent<TimeGhost>().DisableGhosts();
+        }
         //2 Seconds to disapear
         if (!disableSecure)
         {

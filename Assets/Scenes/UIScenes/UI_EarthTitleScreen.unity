@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 1
+  soundPlay: {fileID: 8300000, guid: 4d8f63e95d766f043a2402214e55e70d, type: 3}
 --- !u!114 &1757261884
 MonoBehaviour:
   m_ObjectHideFlags: 0

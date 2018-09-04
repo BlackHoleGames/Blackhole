@@ -82,7 +82,7 @@ public class PlayerDestroyScript : MonoBehaviour {
         playercontrol.SetActive(true);
         pspacecraft.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 2.0f;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
         while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
         waitingForDeath = false;

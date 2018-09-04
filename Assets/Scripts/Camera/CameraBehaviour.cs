@@ -9,7 +9,7 @@ public class CameraBehaviour : MonoBehaviour {
     public Vector3 verticalRotation, middleRotation,  timeWarpRot, bossCamRot;
     public float speed = 5.0f;
     public float timeToMove = 12.0f;
-    public float rumbleDuration = 1.0f;
+    public float rumbleDuration = 0.5f;
     public float rumbleScope = 0.5f;
     private float t = 0.0f;
     public bool startRotating;
@@ -104,8 +104,8 @@ public class CameraBehaviour : MonoBehaviour {
 
         float elapsed = 0.0f;
 
-        while (elapsed < Shakeduration)
-        {
+        while (elapsed < Shakeduration && !GameObject.Find("Parent").GetComponent<PlayerDestroyScript>().waitingForDeath)
+        {            
             float x = Random.Range(-1f, 1f) * ShakeScope;
             float y = Random.Range(-1f, 1f) * ShakeScope;
             float z = Random.Range(-1f, 1f) * ShakeScope;
@@ -133,7 +133,7 @@ public class CameraBehaviour : MonoBehaviour {
                     transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                 break;
                 case MapManger.Stages.BOSS:
-                    transform.localPosition = new Vector3(x, originalPosition.y, z);
+                    transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                 break;
                 }
                     
@@ -144,6 +144,7 @@ public class CameraBehaviour : MonoBehaviour {
         }
         transform.localPosition = originalPosition;
         GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = earthoriginalPosition;
+        yield return new WaitForSeconds(1.5f);
         isShaking = false;
     }
 
