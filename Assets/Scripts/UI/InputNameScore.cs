@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InputNameScore : MonoBehaviour {
     public Text timerText;
     public Text initialsText;
-    private int timeRemaining=9;
+    private int timeRemaining=19;
     private IEnumerator Timercoroutine;
     private IEnumerator Initialcoroutine;
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

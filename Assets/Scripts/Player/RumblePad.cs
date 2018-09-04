@@ -16,7 +16,8 @@ public class RumblePad : MonoBehaviour {
     public float rumbleAsteroidIntensity = 0.5f;
     public float rumbleDeath = 3.0f;
     public float rumbleDeathIntensity = 3.0f;
-    
+    public float rumbleFinish = 1.5f;
+    public float rumbleFinishIntensity = 3.0f;
     // Use this for initialization
     void Start () {
         RumbleState = 0;
@@ -47,6 +48,10 @@ public class RumblePad : MonoBehaviour {
                     RumbleAction = RumbleTimer(rumbleDeath, rumbleDeathIntensity);
                     StartCoroutine(RumbleAction);
                     break;
+                case 6: //Finish
+                    RumbleAction = RumbleTimer(rumbleFinish, rumbleFinishIntensity);
+                    StartCoroutine(RumbleAction);
+                break;
                 default:
                     //GamePad.SetVibration(0, 0.0f, 0.0f);
                 break;

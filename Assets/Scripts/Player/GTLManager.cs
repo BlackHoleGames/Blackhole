@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GTLManager : MonoBehaviour {
     private float MultiplierIncrease = 0.5f;
+    public GameObject X1, X2, X3;
     private List<GameObject> multiplierArray;
     private int statusGTL =0;
     void Start()
     {
         multiplierArray = new List<GameObject>();
+        //multiplierArray.Add(X1);
+        //multiplierArray.Add(X2);
+        //multiplierArray.Add(X3);
         foreach (Transform child in transform)
         {
-            if (child.gameObject.tag == "MultiplierX1") multiplierArray.Add(child.gameObject);
-            if (child.gameObject.tag == "MultiplierX2") multiplierArray.Add(child.gameObject);
-            if (child.gameObject.tag == "MultiplierX3") multiplierArray.Add(child.gameObject);
             if (child.name == "GTL")
             {
                 foreach (Transform childGTL in child)
@@ -27,11 +28,8 @@ public class GTLManager : MonoBehaviour {
 	void Update () {
         if (ScoreScript.multiplierScore == 1.0f)
         {
-            foreach (GameObject g in multiplierArray)
-                if (g.tag == "MultiplierX1") g.GetComponent<Image>().fillAmount +=
-                         MultiplierIncrease * Time.unscaledDeltaTime;
-            //GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().fillAmount +=
-            //        MultiplierIncrease * Time.unscaledDeltaTime;
+            X1.GetComponent<Image>().fillAmount +=
+            MultiplierIncrease * Time.unscaledDeltaTime;
             //if (statusGTL == 0) statusGTL = 1;
             //else if (statusGTL == 1) statusGTL = 11;
             //else if (statusGTL == 11) statusGTL = 21;
@@ -41,24 +39,25 @@ public class GTLManager : MonoBehaviour {
         }
         else if (ScoreScript.multiplierScore == 2.0f)
         {
-            foreach (GameObject g in multiplierArray)
-                if (g.tag == "MultiplierX2") g.GetComponent<Image>().fillAmount +=
-                         MultiplierIncrease * Time.unscaledDeltaTime;
+            X2.GetComponent<Image>().fillAmount +=
+            MultiplierIncrease * Time.unscaledDeltaTime;
             statusGTL = 2;
         }
         else if (ScoreScript.multiplierScore == 3.0f)
         {
-            foreach (GameObject g in multiplierArray)
-                if (g.tag == "MultiplierX3") g.GetComponent<Image>().fillAmount +=
-                         MultiplierIncrease * Time.unscaledDeltaTime;
+            X2.GetComponent<Image>().fillAmount +=
+            MultiplierIncrease * Time.unscaledDeltaTime;
+            X3.GetComponent<Image>().fillAmount +=
+            MultiplierIncrease * Time.unscaledDeltaTime;
+            statusGTL = 3;
             //if (statusGTL == 0) statusGTL = 3;
             //else if (statusGTL == 3) statusGTL = 13;
             //else if (statusGTL == 13) statusGTL = 23;
             //else if (statusGTL == 23) statusGTL = 3;
             //else 
-            statusGTL = 3;
+
         }
-        UpdateGTLBar();
+        //UpdateGTLBar();
     }
     private void UpdateGTLBar()
     {

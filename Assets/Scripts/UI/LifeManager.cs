@@ -23,7 +23,15 @@ public class LifeManager : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isUpdatingLife = false;
             UpdateLifeBar();
         }
+        else if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            NoLifeBar();
+        }
 
+    }
+    private void NoLifeBar()
+    {
+        foreach (GameObject g in lifeArray) g.SetActive(false);
     }
 
     private void UpdateLifeBar()
