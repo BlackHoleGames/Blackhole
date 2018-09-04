@@ -42,7 +42,11 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
-            case 3:
+            case 3: //LeaderBoard
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                scene = 0;
+                break;
+            case 4: //Briefing
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
