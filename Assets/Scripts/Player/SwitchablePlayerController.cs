@@ -569,11 +569,13 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 for (int i= ghostList.Count-1; i > 0; i--)
                 {
-                    Destroy(ghostList[i]);
+                    GameObject toRemove = ghostList[i];
+                    ghostList.Remove(toRemove);
+                    Destroy(toRemove);
                 }
             }
             else {
-
+                
             }
         }
     }
