@@ -7,7 +7,6 @@ public class PlayerDestroyScript : MonoBehaviour {
    
     public bool waitingForDeath = false;
     private IEnumerator DeathTimerSequence;
-    //private IEnumerator EndingTimerSequence;
     public GameObject pdestroyed,pspacecraft,propeller,playercontrol,alert;
     Vector3 playerFirstPosition;
     Vector3 DestroyedFirstPosition;
@@ -17,10 +16,8 @@ public class PlayerDestroyScript : MonoBehaviour {
     void Start () {
         playerFirstPosition = gameObject.transform.position;
         DestroyedFirstPosition = gameObject.transform.position;
-        //trb = GetComponent<TimeRewindBody>();
         destroyArray = new List<GameObject>();
         noLifesRemaining = false;
-        //tm = GetComponent<TimeManager>();
     }
 	
 	// Update is called once per frame
@@ -29,10 +26,8 @@ public class PlayerDestroyScript : MonoBehaviour {
         {
             if (GameObject.FindGameObjectWithTag("Player") != null && 
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying &&
-                //!GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath &&
                 !waitingForDeath)
             {
-                //tm.RestoreTime();
                 waitingForDeath = true;                
                 DeathTimerSequence = DeathSequence(6.0f);
                 StartCoroutine(DeathTimerSequence);
@@ -60,7 +55,6 @@ public class PlayerDestroyScript : MonoBehaviour {
         Vector3 newPos = new Vector3(pspacecraft.transform.position.x, pspacecraft.transform.position.y, pspacecraft.transform.position.z);
         pdestroyed.transform.position = newPos;
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
-        //pdestroyed.GetComponentInChildren<TimeRewindBody>() = new TimeRewindBody();
         playercontrol.SetActive(false);
         pspacecraft.SetActive(false);
         propeller.SetActive(false);
@@ -85,11 +79,10 @@ public class PlayerDestroyScript : MonoBehaviour {
         foreach (Transform child in pdestroyed.transform)
             if(child.name=="Impulse") child.gameObject.SetActive(true);
         pdestroyed.SetActive(false);
-        //pdestroyed.transform.position = DestroyedFirstPosition;
         playercontrol.SetActive(true);
         pspacecraft.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 2.0f;
         while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
         waitingForDeath = false;

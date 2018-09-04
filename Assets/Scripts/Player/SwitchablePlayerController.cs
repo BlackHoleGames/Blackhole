@@ -22,7 +22,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float invul = 1.0f;
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
-    public float invulnerabilityDuration = 1.0f;
+    public float invulnerabilityDuration = 2.0f;
     public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
     public float timeBombRegenPerSec = 1.0f;
@@ -434,7 +434,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
                             lifePoints = (int)actualLife;
-                            if (actualLife < 0.0f)
+                            if (actualLife <= 0.0f)
                             {
                                 if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;

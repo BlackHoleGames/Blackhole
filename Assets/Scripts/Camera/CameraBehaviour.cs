@@ -118,7 +118,7 @@ public class CameraBehaviour : MonoBehaviour {
                     transform.localPosition = new Vector3(x, y, originalPosition.z);
                     break;
                 case MapManger.Stages.METEORS_ENEMIES:
-                    transform.localPosition = new Vector3(x, y, originalPosition.z);
+                    transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
                     break;
                 case MapManger.Stages.MINIBOSS_FIRSTPHASE:
                     transform.localPosition = new Vector3(x, originalPosition.y, originalPosition.z);
