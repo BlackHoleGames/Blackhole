@@ -567,7 +567,7 @@ public class SwitchablePlayerController : MonoBehaviour
         if (numbghosts != ghostList.Count) {
             if (numbghosts < ghostList.Count)
             {
-                for (int i= ghostList.Count; i > 0; i--)
+                for (int i= ghostList.Count; i > numbghosts; i--)
                 {
                     GameObject toRemove = ghostList[i-1];
                     ghostList.Remove(toRemove);
