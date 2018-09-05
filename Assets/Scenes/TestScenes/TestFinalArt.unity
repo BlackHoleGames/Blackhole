@@ -495,6 +495,8 @@ MonoBehaviour:
   rumbleAsteroidIntensity: 0.5
   rumbleDeath: 3
   rumbleDeathIntensity: 3
+  rumbleFinish: 1.5
+  rumbleFinishIntensity: 3
 --- !u!1 &32041503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,7 +1524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9.83252, y: 496.0001}
+  m_AnchoredPosition: {x: 9.832031, y: 496.0001}
   m_SizeDelta: {x: 83.098, y: 42.1}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &156182753
@@ -1751,7 +1753,7 @@ GameObject:
   - component: {fileID: 214805422}
   - component: {fileID: 214805421}
   m_Layer: 5
-  m_Name: FillTimeBomb
+  m_Name: FillX2
   m_TagString: MultiplierX2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13056,6 +13058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf3d37e4e097ea4295adc23dfb4d62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  X1: {fileID: 2055123622}
+  X2: {fileID: 214805419}
+  X3: {fileID: 1853005868}
 --- !u!1 &1227913435
 GameObject:
   m_ObjectHideFlags: 0
@@ -16849,7 +16854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9.832275, y: 538.60016}
+  m_AnchoredPosition: {x: 9.832031, y: 538.60016}
   m_SizeDelta: {x: 83.098, y: 42.1}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1716817733
@@ -18628,7 +18633,7 @@ GameObject:
   - component: {fileID: 1853005871}
   - component: {fileID: 1853005870}
   m_Layer: 5
-  m_Name: FillTimeBomb
+  m_Name: FillX3
   m_TagString: MultiplierX3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19710,7 +19715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1979671495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24916,7 +24921,7 @@ GameObject:
   - component: {fileID: 2055123625}
   - component: {fileID: 2055123624}
   m_Layer: 5
-  m_Name: FillTimeBomb
+  m_Name: FillX1
   m_TagString: MultiplierX1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

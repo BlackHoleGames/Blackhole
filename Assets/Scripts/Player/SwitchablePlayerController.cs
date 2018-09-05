@@ -38,7 +38,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
-    private List<GameObject> ghostArray;
+    private List<GameObject> ghostList;
     private bool is_vertical, is_firing, play;
     public int lifePoints, lives = 2;
     //public Transform cameraTrs;
@@ -72,7 +72,7 @@ public class SwitchablePlayerController : MonoBehaviour
         is_firing = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
-        ghostArray = new List<GameObject>();
+        ghostList = new List<GameObject>();
         camMovementEnemies = false;
         playerHit = false;
         AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -137,14 +137,14 @@ public class SwitchablePlayerController : MonoBehaviour
         if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing)
         {
             is_firing = true;
-            if(ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
+            if(ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StartFiring();
             
         }
         if ((Input.GetButtonUp("Fire1")) && is_firing)
         {
             is_firing = false;
             firingCounter = 0.0f;
-            if(ghostEnabled) foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+            if(ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
             
         }
         if (isShotingbyPad)
@@ -180,7 +180,7 @@ public class SwitchablePlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitshoot);
         is_firing = false;
         //firingCounter = 0.0f;
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();       
+        foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();       
     }
 
     public void RegenLife()
@@ -351,7 +351,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public void Rotate()
     {
         parentAxis.transform.eulerAngles = new Vector3(rotX.x, 0.0f, rotZ.z);
-        foreach (GameObject g in ghostArray)
+        foreach (GameObject g in ghostList)
         {
             g.GetComponent<TimeGhost>().RotateGhosts();
         }
@@ -397,14 +397,14 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void SpawnGhost()
     {
-        if (ghostArray.Count < 2)
+        if (ghostList.Count < 2)
         {
             GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
-            if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
+            if (ghostList.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostList[(ghostList.Count - 1)].transform;
             else obj.GetComponent<TimeGhost>().leader = transform;
             obj.transform.rotation = Quaternion.identity;
             obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
-            ghostArray.Add(obj);
+            ghostList.Add(obj);
             ghostEnabled = true;
         }
     }
@@ -536,7 +536,7 @@ public class SwitchablePlayerController : MonoBehaviour
     }
     public void DestroyGhots()
     {
-        foreach (GameObject g in ghostArray)
+        foreach (GameObject g in ghostList)
         {
             g.GetComponent<TimeGhost>().StopFiring();
             g.GetComponent<TimeGhost>().DisableGhosts();
@@ -554,12 +554,29 @@ public class SwitchablePlayerController : MonoBehaviour
     IEnumerator DisableGhotTimer(float disableDuration)
     {
         yield return new WaitForSeconds(disableDuration);
-        while (ghostArray.Count > 0)
+        while (ghostList.Count > 0)
         {
-            Destroy(ghostArray[0]);
-            ghostArray.Remove(ghostArray[0]);
+            Destroy(ghostList[0]);
+            ghostList.Remove(ghostList[0]);
         }
-        ghostArray.Clear();
+        ghostList.Clear();
         disableSecure = false;
+    }
+
+    public void DebugInstantiateGhosts(int numbghosts) {
+        if (numbghosts != ghostList.Count) {
+            if (numbghosts > ghostList.Count)
+            {
+                for (int i= ghostList.Count-1; i > 0; i--)
+                {
+                    GameObject toRemove = ghostList[i];
+                    ghostList.Remove(toRemove);
+                    Destroy(toRemove);
+                }
+            }
+            else {
+                
+            }
+        }
     }
 }

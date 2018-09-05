@@ -102,9 +102,9 @@ public class EnemyDestroyed : MonoBehaviour {
                     }
                 }
             }
-            flickerCounter = Time.deltaTime;//flickerTime;
+            flickerCounter = Time.deltaTime*0.01f;//flickerTime;
         }
-        else flickerCounter -= Time.deltaTime;
+        else flickerCounter -= Time.deltaTime * 2.0f;
 	}
 
     public void CallDestroy() {
