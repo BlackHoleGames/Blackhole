@@ -59,7 +59,6 @@ public class FirstBossStage : MonoBehaviour {
                     if (!shotDone) ManageShots();
                     if (closingHatch) {
                         closingHatch = false;
-                        SwitchVulnerabilityOnReactors(false);
                         ++activeReactorsIndex;
                     }
                     else {
@@ -68,6 +67,8 @@ public class FirstBossStage : MonoBehaviour {
                             timeBetweenShotsCounter = timeBetweenReactorShots;
                             shotDone = false;
                             openingHatch = false;
+                            SwitchVulnerabilityOnReactors(false);
+
                         }
                     }
                 }

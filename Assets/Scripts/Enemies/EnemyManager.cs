@@ -177,4 +177,8 @@ public class EnemyManager : MonoBehaviour {
     public void SetStructureWaveIndex() {
         squadronIndex = 8;
     }
+
+    public void SetIntroWaveIndex() {
+        squadronIndex = 0;
+    }
 }

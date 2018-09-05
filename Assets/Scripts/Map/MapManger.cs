@@ -49,7 +49,13 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.METEORS_TIMEWARP:
                 if (!am.AsteroidsAreMoving()) {
-                    meteors.SetActive(true);
+                    if (!meteors) {
+                        GameObject obj = Instantiate(Resources.Load("MeteorStormFull 1"),new Vector3(0,0,0), new Quaternion()) as GameObject;
+                        meteors = obj;
+                        am = obj.GetComponentInChildren<AsteroidsMovement>();
+                        asteroidsDodge = am.gameObject;
+                    }
+                    else meteors.SetActive(true);
                     asteroidsDodge.SetActive(true);
                     am.StartMovingAsteroids();
                     tm.StartTimeWarp();
@@ -152,11 +158,11 @@ public class MapManger : MonoBehaviour {
             meteorsDelayOn = false;
             switch (actualStage) {
                 case Stages.METEORS_ENEMIES:
-                    meteors.SetActive(false);
-                    meteors2d.SetActive(true);
+                    if(meteors) meteors.SetActive(false);
+                    if (meteors2d) meteors2d.SetActive(true);
                     break;
                 case Stages.MINIBOSS_SECONDPHASE:
-                    Destroy(meteors2d);
+                    if (meteors2d) Destroy(meteors2d);
                     spawnedEndMeteors = Instantiate(meteorsEnd, new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
                     break;
 
@@ -172,7 +178,7 @@ public class MapManger : MonoBehaviour {
     }
 
     public void EnteredStructure() {
-        Destroy(spawnedEndMeteors);
+        if (spawnedEndMeteors) Destroy(spawnedEndMeteors);
     }
 
     public void GoToNextStage() {

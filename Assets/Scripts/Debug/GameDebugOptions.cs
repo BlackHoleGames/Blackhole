@@ -30,11 +30,22 @@ public class GameDebugOptions : MonoBehaviour {
             }
             else enemyManager.DebugSpawnNextWave();
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             if (godModeEnabled) godModeEnabled = false;
             else godModeEnabled = true;
             player.SetPlayerGodMode(godModeEnabled);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            player.GetComponent<TimeManager>().DebugSwitchGTL(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            player.GetComponent<TimeManager>().DebugSwitchGTL(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            player.GetComponent<TimeManager>().DebugSwitchGTL(2);
         }
         /*if (Input.GetKeyDown(KeyCode.K))
         {

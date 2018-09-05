@@ -52,6 +52,7 @@ public class SecondBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
+        Eye.GetComponent<EnemyLookAt>().enabled = true;
         foreach (GameObject t in Turrets) {
             t.GetComponentInChildren<BossTurretScript>().enabled = true;
         }

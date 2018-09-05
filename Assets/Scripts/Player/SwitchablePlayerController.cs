@@ -565,17 +565,19 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void DebugInstantiateGhosts(int numbghosts) {
         if (numbghosts != ghostList.Count) {
-            if (numbghosts > ghostList.Count)
+            if (numbghosts < ghostList.Count)
             {
-                for (int i= ghostList.Count-1; i > 0; i--)
+                for (int i= ghostList.Count; i > 0; i--)
                 {
-                    GameObject toRemove = ghostList[i];
+                    GameObject toRemove = ghostList[i-1];
                     ghostList.Remove(toRemove);
                     Destroy(toRemove);
                 }
             }
             else {
-                
+                for (int j = 0; j < numbghosts; ++j) {
+                    SpawnGhost();
+                }
             }
         }
     }

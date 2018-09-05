@@ -23,13 +23,11 @@ public class TimeManager : MonoBehaviour {
     private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter;
     public CameraBehaviour cb;
     private SwitchablePlayerController sp;
-    private bool firstTimeEnteredSpeedUp;
     private bool wormhole = false;
     public GameObject timewarpEffect;
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
-        firstTimeEnteredSpeedUp = true;
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         isMaxGTLReached = false;
         wormHoleCounter = wormHoleDuration;
@@ -194,5 +192,32 @@ public class TimeManager : MonoBehaviour {
         maxGTLCounter = 0.0f;
         cb.SwitchToMiddle();
         if (!sp.VerticalAxisOn()) sp.SwitchAxis();
+    }
+
+    public void DebugSwitchGTL(int gtlindex) {
+        Debug.Log("Switching");
+        switch (gtlindex) {
+            case 0:
+                inFasterGTL = false;
+                isMaxGTLReached = false;
+                Time.timeScale = 1.0f;
+                ScoreScript.multiplierScore = 1.0f;
+                
+                break;
+            case 1:
+                inFasterGTL = true;
+                isMaxGTLReached = false;
+                Time.timeScale = gtlFast;
+                ScoreScript.multiplierScore = 2.0f;
+                break;
+            case 2:
+                inFasterGTL = true;
+                isMaxGTLReached = true;
+                Time.timeScale = gtlFaster;
+                ScoreScript.multiplierScore = 3.0f;
+                break;         
+        }
+        maxGTLCounter = 0.0f;
+        sp.DebugInstantiateGhosts(gtlindex);
     }
 }
