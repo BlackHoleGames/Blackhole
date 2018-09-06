@@ -17,7 +17,7 @@ public class EarthRotation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (!isUI) transform.Rotate(-speed * Time.deltaTime, 0.0f, 0.0f);
-        else transform.Rotate(0.0f, -speed * Time.deltaTime, 0.0f);
+        else transform.Rotate(0.0f, 0.0f, -speed * Time.deltaTime);
         if (goDown) transform.position += new Vector3(0.0f, Time.deltaTime * -downSpeed, Time.deltaTime * -downSpeed);
     }
 

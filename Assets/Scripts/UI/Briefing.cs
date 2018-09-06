@@ -10,7 +10,9 @@ public class Briefing : MonoBehaviour {
     // Use this for initialization
     IEnumerator Start () {
         briefingText.canvasRenderer.SetAlpha(0.0f);
-        curtainImage.canvasRenderer.SetAlpha(0.0f);
+        curtainImage.canvasRenderer.SetAlpha(1.0f);
+        curtainImage.CrossFadeAlpha(0.0f, 1.0f, false);
+        yield return new WaitForSeconds(1.0f);
         FadeIn();
         yield return new WaitForSeconds(17.5f);
         FadeOut();
@@ -24,6 +26,6 @@ public class Briefing : MonoBehaviour {
     void FadeOut()
     {
         briefingText.CrossFadeAlpha(0.0f, 1.5f, false);
-        curtainImage.CrossFadeAlpha(1.0f, 2.5f, false);
+        
     }
 }

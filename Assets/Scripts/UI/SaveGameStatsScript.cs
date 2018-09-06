@@ -80,45 +80,26 @@ public class SaveGameStatsScript : MonoBehaviour
     {
         switch (SceneManager.GetActiveScene().buildIndex)
         {
+            case 2:
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+            break;
             case 3:
-                foreach (Transform earth in transform)
-                {
-                    earth.gameObject.SetActive(true);
-                }
-                if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position.x < Scene3_maxPositionX)
-                {
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position.x + Scene3_incrementPositionX, 0.0f, -Scene3_zPosition);
-
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(
-                    0.0f, GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles.y - Scene3_incrementAngleY, 0.0f);
-                }
-                if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView > Scene3_maxFieldofView)
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView - 0.5f;
-                //Positions to be Done.
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(225f, 0.0f, -147.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, -58.0f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(667f, 0.0f, -121.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, -54.0f, 0.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 39;
                 break;
             case 4:
-                if (!Scene4_isupdated)
-                {
-                    Scene4_isupdated = true;
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(Scene3_maxPositionX, 0.0f, -Scene3_zPosition);
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, -58.0f, 0.0f);
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = Scene3_maxFieldofView;
-                }
-
-                if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView > Scene4_maxFieldofView)
-                {
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView - 0.10f;
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles += new Vector3(0.0f, 0.01f, 0.0f);
-                }
-                //Other Position to be Done.
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(563f, -7f, -374.5f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, -56.0f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 3;
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 23;
                 break;
+            case 8:
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(623f, -461.0f, -147.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-45f, -51.0f, 0.0f);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 18;
+            break;
             case 5:
                 foreach (Transform earth in transform)
                 {
