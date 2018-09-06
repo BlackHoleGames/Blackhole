@@ -13,26 +13,27 @@ public class Logo : MonoBehaviour {
 	IEnumerator Start () {
         LogoImage.canvasRenderer.SetAlpha(0.0f);
         CurtainImage.canvasRenderer.SetAlpha(0.0f);
+        yield return new WaitForSeconds(1.0f);
         FadeIn();
         yield return new WaitForSeconds(3.0f);
         FadeOut();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         FadeInCurtain();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
 
     }
     void FadeIn()
     {
-        LogoImage.CrossFadeAlpha(1.0f, 1.5f, false);
+        LogoImage.CrossFadeAlpha(1.0f, 1.0f, false);
     }
     void FadeOut()
     {
-        LogoImage.CrossFadeAlpha(0.0f, 2.5f, false);
+        LogoImage.CrossFadeAlpha(0.0f, 2.0f, false);
     }
     void FadeInCurtain()
     {
-        CurtainImage.CrossFadeAlpha(1.0f, 2.5f, false);
+        CurtainImage.CrossFadeAlpha(1.0f, 1.0f, false);
     }
 }
