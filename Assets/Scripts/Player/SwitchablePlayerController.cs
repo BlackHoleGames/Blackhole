@@ -390,8 +390,12 @@ public class SwitchablePlayerController : MonoBehaviour
         else
         {
             t += Time.unscaledDeltaTime / 1.0f;
-            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(parentAxis.transform.position.x, parentAxis.transform.position.y, -7.5f), t);
-            if ((Mathf.Abs(Mathf.Abs(parentAxis.transform.position.z) - 7.5f) < 0.01)) readjustPosition = false;
+            float targetX = parentAxis.transform.position.x;
+            if (targetX > TimeWarpXLimit) targetX = TimeWarpXLimit - 0.1f;
+            else if (targetX < -TimeWarpXLimit) targetX = -TimeWarpXLimit + 0.1f;
+            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(targetX, parentAxis.transform.position.y, -7.5f), t);
+            if ((Mathf.Abs(Mathf.Abs(parentAxis.transform.position.z) - 7.5f) < 0.01) &&
+                (Mathf.Abs(targetX) < TimeWarpXLimit)) readjustPosition = false;
         }
     }
 

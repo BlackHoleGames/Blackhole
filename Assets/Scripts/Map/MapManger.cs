@@ -33,7 +33,7 @@ public class MapManger : MonoBehaviour {
         cb = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
         am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
-        er = GameObject.Find("EarthHighFull").GetComponent<EarthRotation>();
+        er = GameObject.Find("EarthHighFullV2").GetComponent<EarthRotation>();
         
         //sm = structure.GetComponent<StructMovement>();
     }
