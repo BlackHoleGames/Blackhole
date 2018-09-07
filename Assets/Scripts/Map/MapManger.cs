@@ -44,6 +44,7 @@ public class MapManger : MonoBehaviour {
         {
             case Stages.INTRO:
                 if (!em.IsManagerSpawning()) {
+                    em.SetIntroWaveIndex();
                     em.StartManager();
                 }
                 break;
@@ -125,9 +126,7 @@ public class MapManger : MonoBehaviour {
                     removeBattleStruct = false;
                 }
                 break;
-            case Stages.BOSS:
-                TimeBombManager.activateBomb2 = true;
-                TimeBombManager.activateBomb3 = true;
+            case Stages.BOSS:                
                 if (!removeBattleStruct) {
                     if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
                         foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();                        
@@ -139,6 +138,8 @@ public class MapManger : MonoBehaviour {
                 }
                 else {
                     if (!bossEnabled) {
+                        TimeBombManager.activateBomb2 = true;
+                        TimeBombManager.activateBomb3 = true;
                         boss.SetActive(true);
                         bossEnabled = true;
                     }
@@ -215,6 +216,118 @@ public class MapManger : MonoBehaviour {
                 break;
             default:
                 GoToNextStage();
+                break;
+        }
+    }
+
+    public void DebugRestartPhase() {
+        switch (actualStage)
+        {
+            case Stages.INTRO:
+                if (!em.IsManagerSpawning())
+                {
+                    em.SetIntroWaveIndex();
+                    em.StartManager();
+                }
+                break;
+            case Stages.METEORS_TIMEWARP:
+                if (!am.AsteroidsAreMoving())
+                {
+                    if (!meteors)
+                    {
+                        GameObject obj = Instantiate(Resources.Load("MeteorStormFull 1"), new Vector3(0, 0, 0), new Quaternion()) as GameObject;
+                        meteors = obj;
+                        am = obj.GetComponentInChildren<AsteroidsMovement>();
+                        asteroidsDodge = am.gameObject;
+                    }
+                    meteors.SetActive(true);
+                    asteroidsDodge.SetActive(true);
+                    am.StartMovingAsteroids();
+                    tm.StartTimeWarp();
+                    timewarpEffect.SetActive(true);
+                    timewarpBackground.SetActive(true);
+                }
+                break;
+            case Stages.METEORS_ENEMIES:
+                if (!em.IsManagerSpawning())
+                {
+                    em.SetAsteroidWaveIndex();
+                    TimeBombManager.activateBomb2 = true;
+                    tm.StopTimeWarp();
+                    em.StartManager();
+                    meteorsDelayOn = true;
+                    timewarpBackgroundDelay = true;
+                    timewarpEffect.SetActive(false);
+                }
+                break;
+            case Stages.MINIBOSS_FIRSTPHASE:
+                if (mbs)
+                {
+                    if (!mbs.MiniBossStarted())
+                    {
+                        mbs.InitiateBoss();
+                        TimeBombManager.activateBomb2 = true;
+                        TimeBombManager.activateBomb3 = true;
+                    }
+                }
+                break;
+            case Stages.MINIBOSS_SECONDPHASE:
+                --actualStage;
+                DebugRestartPhase();
+                break;
+            case Stages.STRUCT_TIMEWARP:
+                if (!sm)
+                {
+                    structure.SetActive(true);
+                    timewarpEffect.SetActive(true);
+                    timewarpBackground.SetActive(true);
+                    if (!tm.InTimeWarp()) tm.StartTimeWarp();
+                    sm = structure.GetComponent<StructMovement>();
+                    sm.StartMovingStruct();
+                }
+                if (!structureMoving)
+                {
+                    structureMoving = true;
+                    er.StartDownTransition();
+                }
+                break;
+            case Stages.STRUCT_ENEMIES:
+                if (!em.IsManagerSpawning())
+                {
+                    timewarpBackgroundDelay = true;
+                    em.SetStructureWaveIndex();
+                    timewarpEffect.SetActive(false);
+                    em.StartManager();
+                    tm.StopTimeWarp();
+                    foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.enabled = true;
+                    removeBattleStruct = false;
+                }
+                break;
+            case Stages.BOSS:
+                if (!removeBattleStruct)
+                {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
+                    {
+                        foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
+                    }
+                    else
+                    {
+                        Destroy(battleTunnel);
+                        removeBattleStruct = true;
+                    }
+                }
+                else
+                {
+                    if (!bossEnabled)
+                    {
+                        TimeBombManager.activateBomb2 = true;
+                        TimeBombManager.activateBomb3 = true;
+                        boss.SetActive(true);
+                        bossEnabled = true;
+                    }
+                }
+                break;
+            case Stages.ESCAPE:
                 break;
         }
     }

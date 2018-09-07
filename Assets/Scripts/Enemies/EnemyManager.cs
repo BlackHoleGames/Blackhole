@@ -124,7 +124,7 @@ public class EnemyManager : MonoBehaviour {
 
     public void StartManager() {
         startSpawning = true;
-        SpawnNext();
+        StartWait();
     }
 
     public void StopManager() {
