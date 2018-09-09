@@ -42,6 +42,7 @@ TagManager:
   - Earth
   - UI_Panel
   - Managers
+  - DodgeSection
   layers:
   - Default
   - TransparentFX

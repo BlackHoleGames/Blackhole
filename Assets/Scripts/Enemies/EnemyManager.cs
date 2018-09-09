@@ -116,7 +116,7 @@ public class EnemyManager : MonoBehaviour {
                 if ((!instantiatingSubSquads))
                 {
                     waitForDelay = true;
-                    waitingTime = delayTime[squadronIndex - 1];
+                    waitingTime = delayTime[squadronIndex];
                 }
             }
         }
