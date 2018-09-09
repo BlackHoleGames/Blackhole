@@ -84,6 +84,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
             {
                 if (actualLaser) Destroy(actualLaser);
                 transform.parent.GetComponent<SecondBossStage>().FinishBossPhase();
+                GetComponent<EnemyLookAt>().enabled = false;
                 GetComponent<Renderer>().material = matOff;
                 Destroy(this);
             }

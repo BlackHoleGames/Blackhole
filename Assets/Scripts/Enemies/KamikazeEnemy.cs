@@ -12,7 +12,7 @@ public class KamikazeEnemy : MonoBehaviour {
     private TimeBehaviour tb;
     private GameObject player, enemyDestroyed;
     private float direction, hitFeedbackCounter;
-    private bool turbo, hit, materialHitOn;
+    private bool turbo, hit, materialHitOn, alive;
     private AudioSource audioSource, hitAudioSource;
     public Material matOn, matHit;
     private SquadManager squadManager;
@@ -20,6 +20,7 @@ public class KamikazeEnemy : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        alive = true;
         squadManager = GetComponentInParent<SquadManager>();
 
         audioSource = GetComponents<AudioSource>()[0];
@@ -79,12 +80,13 @@ public class KamikazeEnemy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
             hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
+                alive = false;
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                 squadManager.DecreaseNumber();
 
