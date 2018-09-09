@@ -133,7 +133,7 @@ public class FirstBossStage : MonoBehaviour {
         if (reactorPoints[index]) {
             GameObject obj = Instantiate(reactorShot, reactorPoints[index].transform.position, Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f)));
             obj.transform.parent = reactorPoints[index].transform;
-            obj.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+            obj.GetComponent<BoxCollider>().size = new Vector3(1.6f, 29.0f, 1.6f);
         }
         //obj.GetComponent<BossLaser>().StartBehaviour(shotDuration);
     }

@@ -89,8 +89,6 @@ GameObject:
   - component: {fileID: 198393361839751304}
   - component: {fileID: 199843159941094276}
   - component: {fileID: 65367083207431690}
-  - component: {fileID: 114884172367488160}
-  - component: {fileID: 114125386569884256}
   - component: {fileID: 114042726585149260}
   - component: {fileID: 54156194898584650}
   m_Layer: 0
@@ -337,31 +335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLive: 5.25
---- !u!114 &114125386569884256
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1533321281079300}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52ca26ba0da75945b750ba33cd229c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleOfTime: 1
---- !u!114 &114884172367488160
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1533321281079300}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 726f9c6d56cea5049ac8fe575105cf41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToLive: 4.5
-  target: {x: 0, y: 0, z: 0}
 --- !u!198 &198167244368859578
 ParticleSystem:
   m_ObjectHideFlags: 1
