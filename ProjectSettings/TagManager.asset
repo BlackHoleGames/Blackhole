@@ -45,6 +45,8 @@ TagManager:
   - DodgeSection
   - QuitConfirm
   - QYes
+  - QUITCONFIRMYES
+  - Cursor
   layers:
   - Default
   - TransparentFX
