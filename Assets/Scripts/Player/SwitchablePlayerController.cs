@@ -440,6 +440,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             lifePoints = (int)actualLife;
                             if (actualLife <= 0.0f)
                             {
+                                Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
                                 if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;
                                 firingCounter = 0.0f;

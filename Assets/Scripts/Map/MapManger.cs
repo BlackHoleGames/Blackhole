@@ -8,6 +8,7 @@ public class MapManger : MonoBehaviour {
         STRUCT_ENEMIES,BOSS_TRANSITION, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
+    public float blackScreenDuration = 3.0f;
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
@@ -23,9 +24,9 @@ public class MapManger : MonoBehaviour {
     private bool bossEnabled = false;
     private bool meteorsDelayOn = false;
     private bool timewarpBackgroundDelay = false;
-    private float meteorDelayCounter = 0.0f;
-    private float timewarpDelayCounter = 0.0f;
+    private float meteorDelayCounter,timewarpDelayCounter, blackScreenCounter;
     private bool removeBattleStruct = true;
+    private bool onBlackScreen = false;
 	// Use this for initialization
 	void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -34,7 +35,9 @@ public class MapManger : MonoBehaviour {
         am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthHighFullV2").GetComponent<EarthRotation>();
-        
+        meteorDelayCounter = 0.0f;
+        timewarpDelayCounter = 0.0f;
+        blackScreenCounter = 0.0f;
         //sm = structure.GetComponent<StructMovement>();
     }
 	
@@ -304,25 +307,26 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.BOSS_TRANSITION:
-                GoToNextStage();
+                tm.StartTimeWarp();
+                timewarpEffect.SetActive(true);
+                if (onBlackScreen) {
+                    if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
+                    else GoToNextStage();
+                }
                 break;
             case Stages.BOSS:
                 if (!removeBattleStruct)
                 {
-                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
-                    {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
                         foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
                     }
-                    else
-                    {
+                    else {
                         Destroy(battleTunnel);
                         removeBattleStruct = true;
                     }
                 }
-                else
-                {
-                    if (!bossEnabled)
-                    {
+                else  {
+                    if (!bossEnabled) {
                         TimeBombManager.activateBomb2 = true;
                         TimeBombManager.activateBomb3 = true;
                         boss.SetActive(true);
@@ -342,5 +346,9 @@ public class MapManger : MonoBehaviour {
     public GameObject GetBoss() {
         if (actualStage == Stages.BOSS) return boss;
         else return null;
+    }
+
+    public void NotifyGameBlackScreen() {
+        onBlackScreen = true;
     }
 }
