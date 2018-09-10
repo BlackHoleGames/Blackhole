@@ -43,6 +43,10 @@ TagManager:
   - UI_Panel
   - Managers
   - DodgeSection
+  - QuitConfirm
+  - QYes
+  - QUITCONFIRMYES
+  - Cursor
   layers:
   - Default
   - TransparentFX
