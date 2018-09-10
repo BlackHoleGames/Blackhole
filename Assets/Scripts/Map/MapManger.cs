@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapManger : MonoBehaviour {
 
     public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
-        STRUCT_ENEMIES, BOSS, ESCAPE}
+        STRUCT_ENEMIES,BOSS_TRANSITION, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
     private EnemyManager em;
@@ -302,6 +302,9 @@ public class MapManger : MonoBehaviour {
                     foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.enabled = true;
                     removeBattleStruct = false;
                 }
+                break;
+            case Stages.BOSS_TRANSITION:
+                GoToNextStage();
                 break;
             case Stages.BOSS:
                 if (!removeBattleStruct)
