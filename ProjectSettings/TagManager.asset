@@ -43,6 +43,8 @@ TagManager:
   - UI_Panel
   - Managers
   - DodgeSection
+  - QuitConfirm
+  - QYes
   layers:
   - Default
   - TransparentFX

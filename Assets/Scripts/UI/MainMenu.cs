@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject mainMenu;
     public GameObject settingsMenu;
     public GameObject Quit;
+    public GameObject QuitConfirm;
     private Button button { get { return GetComponent<Button>(); } }
     private AudioSource source1 { get { return GetComponent<AudioSource>(); } }
     // Use this for initialization
@@ -36,7 +37,9 @@ public class MainMenu : MonoBehaviour {
 
     public void QuitGame()
     {
-        Application.Quit();
+        //Application.Quit();
+        mainMenu.SetActive(false);
+        QuitConfirm.SetActive(true);
     }
     void Update()
     {
