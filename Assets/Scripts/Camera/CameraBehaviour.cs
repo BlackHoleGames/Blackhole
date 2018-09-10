@@ -18,8 +18,8 @@ public class CameraBehaviour : MonoBehaviour {
     private Quaternion startRot, targetRot;
     private bool isShaking = false;
     private IEnumerator cameraShake;
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
         startRotating = false;
         toVerticalPos = false;
         //SwitchToMiddle();
@@ -43,7 +43,8 @@ public class CameraBehaviour : MonoBehaviour {
             cameraShake = CrashShake(rumbleDuration, rumbleScope);
             StartCoroutine(cameraShake);
         }
-    }
+        
+	}
 
     public void SwitchCamPosRot() {
         timeToMove = 12.0f;
