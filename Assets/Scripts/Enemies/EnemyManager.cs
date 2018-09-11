@@ -12,6 +12,9 @@ public class EnemyManager : MonoBehaviour {
     public SpawnPoint[] squadronExitPoints;
     public float[] squadTime, delayTime;
     public int lastIntroEnemyIndex;
+    public int asteroidSquadronIndex;
+    public int minibossSquadronIndex;
+    public int structEnemiesIndex;
     private int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
     private bool waitForDelay, instantiatingSubSquads, startSpawning;
@@ -120,6 +123,9 @@ public class EnemyManager : MonoBehaviour {
                 }
             }
         }
+        if (squadronIndex == minibossSquadronIndex) {
+            GetComponentInParent<MapManger>().NotifyManagerSpawnedMinidboss();
+        }
     }
 
     public void StartManager() {
@@ -136,7 +142,11 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void StartNewPhase() {
-        GetComponentInParent<MapManger>().GoToNextStage();
+        Debug.Log(squadronIndex);
+        if (squadronIndex == minibossSquadronIndex+1) {
+            GetComponentInParent<MapManger>().NotifyBossInPosition();
+        }
+        else GetComponentInParent<MapManger>().GoToNextStage();
         StopManager();
     }
 
@@ -167,18 +177,23 @@ public class EnemyManager : MonoBehaviour {
                 break;
             }             
         }
-        StartWait();        
+        StartWait();
+        GetComponentInParent<MapManger>().NotifyManagerSpawnedMinidboss();
     }
 
     public void SetAsteroidWaveIndex() {
-        squadronIndex = 3;
+        squadronIndex = asteroidSquadronIndex;
     }
 
     public void SetStructureWaveIndex() {
-        squadronIndex = 8;
+        squadronIndex = structEnemiesIndex;
     }
 
     public void SetIntroWaveIndex() {
         squadronIndex = 0;
+    }
+
+    public void SetMiniBossIndex() {
+        squadronIndex = minibossSquadronIndex;
     }
 }
