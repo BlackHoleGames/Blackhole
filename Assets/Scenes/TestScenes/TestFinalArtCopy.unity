@@ -5279,6 +5279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actualStage: 0
   meteorDelayDuration: 0.2
+  blackScreenDuration: 3
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
   boss: {fileID: 2070604669}
@@ -8177,7 +8178,6 @@ MonoBehaviour:
   TimeWarpYLimit: 2.5
   RollLimit: 30
   PitchLimit: 30
-  invul: 0
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 0
@@ -8216,6 +8216,7 @@ MonoBehaviour:
   isShotingbyPad: 0
   playerHit: 0
   isAlert: 0
+  isRestoring: 0
   ghostEnabled: 0
   disableSecure: 0
 --- !u!23 &893946461
@@ -13877,7 +13878,6 @@ MonoBehaviour:
   TimeWarpYLimit: 0
   RollLimit: 30
   PitchLimit: 30
-  invul: 1
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 1
@@ -13916,6 +13916,7 @@ MonoBehaviour:
   isShotingbyPad: 0
   playerHit: 0
   isAlert: 0
+  isRestoring: 0
   ghostEnabled: 0
   disableSecure: 0
 --- !u!23 &1738764858
@@ -15113,6 +15114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlackFade: {fileID: 1755672640}
   shutdown: 0
+  SecondsInBH: 2
+  SecondsOutBH: 2
 --- !u!1 &1870366642
 GameObject:
   m_ObjectHideFlags: 0
@@ -15964,6 +15967,52 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3576f697f96abae4787a857300473a00, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &2005021861
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 879
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222961927050438, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925181790457554, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
+      propertyPath: m_Name
+      value: PS_BlackHole
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 40d6ee988ed4fc74c9b4d6a8f9954a0c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2005608961
 GameObject:
