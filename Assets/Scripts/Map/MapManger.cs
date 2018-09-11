@@ -20,10 +20,7 @@ public class MapManger : MonoBehaviour {
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
-    private bool structureMoving = false;
-    private bool bossEnabled = false;
-    private bool meteorsDelayOn = false;
-    private bool timewarpBackgroundDelay = false;
+    private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay, managerstartedminiboss;
     private float meteorDelayCounter, timewarpDelayCounter, blackScreenCounter;
 
 
@@ -40,8 +37,13 @@ public class MapManger : MonoBehaviour {
         meteorDelayCounter = 0.0f;
         timewarpDelayCounter = 0.0f;
         blackScreenCounter = 0.0f;
-        //sm = structure.GetComponent<StructMovement>();
-    }
+        structureMoving = false;
+        bossEnabled = false;
+        meteorsDelayOn = false;
+        managerstartedminiboss = false;
+        timewarpBackgroundDelay = false;
+    //sm = structure.GetComponent<StructMovement>();
+}
 	
 	// Update is called once per frame
 	void Update () {
@@ -81,11 +83,20 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
-                if (mbs) {
-                    if (!mbs.MiniBossStarted()) {
+                if (mbs)
+                {
+                    if (!mbs.MiniBossStarted())
+                    {
                         mbs.InitiateBoss();
                         TimeBombManager.activateBomb2 = true;
                         TimeBombManager.activateBomb3 = true;
+                    }
+                }
+                else {
+                    if (!managerstartedminiboss)
+                    {
+                        em.SetMiniBossIndex();
+                        if (!em.IsManagerSpawning()) em.StartManager();                        
                     }
                 }
                 break;
@@ -357,6 +368,14 @@ public class MapManger : MonoBehaviour {
     }
 
     public void NotifyGameBlackScreen() {
+        onBlackScreen = true;
+    }
 
+    public void NotifyManagerSpawnedMinidboss() {
+        managerstartedminiboss = true;
+    }
+
+    public void NotifyBossInPosition() {
+        actualStage = Stages.MINIBOSS_FIRSTPHASE;
     }
 }

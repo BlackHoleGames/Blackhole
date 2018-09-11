@@ -826,6 +826,9 @@ MonoBehaviour:
   - 2
   - 2
   lastIntroEnemyIndex: 3
+  asteroidSquadronIndex: 3
+  minibossSquadronIndex: 7
+  structEnemiesIndex: 8
 --- !u!1 &82596986
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,8 +5280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057b7d93ecb90b4789beaeef4682d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualStage: 0
+  actualStage: 3
   meteorDelayDuration: 0.2
+  blackScreenDuration: 3
   mbs: {fileID: 0}
   structure: {fileID: 1555097223}
   boss: {fileID: 2070604669}
@@ -8177,7 +8181,6 @@ MonoBehaviour:
   TimeWarpYLimit: 2.5
   RollLimit: 30
   PitchLimit: 30
-  invul: 0
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 0
@@ -8216,6 +8219,7 @@ MonoBehaviour:
   isShotingbyPad: 0
   playerHit: 0
   isAlert: 0
+  isRestoring: 0
   ghostEnabled: 0
   disableSecure: 0
 --- !u!23 &893946461
@@ -13877,7 +13881,6 @@ MonoBehaviour:
   TimeWarpYLimit: 0
   RollLimit: 30
   PitchLimit: 30
-  invul: 1
   sloMo: 2
   alertModeDuration: 3
   invulnerabilityDuration: 1
@@ -13916,6 +13919,7 @@ MonoBehaviour:
   isShotingbyPad: 0
   playerHit: 0
   isAlert: 0
+  isRestoring: 0
   ghostEnabled: 0
   disableSecure: 0
 --- !u!23 &1738764858
@@ -15113,6 +15117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlackFade: {fileID: 1755672640}
   shutdown: 0
+  SecondsInBH: 2
+  SecondsOutBH: 2
 --- !u!1 &1870366642
 GameObject:
   m_ObjectHideFlags: 0

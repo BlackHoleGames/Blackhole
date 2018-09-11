@@ -18,6 +18,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private float shotCounter;
     private MapManger mm;
     private float destructionDelayDuration = 1.5f;
+    private bool moveDown;
     // Use this for initialization
     void Start () {
         hitAudioSource = GetComponent<AudioSource>();
@@ -25,6 +26,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
         materialHitOn = false;
         alive = true;
         shooting = false;
+        moveDown = false;
         shotCounter = shotDuration;
         shotRechargeTime = Random.Range(4.0f,6.0f);
         ela = GetComponent<EnemyLookAt>();
@@ -33,8 +35,14 @@ public class MiniBossWeakpoint : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (alive) {
-            ManageHit();
-            ManageShot();
+            if (moveDown) {
+                if (transform.position.y < 0.1) moveDown = false;
+                else transform.Translate(new Vector3(0.0f,-Time.deltaTime,0.0f));
+            }
+            else {
+                ManageHit();
+                ManageShot();
+            }
         }
         else {
             if (destructionDelayDuration <= 0)
