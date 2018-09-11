@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapManger : MonoBehaviour {
 
     public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
-        STRUCT_ENEMIES, BOSS, BOSS_TRANSITION, ESCAPE}
+        STRUCT_ENEMIES, BOSS_TRANSITION, BOSS, ESCAPE}
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
     public float blackScreenDuration = 3.0f;
@@ -15,17 +15,15 @@ public class MapManger : MonoBehaviour {
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
-        battleTunnel;
+        battleTunnel, blackHole;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
     private EarthRotation er;
-    private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay, managerstartedminiboss;
+    private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay,
+        managerstartedminiboss, blackholeenabled, onBlackScreen, removeBattleStruct;
     private float meteorDelayCounter, timewarpDelayCounter, blackScreenCounter;
 
-
-    private bool removeBattleStruct = true;
-    private bool onBlackScreen = false;
     // Use this for initialization
     void Start () {
         em = GetComponentInChildren<EnemyManager>();
@@ -42,6 +40,9 @@ public class MapManger : MonoBehaviour {
         meteorsDelayOn = false;
         managerstartedminiboss = false;
         timewarpBackgroundDelay = false;
+        blackholeenabled = false;
+        onBlackScreen = false;
+        removeBattleStruct = true;
     //sm = structure.GetComponent<StructMovement>();
 }
 	
@@ -143,12 +144,19 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.BOSS_TRANSITION:
-                tm.StartTimeWarp();
-                timewarpEffect.SetActive(true);
-                if (onBlackScreen)
+                if (!blackholeenabled)
                 {
-                    if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
-                    else GoToNextStage();
+                    blackHole.SetActive(true);
+                    tm.StartTimeWarp();
+                    timewarpEffect.SetActive(true);
+                    blackholeenabled = true;
+                }
+                else {
+                    if (onBlackScreen)
+                    {
+                        if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
+                        else GoToNextStage();
+                    }
                 }
                 break;
             case Stages.BOSS:                
@@ -332,20 +340,16 @@ public class MapManger : MonoBehaviour {
             case Stages.BOSS:
                 if (!removeBattleStruct)
                 {
-                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
-                    {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
                         foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
                     }
-                    else
-                    {
+                    else {
                         Destroy(battleTunnel);
                         removeBattleStruct = true;
                     }
                 }
-                else
-                {
-                    if (!bossEnabled)
-                    {
+                else {
+                    if (!bossEnabled) {
                         TimeBombManager.activateBomb2 = true;
                         TimeBombManager.activateBomb3 = true;
                         boss.SetActive(true);
@@ -377,5 +381,9 @@ public class MapManger : MonoBehaviour {
 
     public void NotifyBossInPosition() {
         actualStage = Stages.MINIBOSS_FIRSTPHASE;
+    }
+
+    public void NotifyBossSecondPhaseStarted() {
+        actualStage = Stages.MINIBOSS_SECONDPHASE;
     }
 }

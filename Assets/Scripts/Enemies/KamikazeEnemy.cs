@@ -95,7 +95,7 @@ public class KamikazeEnemy : MonoBehaviour {
                 ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }          
         }
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player" && alive) {
             Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
 
             squadManager.DecreaseNumber();

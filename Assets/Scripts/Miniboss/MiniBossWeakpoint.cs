@@ -8,7 +8,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
     public float hitFeedbackDuration = 0.25f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
-    public GameObject destroyedBody, destroyedHead, body, projectile;
+    public GameObject destroyedHead, body, projectile;
     private bool hit, materialHitOn, alive,shooting;
     private float hitFeedbackCounter;
     private AudioSource  hitAudioSource;
@@ -16,7 +16,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
     private float shotCounter;
-    private MapManger mm;
     private float destructionDelayDuration = 1.5f;
     private bool moveDown;
     // Use this for initialization
@@ -36,7 +35,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
     void Update () {
         if (alive) {
             if (moveDown) {
-                if (transform.position.y < 0.1) moveDown = false;
+                if (transform.position.y <= 0.0f) moveDown = false;
                 else transform.Translate(new Vector3(0.0f,-Time.deltaTime,0.0f));
             }
             else {
@@ -45,13 +44,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             }
         }
         else {
-            if (destructionDelayDuration <= 0)
-            {
-                foreach (Transform child in destroyedBody.transform)
-                {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                    Destroy(child.gameObject);
-                }
+            if (destructionDelayDuration <= 0) {               
                 foreach (Transform child in destroyedHead.transform)
                 {
                     Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
@@ -111,8 +104,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             if (life <= 0.0f) {
                 GameObject goHead = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
                 goHead.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
-                GameObject goBody = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                goBody.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+
 
                 SwitchToDestroy();
                 alive = false;
@@ -123,11 +115,14 @@ public class MiniBossWeakpoint : MonoBehaviour {
     }
 
     public void SwitchToDestroy() {
-        destroyedBody.SetActive(true);
         destroyedHead.SetActive(true);
         body.SetActive(false);
         //gameObject.SetActive(false);
         Destroy(GetComponent<SphereCollider>());
         GetComponent<Renderer>().enabled = false;
+    }
+
+    public void StartMoveDown() {
+        moveDown = true;
     }
 }

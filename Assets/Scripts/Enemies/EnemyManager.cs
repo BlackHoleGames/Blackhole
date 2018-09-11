@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour {
     private GameObject ChainSquadManager;
     // For debug
     private GameObject actualSquad;
-
+    private MapManger mm;
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour {
         spawnToTransform.Add(SpawnPoint.LEFTUP, spawns[9]);
         spawnToTransform.Add(SpawnPoint.TOPLEFT, spawns[10]);
         spawnToTransform.Add(SpawnPoint.TOP, spawns[11]);
-
+        mm = GetComponentInParent<MapManger>();
         //SpawnNext();
         waitForDelay = false;
     }
@@ -107,13 +107,13 @@ public class EnemyManager : MonoBehaviour {
     {
         if (squadronIndex >= squadrons.Length)
         {
-            GetComponentInParent<MapManger>().GoToNextStage();
-            Destroy(gameObject);
+           mm.GoToNextStage();
+           //Destroy(gameObject);
         }
         else
         {
-            if ((squadronIndex == lastIntroEnemyIndex) && (GetComponentInParent<MapManger>().GetStage() == MapManger.Stages.INTRO)) {
-                StartNewPhase();
+            if ((squadronIndex == lastIntroEnemyIndex) && (mm.GetStage() == MapManger.Stages.INTRO)) {
+                StartNextPhase();
             }
             else {
                 if ((!instantiatingSubSquads))
@@ -124,7 +124,7 @@ public class EnemyManager : MonoBehaviour {
             }
         }
         if (squadronIndex == minibossSquadronIndex) {
-            GetComponentInParent<MapManger>().NotifyManagerSpawnedMinidboss();
+            mm.NotifyManagerSpawnedMinidboss();
         }
     }
 
@@ -141,12 +141,8 @@ public class EnemyManager : MonoBehaviour {
         return startSpawning;
     }
 
-    public void StartNewPhase() {
-        Debug.Log(squadronIndex);
-        if (squadronIndex == minibossSquadronIndex+1) {
-            GetComponentInParent<MapManger>().NotifyBossInPosition();
-        }
-        else GetComponentInParent<MapManger>().GoToNextStage();
+    public void StartNextPhase() {
+        mm.GoToNextStage();
         StopManager();
     }
 
@@ -154,8 +150,7 @@ public class EnemyManager : MonoBehaviour {
         if (squadronIndex < squadrons.Length)
         {
             if (!instantiatingSubSquads) Destroy(actualSquad);
-            else
-            {
+            else {
                 instantiatingSubSquads = false;
                 Destroy(ChainSquadManager);
             }
@@ -178,7 +173,7 @@ public class EnemyManager : MonoBehaviour {
             }             
         }
         StartWait();
-        GetComponentInParent<MapManger>().NotifyManagerSpawnedMinidboss();
+        mm.NotifyManagerSpawnedMinidboss();
     }
 
     public void SetAsteroidWaveIndex() {
@@ -195,5 +190,14 @@ public class EnemyManager : MonoBehaviour {
 
     public void SetMiniBossIndex() {
         squadronIndex = minibossSquadronIndex;
+    }
+
+    public void NotifyMiniBossArrivedToPosition() {
+        mm.NotifyBossInPosition();
+        StopManager();
+    }
+
+    public void NotifyMiniBossSecondPhaseStart() {
+        mm.NotifyBossSecondPhaseStarted();
     }
 }

@@ -2372,7 +2372,6 @@ MonoBehaviour:
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
   tb: {fileID: 0}
-  destroyedBody: {fileID: 1679286144418736}
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
   projectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17, type: 2}
@@ -2447,6 +2446,7 @@ MonoBehaviour:
     type: 2}
   explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
     type: 2}
+  destroyedBody: {fileID: 1679286144418736}
   tb: {fileID: 0}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
 --- !u!135 &135108615772941476

@@ -33,7 +33,8 @@ public class SquadManager : MonoBehaviour {
         movingToPosition = true;
         target = center;
         stayIsDone = false;
-        arrivedToStart = false;        
+        arrivedToStart = false;
+        if (isChainOfEnemies) numOfMembers = subSquadCount;
     }
 	
 	// Update is called once per frame
@@ -73,8 +74,7 @@ public class SquadManager : MonoBehaviour {
         timeToStay = time;
     }
 
-    public void DecreaseNumber() {
-        
+    public void DecreaseNumber() {        
         --numOfMembers;
         if (numOfMembers == 0)
         {
@@ -103,7 +103,7 @@ public class SquadManager : MonoBehaviour {
                     {
                         transform.parent.GetComponent<MapManger>().mbs = script;
                         script.InitiateBoss();
-                        Manager.StartNewPhase();
+                        Manager.NotifyMiniBossArrivedToPosition();
                         Destroy(this);
                     }
                     arrivedToStart = true;

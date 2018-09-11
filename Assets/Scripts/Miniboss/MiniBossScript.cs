@@ -8,24 +8,20 @@ public class MiniBossScript : MonoBehaviour {
 
 
     private EnemyManager em;
-    private MapManger mm;
-
     public float life = 100.0f;
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
-    public float hitFeedbackDuration = 0.25f;
+    public float hitFeedbackDuration = 0.1f;
     public float spawnDelay = 5.0f;
     public Material matOn, matOff;
-    public GameObject enemyProjectile, explosionPS;
-    public TimeBehaviour tb;
+    public GameObject enemyProjectile, destroyedBody;
     public AudioClip gunshot;
-
+    private TimeBehaviour tb;
     private bool hit, materialHitOn, alive, secondPhase;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
-
-
+    private float destructionDelayDuration = 1.5f;
 
     // Use this for initialization
     void Start () {
@@ -44,11 +40,22 @@ public class MiniBossScript : MonoBehaviour {
     void Update () {
         if (start)
         {
-            if (spawnDelay <= 0.0f) ManageShot();
-            else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
-            ManageHit();
-        }
-	}
+            if (alive) {
+                if (spawnDelay <= 0.0f) ManageShot();
+                else spawnDelay -= Time.deltaTime * tb.scaleOfTime;
+                ManageHit();
+            }
+            else {
+                if (destructionDelayDuration <= 0) {
+                    foreach (Transform child in destroyedBody.transform) {
+                        Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                        Destroy(child.gameObject);
+                    }
+                }
+                else destructionDelayDuration -= Time.deltaTime;
+            }
+        }        
+    }
 
     public void InitiateBoss() {
         start = true;
@@ -111,8 +118,13 @@ public class MiniBossScript : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
+                GameObject goBody = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
+                goBody.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                destroyedBody.SetActive(true);
+                Destroy(GetComponent<SphereCollider>());
+                GetComponent<Renderer>().enabled = false;
                 alive = false;
-                em.StartNewPhase();
+                em.StartNextPhase();
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
             }
         }
@@ -125,5 +137,7 @@ public class MiniBossScript : MonoBehaviour {
 
     public void StartSecondPhase() {
         secondPhase = true;
+        transform.parent.gameObject.GetComponentInChildren<MiniBossWeakpoint>().StartMoveDown();
+
     }
 }

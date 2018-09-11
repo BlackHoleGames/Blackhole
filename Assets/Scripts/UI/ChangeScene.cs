@@ -46,6 +46,12 @@ public class ChangeScene : MonoBehaviour {
         SceneCloseTimerSequence = FadeToEndingLevel(2.0f);
         StartCoroutine(SceneCloseTimerSequence);
     }
+
+    public void StartBlackHoleSequence() {
+        SceneBHSequence = FadeToInitBH();
+        StartCoroutine(SceneBHSequence);
+    }
+
     IEnumerator FadeToEndingLevel (float levelTimer)
     {
         BlackFade.CrossFadeAlpha(1.0f, 2.0f, false);

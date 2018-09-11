@@ -5,11 +5,13 @@ using UnityEngine;
 public class BlackHoleTransition : MonoBehaviour {
 
     private MapManger mm;
-    private float fadeToBlackCount = 0.5f;
+    private float fadeToBlackCount = 2.0f;
     public bool startCount = false;
+    private ChangeScene cs;
 	// Use this for initialization
 	void Start () {
         mm = GameObject.Find("Managers").GetComponent<MapManger>();
+        cs = GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>();
 	}
 	
 	// Update is called once per frame
@@ -28,5 +30,6 @@ public class BlackHoleTransition : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         startCount = true;
+        cs.StartBlackHoleSequence();
     }
 }
