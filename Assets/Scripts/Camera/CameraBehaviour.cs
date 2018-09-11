@@ -99,53 +99,53 @@ public class CameraBehaviour : MonoBehaviour {
     }
     public IEnumerator CrashShake(float Shakeduration, float ShakeScope)
     {
-        Vector3 earthPosition = transform.localPosition;
-        Vector3 UIoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
+        //Vector3 earthPosition = transform.localPosition;
+        //Vector3 UIoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
 
-        float elapsed = 0.0f;
+        //float elapsed = 0.0f;
 
-        while (elapsed < Shakeduration && !GameObject.Find("Parent").GetComponent<PlayerDestroyScript>().waitingForDeath)
-        {            
-            float xEarth = Random.Range(-1f, 1f) * ShakeScope;
-            float yEarth = Random.Range(-1f, 1f) * ShakeScope;
-            float zEarth = Random.Range(-1f, 1f) * ShakeScope;
-            float xUI = Random.Range(-10f, 10f) * ShakeScope;
-            float yUI = Random.Range(-10f, 10f) * ShakeScope;            
-            switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
-            {
-                case MapManger.Stages.INTRO:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, zEarth);
-                break;
-                case MapManger.Stages.METEORS_TIMEWARP:
-                    transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
-                    break;
-                case MapManger.Stages.METEORS_ENEMIES:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-                    break;
-                case MapManger.Stages.MINIBOSS_FIRSTPHASE:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-                    break;
-                case MapManger.Stages.MINIBOSS_SECONDPHASE:
-                    transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
-                break;
-                case MapManger.Stages.STRUCT_TIMEWARP:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-                break;
-                case MapManger.Stages.STRUCT_ENEMIES:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-                break;
-                case MapManger.Stages.BOSS:
-                    transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-                break;
-                }
+        //while (elapsed < Shakeduration && !GameObject.Find("Parent").GetComponent<PlayerDestroyScript>().waitingForDeath)
+        //{            
+        //    float xEarth = Random.Range(-1f, 1f) * ShakeScope;
+        //    float yEarth = Random.Range(-1f, 1f) * ShakeScope;
+        //    float zEarth = Random.Range(-1f, 1f) * ShakeScope;
+        //    float xUI = Random.Range(-10f, 10f) * ShakeScope;
+        //    float yUI = Random.Range(-10f, 10f) * ShakeScope;            
+        //    switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
+        //    {
+        //        case MapManger.Stages.INTRO:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, zEarth);
+        //        break;
+        //        case MapManger.Stages.METEORS_TIMEWARP:
+        //            transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
+        //            break;
+        //        case MapManger.Stages.METEORS_ENEMIES:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
+        //            break;
+        //        case MapManger.Stages.MINIBOSS_FIRSTPHASE:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
+        //            break;
+        //        case MapManger.Stages.MINIBOSS_SECONDPHASE:
+        //            transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
+        //        break;
+        //        case MapManger.Stages.STRUCT_TIMEWARP:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
+        //        break;
+        //        case MapManger.Stages.STRUCT_ENEMIES:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
+        //        break;
+        //        case MapManger.Stages.BOSS:
+        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
+        //        break;
+        //        }
                     
-                GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(xUI * 2, yUI*2, UIoriginalPosition.z);
-                elapsed += Time.deltaTime;
+        //        GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(xUI * 2, yUI*2, UIoriginalPosition.z);
+        //        elapsed += Time.deltaTime;
 
-                yield return null;
-        }
-        transform.localPosition = earthPosition;
-        GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = UIoriginalPosition;
+        //        yield return null;
+        //}
+        //transform.localPosition = earthPosition;
+        //GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = UIoriginalPosition;
         yield return new WaitForSeconds(1.5f);
         isShaking = false;
     }

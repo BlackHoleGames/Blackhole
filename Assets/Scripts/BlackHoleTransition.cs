@@ -6,7 +6,7 @@ public class BlackHoleTransition : MonoBehaviour {
 
     private MapManger mm;
     private float fadeToBlackCount = 0.5f;
-    private bool startCount = false;
+    public bool startCount = false;
 	// Use this for initialization
 	void Start () {
         mm = GameObject.Find("Managers").GetComponent<MapManger>();
@@ -19,6 +19,7 @@ public class BlackHoleTransition : MonoBehaviour {
             if (fadeToBlackCount <= 0.0f)
             {
                 mm.NotifyGameBlackScreen();
+                startCount = false;
                 Destroy(gameObject);
             }
         }

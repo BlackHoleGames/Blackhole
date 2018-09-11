@@ -7,6 +7,7 @@ public class PlayerDestroyScript : MonoBehaviour {
    
     public bool waitingForDeath = false;
     private IEnumerator DeathTimerSequence;
+    private IEnumerator InvulnerableTimerSequence;
     public GameObject pdestroyed,pspacecraft,propeller,playercontrol,alert;
     Vector3 playerFirstPosition;
     Vector3 DestroyedFirstPosition;
@@ -86,5 +87,23 @@ public class PlayerDestroyScript : MonoBehaviour {
         while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
         waitingForDeath = false;
+        InvulnerableTimerSequence = InvulnerableSequence();
+        StartCoroutine(InvulnerableTimerSequence);
+    }
+    IEnumerator InvulnerableSequence()
+    {
+        Renderer rend = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
+        Color alpha = rend.material.color;
+        //Physics2D p2dPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Physics2D>();
+        //Physics2D.IgnoreCollision(8, 9, true);
+
+        for (int i = 0; i < 6; i++) {
+            alpha.a = 0.0f;
+            rend.material.color = alpha;
+            yield return new WaitForSeconds(0.5f);
+            alpha.a = 1.0f;
+            rend.material.color = alpha;
+        }
+        //Physics2D.IgnoreCollision(8, 9, false);
     }
 }
