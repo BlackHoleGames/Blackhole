@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAlert : MonoBehaviour {
     public GameObject psAlert;
     private IEnumerator AlertTimerSequence;
+    private bool secure = false;
     // Use this for initialization
     void Start () {
 		
@@ -13,8 +14,10 @@ public class PlayerAlert : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isAlert
-            && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath)
+            && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath
+            && !secure)
         {
+            secure = true;
             AlertTimerSequence = AlertSequence(3.0f);
             StartCoroutine(AlertTimerSequence);
         }
@@ -26,6 +29,6 @@ public class PlayerAlert : MonoBehaviour {
         yield return new WaitForSeconds(waitToDeath);
         psAlert.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isAlert = false;
-        //Restore();
+        secure = false;
     }
 }

@@ -59,7 +59,7 @@ public class PlayerDestroyScript : MonoBehaviour {
         playercontrol.SetActive(false);
         pspacecraft.SetActive(false);
         propeller.SetActive(false);
-        alert.SetActive(false);
+        //alert.SetActive(false);
         pdestroyed.SetActive(true);
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
         foreach (Transform child in pdestroyed.transform)
@@ -82,6 +82,7 @@ public class PlayerDestroyScript : MonoBehaviour {
         pdestroyed.SetActive(false);
         playercontrol.SetActive(true);
         pspacecraft.SetActive(true);
+        //alert.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
         while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
@@ -92,18 +93,18 @@ public class PlayerDestroyScript : MonoBehaviour {
     }
     IEnumerator InvulnerableSequence()
     {
-        Renderer rend = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
-        Color alpha = rend.material.color;
-        //Physics2D p2dPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Physics2D>();
-        //Physics2D.IgnoreCollision(8, 9, true);
-
-        for (int i = 0; i < 6; i++) {
-            alpha.a = 0.0f;
-            rend.material.color = alpha;
-            yield return new WaitForSeconds(0.5f);
-            alpha.a = 1.0f;
-            rend.material.color = alpha;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = true;
+        alert.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        for (int i = 0; i < 10; i++)
+        {
+            pspacecraft.gameObject.SetActive(false);
+            propeller.SetActive(false);
+            yield return new WaitForSeconds(0.25f);
+            pspacecraft.gameObject.SetActive(true);
+            propeller.SetActive(true);
+            yield return new WaitForSeconds(0.25f);
         }
-        //Physics2D.IgnoreCollision(8, 9, false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = false;
     }
 }

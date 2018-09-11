@@ -19,7 +19,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float TimeWarpYLimit;
     public float RollLimit = 30.0f;
     public float PitchLimit = 30.0f;
-    public float invul = 1.0f;
+    //public float invul = 1.0f;
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
     public float invulnerabilityDuration = 2.0f;
@@ -49,7 +49,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    public bool ghostEnabled,disableSecure = false;
+    public bool isRestoring, ghostEnabled,disableSecure = false;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -415,82 +415,85 @@ public class SwitchablePlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDestroyScript>().waitToRespawn)
-        if (!godMode)
-        {
-            if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
+        if (!isRestoring)
+        { 
+            if (!godMode)
             {
-                RumblePad.RumbleState = 1;//Normal Impact
-//                StartCoroutine(GetComponent<CameraBehaviour>().CrashShake(0.15f, 0.4f));
-//                GetComponent()CrashShake(0.15f, 0.4f));
-                //StartCoroutine(cameraShaking.CrashShake(0.15f, 0.4f));
-                if (alertModeTime > 0.0f)
+                if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
                 {
-                    if (!alarm.isPlaying) alarm.Play();
-                    if (playerHit)
+                    RumblePad.RumbleState = 1;//Normal Impact
+    //                StartCoroutine(GetComponent<CameraBehaviour>().CrashShake(0.15f, 0.4f));
+    //                GetComponent()CrashShake(0.15f, 0.4f));
+                    //StartCoroutine(cameraShaking.CrashShake(0.15f, 0.4f));
+                    if (alertModeTime > 0.0f)
                     {
-                        //
-                        if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                        if (!alarm.isPlaying) alarm.Play();
+                        if (playerHit)
                         {
-                            isUpdatingLife = true;
-                            isAlert = true;
-                            actualLife = actualLife - (shield / 2.0f);
-                            alertModeTime = alertModeDuration;
-                            life.value = actualLife;
-                            lifePoints = (int)actualLife;
-                            if (actualLife <= 0.0f)
+                            //
+                            if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                             {
-                                if (tm.InSlowMo()) tm.DoSpeedUp();
-                                is_firing = false;
-                                firingCounter = 0.0f;
-                                DestroyGhots();
-                                actualLife = 0.0f;
+                                isUpdatingLife = true;
+                                isAlert = true;
+                                actualLife = actualLife - (shield / 2.0f);
+                                alertModeTime = alertModeDuration;
+                                life.value = actualLife;
                                 lifePoints = (int)actualLife;
-                                tm.RestoreTime();
-                                fillLife.enabled = false;
-                                isDestroying = true;
-                                lives--;
-                                
-                                if (lives < 0)
+                                if (actualLife <= 0.0f)
                                 {
-                                    RumblePad.RumbleState = 6;
-                                    isDeath = true;
-                                    isFinished = true;
-                                    liveValue.text = "";
-                                    SaveGameStatsScript.GameStats.isGameOver = true;
-                                    SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
-                                }
+                                    alertModeTime = 0.0f;
+                                    isAlert = false;
+                                    if (tm.InSlowMo()) tm.DoSpeedUp();
+                                    is_firing = false;
+                                    firingCounter = 0.0f;
+                                    DestroyGhots();
+                                    actualLife = 0.0f;
+                                    lifePoints = (int)actualLife;
+                                    tm.RestoreTime();
+                                    fillLife.enabled = false;
+                                    isDestroying = true;
+                                    lives--;
+                                
+                                    if (lives < 0)
+                                    {
+                                        RumblePad.RumbleState = 6;
+                                        isDeath = true;
+                                        isFinished = true;
+                                        liveValue.text = "";
+                                        SaveGameStatsScript.GameStats.isGameOver = true;
+                                        SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
+                                    }
+                                    else
+                                    {
+                                        liveValue.text = "X" + lives.ToString();
+                                        RumblePad.RumbleState = 5;
+                                    }
+                            
+                                    //SceneManager.LoadScene(6);
+                                    //TimerScript.gameover = true;
+                                    //Remaining deaht animation before this bool.                        
+                                } // Death  
                                 else
                                 {
-                                    liveValue.text = "X" + lives.ToString();
-                                    RumblePad.RumbleState = 5;
-                                }
-                            
-                                //SceneManager.LoadScene(6);
-                                //TimerScript.gameover = true;
-                                //Remaining deaht animation before this bool.                        
-                            } // Death  
-                            else
+                                    //RumblePad.RumbleState = 1; //Alarm
+                                }              
+                            }
+                            if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
                             {
-                                //RumblePad.RumbleState = 1; //Alarm
-                            }              
-                        }
-                        if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
-                        {
                             
-                            slomo.Play();
-                            tm.StartSloMo();
-                            alertModeTime = alertModeDuration;
-                            DestroyGhots();
+                                slomo.Play();
+                                tm.StartSloMo();
+                                alertModeTime = alertModeDuration;
+                                DestroyGhots();
+                            }
                         }
+                        else playerHit = true;
                     }
-                    else playerHit = true;
-                }
-                else alertModeTime = alertModeDuration;
+                    else alertModeTime = alertModeDuration;
 
+                }
             }
         }
-        //}
     }
 
     public void AddLife(float amount)
