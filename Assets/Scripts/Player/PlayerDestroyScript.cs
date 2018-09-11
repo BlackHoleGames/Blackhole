@@ -23,6 +23,9 @@ public class PlayerDestroyScript : MonoBehaviour {
         destroyArray = new List<GameObject>();
         noLifesRemaining = false;
         PlayerColliders = playercontrol.GetComponents<BoxCollider>();
+        //Invulnerability First Time
+        InvulnerableTimerSequence = InvulnerableSequence();
+        StartCoroutine(InvulnerableTimerSequence);
     }
 	
 	// Update is called once per frame
@@ -122,7 +125,7 @@ public class PlayerDestroyScript : MonoBehaviour {
             alert.SetActive(true);
             alert.GetComponent<ParticleSystem>().Play();
         }
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 5; i++)
         {
             pspacecraft.gameObject.SetActive(false);
             propeller.SetActive(false);

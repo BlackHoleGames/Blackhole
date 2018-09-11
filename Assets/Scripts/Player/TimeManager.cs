@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour {
     public float actualmaxspeed = 2.0f;
     public float slomoDuration = 2.0f;
     public float timeWarpDuration = 10.0f;
-    public float timeToGTLIncrease = 15.0f;
+    public float timeToGTLIncrease = 5.0f;
     public float wormHoleDuration = 10.0f;
     public float wormholeMultiplier = 3.0f;
     private bool slowDown = false;
