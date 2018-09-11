@@ -49,7 +49,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    public bool isRestoring, ghostEnabled,disableSecure = false;
+    public bool isRestoring, ghostEnabled, invulAfterSlow, disableSecure = false;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -422,27 +422,27 @@ public class SwitchablePlayerController : MonoBehaviour
                 if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
                 {
                     RumblePad.RumbleState = 1;//Normal Impact
-    //                StartCoroutine(GetComponent<CameraBehaviour>().CrashShake(0.15f, 0.4f));
-    //                GetComponent()CrashShake(0.15f, 0.4f));
-                    //StartCoroutine(cameraShaking.CrashShake(0.15f, 0.4f));
                     if (alertModeTime > 0.0f)
                     {
-                        if (!alarm.isPlaying) alarm.Play();
+                        if (!alarm.isPlaying)
+                        {
+                            alarm.Play();
+                            isAlert = true;
+                        }
                         if (playerHit)
                         {
-                            //
                             if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                             {
                                 isUpdatingLife = true;
-                                isAlert = true;
+                                
                                 actualLife = actualLife - (shield / 2.0f);
                                 alertModeTime = alertModeDuration;
                                 life.value = actualLife;
                                 lifePoints = (int)actualLife;
                                 if (actualLife <= 0.0f)
                                 {
-                                    alertModeTime = 0.0f;
-                                    isAlert = false;
+                                    //alertModeTime = 0.0f;
+                                    //isAlert = false;
                                     if (tm.InSlowMo()) tm.DoSpeedUp();
                                     is_firing = false;
                                     firingCounter = 0.0f;
@@ -467,6 +467,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     {
                                         liveValue.text = "X" + lives.ToString();
                                         RumblePad.RumbleState = 5;
+                                        alertModeTime = 0.0f;
                                     }
                             
                                     //SceneManager.LoadScene(6);
@@ -475,6 +476,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 } // Death  
                                 else
                                 {
+                                    if (!tm.InSlowMo()) invulAfterSlow = true;
                                     //RumblePad.RumbleState = 1; //Alarm
                                 }              
                             }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerDestroyScript : MonoBehaviour {
    
     public bool waitingForDeath = false;
+    public bool waitingForHit = false;
     private IEnumerator DeathTimerSequence;
     private IEnumerator InvulnerableTimerSequence;
     public GameObject pdestroyed,pspacecraft,propeller,playercontrol,alert;
@@ -13,12 +14,15 @@ public class PlayerDestroyScript : MonoBehaviour {
     Vector3 DestroyedFirstPosition;
     private List<GameObject> destroyArray;
     public bool noLifesRemaining = false;
+    public float TimeFlickRespawn = 0.2f;
+    BoxCollider[] PlayerColliders;
     // Use this for initialization
     void Start () {
         playerFirstPosition = gameObject.transform.position;
         DestroyedFirstPosition = gameObject.transform.position;
         destroyArray = new List<GameObject>();
         noLifesRemaining = false;
+        PlayerColliders = playercontrol.GetComponents<BoxCollider>();
     }
 	
 	// Update is called once per frame
@@ -32,6 +36,15 @@ public class PlayerDestroyScript : MonoBehaviour {
                 waitingForDeath = true;                
                 DeathTimerSequence = DeathSequence(6.0f);
                 StartCoroutine(DeathTimerSequence);
+                
+            }
+            else if (GameObject.FindGameObjectWithTag("Player") != null &&
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulAfterSlow &&
+                !waitingForHit)
+            {
+                waitingForHit = true;
+                InvulnerableTimerSequence = InvulnerableSequence();
+                StartCoroutine(InvulnerableTimerSequence);
             }
         }
 	}
@@ -56,10 +69,12 @@ public class PlayerDestroyScript : MonoBehaviour {
         Vector3 newPos = new Vector3(pspacecraft.transform.position.x, pspacecraft.transform.position.y, pspacecraft.transform.position.z);
         pdestroyed.transform.position = newPos;
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
+        foreach (BoxCollider pc in PlayerColliders) pc.enabled = false;
         playercontrol.SetActive(false);
         pspacecraft.SetActive(false);
         propeller.SetActive(false);
-        //alert.SetActive(false);
+        alert.GetComponent<ParticleSystem>().Stop();
+        alert.SetActive(false);
         pdestroyed.SetActive(true);
         pdestroyed.GetComponentInChildren<Transform>().position = newPos;
         foreach (Transform child in pdestroyed.transform)
@@ -81,8 +96,10 @@ public class PlayerDestroyScript : MonoBehaviour {
             if(child.name=="Impulse") child.gameObject.SetActive(true);
         pdestroyed.SetActive(false);
         playercontrol.SetActive(true);
+        //foreach (BoxCollider pc in PlayerColliders) pc.enabled = true;
         pspacecraft.SetActive(true);
-        //alert.SetActive(true);
+        alert.SetActive(true);
+        alert.GetComponent<ParticleSystem>().Stop();
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
         while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
@@ -94,17 +111,39 @@ public class PlayerDestroyScript : MonoBehaviour {
     IEnumerator InvulnerableSequence()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = true;
-        alert.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        for (int i = 0; i < 10; i++)
+        foreach (BoxCollider pc in PlayerColliders) pc.enabled = false;
+        if (!waitingForHit)
+        {
+            alert.SetActive(false);
+            alert.GetComponent<ParticleSystem>().Stop();
+        }
+        else
+        {
+            alert.SetActive(true);
+            alert.GetComponent<ParticleSystem>().Play();
+        }
+        for (int i = 0; i < 15; i++)
         {
             pspacecraft.gameObject.SetActive(false);
             propeller.SetActive(false);
-            yield return new WaitForSeconds(0.25f);
+            if (waitingForDeath)
+            {
+                pspacecraft.gameObject.SetActive(false);
+                propeller.SetActive(false);
+                break;
+            }
+            yield return new WaitForSeconds(TimeFlickRespawn);
             pspacecraft.gameObject.SetActive(true);
             propeller.SetActive(true);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(TimeFlickRespawn);
         }
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = false;
+        foreach (BoxCollider pc in PlayerColliders) pc.enabled = true;
+        if (GameObject.FindGameObjectWithTag("Player")!=null)
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = false;
+        if (waitingForHit)
+        {
+            waitingForHit = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulAfterSlow = false;
+        }
     }
 }
