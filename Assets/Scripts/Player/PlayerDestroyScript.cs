@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDestroyScript : MonoBehaviour {
-   
+public class PlayerDestroyScript : MonoBehaviour
+{
+
     public bool waitingForDeath = false;
     public bool waitingForHit = false;
     private IEnumerator DeathTimerSequence;
     private IEnumerator InvulnerableTimerSequence;
-    public GameObject pdestroyed,pspacecraft,propeller,playercontrol,alert;
+    public GameObject pdestroyed, pspacecraft, propeller, playercontrol, alert;
     Vector3 playerFirstPosition;
     Vector3 DestroyedFirstPosition;
     private List<GameObject> destroyArray;
     public bool noLifesRemaining = false;
-    public float TimeFlickRespawn = 0.2f;
+    //public float TimeFlickRespawn = 0.1f;
     BoxCollider[] PlayerColliders;
+    public float timeToInvulnerability = 3.0f;
+    private bool finishTimeInv = false;
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         playerFirstPosition = gameObject.transform.position;
         DestroyedFirstPosition = gameObject.transform.position;
         destroyArray = new List<GameObject>();
@@ -27,19 +32,20 @@ public class PlayerDestroyScript : MonoBehaviour {
         InvulnerableTimerSequence = InvulnerableSequence();
         StartCoroutine(InvulnerableTimerSequence);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!waitingForDeath)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null && 
+            if (GameObject.FindGameObjectWithTag("Player") != null &&
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying &&
                 !waitingForDeath)
             {
-                waitingForDeath = true;                
+                waitingForDeath = true;
                 DeathTimerSequence = DeathSequence(6.0f);
                 StartCoroutine(DeathTimerSequence);
-                
+
             }
             else if (GameObject.FindGameObjectWithTag("Player") != null &&
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulAfterSlow &&
@@ -50,17 +56,18 @@ public class PlayerDestroyScript : MonoBehaviour {
                 StartCoroutine(InvulnerableTimerSequence);
             }
         }
-	}
+    }
 
     IEnumerator DeathSequence(float waitToDeath)
     {
         noLifesRemaining = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isFinished;
         if (!noLifesRemaining)
-        { 
+        {
             Destroy();
             yield return new WaitForSeconds(waitToDeath);
             Restore();
-        }else
+        }
+        else
         {
             GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
             Destroy();
@@ -91,12 +98,12 @@ public class PlayerDestroyScript : MonoBehaviour {
             }
             else child.gameObject.SetActive(false);
         }
-        
+
     }
     public void Restore()
     {
         foreach (Transform child in pdestroyed.transform)
-            if(child.name=="Impulse") child.gameObject.SetActive(true);
+            if (child.name == "Impulse") child.gameObject.SetActive(true);
         pdestroyed.SetActive(false);
         playercontrol.SetActive(true);
         //foreach (BoxCollider pc in PlayerColliders) pc.enabled = true;
@@ -105,7 +112,7 @@ public class PlayerDestroyScript : MonoBehaviour {
         alert.GetComponent<ParticleSystem>().Stop();
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
-        while(GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife<10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
+        while (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife < 10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
         waitingForDeath = false;
         InvulnerableTimerSequence = InvulnerableSequence();
@@ -125,7 +132,9 @@ public class PlayerDestroyScript : MonoBehaviour {
             alert.SetActive(true);
             alert.GetComponent<ParticleSystem>().Play();
         }
-        for (int i = 0; i < 5; i++)
+        InvulnerableTimerSequence = InvulnerableTimeSequence();
+        StartCoroutine(InvulnerableTimerSequence);
+        while (!finishTimeInv)
         {
             pspacecraft.gameObject.SetActive(false);
             propeller.SetActive(false);
@@ -135,18 +144,24 @@ public class PlayerDestroyScript : MonoBehaviour {
                 propeller.SetActive(false);
                 break;
             }
-            yield return new WaitForSeconds(TimeFlickRespawn);
+            yield return new WaitForSeconds(Time.deltaTime);
             pspacecraft.gameObject.SetActive(true);
             propeller.SetActive(true);
-            yield return new WaitForSeconds(TimeFlickRespawn);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
+        finishTimeInv = false;
         foreach (BoxCollider pc in PlayerColliders) pc.enabled = true;
-        if (GameObject.FindGameObjectWithTag("Player")!=null)
+        if (GameObject.FindGameObjectWithTag("Player") != null)
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring = false;
         if (waitingForHit)
         {
             waitingForHit = false;
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulAfterSlow = false;
         }
+    }
+    IEnumerator InvulnerableTimeSequence()
+    {
+        yield return new WaitForSeconds(timeToInvulnerability);
+        finishTimeInv = true;
     }
 }
