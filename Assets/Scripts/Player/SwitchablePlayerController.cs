@@ -441,6 +441,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 lifePoints = (int)actualLife;
                                 if (actualLife <= 0.0f)
                                 {
+                                    Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
                                     //alertModeTime = 0.0f;
                                     //isAlert = false;
                                     if (tm.InSlowMo()) tm.DoSpeedUp();
