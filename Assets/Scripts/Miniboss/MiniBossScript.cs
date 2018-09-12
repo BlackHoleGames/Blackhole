@@ -12,7 +12,7 @@ public class MiniBossScript : MonoBehaviour {
     public float shotCooldown = 5.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
-    public float hitFeedbackDuration = 0.1f;
+    public float hitFeedbackDuration = 0.05f;
     public float spawnDelay = 5.0f;
     public Material matOn, matOff;
     public GameObject enemyProjectile, destroyedBody;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniBossWeakpoint : MonoBehaviour {
 
     public float life = 100.0f;
-    public float hitFeedbackDuration = 0.25f;
+    public float hitFeedbackDuration = 0.05f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
     public GameObject destroyedHead, body, projectile;
@@ -38,10 +38,8 @@ public class MiniBossWeakpoint : MonoBehaviour {
                 if (transform.position.y <= 0.0f) moveDown = false;
                 else transform.Translate(new Vector3(0.0f,-Time.deltaTime,0.0f));
             }
-            else {
-                ManageHit();
-                ManageShot();
-            }
+            else ManageShot();            
+            ManageHit();
         }
         else {
             if (destructionDelayDuration <= 0) {               
@@ -104,8 +102,6 @@ public class MiniBossWeakpoint : MonoBehaviour {
             if (life <= 0.0f) {
                 GameObject goHead = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
                 goHead.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
-
-
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);
