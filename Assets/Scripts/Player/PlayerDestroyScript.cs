@@ -43,7 +43,7 @@ public class PlayerDestroyScript : MonoBehaviour
                 !waitingForDeath)
             {
                 waitingForDeath = true;
-                DeathTimerSequence = DeathSequence(6.0f);
+                DeathTimerSequence = DeathSequence(3.0f);
                 StartCoroutine(DeathTimerSequence);
 
             }
@@ -93,8 +93,8 @@ public class PlayerDestroyScript : MonoBehaviour
             {
                 child.GetComponent<Transform>().transform.position = newPos;
                 child.GetComponent<TimeRewindBody>().rewinding = false;
-                child.GetComponent<TimeRewindBody>().timeBeforeRewind = 3.0f;
-                child.GetComponent<TimeRewindBody>().recordingTime = 5.0f;
+                child.GetComponent<TimeRewindBody>().timeBeforeRewind = 1.5f;
+                child.GetComponent<TimeRewindBody>().recordingTime = 2.5f;
             }
             else child.gameObject.SetActive(false);
         }
@@ -144,10 +144,10 @@ public class PlayerDestroyScript : MonoBehaviour
                 propeller.SetActive(false);
                 break;
             }
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(0.2f);
             pspacecraft.gameObject.SetActive(true);
             propeller.SetActive(true);
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(0.2f);
         }
         finishTimeInv = false;
         foreach (BoxCollider pc in PlayerColliders) pc.enabled = true;

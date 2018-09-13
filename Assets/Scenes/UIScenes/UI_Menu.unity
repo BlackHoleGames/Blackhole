@@ -2705,6 +2705,6 @@ MonoBehaviour:
   Action: 0
   mainMenu: {fileID: 924644213}
   Settings: {fileID: 602465052}
-  Quit: {fileID: 0}
+  Quit: {fileID: 1533562882}
   activateScroll: 0
   soundChange: {fileID: 8300000, guid: cd910b078e5b11040bf3216d04ac301d, type: 3}
