@@ -16,7 +16,7 @@ public class MapManger : MonoBehaviour {
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
-        battleTunnel, blackHole;
+        battleTunnel, blackHole, spacelights, structlights, bosslights;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
@@ -152,36 +152,45 @@ public class MapManger : MonoBehaviour {
                     timewarpEffect.SetActive(true);
                     blackholeenabled = true;
                 }
-                else {
+                if (!removeBattleStruct)
+                {
+                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
+                    {
+                        foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
+                    }
+                    else
+                    {
+                        Destroy(battleTunnel);
+                        removeBattleStruct = true;
+                    }
+                }
+                else
+                {                                  
                     if (onBlackScreen)
                     {
                         if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
                         else
                         {
                             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
+                            tm.StopTimeWarp();
                             GoToNextStage();
                         }
-                    }
+                    }                  
                 }
                 break;
             case Stages.BOSS:                
-                if (!removeBattleStruct) {
-                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0) {
-                        foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();                        
-                    }
-                    else {
-                        Destroy(battleTunnel);
-                        removeBattleStruct = true;
-                    }
+                
+                
+                if (!bossEnabled) {
+                    // Activate boss lights
+                    //Destroy(structlights);
+                    //bosslights.SetActive(true);
+                    TimeBombManager.activateBomb2 = true;
+                    TimeBombManager.activateBomb3 = true;
+                    boss.SetActive(true);
+                    bossEnabled = true;
                 }
-                else {
-                    if (!bossEnabled) {
-                        TimeBombManager.activateBomb2 = true;
-                        TimeBombManager.activateBomb3 = true;
-                        boss.SetActive(true);
-                        bossEnabled = true;
-                    }
-                }
+                
                 break;
             case Stages.ESCAPE:
                 break;
@@ -218,6 +227,8 @@ public class MapManger : MonoBehaviour {
 
     public void EnteredStructure() {
         if (spawnedEndMeteors) Destroy(spawnedEndMeteors);
+        Destroy(spacelights);
+        structlights.SetActive(true);
     }
 
     public void GoToNextStage() {
@@ -391,4 +402,5 @@ public class MapManger : MonoBehaviour {
     public void NotifyBossSecondPhaseStarted() {
         actualStage = Stages.MINIBOSS_SECONDPHASE;
     }
+
 }
