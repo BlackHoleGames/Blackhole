@@ -25,7 +25,8 @@ public class Projectile : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "ghost" && other.gameObject.tag != "timeBubble"
-            && other.gameObject.tag != "powerUp" && other.gameObject.tag != "EnemyProjectile" && other.gameObject.tag != "SquadManager") {
+            && other.gameObject.tag != "powerUp" && other.gameObject.tag != "EnemyProjectile" && other.gameObject.tag != "SquadManager"
+            && other.gameObject.tag != "DodgeSection") {
             Instantiate(Resources.Load("PS_ProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }

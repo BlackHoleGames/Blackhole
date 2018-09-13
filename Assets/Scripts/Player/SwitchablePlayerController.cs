@@ -424,13 +424,13 @@ public class SwitchablePlayerController : MonoBehaviour
                     RumblePad.RumbleState = 1;//Normal Impact
                     if (alertModeTime > 0.0f)
                     {
-                        if (!alarm.isPlaying)
-                        {
-                            alarm.Play();
-                            isAlert = true;
-                        }
-                        if (playerHit)
-                        {
+                        //if (!alarm.isPlaying)
+                        //{
+                        //    alarm.Play();
+                        //    isAlert = true;
+                        //}
+                        //if (playerHit)
+                        //{
                             if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                             {
                                 isUpdatingLife = true;
@@ -489,8 +489,8 @@ public class SwitchablePlayerController : MonoBehaviour
                                 alertModeTime = alertModeDuration;
                                 DestroyGhots();
                             }
-                        }
-                        else playerHit = true;
+                        //}
+                        //else playerHit = true;
                     }
                     else alertModeTime = alertModeDuration;
 

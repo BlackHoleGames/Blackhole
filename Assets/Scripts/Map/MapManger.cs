@@ -6,6 +6,7 @@ public class MapManger : MonoBehaviour {
 
     public enum Stages {INTRO, METEORS_TIMEWARP, METEORS_ENEMIES, MINIBOSS_FIRSTPHASE, MINIBOSS_SECONDPHASE, STRUCT_TIMEWARP,
         STRUCT_ENEMIES, BOSS_TRANSITION, BOSS, ESCAPE}
+
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
     public float blackScreenDuration = 3.0f;
@@ -155,7 +156,11 @@ public class MapManger : MonoBehaviour {
                     if (onBlackScreen)
                     {
                         if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
-                        else GoToNextStage();
+                        else
+                        {
+                            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
+                            GoToNextStage();
+                        }
                     }
                 }
                 break;

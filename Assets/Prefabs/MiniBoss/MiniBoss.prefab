@@ -2367,7 +2367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74af3e43d91d54847bb31664f11bfd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1000
+  life: 500
   hitFeedbackDuration: 0.25
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}

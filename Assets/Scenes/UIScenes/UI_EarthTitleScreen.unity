@@ -414,6 +414,15 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 156.25
       objectReference: {fileID: 0}
+    - target: {fileID: 33297368496949500, guid: 70b7b626520dd314baab217124b1e167,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 0fee29714296c064b8b01d945f8f74fa, type: 3}
+    - target: {fileID: 1376439450610946, guid: 70b7b626520dd314baab217124b1e167, type: 2}
+      propertyPath: m_Name
+      value: EarthTitle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70b7b626520dd314baab217124b1e167, type: 2}
   m_IsPrefabParent: 0

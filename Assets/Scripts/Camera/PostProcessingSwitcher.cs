@@ -98,4 +98,8 @@ public class PostProcessingSwitcher : MonoBehaviour {
         if (newProfile == Profiles.MAGNETIC_STORM) StartMagneticEffect = true;
  
     }
+
+    public void ActivateDamageEffect() {
+        StartDamageEffect = true;
+    }
 }
