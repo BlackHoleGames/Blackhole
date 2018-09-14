@@ -34,7 +34,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
-    private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
+    private AudioSource slomo, timebomb, gunshot, timewarp;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
@@ -80,7 +80,6 @@ public class SwitchablePlayerController : MonoBehaviour
         timebomb = audioSources[1];
         gunshot = audioSources[2];
         timewarp = audioSources[3];
-        alarm = audioSources[4];
         liveValue.text = "X3";
         //parentAxis = gameObject;
     }
@@ -114,7 +113,6 @@ public class SwitchablePlayerController : MonoBehaviour
             if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
             else
             {
-                if (alarm.isPlaying) alarm.Stop();
                 playerHit = false;
             }
             if (readjustPosition) ReadjustPlayer();
