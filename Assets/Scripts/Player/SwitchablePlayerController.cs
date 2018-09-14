@@ -46,7 +46,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, isAlert = false;
+    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool isRestoring, ghostEnabled, invulAfterSlow, disableSecure = false;
@@ -414,78 +414,74 @@ public class SwitchablePlayerController : MonoBehaviour
                     RumblePad.RumbleState = 1;//Normal Impact
                     if (alertModeTime > 0.0f)
                     {
-                        //if (!alarm.isPlaying)
-                        //{
-                        //    alarm.Play();
-                        //    isAlert = true;
-                        //}
-                        //if (playerHit)
-                        //{
-                            if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                        
+                        if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                        {
+                            isUpdatingLife = true;
+                                
+                            actualLife = actualLife - (shield / 2.0f);
+                            alertModeTime = alertModeDuration;
+                            life.value = actualLife;
+                            lifePoints = (int)actualLife;
+                            if (actualLife <= 0.0f)
                             {
-                                isUpdatingLife = true;
-                                
-                                actualLife = actualLife - (shield / 2.0f);
-                                alertModeTime = alertModeDuration;
-                                life.value = actualLife;
+                                Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
+                                //alertModeTime = 0.0f;
+                                //isAlert = false;
+                                if (tm.InSlowMo()) tm.DoSpeedUp();
+                                is_firing = false;
+                                firingCounter = 0.0f;
+                                DestroyGhots();
+                                actualLife = 0.0f;
                                 lifePoints = (int)actualLife;
-                                if (actualLife <= 0.0f)
-                                {
-                                    Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
-                                    //alertModeTime = 0.0f;
-                                    //isAlert = false;
-                                    if (tm.InSlowMo()) tm.DoSpeedUp();
-                                    is_firing = false;
-                                    firingCounter = 0.0f;
-                                    DestroyGhots();
-                                    actualLife = 0.0f;
-                                    lifePoints = (int)actualLife;
-                                    tm.RestoreTime();
-                                    fillLife.enabled = false;
-                                    isDestroying = true;
-                                    lives--;
+                                tm.RestoreTime();
+                                fillLife.enabled = false;
+                                isDestroying = true;
+                                lives--;
                                 
-                                    if (lives < 0)
-                                    {
-                                        RumblePad.RumbleState = 6;
-                                        isDeath = true;
-                                        isFinished = true;
-                                        liveValue.text = "";
-                                        SaveGameStatsScript.GameStats.isGameOver = true;
-                                        SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
-                                    }
-                                    else
-                                    {
-                                        liveValue.text = "X" + lives.ToString();
-                                        RumblePad.RumbleState = 5;
-                                        alertModeTime = 0.0f;
-                                    }
-                            
-                                    //SceneManager.LoadScene(6);
-                                    //TimerScript.gameover = true;
-                                    //Remaining deaht animation before this bool.                        
-                                } // Death  
+                                if (lives < 0)
+                                {
+                                    RumblePad.RumbleState = 6;
+                                    isDeath = true;
+                                    isFinished = true;
+                                    liveValue.text = "";
+                                    SaveGameStatsScript.GameStats.isGameOver = true;
+                                    SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
+                                }
                                 else
                                 {
-                                    if (!tm.InSlowMo()) invulAfterSlow = true;
-                                    //RumblePad.RumbleState = 1; //Alarm
-                                }              
-                            }
-                            if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
-                            {
+                                    liveValue.text = "X" + lives.ToString();
+                                    RumblePad.RumbleState = 5;
+                                    alertModeTime = 0.0f;
+                                }
                             
-                                slomo.Play();
-                                tm.StartSloMo();
-                                alertModeTime = alertModeDuration;
-                                DestroyGhots();
-                            }
-                        //}
-                        //else playerHit = true;
+                                //SceneManager.LoadScene(6);
+                                //TimerScript.gameover = true;
+                                //Remaining deaht animation before this bool.                        
+                            } // Death  
+                            else
+                            {
+                                impactforshake = true;
+                                if (!tm.InSlowMo()) invulAfterSlow = true;
+                                //RumblePad.RumbleState = 1; //Alarm
+                            }              
+                        }
+                        if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
+                        {
+                            
+                            slomo.Play();
+                            tm.StartSloMo();
+                            alertModeTime = alertModeDuration;
+                            DestroyGhots();
+                        }
                     }
                     else alertModeTime = alertModeDuration;
 
                 }
             }
+        }else
+        {
+            impactforshake = false;
         }
     }
 

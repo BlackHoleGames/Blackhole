@@ -35,9 +35,10 @@ public class CameraBehaviour : MonoBehaviour {
             if ((Mathf.Abs(transform.position.x - targetPos.x) < 0.01) &&
             (Mathf.Abs(transform.rotation.eulerAngles.x - targetRot.eulerAngles.x) < 0.01) ) startRotating = false;
         }else if (GameObject.FindGameObjectWithTag("Player")!=null &&
-            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().playerHit 
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().impactforshake
             && !isShaking)
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().impactforshake = false;
             //Not working in this map.
             isShaking = true;
             cameraShake = CrashShake(rumbleDuration, rumbleScope);
@@ -99,55 +100,58 @@ public class CameraBehaviour : MonoBehaviour {
     }
     public IEnumerator CrashShake(float Shakeduration, float ShakeScope)
     {
-        //Vector3 earthPosition = transform.localPosition;
-        //Vector3 UIoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
+        Vector3 cameraPosition = transform.localPosition;
+        Vector3 UIoriginalPosition = GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition;
 
-        //float elapsed = 0.0f;
+        float elapsed = 0.0f;
 
-        //while (elapsed < Shakeduration && !GameObject.Find("Parent").GetComponent<PlayerDestroyScript>().waitingForDeath)
-        //{            
-        //    float xEarth = Random.Range(-1f, 1f) * ShakeScope;
-        //    float yEarth = Random.Range(-1f, 1f) * ShakeScope;
-        //    float zEarth = Random.Range(-1f, 1f) * ShakeScope;
-        //    float xUI = Random.Range(-10f, 10f) * ShakeScope;
-        //    float yUI = Random.Range(-10f, 10f) * ShakeScope;            
-        //    switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
-        //    {
-        //        case MapManger.Stages.INTRO:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, zEarth);
-        //        break;
-        //        case MapManger.Stages.METEORS_TIMEWARP:
-        //            transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
-        //            break;
-        //        case MapManger.Stages.METEORS_ENEMIES:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-        //            break;
-        //        case MapManger.Stages.MINIBOSS_FIRSTPHASE:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-        //            break;
-        //        case MapManger.Stages.MINIBOSS_SECONDPHASE:
-        //            transform.localPosition = new Vector3(xEarth, yEarth, earthPosition.z);
-        //        break;
-        //        case MapManger.Stages.STRUCT_TIMEWARP:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-        //        break;
-        //        case MapManger.Stages.STRUCT_ENEMIES:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-        //        break;
-        //        case MapManger.Stages.BOSS:
-        //            transform.localPosition = new Vector3(xEarth, earthPosition.y, earthPosition.z);
-        //        break;
-        //        }
-                    
-        //        GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(xUI * 2, yUI*2, UIoriginalPosition.z);
-        //        elapsed += Time.deltaTime;
+        while (elapsed < Shakeduration 
+            && GameObject.FindGameObjectWithTag("Player")!=null
+            && !GameObject.Find("Parent").GetComponent<PlayerDestroyScript>().waitingForDeath)
+        {            
+            float xCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
+            float yCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
+            float zCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
+            float xShakeUI = Random.Range(-10f, 10f) * ShakeScope;
+            float yShakeUI = Random.Range(-10f, 10f) * ShakeScope;            
+            switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
+            {
+                case MapManger.Stages.INTRO:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                break;
+                case MapManger.Stages.METEORS_TIMEWARP:
+                    transform.localPosition = new Vector3(xCamShake, yCamShake, cameraPosition.z);
+                    break;
+                case MapManger.Stages.METEORS_ENEMIES:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                    break;
+                case MapManger.Stages.MINIBOSS_FIRSTPHASE:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                    break;
+                case MapManger.Stages.MINIBOSS_SECONDPHASE:
+                    transform.localPosition = new Vector3(xCamShake, yCamShake, cameraPosition.z);
+                break;
+                case MapManger.Stages.STRUCT_TIMEWARP:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                break;
+                case MapManger.Stages.STRUCT_ENEMIES:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                break;
+                case MapManger.Stages.BOSS:
+                    transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
+                break;
+                }
+                  
+                GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(xShakeUI * 2, yShakeUI*2, UIoriginalPosition.z);
+                elapsed += Time.deltaTime;
 
-        //        yield return null;
-        //}
-        //transform.localPosition = earthPosition;
-        //GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = UIoriginalPosition;
+                yield return null;
+        }
+        transform.localPosition = cameraPosition;
+        GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = UIoriginalPosition;
         yield return new WaitForSeconds(1.5f);
         isShaking = false;
+        
     }
 
 
