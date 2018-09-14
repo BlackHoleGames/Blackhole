@@ -37,7 +37,7 @@ public class TimeBehaviour : MonoBehaviour {
     public void SlowDown(float newScaleOfTime,float slowdownduration) {
         scaleOfTime = newScaleOfTime;
         slowDownCounter = slowdownduration;
-        startingPointScaleOfTime = slowdownduration;
+        startingPointScaleOfTime = newScaleOfTime;
         startSpeedUp = false;
         slowingDown = true;
     }

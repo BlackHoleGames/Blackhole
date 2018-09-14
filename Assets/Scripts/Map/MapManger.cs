@@ -106,6 +106,7 @@ public class MapManger : MonoBehaviour {
                 if (!mbs.IsSecondPhase()) {
                     TimeBombManager.activateBomb2 = true;
                     TimeBombManager.activateBomb3 = true;
+                    er.StartDownTransition();
                     structure.SetActive(true);
                     meteorsDelayOn = true;
                     timewarpEffect.SetActive(true);
@@ -130,7 +131,6 @@ public class MapManger : MonoBehaviour {
                 }
                 if (!structureMoving) { 
                     structureMoving = true;
-                    er.StartDownTransition();                    
                 }
                 break;
             case Stages.STRUCT_ENEMIES:

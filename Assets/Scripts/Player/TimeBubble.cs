@@ -10,6 +10,7 @@ public class TimeBubble : MonoBehaviour {
     private float t;
     public GameObject tmPartSys;
     private bool toDestroy;
+    public bool inTimeWarp;
     private float sizeMultiplier = 1.0f;
     // Use this for initialization
     void Start () {
@@ -40,7 +41,10 @@ public class TimeBubble : MonoBehaviour {
         if ((other.tag == "EnemyProjectile" || other.tag == "powerUp" || other.tag == "Enemy" || other.tag == "SquadManager")
             || other.tag == "DodgeSection" && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
-            if (tb) tb.SlowDown(0.2f, 0.5f);
+            if (tb) {
+                if (inTimeWarp) tb.SlowDown(0.4f, 3.0f);                
+                else tb.SlowDown(0.2f, 0.5f);
+            }
         }
     }
 

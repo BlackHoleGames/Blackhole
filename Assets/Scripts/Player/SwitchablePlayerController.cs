@@ -38,7 +38,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
-    private List<GameObject> ghostList;
+    public List<GameObject> ghostList;
     private bool is_vertical, is_firing, play;
     public int lifePoints, lives = 2;
     //public Transform cameraTrs;
@@ -159,18 +159,10 @@ public class SwitchablePlayerController : MonoBehaviour
                 int clipIndex = (int)Random.Range(0, 3);
                 timebomb.clip = timeBombClips[clipIndex];
                 timebomb.Play();
-                Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
+                GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+                if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
             }
-        }
-        /*if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (tm.HasCharges())
-            {
-                SwitchAxis();
-                tm.StartTimeWarp();
-                timewarp.Play();
-            }
-        }*/
+        }        
     }
 
     IEnumerator StoppingShoot(float waitshoot)
@@ -544,7 +536,13 @@ public class SwitchablePlayerController : MonoBehaviour
     }
     public void DestroyGhots()
     {
+        ghostEnabled = false;
         foreach (GameObject g in ghostList)
+        {
+            Destroy(g);
+        }
+        ghostList.Clear();
+        /*foreach (GameObject g in ghostList)
         {
             g.GetComponent<TimeGhost>().StopFiring();
             g.GetComponent<TimeGhost>().DisableGhosts();
@@ -556,7 +554,7 @@ public class SwitchablePlayerController : MonoBehaviour
             disableSecure = true;
             DisableAction = DisableGhotTimer(disableTimer);
             StartCoroutine(DisableAction);
-        }
+        }*/
     }
 
     IEnumerator DisableGhotTimer(float disableDuration)
