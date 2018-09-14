@@ -231,7 +231,7 @@ MonoBehaviour:
   startDelayCounter: 0.5
   is_firing: 0
   leader: {fileID: 0}
-  lagSeconds: 0.5
+  lagSeconds: 0.25
   blocksProjectiles: 1
 --- !u!198 &198766417953652170
 ParticleSystem:
