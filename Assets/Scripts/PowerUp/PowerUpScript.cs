@@ -48,9 +48,9 @@ public class PowerUpScript : MonoBehaviour {
             else if (other.gameObject.tag == "BubbleObject")
             {
                 audioSource.Play();
-                other.gameObject.GetComponent<SwitchablePlayerController>().AddLife(lifeGiving);
+                other.gameObject.transform.parent.GetComponentInChildren<SwitchablePlayerController>().AddLife(lifeGiving);
                 GetComponent<Renderer>().enabled = false;
-                particleCatched.SetActive(true);
+                particleCatched.SetActive(true);                  
                 alive = false;
             }
         }

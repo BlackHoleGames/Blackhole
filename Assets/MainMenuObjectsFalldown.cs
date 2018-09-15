@@ -15,10 +15,12 @@ public class MainMenuObjectsFalldown : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        gameObject.transform.Translate( axis * speed * Time.deltaTime);
+    }
 
 	private void OnTriggerEnter(Collider other){
-
+        if (other.gameObject.tag == "UICamCollider") {
+            gameObject.transform.position += axis * fallbackDistance ; 
+        }
 	}
 }
