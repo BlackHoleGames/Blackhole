@@ -8,15 +8,15 @@ public class KamikazeEnemy : MonoBehaviour {
     public float turbospeed = 10.0f;
     public float life = 50.0f;
     public float hitFeedbackDuration = 0.25f;
+    public Material matOn, matHit;
+    private GameObject propellerStart, propellerOn;
 
     private TimeBehaviour tb;
     private GameObject player, enemyDestroyed;
-    private float direction, hitFeedbackCounter;
-    private bool turbo, hit, materialHitOn, alive;
+    private float direction, hitFeedbackCounter, propellerStartCounter;
+    private bool turbo, hit, materialHitOn, alive, propellerIsOn;
     private AudioSource audioSource, hitAudioSource;
-    public Material matOn, matHit;
     private SquadManager squadManager;
-
     // Use this for initialization
     void Start()
     {
@@ -38,7 +38,9 @@ public class KamikazeEnemy : MonoBehaviour {
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
         audioSource.Play();
-
+        propellerIsOn = false;
+        propellerStart = transform.GetChild(1).gameObject;
+        propellerOn = transform.GetChild(0).gameObject;
         //transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
     }
 
@@ -53,9 +55,15 @@ public class KamikazeEnemy : MonoBehaviour {
         {
             turbo = true;
             gameObject.transform.parent = null;
+            propellerStart.SetActive(true);
+            propellerOn.SetActive(true);
+
         }
         if (!turbo) transform.position += new Vector3(speed * Time.deltaTime * direction * tb.scaleOfTime, 0.0f, 0.0f);
-        else transform.position += new Vector3(0.0f, 0.0f, -turbospeed * Time.deltaTime * tb.scaleOfTime);
+        else {
+            transform.position += new Vector3(0.0f, 0.0f, -turbospeed * Time.deltaTime * tb.scaleOfTime);
+           
+        }
         ManageHit();
     }
 

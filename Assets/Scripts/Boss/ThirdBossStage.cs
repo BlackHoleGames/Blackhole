@@ -58,12 +58,12 @@ public class ThirdBossStage : MonoBehaviour {
         ++defeatedEyeCounter;
         if (defeatedEyeCounter >= 4)
         {
-            foreach (GameObject g in eyes) g.GetComponent<BossEyeScript>().StartExit();          
+            foreach (GameObject g in eyes) g.GetComponentInChildren<BossEyeScript>().StartExit();          
             defeated = true;
         }
         else
         {
-            foreach (GameObject g in eyes) g.GetComponent<BossEyeScript>().DecreaseShotTime();
+            foreach (GameObject g in eyes) g.GetComponentInChildren<BossEyeScript>().DecreaseShotTime();
             radius += -offsetDistance;
         }
     }

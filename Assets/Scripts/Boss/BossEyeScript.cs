@@ -7,6 +7,7 @@ public class BossEyeScript : MonoBehaviour {
     public float life = 30.0f;
     public float shotDecreaseTime = 0.25f;
     public float afterDefeatSpeed = 2.0f;
+    public float rotationSpeed = 1.0f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
     private bool hit, materialHitOn, disabled, orienting, goToExitPoint, goToEntryPoint;
@@ -30,19 +31,21 @@ public class BossEyeScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (!disabled) {
+            transform.eulerAngles += new Vector3(0.0f,0.0f, rotationSpeed* Time.deltaTime);
             ManageShot();
             ManageHit();
         }
         else {
-            if (orienting)
+            /*if (orienting)
             {
                 rotTime += Time.unscaledDeltaTime / 2.0f;
                 transform.eulerAngles = AngleLerp( orientationTarget, initialOrientation, (rotTime * 1.0f));
                 if (rotTime >= 1.0f) {
                     orienting = false;
                 }
-            }
-            else ManageExit();
+            }*/
+            //else 
+            ManageExit();
         }
     }
 
@@ -59,6 +62,7 @@ public class BossEyeScript : MonoBehaviour {
                     gameObject.GetComponent<Renderer>().material = matOff;
                     tbs.EyeDefeated();
                     shotCooldown -= shotDecreaseTime;
+                    
                 }
             }        
         }
@@ -102,6 +106,8 @@ public class BossEyeScript : MonoBehaviour {
                 goToEntryPoint = false;
                 goToExitPoint = true;
                 transform.LookAt(KamikazeExit);
+                transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
+                gameObject.GetComponent<Renderer>().material = matOn;
             }
             else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed);
         }
