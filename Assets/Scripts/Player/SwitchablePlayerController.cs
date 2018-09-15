@@ -409,7 +409,7 @@ public class SwitchablePlayerController : MonoBehaviour
         { 
             if (!godMode)
             {
-                if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
+                if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser")
                 {
                     RumblePad.RumbleState = 1;//Normal Impact
                     if (alertModeTime > 0.0f)
@@ -418,8 +418,8 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
                         {
                             isUpdatingLife = true;
-                                
-                            actualLife = actualLife - (shield / 2.0f);
+                            if (other.tag == "DeathLaser") actualLife = -0.1f;    
+                            else actualLife = actualLife - (shield / 2.0f);
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
                             lifePoints = (int)actualLife;

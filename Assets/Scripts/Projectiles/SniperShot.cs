@@ -81,9 +81,9 @@ public class SniperShot : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
+        if (other.gameObject.tag == "Player")
         {
-            //Destroy(gameObject);
+            
         }
     }
 }
