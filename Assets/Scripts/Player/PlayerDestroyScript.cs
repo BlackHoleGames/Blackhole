@@ -19,15 +19,20 @@ public class PlayerDestroyScript : MonoBehaviour
     BoxCollider[] PlayerColliders;
     public float timeToInvulnerability = 3.0f;
     private bool finishTimeInv = false;
-
+    public List<Transform> alertList;
     // Use this for initialization
     void Start()
     {
         playerFirstPosition = gameObject.transform.position;
         DestroyedFirstPosition = gameObject.transform.position;
         destroyArray = new List<GameObject>();
+        alertList = new List<Transform>();
         noLifesRemaining = false;
         PlayerColliders = playercontrol.GetComponents<BoxCollider>();
+        foreach (Transform child in alert.transform)
+        {
+            alertList.Add(child);
+        }
         //Invulnerability First Time
         InvulnerableTimerSequence = InvulnerableSequence();
         StartCoroutine(InvulnerableTimerSequence);
@@ -114,6 +119,7 @@ public class PlayerDestroyScript : MonoBehaviour
         GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().invulnerabilityDuration = 1.0f;
         while (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().actualLife < 10f) GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().RegenLife();
         propeller.SetActive(true);
+        //propeller.GetComponent<ParticleSystem>().Play();
         waitingForDeath = false;
         InvulnerableTimerSequence = InvulnerableSequence();
         StartCoroutine(InvulnerableTimerSequence);
@@ -137,18 +143,22 @@ public class PlayerDestroyScript : MonoBehaviour
         while (!finishTimeInv)
         {
             pspacecraft.gameObject.SetActive(false);
-            propeller.SetActive(false);
+            propeller.GetComponent<Renderer>().enabled = false;
+            //alert.GetComponent<Renderer>().enabled = false;
+            foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = false;
             if (waitingForDeath)
             {
                 pspacecraft.gameObject.SetActive(false);
-                propeller.GetComponent<ParticleSystem>().Stop();
-                propeller.SetActive(false);
+                propeller.GetComponent<Renderer>().enabled = false;
+                foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = false;
                 break;
             }
             yield return new WaitForSeconds(0.2f);
             pspacecraft.gameObject.SetActive(true);
+            propeller.GetComponent<Renderer>().enabled = true;
             propeller.GetComponent<ParticleSystem>().Play();
-            propeller.SetActive(true);
+            //alert.GetComponent<Renderer>().enabled = true;
+            foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = true;
             yield return new WaitForSeconds(0.2f);
         }
         finishTimeInv = false;

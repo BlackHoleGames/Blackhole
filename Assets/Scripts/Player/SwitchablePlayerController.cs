@@ -49,7 +49,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    public bool isRestoring, ghostEnabled, invulAfterSlow, disableSecure = false;
+    public bool isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -121,6 +121,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 Fire();
                 firingCounter -= Time.unscaledDeltaTime;
             }
+            if (isDeathDoor) DeathDoor();
             //if (actualLife < shield) Regen();
             //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
@@ -165,6 +166,11 @@ public class SwitchablePlayerController : MonoBehaviour
         }        
     }
 
+    public void DeathDoor()
+    {
+
+    }
+
     IEnumerator StoppingShoot(float waitshoot)
     {
         yield return new WaitForSeconds(waitshoot);
@@ -175,7 +181,10 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void RegenLife()
     {
+        fillLife.enabled = true;
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
+        fillLife.fillAmount += shieldRegenPerSec * Time.unscaledDeltaTime;
+        if (isDeathDoor) isDeathDoor = false;
         life.value = actualLife;
         lifePoints = (int)actualLife;
         isUpdatingLife = true;
@@ -423,7 +432,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             alertModeTime = alertModeDuration;
                             life.value = actualLife;
                             lifePoints = (int)actualLife;
-                            if (actualLife <= 0.0f)
+                            if (actualLife < 0.0f)
                             {
                                 Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
                                 //alertModeTime = 0.0f;
@@ -438,7 +447,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 fillLife.enabled = false;
                                 isDestroying = true;
                                 lives--;
-
+                                isDeathDoor = false;
                                 if (lives < 0)
                                 {
                                     RumblePad.RumbleState = 6;
@@ -470,6 +479,8 @@ public class SwitchablePlayerController : MonoBehaviour
                             } // Death  
                             else
                             {
+                                if (actualLife < 0.2f) actualLife = 0.0f;
+                                if (actualLife == 0.0f) isDeathDoor = true;
                                 impactforshake = true;
                                 if (!tm.InSlowMo()) invulAfterSlow = true;
                                 //RumblePad.RumbleState = 1; //Alarm
