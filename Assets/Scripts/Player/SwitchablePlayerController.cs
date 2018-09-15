@@ -440,7 +440,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;
                                 firingCounter = 0.0f;
-                                DestroyGhots();
+                                DestroyGhosts();
                                 actualLife = 0.0f;
                                 lifePoints = (int)actualLife;
                                 tm.RestoreTime();
@@ -487,12 +487,11 @@ public class SwitchablePlayerController : MonoBehaviour
                             }              
                         }
                         if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
-                        {
-                            
+                        {                            
                             slomo.Play();
                             tm.StartSloMo();
                             alertModeTime = alertModeDuration;
-                            DestroyGhots();
+                            DestroyGhosts();
                         }
                     }
                     else alertModeTime = alertModeDuration;
@@ -550,7 +549,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public void SetPlayerGodMode(bool enabled) {
         godMode = enabled;
     }
-    public void DestroyGhots()
+    public void DestroyGhosts()
     {
         ghostEnabled = false;
         foreach (GameObject g in ghostList)
