@@ -141,11 +141,13 @@ public class PlayerDestroyScript : MonoBehaviour
             if (waitingForDeath)
             {
                 pspacecraft.gameObject.SetActive(false);
+                propeller.GetComponent<ParticleSystem>().Stop();
                 propeller.SetActive(false);
                 break;
             }
             yield return new WaitForSeconds(0.2f);
             pspacecraft.gameObject.SetActive(true);
+            propeller.GetComponent<ParticleSystem>().Play();
             propeller.SetActive(true);
             yield return new WaitForSeconds(0.2f);
         }
