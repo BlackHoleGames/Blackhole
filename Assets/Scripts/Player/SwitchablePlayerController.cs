@@ -438,10 +438,11 @@ public class SwitchablePlayerController : MonoBehaviour
                                 fillLife.enabled = false;
                                 isDestroying = true;
                                 lives--;
-                                
+
                                 if (lives < 0)
                                 {
                                     RumblePad.RumbleState = 6;
+                                    GameObject.FindGameObjectWithTag("L1").SetActive(false);
                                     isDeath = true;
                                     isFinished = true;
                                     liveValue.text = "";
@@ -450,6 +451,14 @@ public class SwitchablePlayerController : MonoBehaviour
                                 }
                                 else
                                 {
+                                    switch (lives) {
+                                        case 1:
+                                            GameObject.FindGameObjectWithTag("L3").SetActive(false);
+                                        break;
+                                        case 0:
+                                            GameObject.FindGameObjectWithTag("L2").SetActive(false);
+                                        break;
+                                    }
                                     liveValue.text = "X" + lives.ToString();
                                     RumblePad.RumbleState = 5;
                                     alertModeTime = 0.0f;

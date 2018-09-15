@@ -48,6 +48,9 @@ TagManager:
   - QUITCONFIRMYES
   - Cursor
   - PlayerStarCraft
+  - L1
+  - L2
+  - L3
   layers:
   - Default
   - TransparentFX
