@@ -51,6 +51,7 @@ TagManager:
   - L1
   - L2
   - L3
+  - BubbleObject
   layers:
   - Default
   - TransparentFX
