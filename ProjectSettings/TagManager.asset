@@ -54,6 +54,7 @@ TagManager:
   - BubbleObject
   - DeathLaser
   - UICamCollider
+  - Cam2Objects
   layers:
   - Default
   - TransparentFX
