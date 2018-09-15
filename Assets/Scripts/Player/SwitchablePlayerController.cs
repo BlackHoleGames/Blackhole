@@ -512,6 +512,7 @@ public class SwitchablePlayerController : MonoBehaviour
             ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
         }
         else actualLife += amount;
+        if (isDeathDoor) isDeathDoor = false;
         life.value = actualLife;
         lifePoints = (int)actualLife;
     }

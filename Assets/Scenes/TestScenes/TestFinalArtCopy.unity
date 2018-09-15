@@ -5519,7 +5519,7 @@ GameObject:
   - component: {fileID: 217847058}
   m_Layer: 5
   m_Name: ScoreValue
-  m_TagString: Untagged
+  m_TagString: UIScore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28408,7 +28408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -66, y: 99}
+  m_AnchoredPosition: {x: -66, y: 90.896355}
   m_SizeDelta: {x: 57.84, y: 54.4}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &687045424
@@ -28432,7 +28432,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 479c5cef9c60e384dbc1d8843f67d869, type: 3}
-    m_FontSize: 35
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
@@ -28443,7 +28443,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X2
+  m_Text: X1.5
 --- !u!222 &687045425
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29150,6 +29150,36 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.type
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198865002657741810, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198865002657741810, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198865002657741810, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
         type: 2}
@@ -34557,7 +34587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -67, y: 99}
+  m_AnchoredPosition: {x: -67.6, y: 101}
   m_SizeDelta: {x: 57.84, y: 54.4}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &988350859
@@ -34581,7 +34611,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 479c5cef9c60e384dbc1d8843f67d869, type: 3}
-    m_FontSize: 35
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
@@ -34592,7 +34622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X3
+  m_Text: X2
 --- !u!222 &988350860
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42622,7 +42652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -64, y: 99}
+  m_AnchoredPosition: {x: -67.4, y: 100}
   m_SizeDelta: {x: 57.84, y: 54.4}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1737103770
@@ -42646,7 +42676,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 479c5cef9c60e384dbc1d8843f67d869, type: 3}
-    m_FontSize: 35
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
@@ -43500,7 +43530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1755672639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43925,6 +43955,51 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startColor.minColor.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706760475134804, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706760475134804, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706760475134804, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
         type: 2}
@@ -46753,6 +46828,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fa385ab6a797c428e96ed8624ccecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDeathDoorSecure: 0
+  CTimeBomb1: {r: 0, g: 0, b: 0, a: 0}
+  CTimeBomb2: {r: 0, g: 0, b: 0, a: 0}
+  CTimeBomb3: {r: 0, g: 0, b: 0, a: 0}
+  CMultiplier1: {r: 0, g: 0, b: 0, a: 0}
+  CMultiplier2: {r: 0, g: 0, b: 0, a: 0}
+  CMultiplier3: {r: 0, g: 0, b: 0, a: 0}
+  CL1: {r: 0, g: 0, b: 0, a: 0}
+  CL2: {r: 0, g: 0, b: 0, a: 0}
+  CL3: {r: 0, g: 0, b: 0, a: 0}
+  CUIScore: {r: 0, g: 0, b: 0, a: 0}
+  CDeathDoor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1863447468
 GameObject:
   m_ObjectHideFlags: 0
