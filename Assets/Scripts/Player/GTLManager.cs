@@ -30,6 +30,8 @@ public class GTLManager : MonoBehaviour {
         {
             X1.GetComponent<Image>().fillAmount +=
             MultiplierIncrease * Time.unscaledDeltaTime;
+            X2.GetComponent<Image>().fillAmount = 0.0f;
+            X3.GetComponent<Image>().fillAmount = 0.0f;
             //if (statusGTL == 0) statusGTL = 1;
             //else if (statusGTL == 1) statusGTL = 11;
             //else if (statusGTL == 11) statusGTL = 21;
@@ -37,18 +39,20 @@ public class GTLManager : MonoBehaviour {
             //else .
             statusGTL = 1;
         }
-        else if (ScoreScript.multiplierScore == 2.0f)
+        else if (ScoreScript.multiplierScore == 1.5f)
         {
             X2.GetComponent<Image>().fillAmount +=
             MultiplierIncrease * Time.unscaledDeltaTime;
+            X1.GetComponent<Image>().fillAmount = 0.0f;
+            X3.GetComponent<Image>().fillAmount = 0.0f;
             statusGTL = 2;
         }
-        else if (ScoreScript.multiplierScore == 3.0f)
+        else if (ScoreScript.multiplierScore == 2.0f)
         {
-            X2.GetComponent<Image>().fillAmount +=
-            MultiplierIncrease * Time.unscaledDeltaTime;
             X3.GetComponent<Image>().fillAmount +=
             MultiplierIncrease * Time.unscaledDeltaTime;
+            X1.GetComponent<Image>().fillAmount = 0.0f;
+            X2.GetComponent<Image>().fillAmount = 0.0f;
             statusGTL = 3;
             //if (statusGTL == 0) statusGTL = 3;
             //else if (statusGTL == 3) statusGTL = 13;

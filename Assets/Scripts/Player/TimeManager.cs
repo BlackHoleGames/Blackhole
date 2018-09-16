@@ -60,12 +60,12 @@ public class TimeManager : MonoBehaviour {
         if (!inFasterGTL)
         {
             targetGTL = gtlFast;
-            ScoreScript.multiplierScore = 2.0f;
+            ScoreScript.multiplierScore = 1.5f;
         }
         else
         {
             targetGTL = gtlFaster;
-            ScoreScript.multiplierScore = 3.0f;
+            ScoreScript.multiplierScore = 2.0f;
         }
         gtlIncreasing = true;
     }
@@ -212,13 +212,13 @@ public class TimeManager : MonoBehaviour {
                 inFasterGTL = true;
                 isMaxGTLReached = false;
                 Time.timeScale = gtlFast;
-                ScoreScript.multiplierScore = 2.0f;
+                ScoreScript.multiplierScore = 1.5f;
                 break;
             case 2:
                 inFasterGTL = true;
                 isMaxGTLReached = true;
                 Time.timeScale = gtlFaster;
-                ScoreScript.multiplierScore = 3.0f;
+                ScoreScript.multiplierScore = 2.0f;
                 break;         
         }
         maxGTLCounter = 0.0f;

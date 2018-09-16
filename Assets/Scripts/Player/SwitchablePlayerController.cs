@@ -122,6 +122,8 @@ public class SwitchablePlayerController : MonoBehaviour
                 firingCounter -= Time.unscaledDeltaTime;
             }
             if (isDeathDoor) DeathDoor();
+            if (actualLife == 0.0) fillLife.enabled = false;
+            else fillLife.enabled = true;
             //if (actualLife < shield) Regen();
             //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
