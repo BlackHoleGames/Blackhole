@@ -81,9 +81,9 @@ public class UI_DeathDoor : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeathDoor &&
             !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDestroying)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             RedColor();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             NormalColor();
         }
         isDeathDoorSecure = false;

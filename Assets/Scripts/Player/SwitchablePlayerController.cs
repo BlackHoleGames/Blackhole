@@ -121,7 +121,13 @@ public class SwitchablePlayerController : MonoBehaviour
                 Fire();
                 firingCounter -= Time.unscaledDeltaTime;
             }
-            if (isDeathDoor) DeathDoor();
+            if (isDeathDoor)
+            {
+                DeathDoor();
+                GameObject.FindGameObjectWithTag("MainCamera").
+                    GetComponent<PostProcessingSwitcher>().StartDamageEffect = true;
+            }else GameObject.FindGameObjectWithTag("MainCamera").
+                    GetComponent<PostProcessingSwitcher>().StartDamageEffect = false;
             if (actualLife == 0.0) fillLife.enabled = false;
             else fillLife.enabled = true;
             //if (actualLife < shield) Regen();

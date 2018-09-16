@@ -10,9 +10,6 @@ public class GTLManager : MonoBehaviour {
     void Start()
     {
         multiplierArray = new List<GameObject>();
-        //multiplierArray.Add(X1);
-        //multiplierArray.Add(X2);
-        //multiplierArray.Add(X3);
         foreach (Transform child in transform)
         {
             if (child.name == "GTL")

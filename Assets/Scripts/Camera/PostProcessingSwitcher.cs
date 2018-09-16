@@ -11,10 +11,11 @@ public class PostProcessingSwitcher : MonoBehaviour {
     public PostProcessingProfile[] profiles;
     private PostProcessingBehaviour ppb;
     private float intentsityEffect, smoothingEffect, lerpTime, damageTimer;
-    private bool StartMagneticEffect, StartDamageEffect, IncreasingSmooth;
-    
-	// Use this for initialization
-	void Start () {
+    private bool StartMagneticEffect, IncreasingSmooth;
+    public bool StartDamageEffect = false;
+
+    // Use this for initialization
+    void Start () {
         ppb = GetComponent<PostProcessingBehaviour>();
         intentsityEffect = 0.0f;
         smoothingEffect = 0.0f;
