@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour {
 
-    public AudioClip bossMusic;
+    public AudioClip bossMusic, blackHoleEnter;
 
-    private bool  stopMusic, modifyThePitch;
+    private bool  stopMusic, modifyThePitch, switchMusic;
     private AudioSource audioSource;
     private AudioClip clipToPlay;
     private float startingPitch, targetPitch, lerpTime;
     
 	// Use this for initialization
 	void Start () {
+        audioSource = GetComponent<AudioSource>();
         stopMusic = false;
         modifyThePitch = false;
+        switchMusic = false;
 	}
 	
 	// Update is called once per frame
@@ -24,9 +26,13 @@ public class AudioManagerScript : MonoBehaviour {
             if (audioSource.volume > 0.0f) audioSource.volume -= Time.deltaTime;
             if (audioSource.volume <= 0.0f) {
                 audioSource.Stop();
-                audioSource.clip = clipToPlay;
-                audioSource.volume = 1.0f;
-                audioSource.Play();
+                stopMusic = false;
+                if (switchMusic) {
+                    switchMusic = false;         
+                    audioSource.clip = clipToPlay;
+                    audioSource.volume = 1.0f;
+                    audioSource.Play();
+                }
             }
         }
         if (modifyThePitch) {
@@ -40,9 +46,17 @@ public class AudioManagerScript : MonoBehaviour {
 
     public void ChangeToBossMusic() {
         stopMusic = true;
+        switchMusic = true;
         clipToPlay = bossMusic;
+        audioSource.loop = true;
     }
 
+    public void PlayBlackHoleEnterSound() {
+        stopMusic = true;
+        switchMusic = true;
+        clipToPlay = blackHoleEnter;
+        audioSource.loop = false;
+    }
     public void StartMusic() {
         if (stopMusic) stopMusic = false;
         audioSource.Play();

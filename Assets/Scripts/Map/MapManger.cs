@@ -9,14 +9,15 @@ public class MapManger : MonoBehaviour {
 
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
-    public float blackScreenDuration = 3.0f;
-    private EnemyManager em;
-    private AsteroidsMovement am;
-    private TimeManager tm;
+    public float blackScreenDuration = 30.0f;    
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
         battleTunnel, blackHole, spacelights, structlights, bosslights;
+
+    private EnemyManager em;
+    private AsteroidsMovement am;
+    private TimeManager tm;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
     private CameraBehaviour cb;
@@ -24,6 +25,7 @@ public class MapManger : MonoBehaviour {
     private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay,
         managerstartedminiboss, blackholeenabled, onBlackScreen, removeBattleStruct;
     private float meteorDelayCounter, timewarpDelayCounter, blackScreenCounter;
+    private AudioManagerScript ams;
 
     // Use this for initialization
     void Start () {
@@ -33,6 +35,7 @@ public class MapManger : MonoBehaviour {
         am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthHighFullV2").GetComponent<EarthRotation>();
+        ams = GetComponentInChildren<AudioManagerScript>();
         meteorDelayCounter = 0.0f;
         timewarpDelayCounter = 0.0f;
         blackScreenCounter = 0.0f;
@@ -178,19 +181,17 @@ public class MapManger : MonoBehaviour {
                     }                  
                 }
                 break;
-            case Stages.BOSS:                
-                
-                
+            case Stages.BOSS:                                               
                 if (!bossEnabled) {
                     // Activate boss lights
                     //Destroy(structlights);
                     //bosslights.SetActive(true);
+                    ams.ChangeToBossMusic();
                     TimeBombManager.activateBomb2 = true;
                     TimeBombManager.activateBomb3 = true;
                     boss.SetActive(true);
                     bossEnabled = true;
-                }
-                
+                }                
                 break;
             case Stages.ESCAPE:
                 break;
@@ -389,6 +390,10 @@ public class MapManger : MonoBehaviour {
 
     public void NotifyGameBlackScreen() {
         onBlackScreen = true;
+    }
+
+    public void NotifyEnteredBlackHole() {
+        ams.PlayBlackHoleEnterSound();
     }
 
     public void NotifyManagerSpawnedMinidboss() {

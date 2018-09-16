@@ -48,7 +48,7 @@ public class MiniBossScript : MonoBehaviour {
             else {
                 if (destructionDelayDuration <= 0) {
                     foreach (Transform child in destroyedBody.transform) {
-                        Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                        Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
                         Destroy(child.gameObject);
                     }
                 }
@@ -118,8 +118,7 @@ public class MiniBossScript : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                GameObject goBody = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                goBody.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                GameObject goBody = Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation) as GameObject;
                 destroyedBody.SetActive(true);
                 Destroy(GetComponent<SphereCollider>());
                 GetComponent<Renderer>().enabled = false;

@@ -45,7 +45,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             if (destructionDelayDuration <= 0) {               
                 foreach (Transform child in destroyedHead.transform)
                 {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
                     Destroy(child.gameObject);
                 }
                 Destroy(transform.parent.gameObject);
@@ -100,8 +100,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                GameObject goHead = Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation) as GameObject;
-                goHead.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                GameObject goHead = Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation) as GameObject;
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);
@@ -112,9 +111,9 @@ public class MiniBossWeakpoint : MonoBehaviour {
 
     public void SwitchToDestroy() {
         destroyedHead.SetActive(true);
-        body.SetActive(false);
+        //body.SetActive(false);
         //gameObject.SetActive(false);
-        Destroy(GetComponent<SphereCollider>());
+        GetComponent<SphereCollider>().enabled = false;
         GetComponent<Renderer>().enabled = false;
     }
 

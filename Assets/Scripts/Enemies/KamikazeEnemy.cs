@@ -37,7 +37,6 @@ public class KamikazeEnemy : MonoBehaviour {
         if (transform.position.x < 0.0f) direction = 1.0f;
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
-        audioSource.Play();
         propellerIsOn = false;
         propellerStart = transform.GetChild(1).gameObject;
         propellerOn = transform.GetChild(0).gameObject;

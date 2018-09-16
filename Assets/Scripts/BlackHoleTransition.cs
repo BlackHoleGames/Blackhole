@@ -29,7 +29,11 @@ public class BlackHoleTransition : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        startCount = true;
-        cs.StartBlackHoleSequence();
+        if (!startCount)
+        {
+            startCount = true;
+            cs.StartBlackHoleSequence();
+            mm.NotifyEnteredBlackHole();
+        }
     }
 }
