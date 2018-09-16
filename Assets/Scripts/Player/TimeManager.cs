@@ -24,11 +24,13 @@ public class TimeManager : MonoBehaviour {
     public CameraBehaviour cb;
     private SwitchablePlayerController sp;
     private bool wormhole = false;
+    private AudioManagerScript ams;
     public GameObject timewarpEffect;
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
+        ams = GameObject.FindGameObjectWithTag("Managers").GetComponentInChildren<AudioManagerScript>();
         isMaxGTLReached = false;
         wormHoleCounter = wormHoleDuration;
     }
@@ -51,6 +53,7 @@ public class TimeManager : MonoBehaviour {
         slowDown = true;
         inFasterGTL = false;
         wormhole = false;
+        ams.LowerThePitch();
     }
 
     public void IncreaseGTL() {
@@ -141,6 +144,7 @@ public class TimeManager : MonoBehaviour {
         else {
             Time.timeScale = 1.0f;
             speedUp = false;
+            ams.RestoreThePitch();
         }        
     }
 

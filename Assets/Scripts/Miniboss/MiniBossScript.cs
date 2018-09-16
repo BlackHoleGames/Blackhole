@@ -123,6 +123,7 @@ public class MiniBossScript : MonoBehaviour {
                 destroyedBody.SetActive(true);
                 Destroy(GetComponent<SphereCollider>());
                 GetComponent<Renderer>().enabled = false;
+                GetComponent<MeshCollider>().enabled = false;
                 alive = false;
                 em.StartNextPhase();
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);

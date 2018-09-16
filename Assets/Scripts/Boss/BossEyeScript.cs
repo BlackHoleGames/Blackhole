@@ -17,7 +17,7 @@ public class BossEyeScript : MonoBehaviour {
     public float waitBeforeCharge;
     public int numberOfShots = 3;
     public GameObject enemyProjectile, explosion;
-    private float rateCounter, shotTimeCounter, shotCounter, rotTime;
+    private float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
     private Vector3 initialOrientation, orientationTarget;
     public Transform KamikazeEntry, KamikazeExit;
@@ -36,15 +36,6 @@ public class BossEyeScript : MonoBehaviour {
             ManageHit();
         }
         else {
-            /*if (orienting)
-            {
-                rotTime += Time.unscaledDeltaTime / 2.0f;
-                transform.eulerAngles = AngleLerp( orientationTarget, initialOrientation, (rotTime * 1.0f));
-                if (rotTime >= 1.0f) {
-                    orienting = false;
-                }
-            }*/
-            //else 
             ManageExit();
         }
     }
@@ -128,7 +119,6 @@ public class BossEyeScript : MonoBehaviour {
     }
 
     public void StartExit() {
-        rotTime = 0.0f;
         orienting = true;
         initialOrientation = transform.rotation.eulerAngles;
         orientationTarget =  Quaternion.LookRotation( KamikazeEntry.position - transform.position).eulerAngles;
