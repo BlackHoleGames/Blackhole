@@ -48,7 +48,7 @@ public class MiniBossScript : MonoBehaviour {
             else {
                 if (destructionDelayDuration <= 0) {
                     foreach (Transform child in destroyedBody.transform) {
-                        Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
+                        Instantiate(Resources.Load("ExplosionBig"), child.position, child.rotation);
                         Destroy(child.gameObject);
                     }
                 }
