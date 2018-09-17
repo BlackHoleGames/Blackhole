@@ -7,14 +7,16 @@ public class SniperShot : MonoBehaviour {
     public float timeToLive = 2.0f;
     //public GameObject chargePS, shotPS;
     private Light projlight;
-    private bool lightningUp, lightningDown;
+    private bool lightningUp;
     public Vector3 target;
     private TimeBehaviour tb;
     private float lightCounter = 0.0f;
     private BoxCollider bc;
+    private AudioSource audioSource;
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         bc = GetComponent<BoxCollider>();
         bc.enabled = false;
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -33,6 +35,7 @@ public class SniperShot : MonoBehaviour {
         //if (chargePS) chargePS.GetComponent<ParticleSystem>().Play();
         lightningUp = true;
         projlight = GetComponentInChildren<Light>();
+
     }
 
     // Update is called once per frame
@@ -63,6 +66,8 @@ public class SniperShot : MonoBehaviour {
             lightCounter = 0.0f;
             lightningUp = false;
             projlight.intensity = 60.0f;
+            audioSource.Play();
+
         }
     }
 
@@ -79,11 +84,11 @@ public class SniperShot : MonoBehaviour {
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             
         }
-    }
+    }*/
 }

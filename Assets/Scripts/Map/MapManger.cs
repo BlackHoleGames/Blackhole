@@ -187,7 +187,7 @@ public class MapManger : MonoBehaviour {
                     // Activate boss lights
                     //Destroy(structlights);
                     //bosslights.SetActive(true);
-                    if (secondsBeforeBoss > 0) secondsBeforeBoss -= Time.deltaTime;
+                    if (secondsBeforeBoss > 0.0f) secondsBeforeBoss -= Time.deltaTime;
                     else {
                         ams.ChangeToBossMusic();
                         TimeBombManager.activateBomb2 = true;
