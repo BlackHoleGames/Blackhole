@@ -907,12 +907,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69baf00f3a8798f408e74fd9452066c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
-  shotCooldown: 3
-  rateOfFire: 0.2
-  numberOfShots: 3
-  hitFeedbackDuration: 0.05
-  spawnDelay: 3
+  life: 110
+  shotCooldown: 1.5
+  rateOfFire: 0.4
+  numberOfShots: 5
+  hitFeedbackDuration: 0.02
+  spawnDelay: 2
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
   matFlicker: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}

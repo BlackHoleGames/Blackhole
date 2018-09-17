@@ -1145,14 +1145,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26133ab702a662c4ea15420752672ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
-  shotCooldown: 3
+  life: 120
+  shotCooldown: 1.5
   shotDuration: 4.5
   enemyProjectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17,
     type: 2}
   enemyDestroyed: {fileID: 1151215261781000}
   spawnCooldown: 1
-  hitFeedbackDuration: 0.25
+  hitFeedbackDuration: 0.02
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   wings: {fileID: 0}
