@@ -43,12 +43,12 @@ public class SniperShot : MonoBehaviour {
     {
         if (timeToLive <= 0.0f)
         {
-            if (timeToLive <= 0.0f) Destroy(gameObject);
+            Destroy(gameObject);
         }
         else {
             timeToLive -= Time.deltaTime * tb.scaleOfTime;
             if (lightningUp) StartLight();
-            if (timeToLive < 2.0f && timeToLive > 0.5f && !bc.enabled) bc.enabled = true;
+            if (timeToLive < 2.0f && timeToLive > 0.75f && !bc.enabled) bc.enabled = true;
             if (timeToLive <= 0.75) {
                 if (bc.enabled) bc.enabled = false;
                 if (projlight.intensity == 60.0f) projlight.intensity = 30.0f;

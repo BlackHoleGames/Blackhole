@@ -6,7 +6,7 @@ public class FirstBossStage : MonoBehaviour {
 
     public float limitX = 9.52f;  
     public float timeBetweenReactorShots = 3.0f;
-    public float shotDuration = 5.0f;
+    public float shotDuration = 5.25f;
     public float windowOfOportunityDuration = 1.0f;
     public float speed = 2.0f;
     public float downwardSpeed = 0.05f;
@@ -47,7 +47,7 @@ public class FirstBossStage : MonoBehaviour {
 	void Update () {
         if (start) {
             ManageMovement();
-            timeBetweenShotsCounter -= Time.unscaledDeltaTime;
+            timeBetweenShotsCounter -= Time.deltaTime;
             if (timeBetweenShotsCounter <= 0.0f) {
                 windowOfOportunityCounter -= Time.deltaTime;
                 if (!openingHatch) {
@@ -59,7 +59,6 @@ public class FirstBossStage : MonoBehaviour {
                     if (!shotDone) ManageShots();
                     if (closingHatch) {
                         closingHatch = false;
-                        ++activeReactorsIndex;
                     }
                     else {
                         if (shotDone) {
@@ -68,6 +67,7 @@ public class FirstBossStage : MonoBehaviour {
                             shotDone = false;
                             openingHatch = false;
                             SwitchVulnerabilityOnReactors(false);
+                            ++activeReactorsIndex;
 
                         }
                     }
@@ -151,6 +151,7 @@ public class FirstBossStage : MonoBehaviour {
                 if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().UnProtect();
             }
             else {
+                Debug.Log("Protecting: "+activeReactorsIndex);
                 if (reactor1) reactor1.GetComponent<ReactorWeakPoint>().Protect();
                 if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().Protect();
             }
