@@ -118,7 +118,7 @@ public class FirstBossStage : MonoBehaviour {
                 SpawnShot(3);
             }
         }
-        shotDurationCounter -= Time.unscaledDeltaTime;
+        shotDurationCounter -= Time.deltaTime;
         if (shotDurationCounter <= 0.0f) {
             shotSpawned = false;
             shotDone = true;
