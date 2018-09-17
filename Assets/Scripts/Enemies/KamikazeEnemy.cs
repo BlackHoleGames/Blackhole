@@ -93,20 +93,21 @@ public class KamikazeEnemy : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                alive = false;
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-                squadManager.DecreaseNumber();
-
-                if (enemyDestroyed) enemyDestroyed.SetActive(true);
-                Destroy(gameObject);
                 ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
+                if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                InitiateDestruction();
             }          
         }
         if (other.gameObject.tag == "Player" && alive) {
-            Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
-
-            squadManager.DecreaseNumber();
-            Destroy(gameObject);
+            InitiateDestruction();
         }
     }
+
+    public void InitiateDestruction() {
+        alive = false;
+        Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+        Instantiate(Resources.Load("TimeBubble"), transform.transform.position, transform.transform.rotation);
+        squadManager.DecreaseNumber();
+        Destroy(gameObject);
+    }     
 }

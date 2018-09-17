@@ -48,8 +48,8 @@ public class SniperShot : MonoBehaviour {
         else {
             timeToLive -= Time.deltaTime * tb.scaleOfTime;
             if (lightningUp) StartLight();
-            if (timeToLive < 2.0f && timeToLive > 0.75f && !bc.enabled) bc.enabled = true;
-            if (timeToLive <= 0.75) {
+            if (timeToLive < 2.5f && timeToLive > 0.25f && !bc.enabled) bc.enabled = true;
+            if (timeToLive <= 0.25) {
                 if (bc.enabled) bc.enabled = false;
                 if (projlight.intensity == 60.0f) projlight.intensity = 30.0f;
                 StopLight();
@@ -67,7 +67,6 @@ public class SniperShot : MonoBehaviour {
             lightningUp = false;
             projlight.intensity = 60.0f;
             audioSource.Play();
-
         }
     }
 
