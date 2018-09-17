@@ -9,7 +9,8 @@ public class MapManger : MonoBehaviour {
 
     public Stages actualStage = Stages.INTRO ;
     public float meteorDelayDuration = 0.5f;
-    public float blackScreenDuration = 30.0f;    
+    public float blackScreenDuration = 30.0f;
+    public float secondsBeforeBoss = 3.0f;
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
@@ -186,11 +187,14 @@ public class MapManger : MonoBehaviour {
                     // Activate boss lights
                     //Destroy(structlights);
                     //bosslights.SetActive(true);
-                    ams.ChangeToBossMusic();
-                    TimeBombManager.activateBomb2 = true;
-                    TimeBombManager.activateBomb3 = true;
-                    boss.SetActive(true);
-                    bossEnabled = true;
+                    if (secondsBeforeBoss > 0) secondsBeforeBoss -= Time.deltaTime;
+                    else {
+                        ams.ChangeToBossMusic();
+                        TimeBombManager.activateBomb2 = true;
+                        TimeBombManager.activateBomb3 = true;
+                        boss.SetActive(true);
+                        bossEnabled = true;
+                    }
                 }                
                 break;
             case Stages.ESCAPE:
