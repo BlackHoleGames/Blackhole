@@ -49,6 +49,14 @@ public class SaveGameStatsScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //if (InitialMusicScreen == null)
+        //{
+        //     == this;
+        //    DontDestroyOnLoad(gameObject);
+        //}else
+        //{
+
+        //}
     }
 
 
@@ -82,36 +90,38 @@ public class SaveGameStatsScript : MonoBehaviour
             case 1://Eartittle
                 camera2Objects.SetActive(false);
 
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 InitialMusicScreen.SetActive(true);
                 break;
             case 2://Tutorial
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 InitialMusicScreen.SetActive(false);
             break;
             case 3://Menu
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 InitialMusicScreen.SetActive(true);
             break;
             case 4://Briefing -> Camera 3
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
                 InitialMusicScreen.SetActive(true);
                 break;
             case 8://LeaderBoards -> Camera 2
                 camera2Objects.SetActive(true);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
             break;
             case 5:
+                GameObject.FindGameObjectWithTag("MainCamera").SetActive(true);
                 InitialMusicScreen.SetActive(false);
                 foreach (Transform earth in transform)
                 {
@@ -124,9 +134,9 @@ public class SaveGameStatsScript : MonoBehaviour
                 {
                     earth.gameObject.SetActive(false);
                 }
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 break;
             default:
                 foreach (Transform earth in transform)

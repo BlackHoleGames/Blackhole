@@ -50,6 +50,10 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
+            case 9: //History
+                SceneManager.LoadScene(3);
+                scene = 0;
+                break;
             default:
                 scene = 0;
                 break;
