@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class GTLManager : MonoBehaviour {
     private float MultiplierIncrease = 0.5f;
     public GameObject X1, X2, X3;
+    public Slider gtlBar;
+    public float MovementGtlPerSec = 0.05f;
+    private bool onTop = false;
     private List<GameObject> multiplierArray;
     private int statusGTL =0;
     void Start()
@@ -20,6 +23,7 @@ public class GTLManager : MonoBehaviour {
                 }
             }
         }
+        gtlBar.value = 0.0f;
     }
 	// Update is called once per frame
 	void Update () {
@@ -29,6 +33,19 @@ public class GTLManager : MonoBehaviour {
             MultiplierIncrease * Time.unscaledDeltaTime;
             X2.GetComponent<Image>().fillAmount = 0.0f;
             X3.GetComponent<Image>().fillAmount = 0.0f;
+            if (gtlBar.value < 3.0f && !onTop)
+            {
+                gtlBar.value += Time.unscaledDeltaTime;
+            }
+            else
+            {
+                onTop = true;
+            } 
+            if (onTop)
+            {
+                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
+            }
+            if (gtlBar.value <= 2.0f) onTop = false;
             //if (statusGTL == 0) statusGTL = 1;
             //else if (statusGTL == 1) statusGTL = 11;
             //else if (statusGTL == 11) statusGTL = 21;
@@ -42,6 +59,19 @@ public class GTLManager : MonoBehaviour {
             MultiplierIncrease * Time.unscaledDeltaTime;
             X1.GetComponent<Image>().fillAmount = 0.0f;
             X3.GetComponent<Image>().fillAmount = 0.0f;
+            if (gtlBar.value < 6.0f && !onTop)
+            {
+                gtlBar.value += Time.unscaledDeltaTime;
+            }
+            else
+            {
+                onTop = true;
+            }
+            if (onTop)
+            {
+                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
+            }
+            if (gtlBar.value <= 5.0f) onTop = false;
             statusGTL = 2;
         }
         else if (ScoreScript.multiplierScore == 2.0f)
@@ -50,6 +80,19 @@ public class GTLManager : MonoBehaviour {
             MultiplierIncrease * Time.unscaledDeltaTime;
             X1.GetComponent<Image>().fillAmount = 0.0f;
             X2.GetComponent<Image>().fillAmount = 0.0f;
+            if (gtlBar.value < 10.0f && !onTop)
+            {
+                gtlBar.value += Time.unscaledDeltaTime;
+            }
+            else
+            {
+                onTop = true;
+            }
+            if (onTop)
+            {
+                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
+            }
+            if (gtlBar.value <= 9.0f) onTop = false;
             statusGTL = 3;
             //if (statusGTL == 0) statusGTL = 3;
             //else if (statusGTL == 3) statusGTL = 13;
