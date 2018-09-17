@@ -55,6 +55,7 @@ TagManager:
   - DeathLaser
   - UICamCollider
   - Cam2Objects
+  - MusicUI
   layers:
   - Default
   - TransparentFX

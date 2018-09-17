@@ -17,6 +17,7 @@ public class SaveGameStatsScript : MonoBehaviour
     public string[] ScoreNames;
     public string[] ScoreResults;
     public GameObject camera2Objects;
+    public GameObject InitialMusicScreen;
     public static SaveGameStatsScript GameStats;
     private String configFile;
     private String scoreFile;
@@ -84,35 +85,41 @@ public class SaveGameStatsScript : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                InitialMusicScreen.SetActive(true);
                 break;
             case 2://Tutorial
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                InitialMusicScreen.SetActive(false);
             break;
             case 3://Menu
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
-                break;
+                InitialMusicScreen.SetActive(true);
+            break;
             case 4://Briefing -> Camera 3
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
+                InitialMusicScreen.SetActive(true);
                 break;
             case 8://LeaderBoards -> Camera 2
                 camera2Objects.SetActive(true);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
-                break;
+            break;
             case 5:
+                InitialMusicScreen.SetActive(false);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(false);
                 }
                 break;
             case 6:
+                InitialMusicScreen.SetActive(false);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(false);
@@ -127,13 +134,6 @@ public class SaveGameStatsScript : MonoBehaviour
                     earth.gameObject.SetActive(true);
                 }
             break;
-        }
-        if(SceneManager.GetActiveScene().buildIndex == 5)
-        {
-
-        }else
-        {
-
         }
     }
     public void SetStats()
