@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 54279782985311028}
   m_Layer: 0
   m_Name: Subsquad Kamikaze
-  m_TagString: Untagged
+  m_TagString: SquadManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,9 +125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChainOfEnemies: 0
+  isSubsquad: 1
   subSquadCount: 0
   subSquadron: {fileID: 0}
   subSquadUnitDelayTime: 0
+  squadManagerParent: {fileID: 0}
   numOfMembers: 1
   Manager: {fileID: 0}
   speed: 2

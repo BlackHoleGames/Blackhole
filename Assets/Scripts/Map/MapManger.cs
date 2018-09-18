@@ -24,8 +24,10 @@ public class MapManger : MonoBehaviour {
     private CameraBehaviour cb;
     private EarthRotation er;
     private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay,
-        managerstartedminiboss, blackholeenabled, onBlackScreen, removeBattleStruct;
-    private float meteorDelayCounter, timewarpDelayCounter, blackScreenCounter;
+        managerstartedminiboss, blackholeenabled,  removeBattleStruct;
+    public bool onBlackScreen;
+    private float meteorDelayCounter, timewarpDelayCounter;
+    public float blackScreenCounter;
     private AudioManagerScript ams;
 
     // Use this for initialization
@@ -167,20 +169,17 @@ public class MapManger : MonoBehaviour {
                         Destroy(battleTunnel);
                         removeBattleStruct = true;
                     }
-                }
-                else
-                {                                  
-                    if (onBlackScreen)
+                }                                  
+                if (onBlackScreen)
+                {
+                    if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
+                    else
                     {
-                        if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
-                        else
-                        {
-                            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
-                            tm.StopTimeWarp();
-                            GoToNextStage();
-                        }
-                    }                  
-                }
+                        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
+                        tm.StopTimeWarp();
+                        GoToNextStage();
+                    }
+                }                                 
                 break;
             case Stages.BOSS:                                               
                 if (!bossEnabled) {

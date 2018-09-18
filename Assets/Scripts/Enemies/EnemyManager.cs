@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour {
     public int asteroidSquadronIndex;
     public int minibossSquadronIndex;
     public int structEnemiesIndex;
-    private int squadronIndex;
+    public int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
     private bool waitForDelay, instantiatingSubSquads, startSpawning;
     private float waitingTime, subSquadDelay;
@@ -24,9 +24,11 @@ public class EnemyManager : MonoBehaviour {
     // For debug
     private GameObject actualSquad;
     private MapManger mm;
+    private bool done;
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
+        done = false;
         startSpawning = false;
         squadronIndex = 0;
         spawnToTransform = new Dictionary<SpawnPoint, Transform>();
@@ -93,11 +95,12 @@ public class EnemyManager : MonoBehaviour {
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
             obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
+            obj.GetComponent<SquadManager>().squadManagerParent = ChainSquadManager.GetComponent<SquadManager>();
             --subSquadEnemyCounter;
             if (subSquadEnemyCounter <= 0) {
                 instantiatingSubSquads = false;
-                Destroy(ChainSquadManager);
-                StartWait();
+                //Destroy(ChainSquadManager);
+                //StartWait();
                 ++squadronIndex;
             }
         }
@@ -105,9 +108,10 @@ public class EnemyManager : MonoBehaviour {
 
     public void StartWait()
     {
-        if (squadronIndex >= squadrons.Length)
+        if (squadronIndex >= squadrons.Length && !done)
         {
            mm.GoToNextStage();
+            done = true;
            //Destroy(gameObject);
         }
         else

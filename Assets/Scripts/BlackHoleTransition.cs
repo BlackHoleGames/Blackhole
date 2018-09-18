@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlackHoleTransition : MonoBehaviour {
 
     private MapManger mm;
-    private float fadeToBlackCount = 2.0f;
+    public float fadeToBlackCount = 2.0f;
     public bool startCount = false;
     private ChangeScene cs;
 	// Use this for initialization

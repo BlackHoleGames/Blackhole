@@ -47,6 +47,7 @@ public class KamikazeEnemy : MonoBehaviour {
     void Update()
     {
         if (transform.position.z < -15.0f) {
+            alive = false;
             squadManager.DecreaseNumber();
             Destroy(gameObject);
         }
@@ -89,6 +90,7 @@ public class KamikazeEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
+            alive = false;
             hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
@@ -99,6 +101,7 @@ public class KamikazeEnemy : MonoBehaviour {
             }          
         }
         if (other.gameObject.tag == "Player" && alive) {
+            alive = false;
             InitiateDestruction();
         }
     }

@@ -6,11 +6,12 @@ using UnityEngine;
 public class SquadManager : MonoBehaviour {
 
     // If this squad is a chain of enemies
-    public bool isChainOfEnemies = false;
+    public bool isChainOfEnemies;
+    public bool isSubsquad;
     public int subSquadCount = 0;
     public GameObject subSquadron;
     public float subSquadUnitDelayTime;
-
+    public SquadManager squadManagerParent;
     // If it's only a squadron
     public int numOfMembers;
     public EnemyManager Manager;
@@ -34,7 +35,10 @@ public class SquadManager : MonoBehaviour {
         target = center;
         stayIsDone = false;
         arrivedToStart = false;
-        if (isChainOfEnemies) numOfMembers = subSquadCount;
+        if (isChainOfEnemies)
+        {
+            numOfMembers = subSquadCount;
+        }
     }
 	
 	// Update is called once per frame
@@ -78,9 +82,17 @@ public class SquadManager : MonoBehaviour {
         --numOfMembers;
         if (numOfMembers == 0)
         {
-            Manager.StartWait();
-            Destroy(gameObject);
-            ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
+            if (isSubsquad)
+            {
+                squadManagerParent.DecreaseNumber();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Manager.StartWait();
+                Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
+            }
         }
     }
 
