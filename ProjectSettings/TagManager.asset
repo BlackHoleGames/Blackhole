@@ -56,6 +56,10 @@ TagManager:
   - UICamCollider
   - Cam2Objects
   - MusicUI
+  - CamBH
+  - CamStruct
+  - CamEndObjects
+  - CamLeaderBoards
   layers:
   - Default
   - TransparentFX
