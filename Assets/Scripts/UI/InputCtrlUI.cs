@@ -54,6 +54,10 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(3);
                 scene = 0;
                 break;
+            case 10: //EndGame
+                SceneManager.LoadScene(8);
+                scene = 0;
+            break;
             default:
                 scene = 0;
                 break;

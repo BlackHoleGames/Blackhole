@@ -771,6 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   briefingText: {fileID: 2007379951}
   curtainImage: {fileID: 1729381843}
+  TutorialImage: {fileID: 1803667756}
 --- !u!1 &870376132
 GameObject:
   m_ObjectHideFlags: 0
