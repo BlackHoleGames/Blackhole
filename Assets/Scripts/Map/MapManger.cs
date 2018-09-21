@@ -8,7 +8,7 @@ public class MapManger : MonoBehaviour {
         STRUCT_ENEMIES, BOSS_TRANSITION, BOSS, ESCAPE}
 
     public Stages actualStage = Stages.INTRO ;
-    public float meteorDelayDuration = 0.5f;
+    public float meteorDelayDuration = 0.75f;
     public float blackScreenDuration = 30.0f;
     public float secondsBeforeBoss = 3.0f;
     public MiniBossScript mbs;

@@ -53,7 +53,6 @@ public class FirstBossStage : MonoBehaviour {
                 if (!openingHatch) {
                     openingHatch = true;
                     PlayOpeningHatch();
-                    SwitchVulnerabilityOnReactors(true);
                 }
                 if (windowOfOportunityCounter <= 0.0f) {
                     if (!shotDone) ManageShots();
@@ -66,7 +65,6 @@ public class FirstBossStage : MonoBehaviour {
                             timeBetweenShotsCounter = timeBetweenReactorShots;
                             shotDone = false;
                             openingHatch = false;
-                            SwitchVulnerabilityOnReactors(false);
                             ++activeReactorsIndex;
 
                         }
@@ -142,29 +140,7 @@ public class FirstBossStage : MonoBehaviour {
 
     }
 
-    public void SwitchVulnerabilityOnReactors(bool vulnerability) {
-        if (activeReactorsIndex < reactorSequence1.Length) {
-            GameObject reactor1 = reactorPoints[reactorSequence1[activeReactorsIndex]];
-            GameObject reactor2 = reactorPoints[reactorSequence2[activeReactorsIndex]];
-            if (vulnerability) {
-                if (reactor1) reactor1.GetComponent<ReactorWeakPoint>().UnProtect();
-                if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().UnProtect();
-            }
-            else {
-                Debug.Log("Protecting: "+activeReactorsIndex);
-                if (reactor1) reactor1.GetComponent<ReactorWeakPoint>().Protect();
-                if (reactor2) reactor2.GetComponent<ReactorWeakPoint>().Protect();
-            }
-        }
-        else {
-            foreach (GameObject g in reactorPoints) {
-                if (g) {
-                    if (vulnerability) g.GetComponent<ReactorWeakPoint>().UnProtect();
-                    else g.GetComponent<ReactorWeakPoint>().Protect();
-                }
-            }
-        }
-    }
+   
 
     public void PlayClosingHatch() {
 

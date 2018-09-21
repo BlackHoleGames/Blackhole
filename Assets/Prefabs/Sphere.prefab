@@ -95,11 +95,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98794016443773548918f0ba73b85d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowdownDuration: 0.5
+  slowdownAmount: 0.2
+  timeWarpSlowdownDuration: 3
+  timeWarpSlowdownAmount: 0.4
   timeBubbleDuration: 1
   timeBubbleMaxRadius: 50
   timeToMaxSize: 0.4
   tmPartSys: {fileID: 1144217653516254, guid: 8f56beffc5fb31a48ad172a0e4f49bb1, type: 2}
   inTimeWarp: 0
+  ams: {fileID: 0}
 --- !u!135 &135687942414357824
 SphereCollider:
   m_ObjectHideFlags: 1

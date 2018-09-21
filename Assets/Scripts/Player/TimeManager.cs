@@ -50,7 +50,7 @@ public class TimeManager : MonoBehaviour {
         isMaxGTLReached = false;
         slowDown = true;
         inFasterGTL = false;
-        ams.LowerThePitch();
+        ams.LowerMusic(slomoDuration);
     }
 
     public void IncreaseGTL() {
@@ -108,8 +108,6 @@ public class TimeManager : MonoBehaviour {
         gtlCounter = 0.0f;
         slowDown = false;
         speedUp = false;
-        isMaxGTLReached = true;
-        gtlIncreasing = true;
         inTimeWarp = true;
         //if (inFasterGTL) returnToFasterGTL = true;
         //else returnToFasterGTL = false;

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour {
 
+    public float volumeRecoverDuration = 1.0f;
     public AudioClip bossMusic, blackHoleEnter;
-
-    private bool  stopMusic, modifyThePitch, switchMusic;
+    private bool  stopMusic, modifyThePitch, switchMusic, lowerMusic;
     private AudioSource audioSource;
     private AudioClip clipToPlay;
     private float startingPitch, targetPitch, lerpTime;
@@ -42,6 +42,13 @@ public class AudioManagerScript : MonoBehaviour {
                 modifyThePitch = false;              
             }
         }
+        if (lowerMusic) {
+                if (audioSource.volume < 1.0f) audioSource.volume += Time.deltaTime / volumeRecoverDuration;
+                else {
+                    audioSource.volume = 1.0f;
+                    lowerMusic = false;
+                }                  
+        }
 	}
 
     public void ChangeToBossMusic() {
@@ -76,5 +83,11 @@ public class AudioManagerScript : MonoBehaviour {
         targetPitch = 1.0f;
         startingPitch = 0.5f;
         lerpTime = 0.0f;
+    }
+
+    public void LowerMusic(float  duration) {
+        audioSource.volume = 0;
+        volumeRecoverDuration = duration;
+        lowerMusic = true;
     }
 }

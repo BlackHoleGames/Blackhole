@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TimeBubble : MonoBehaviour {
 
+    public float slowdownDuration = 0.5f;
+    public float slowdownAmount = 0.2f;
+    public float timeWarpSlowdownDuration = 3.0f;
+    public float timeWarpSlowdownAmount = 0.4f;
+
     public float timeBubbleDuration = 1.5f;
     public float timeBubbleMaxRadius = 50.0f;
     public float timeToMaxSize = 0.4f;
@@ -11,12 +16,17 @@ public class TimeBubble : MonoBehaviour {
     public GameObject tmPartSys;
     private bool toDestroy;
     public bool inTimeWarp;
+    private AudioManagerScript ams;
     private float sizeMultiplier = 1.0f;
     // Use this for initialization
     void Start () {
+        ams = GameObject.FindGameObjectWithTag("Managers").GetComponentInChildren<AudioManagerScript>();
         toDestroy = false;
         Instantiate(tmPartSys, transform);
         t = 0;
+        if (inTimeWarp) ams.LowerMusic(slowdownDuration);
+        else ams.LowerMusic(timeWarpSlowdownDuration);
+
         //if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
         //if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
     }
@@ -42,8 +52,14 @@ public class TimeBubble : MonoBehaviour {
             || other.tag == "DodgeSection" && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
             if (tb) {
-                if (inTimeWarp) tb.SlowDown(0.4f, 3.0f);                
-                else tb.SlowDown(0.2f, 0.5f);
+                if (inTimeWarp)
+                {
+                    tb.SlowDown(timeWarpSlowdownAmount, timeWarpSlowdownDuration);
+                }
+                else
+                {
+                    tb.SlowDown(slowdownAmount, slowdownDuration);
+                }
             }
         }
     }
