@@ -8,7 +8,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     public Material matOn, matOff, matHit;
     public GameObject projectile;
 
-    private bool hit, materialHitOn, shooting, start;
+    private bool hit, materialHitOn, shooting, start, doubleShotSpeed;
     private EnemyLookAt ela;
     private float shotRechargeTime;
     private float shotDuration = 4.5f;
@@ -17,6 +17,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     private AudioSource audioSource;
     // Use this for initialization
     void Start () {
+        doubleShotSpeed = false;
         ela = GetComponent<EnemyLookAt>();
         start = false;
         audioSource = GetComponent<AudioSource>();
@@ -30,8 +31,13 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
         }
 	}
 
-    public void EnableSecondPhase() {
+    public void EnableShooting() {
         start = true;
+
+    }
+
+    public void EnableSecondPhase() {
+        doubleShotSpeed = true;
     }
 
     private void ManageShot()
@@ -43,7 +49,8 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
                 shotCounter = shotDuration;
                 ela.enabled = true;
                 shooting = false;
-                shotRechargeTime = Random.Range(4.0f, 6.0f);
+                if (!doubleShotSpeed) shotRechargeTime = Random.Range(4.0f, 6.0f);
+                else shotRechargeTime = Random.Range(2.0f, 3.0f);
             }
             else
             {
@@ -89,7 +96,8 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
                 transform.parent.GetComponent<SecondBossStage>().FinishBossPhase();
                 GetComponent<EnemyLookAt>().enabled = false;
                 GetComponent<Renderer>().material = matOff;
-                Destroy(this);
+                Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
+                Destroy(gameObject);
             }
             else
             {

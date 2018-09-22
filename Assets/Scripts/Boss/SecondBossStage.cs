@@ -14,7 +14,7 @@ public class SecondBossStage : MonoBehaviour {
     public float downwardSpeed = 0.05f;
     public float heightLimit = 1.0f;
     public float timeToMoveUp = 3.0f;
-    public float initialHeight = 5.0f;
+    public float initialHeight = -29.0f;
     public float limitX = 9.52f;
 
     private int WeakPointCounter;//, turretShootIndex;
@@ -24,7 +24,6 @@ public class SecondBossStage : MonoBehaviour {
     private TimeBehaviour tb;
     // Use this for initialization
     void Start() {
-        initialPos = transform.parent.transform.position;
         direction = 1;
         readjustHeight = false;
         tb = GetComponent<TimeBehaviour>();
@@ -63,6 +62,9 @@ public class SecondBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
+        GetComponentInChildren<BossSecondPhaseWeakpoint>().EnableShooting();
+        initialPos = transform.parent.transform.position;
+
         foreach (WeakPointSecondStageScript wps in GetComponentsInChildren<WeakPointSecondStageScript>()){
             wps.DisableInvul();
         }
