@@ -11,17 +11,21 @@ public class WeakPointSecondStageScript : MonoBehaviour {
     public float flickerTime = 0.25f;
     private float lifeCounter;
     private SecondBossStage sbs;
-    private bool hit, materialHitOn, flicker, revivingWeakpoint;
+    private bool hit, materialHitOn, flicker, revivingWeakpoint, invul;
     private float weakpointTimeRestartCounter, weakpointReviveCounter, flickerCounter;
+    private AudioSource audioSource;
+
     // Use this for initialization
     void Start () {
         sbs = transform.parent.parent.GetComponent<SecondBossStage>();
+        audioSource = GetComponent<AudioSource>();
         lifeCounter = life;
         weakpointReviveCounter = timeToWeakpointRevive;
         weakpointTimeRestartCounter = timeBeforeWeakpointRestart;
         revivingWeakpoint = false;
         flicker = false;
         flickerCounter = flickerTime;
+        invul = true;
     }
 
     // Update is called once per frame
@@ -29,8 +33,7 @@ public class WeakPointSecondStageScript : MonoBehaviour {
         if (revivingWeakpoint) ManageWeakpointRevive();
         else {
             if (lifeCounter < life) Regen();
-            if (lifeCounter > 0.0f) ManageHit();
-            
+            if (lifeCounter > 0.0f) ManageHit();            
         }
         if (sbs.GetWeakPointCounter() >= 2) {
             gameObject.GetComponent<Renderer>().material = matOff;
@@ -92,9 +95,14 @@ public class WeakPointSecondStageScript : MonoBehaviour {
         lifeCounter = life;
     }
 
+    public void DisableInvul() {
+        invul = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile" && !revivingWeakpoint) {
+        if (other.gameObject.tag == "PlayerProjectile" && !revivingWeakpoint && !invul) {
+            audioSource.Play();
             if (lifeCounter <= 0.0f)
             {
                 sbs.WeakPointDone();

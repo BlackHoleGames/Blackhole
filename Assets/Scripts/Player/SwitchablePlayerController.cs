@@ -38,6 +38,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
+    private AudioManagerScript ams;
     public List<GameObject> ghostList;
     private bool is_vertical, is_firing, play;
     public int lifePoints, lives = 2;
@@ -72,6 +73,7 @@ public class SwitchablePlayerController : MonoBehaviour
         is_firing = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
+        ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         ghostList = new List<GameObject>();
         camMovementEnemies = false;
         playerHit = false;
@@ -458,6 +460,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 isDeathDoor = false;
                                 if (lives < 0)
                                 {
+                                    ams.StopMusic();
                                     RumblePad.RumbleState = 6;
                                     GameObject.FindGameObjectWithTag("L1").SetActive(false);
                                     isDeath = true;
@@ -512,19 +515,12 @@ public class SwitchablePlayerController : MonoBehaviour
         }
     }
 
-    public void AddLife(float amount)
-    {
-        if (actualLife + amount > shield)
-        {
-            actualLife = shield;
-            ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
-        }
-        else actualLife += amount;
-        if (isDeathDoor) isDeathDoor = false;
-        life.value = actualLife;
-        lifePoints = (int)actualLife;
+    public void AddPoints() {
+        ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
+
     }
 
+   
     public void InitiateWormHole()
     {
         tm.StartWorhmHole();

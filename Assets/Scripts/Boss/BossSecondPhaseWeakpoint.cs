@@ -14,10 +14,12 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     private float shotDuration = 4.5f;
     private float shotCounter;
     private GameObject actualLaser;
+    private AudioSource audioSource;
     // Use this for initialization
     void Start () {
         ela = GetComponent<EnemyLookAt>();
         start = false;
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -80,6 +82,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
         if (other.gameObject.tag == "PlayerProjectile")
         {
             hit = true;
+            audioSource.Play();
             if (life <= 0.0f)
             {
                 if (actualLaser) Destroy(actualLaser);

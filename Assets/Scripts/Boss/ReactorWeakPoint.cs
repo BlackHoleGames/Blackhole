@@ -11,9 +11,11 @@ public class ReactorWeakPoint : MonoBehaviour {
     public GameObject reactor, destroyedReactor;
     public float hitFeedbackDuration = 0.25f;
     private float hitFeedbackCounter;
+    private AudioSource audioSource;
     // Use this for initialization
     void Start () {
         alive = true;
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -49,6 +51,7 @@ public class ReactorWeakPoint : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
+            audioSource.Play();
             if (life <= 0.0f)
             {
                 // add a destroyed prefab                

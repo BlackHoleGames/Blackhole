@@ -24,6 +24,8 @@ public class TimeManager : MonoBehaviour {
     private SwitchablePlayerController sp;
     private AudioManagerScript ams;
     public GameObject timewarpEffect;
+    private AudioSource timewarpSound;
+    private AudioSource gtlUp;
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
@@ -32,6 +34,9 @@ public class TimeManager : MonoBehaviour {
         isMaxGTLReached = false;
         wormHoleCounter = wormHoleDuration;
         gtlCounter = 0.0f;
+        timewarpSound = GetComponents<AudioSource>()[3];
+        gtlUp = GetComponents<AudioSource>()[5];
+
     }
 
     // Update is called once per frame
@@ -54,10 +59,12 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void IncreaseGTL() {
+        gtlUp.Play();
         if (!inFasterGTL)
         {
             targetGTL = gtlFast;
             ScoreScript.multiplierScore = 1.5f;
+
         }
         else
         {
@@ -112,6 +119,7 @@ public class TimeManager : MonoBehaviour {
         //if (inFasterGTL) returnToFasterGTL = true;
         //else returnToFasterGTL = false;
         inFasterGTL = false;
+        timewarpSound.Play();
         //timewarpEffect.SetActive(true);
         //targetGTL = timeWarp;        
     }

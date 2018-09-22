@@ -17,6 +17,7 @@ public class SquadManager : MonoBehaviour {
     public EnemyManager Manager;
     public float speed = 2.0f;
     public float timeToStay = -1.0f;
+    public bool isMiniBoss;
     private bool movingToPosition, stayIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
 
@@ -32,17 +33,16 @@ public class SquadManager : MonoBehaviour {
         timeToMove = 0;
         initialPos = transform.position;
         movingToPosition = true;
+        if (isMiniBoss) center += new Vector3(0.0f, 0.0f, 2.0f);
         target = center;
         stayIsDone = false;
         arrivedToStart = false;
-        if (isChainOfEnemies)
-        {
-            numOfMembers = subSquadCount;
-        }
+        if (isChainOfEnemies) numOfMembers = subSquadCount;
+        
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (!isChainOfEnemies)
         {
             if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
@@ -110,9 +110,9 @@ public class SquadManager : MonoBehaviour {
                     Destroy(gameObject);
                 }
                 else {
-                    MiniBossScript script = GetComponentInChildren<MiniBossScript>();
-                    if (script)
+                    if (isMiniBoss)
                     {
+                        MiniBossScript script = GetComponentInChildren<MiniBossScript>();                        
                         transform.parent.GetComponent<MapManger>().mbs = script;
                         script.InitiateBoss();
                         Manager.NotifyMiniBossArrivedToPosition();

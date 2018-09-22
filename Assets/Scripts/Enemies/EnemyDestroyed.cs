@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDestroyed : MonoBehaviour {
 
-    public float timeBeforeDestroy = 1.5f;
+    private float timeBeforeDestroy;
     public float flickerTime = 0.1f;
     private bool matOn;
     private bool isFlickeringEye = true;
@@ -16,7 +16,7 @@ public class EnemyDestroyed : MonoBehaviour {
     private List<RandomDestructible> listRandDes = new List<RandomDestructible>();
     // Use this for initialization
     void Start() {
-        timeBeforeDestroy = 3.0f;
+        timeBeforeDestroy = 1.0f;
         squadManager = GetComponentInParent<SquadManager>();
         foreach (Transform child in transform)
         {

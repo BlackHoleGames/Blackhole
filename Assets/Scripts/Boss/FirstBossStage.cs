@@ -76,7 +76,7 @@ public class FirstBossStage : MonoBehaviour {
 
     public void ManageMovement() {
         if (readjustHeight) {
-            lerpTime += Time.deltaTime / timeToMoveUp;
+            lerpTime += Time.deltaTime / timeToMoveUp*tb.scaleOfTime;
             transform.parent.transform.position = Vector3.Lerp(initialPos, new Vector3(transform.parent.transform.position.x, transform.parent.transform.position.y, initialHeight), lerpTime);
             if (Mathf.Abs(transform.parent.transform.position.z - initialHeight) < 0.01) readjustHeight = false;
         }

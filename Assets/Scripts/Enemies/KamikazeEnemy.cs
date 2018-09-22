@@ -14,7 +14,7 @@ public class KamikazeEnemy : MonoBehaviour {
     private TimeBehaviour tb;
     private GameObject player, enemyDestroyed;
     private float direction, hitFeedbackCounter, propellerStartCounter;
-    private bool turbo, hit, materialHitOn, alive, propellerIsOn;
+    private bool turbo, hit, materialHitOn, alive;
     private AudioSource audioSource, hitAudioSource;
     private SquadManager squadManager;
     // Use this for initialization
@@ -37,7 +37,6 @@ public class KamikazeEnemy : MonoBehaviour {
         if (transform.position.x < 0.0f) direction = 1.0f;
         else direction = -1.0f;
         tb = gameObject.GetComponent<TimeBehaviour>();
-        propellerIsOn = false;
         propellerStart = transform.GetChild(1).gameObject;
         propellerOn = transform.GetChild(0).gameObject;
         //transform.parent.GetComponentInChildren<ProtectorEnemy>().squadron.Add(gameObject);
@@ -90,13 +89,14 @@ public class KamikazeEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile" && alive)
         {
-            alive = false;
+            hit = true;
             hitAudioSource.Play();
             life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
                 ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                alive = false;
                 InitiateDestruction();
             }          
         }

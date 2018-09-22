@@ -20,7 +20,7 @@ public class TimeBubble : MonoBehaviour {
     private float sizeMultiplier = 1.0f;
     // Use this for initialization
     void Start () {
-        ams = GameObject.FindGameObjectWithTag("Managers").GetComponentInChildren<AudioManagerScript>();
+        ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         toDestroy = false;
         Instantiate(tmPartSys, transform);
         t = 0;
