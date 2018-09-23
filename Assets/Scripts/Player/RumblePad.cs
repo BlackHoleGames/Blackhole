@@ -18,6 +18,8 @@ public class RumblePad : MonoBehaviour {
     public float rumbleDeathIntensity = 3.0f;
     public float rumbleFinish = 1.5f;
     public float rumbleFinishIntensity = 3.0f;
+    public float rumbleBH = 10.0f;
+    public float rumbleBHIntensity = 4.0f;
     // Use this for initialization
     void Start () {
         RumbleState = 0;
@@ -50,6 +52,10 @@ public class RumblePad : MonoBehaviour {
                     break;
                 case 6: //Finish
                     RumbleAction = RumbleTimer(rumbleFinish, rumbleFinishIntensity);
+                    StartCoroutine(RumbleAction);
+                break;
+                case 7: //Finish
+                    RumbleAction = RumbleTimer(rumbleBH, rumbleBHIntensity);
                     StartCoroutine(RumbleAction);
                 break;
                 default:

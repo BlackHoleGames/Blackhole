@@ -197,6 +197,8 @@ public class MapManger : MonoBehaviour {
                 }                
                 break;
             case Stages.ESCAPE:
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
+                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
                 break;
         }
         if (meteorsDelayOn) ManageMeteor();
@@ -266,6 +268,8 @@ public class MapManger : MonoBehaviour {
                 break;
             case Stages.ESCAPE:
                 //Call gameover
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
+                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
                 break;
             default:
                 GoToNextStage();
@@ -378,6 +382,8 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.ESCAPE:
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
+                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
                 break;
         }
     }

@@ -57,7 +57,14 @@ public class ChangeScene : MonoBehaviour {
         BlackFade.CrossFadeAlpha(1.0f, 2.0f, false);
         //BlackFade.canvasRenderer.SetAlpha(1.0f);
         yield return new WaitForSeconds(levelTimer);
-        SceneManager.LoadScene(6);
+        if (GameObject.FindGameObjectWithTag("Player") != null &&
+            !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding)
+        {
+            SceneManager.LoadScene(6);
+        }else
+        {
+            SceneManager.LoadScene(7);
+        }
     }
     IEnumerator FadeToInitLevel(float levelTimer)
     {

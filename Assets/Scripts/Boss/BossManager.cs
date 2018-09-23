@@ -110,7 +110,9 @@ public class BossManager : MonoBehaviour {
                 thirdPhaseBoss.SetActive(true);
                 thirdPhaseBoss.GetComponent<ThirdBossStage>().enabled = true;
                 // StartLastSection
-                break;
+                //GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
+                //GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;                
+            break;
         }
     }
 

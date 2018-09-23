@@ -40,7 +40,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private TimeManager tm;
     private AudioManagerScript ams;
     public List<GameObject> ghostList;
-    private bool is_vertical, is_firing, play;
+    private bool isSavingData, is_vertical, is_firing, play;
     public int lifePoints, lives = 2;
     //public Transform cameraTrs;
     //public bool camRotate = false;
@@ -50,7 +50,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
-    public bool isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
+    public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -98,42 +98,54 @@ public class SwitchablePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDeath && !isDestroying)
-        {
-            if (play)
+        if (!isEnding) {
+            if (!isDeath && !isDestroying)
             {
-                float axisX = Input.GetAxis("Horizontal");
-                float axisY = Input.GetAxis("Vertical");
-                double RT = Input.GetAxis("RT");
+                if (play)
+                {
+                    float axisX = Input.GetAxis("Horizontal");
+                    float axisY = Input.GetAxis("Vertical");
+                    double RT = Input.GetAxis("RT");
 
-                Move(axisX, axisY);
-                //ManagePitchRotation(axisY);
-                ManageRollRotation(axisX);
-                ManageInput(RT);
-            }
-            if (startRotatingRoll || startRotatingPitch) Rotate();
-            if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
-            else
-            {
-                playerHit = false;
-            }
-            if (readjustPosition) ReadjustPlayer();
-            if (is_firing)
-            {
-                Fire();
-                firingCounter -= Time.unscaledDeltaTime;
-            }
-            if (isDeathDoor)
-            {
-                DeathDoor();
-                GameObject.FindGameObjectWithTag("MainCamera").
+                    Move(axisX, axisY);
+                    //ManagePitchRotation(axisY);
+                    ManageRollRotation(axisX);
+                    ManageInput(RT);
+                }
+                if (startRotatingRoll || startRotatingPitch) Rotate();
+                if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
+                else
+                {
+                    playerHit = false;
+                }
+                if (readjustPosition) ReadjustPlayer();
+                if (is_firing)
+                {
+                    Fire();
+                    firingCounter -= Time.unscaledDeltaTime;
+                }
+                if (isDeathDoor)
+                {
+                    DeathDoor();
+                    GameObject.FindGameObjectWithTag("MainCamera").
                     GetComponent<PostProcessingSwitcher>().StartDamageEffect = true;
-            }else GameObject.FindGameObjectWithTag("MainCamera").
-                    GetComponent<PostProcessingSwitcher>().StartDamageEffect = false;
-            if (actualLife == 0.0) fillLife.enabled = false;
-            else fillLife.enabled = true;
+                }
+                else GameObject.FindGameObjectWithTag("MainCamera").
+                   GetComponent<PostProcessingSwitcher>().StartDamageEffect = false;
+                if (actualLife == 0.0) fillLife.enabled = false;
+                else fillLife.enabled = true;
+            }else if (!isSavingData)
+            {
+                isSavingData = true;
+                SaveGameStatsScript.GameStats.isGameOver = true;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
+            }
             //if (actualLife < shield) Regen();
             //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
+        }else
+        {
+            SaveGameStatsScript.GameStats.isGameOver = true;
+            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 1000000;
         }
     }
 

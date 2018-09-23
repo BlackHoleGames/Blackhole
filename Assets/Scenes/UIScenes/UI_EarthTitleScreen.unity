@@ -475,7 +475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 402486545}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &397322714
 Prefab:
@@ -584,6 +584,9 @@ MonoBehaviour:
   ScoreNames: []
   ScoreResults: []
   camera2Objects: {fileID: 790095875}
+  cameraEndObjects: {fileID: 613167935}
+  cameraStructObjects: {fileID: 2072823705}
+  cameraLeaderBoards: {fileID: 790095875}
   InitialMusicScreen: {fileID: 377133858}
   speedToMove: 2
   GOTy: 0
@@ -597,11 +600,11 @@ Transform:
   m_LocalPosition: {x: 43.7, y: 25.1, z: -44.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1203728184}
   - {fileID: 1771057536}
   - {fileID: 790095876}
   - {fileID: 1759545433}
   - {fileID: 377133860}
+  - {fileID: 1203728184}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4468,7 +4471,7 @@ Transform:
   - {fileID: 1893920498}
   - {fileID: 425183639}
   m_Father: {fileID: 402486545}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809393381
 GameObject:
@@ -5201,7 +5204,7 @@ Transform:
   m_GameObject: {fileID: 1568134675}
   m_LocalRotation: {x: 0.5527625, y: 0.16420995, z: -0.80566245, w: -0.13563454}
   m_LocalPosition: {x: -195.64563, y: -165, z: 582.1803}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalScale: {x: 3.5, y: 3.4999998, z: 3.5}
   m_Children:
   - {fileID: 1612153262}
   - {fileID: 692302926}
@@ -5210,7 +5213,7 @@ Transform:
   - {fileID: 77816415}
   - {fileID: 1529753874}
   m_Father: {fileID: 402486545}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 6.583, y: 289.706, z: 156.25}
 --- !u!1 &1262342572
 GameObject:
@@ -6020,7 +6023,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 402486545}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 24.26, y: -48.764004, z: 0}
 --- !u!1 &1762854658
 GameObject:
@@ -6179,7 +6182,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 402486545}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -25.085001, y: 29.139002, z: 26.167002}
 --- !u!1001 &1777181252
 Prefab:
