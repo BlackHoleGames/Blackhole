@@ -63,7 +63,6 @@ public class SwitchablePlayerController : MonoBehaviour
         rotationTargetZ = 0.0f;
         rotationTargetX = 0.0f;
         firingCounter = 0.0f;
-        alertModeTime = 0.0f;
         rtimeZ = 0.0f;
         rtimeX = 0.0f;
         initialRot = transform.rotation.eulerAngles;
@@ -113,7 +112,6 @@ public class SwitchablePlayerController : MonoBehaviour
                     ManageInput(RT);
                 }
                 if (startRotatingRoll || startRotatingPitch) Rotate();
-                if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
                 else
                 {
                     playerHit = false;
@@ -443,11 +441,9 @@ public class SwitchablePlayerController : MonoBehaviour
                 if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser")
                 {
                     RumblePad.RumbleState = 1;//Normal Impact
-                    if (alertModeTime > 0.0f)
-                    {
+                    //if (alertModeTime > 0.0f) {
                         
-                        if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
-                        {
+                        //if (alertModeTime < (alertModeDuration - invulnerabilityDuration)) {
                             isUpdatingLife = true;
                             if (other.tag == "DeathLaser") actualLife = -0.1f;    
                             else actualLife = actualLife - (shield / 2.0f);
@@ -508,7 +504,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 if (!tm.InSlowMo()) invulAfterSlow = true;
                                 //RumblePad.RumbleState = 1; //Alarm
                             }              
-                        }
+                        //}
                         if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
                         {                            
                             slomo.Play();
@@ -516,7 +512,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             alertModeTime = alertModeDuration;
                             DestroyGhosts();
                         }
-                    }
+                    //}
                     else alertModeTime = alertModeDuration;
 
                 }

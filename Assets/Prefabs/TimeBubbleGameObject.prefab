@@ -56,7 +56,7 @@ MonoBehaviour:
   slowdownAmount: 0.075
   timeWarpSlowdownDuration: 2.5
   timeWarpSlowdownAmount: 0.25
-  timeBubbleDuration: 2.5
+  timeBubbleDuration: 1
   timeBubbleMaxRadius: 50
   timeToMaxSize: 0.4
   tmPartSys: {fileID: 1592929931469916, guid: fbf703056a335bf48b2eebbadcaa2c2a, type: 2}

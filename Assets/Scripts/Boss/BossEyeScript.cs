@@ -16,7 +16,7 @@ public class BossEyeScript : MonoBehaviour {
     public float shotOffset = 0.2f;
     public float waitBeforeCharge;
     public int numberOfShots = 3;
-    public GameObject enemyProjectile, explosion;
+    public GameObject enemyProjectile, explosion, player;
     private float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
     private Vector3 initialOrientation, orientationTarget;
@@ -26,6 +26,7 @@ public class BossEyeScript : MonoBehaviour {
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
         disabled = false;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

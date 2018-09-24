@@ -5,8 +5,9 @@ using UnityEngine;
 public class AudioManagerScript : MonoBehaviour {
 
     public float volumeRecoverDuration = 1.0f;
+    private float secondsToStopMusic = 1.0f;
     public AudioClip bossMusic, blackHoleEnter;
-    private bool  stopMusic, modifyThePitch, switchMusic, lowerMusic;
+    private bool  stopMusic,  switchMusic, lowerMusic;
     private AudioSource audioSource;
     private AudioClip clipToPlay;
     private float startingPitch, targetPitch, lerpTime;
@@ -15,7 +16,6 @@ public class AudioManagerScript : MonoBehaviour {
 	void Start () {
         audioSource = GetComponent<AudioSource>();
         stopMusic = false;
-        modifyThePitch = false;
         switchMusic = false;
 	}
 	
@@ -23,7 +23,7 @@ public class AudioManagerScript : MonoBehaviour {
 	void Update () {
         if (stopMusic)
         {
-            if (audioSource.volume > 0.0f) audioSource.volume -= Time.deltaTime;
+            if (audioSource.volume > 0.0f) audioSource.volume -= Time.deltaTime/secondsToStopMusic;
             if (audioSource.volume <= 0.0f) {
                 audioSource.Stop();
                 stopMusic = false;
@@ -35,13 +35,7 @@ public class AudioManagerScript : MonoBehaviour {
                 }
             }
         }
-        if (modifyThePitch) {
-            lerpTime += Time.deltaTime;
-            audioSource.pitch = Mathf.Lerp(startingPitch,targetPitch,lerpTime);
-            if (Mathf.Abs(audioSource.pitch-targetPitch) <= 0.1f ) {
-                modifyThePitch = false;              
-            }
-        }
+
         if (lowerMusic) {
                 if (audioSource.volume < 1.0f) audioSource.volume += Time.deltaTime / volumeRecoverDuration;
                 else {
@@ -71,6 +65,7 @@ public class AudioManagerScript : MonoBehaviour {
 
     public void StopMusic() {
         stopMusic = true;
+        secondsToStopMusic = 1.0f;
     }
 
     public void LowerThePitch() {
@@ -89,5 +84,10 @@ public class AudioManagerScript : MonoBehaviour {
         audioSource.volume = 0;
         volumeRecoverDuration = duration;
         lowerMusic = true;
+    }
+
+    public void StopMusicInXSeconds(float duration) {
+        stopMusic = true;
+        secondsToStopMusic = duration;
     }
 }

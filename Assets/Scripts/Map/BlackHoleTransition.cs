@@ -8,14 +8,16 @@ public class BlackHoleTransition : MonoBehaviour {
     public float fadeToBlackCount = 2.0f;
     public bool startCount = false;
     private ChangeScene cs;
+    private AudioManagerScript ams;
 	// Use this for initialization
 	void Start () {
         mm = GameObject.Find("Managers").GetComponent<MapManger>();
         cs = GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (startCount) {
             fadeToBlackCount -= Time.deltaTime;
             if (fadeToBlackCount <= 0.0f)
@@ -32,6 +34,7 @@ public class BlackHoleTransition : MonoBehaviour {
         if (!startCount)
         {
             startCount = true;
+            ams.StopMusicInXSeconds(2.0f);
             cs.StartBlackHoleSequence();
             mm.NotifyEnteredBlackHole();
         }

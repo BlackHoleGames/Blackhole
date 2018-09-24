@@ -86,7 +86,7 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && doubleShotSpeed)
         {
             hit = true;
             audioSource.Play();
