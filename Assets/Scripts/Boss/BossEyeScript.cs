@@ -21,8 +21,10 @@ public class BossEyeScript : MonoBehaviour {
     private ThirdBossStage tbs;
     private Vector3 initialOrientation, orientationTarget, exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
+    private AudioSource audioSource;
     // Use this for initialization
     void Start () {
+        audioSource = GetComponent<AudioSource>();
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
         disabled = false;
@@ -45,7 +47,7 @@ public class BossEyeScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlayerProjectile" && !disabled)
         {
-            //hitAudioSource.Play();
+            audioSource.Play();
             if (life > 0.0f) {
                 life -= other.gameObject.GetComponent<Projectile>().damage;
                 hit = true;
