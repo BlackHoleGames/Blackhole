@@ -44,6 +44,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public int lifePoints, lives = 2;
     //public Transform cameraTrs;
     //public bool camRotate = false;
+    private PostProcessingSwitcher pps;
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
@@ -73,6 +74,7 @@ public class SwitchablePlayerController : MonoBehaviour
         is_vertical = true;
         tm = GetComponent<TimeManager>();
         ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        pps = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>();
         ghostList = new List<GameObject>();
         camMovementEnemies = false;
         playerHit = false;
@@ -82,6 +84,7 @@ public class SwitchablePlayerController : MonoBehaviour
         gunshot = audioSources[2];
         timewarp = audioSources[3];
         liveValue.text = "X3";
+        isDeathDoor = false;
         //parentAxis = gameObject;
     }
 
@@ -125,11 +128,9 @@ public class SwitchablePlayerController : MonoBehaviour
                 if (isDeathDoor)
                 {
                     DeathDoor();
-                    GameObject.FindGameObjectWithTag("MainCamera").
-                    GetComponent<PostProcessingSwitcher>().StartDamageEffect = true;
+                    pps.GetComponent<PostProcessingSwitcher>().ActivateDamageEffect();
                 }
-                else GameObject.FindGameObjectWithTag("MainCamera").
-                   GetComponent<PostProcessingSwitcher>().StartDamageEffect = false;
+                else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
                 if (actualLife == 0.0) fillLife.enabled = false;
                 else fillLife.enabled = true;
             }else if (!isSavingData)
@@ -501,6 +502,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             {
                                 if (actualLife < 0.2f) actualLife = 0.0f;
                                 if (actualLife == 0.0f) isDeathDoor = true;
+                                if (!isDeathDoor) pps.DamageEffect1Round();
                                 impactforshake = true;
                                 if (!tm.InSlowMo()) invulAfterSlow = true;
                                 //RumblePad.RumbleState = 1; //Alarm
