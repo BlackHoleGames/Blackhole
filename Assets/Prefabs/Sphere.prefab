@@ -104,7 +104,6 @@ MonoBehaviour:
   timeToMaxSize: 0.4
   tmPartSys: {fileID: 1144217653516254, guid: 8f56beffc5fb31a48ad172a0e4f49bb1, type: 2}
   inTimeWarp: 0
-  ams: {fileID: 0}
 --- !u!135 &135687942414357824
 SphereCollider:
   m_ObjectHideFlags: 1
