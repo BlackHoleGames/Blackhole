@@ -16,17 +16,17 @@ public class BossEyeScript : MonoBehaviour {
     public float shotOffset = 0.2f;
     public float waitBeforeCharge;
     public int numberOfShots = 3;
-    public GameObject enemyProjectile, explosion, player;
+    public GameObject enemyProjectile, explosion;
     private float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
-    private Vector3 initialOrientation, orientationTarget;
+    private Vector3 initialOrientation, orientationTarget, exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
     // Use this for initialization
     void Start () {
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
         disabled = false;
-        player = GameObject.FindGameObjectWithTag("Player");
+        
     }
 
     // Update is called once per frame
@@ -97,6 +97,7 @@ public class BossEyeScript : MonoBehaviour {
                 orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
+                exitTargetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
                 transform.LookAt(KamikazeExit);
                 transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
                 gameObject.GetComponent<Renderer>().material = matOn;
@@ -106,11 +107,11 @@ public class BossEyeScript : MonoBehaviour {
         if (goToExitPoint) {
             if (waitBeforeCharge > 0.0f) waitBeforeCharge -= Time.unscaledDeltaTime;
             else {
-                if (Vector3.Distance(transform.position, KamikazeExit.position) < 0.1f) {
+                if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f) {
                     Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
-                else transform.position = Vector3.MoveTowards(transform.position, KamikazeExit.position, Time.deltaTime * afterDefeatSpeed);
+                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed);
             }
         }
     }
