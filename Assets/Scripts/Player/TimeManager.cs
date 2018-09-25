@@ -4,8 +4,8 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour {
 
     public float slomoTime = 0.05f;
-    public float actualmaxspeed = 2.0f;
     public float slomoDuration = 2.0f;
+    public float actualmaxspeed = 2.0f;
     public float timeWarpDuration = 10.0f;
     public float timeToGTLIncrease = 5.0f;
     public float wormHoleDuration = 10.0f;
@@ -43,7 +43,10 @@ public class TimeManager : MonoBehaviour {
     void Update() {
         if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
         if (slowDown) DoSlowDown();
-        else if (speedUp) DoSpeedUp();
+        else if (speedUp) {
+            if (slomoCounter < slomoDuration) slomoCounter += Time.unscaledDeltaTime;
+            else DoSpeedUp();
+        }
         else if (gtlIncreasing) DoGTLIncrease();
         //if (isMaxGTLReached) DoTimeWarp();
     }
@@ -64,7 +67,6 @@ public class TimeManager : MonoBehaviour {
         {
             targetGTL = gtlFast;
             ScoreScript.multiplierScore = 1.5f;
-
         }
         else
         {
@@ -135,16 +137,11 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
-    public void DoSpeedUp() {
-        if (slomoCounter < slomoDuration) {
-            if (Time.timeScale < 1.0) Time.timeScale += Time.unscaledDeltaTime;
-            else if (Time.timeScale > 1.0f) Time.timeScale = 1.0f;
-            slomoCounter += Time.unscaledDeltaTime;
-        }
-        else {
+    public void DoSpeedUp() {       
+        if (Time.timeScale < 1.0) Time.timeScale += Time.unscaledDeltaTime;
+        else if (Time.timeScale >= 1.0f) {
             Time.timeScale = 1.0f;
             speedUp = false;
-            ams.RestoreThePitch();
         }        
     }
 
