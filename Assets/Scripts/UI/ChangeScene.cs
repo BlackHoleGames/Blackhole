@@ -14,8 +14,10 @@ public class ChangeScene : MonoBehaviour {
     public bool shutdown = false;
     private bool activateDeath =false;
     private bool activateBH = false;
-    private float SecondsInBH = 16.0f;
-    private float SecondsOutBH = 3.0f;
+    public float SecondsInBH = 16.0f;
+    public float SecondsOutBH = 3.0f;
+    public float SecondsToWaitDestroy = 2.0f;
+    public float SecondsToWaitEnd = 2.0f;
     void Start()
     {
         Cursor.visible = false;
@@ -30,7 +32,7 @@ public class ChangeScene : MonoBehaviour {
         if(shutdown)
         {
             changeScene = true;
-            SceneCloseTimerSequence = FadeToEndingLevel(3.0f);
+            SceneCloseTimerSequence = FadeToEndingLevel(SecondsToWaitEnd);
             StartCoroutine(SceneCloseTimerSequence);
         }
         //else if (GameObject.FindGameObjectWithTag("Player").GetComponent<BlackHoleTransition>()!=null
@@ -55,7 +57,8 @@ public class ChangeScene : MonoBehaviour {
 
     IEnumerator FadeToEndingLevel (float levelTimer)
     {
-        BlackFade.CrossFadeAlpha(1.0f, 2.0f, false);
+        yield return new WaitForSeconds(SecondsToWaitDestroy);
+        BlackFade.CrossFadeAlpha(1.0f, SecondsToWaitEnd, false);
         //BlackFade.canvasRenderer.SetAlpha(1.0f);
         yield return new WaitForSeconds(levelTimer);
         if (GameObject.FindGameObjectWithTag("Player") != null &&
