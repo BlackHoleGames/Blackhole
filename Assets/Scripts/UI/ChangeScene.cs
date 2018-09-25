@@ -14,8 +14,8 @@ public class ChangeScene : MonoBehaviour {
     public bool shutdown = false;
     private bool activateDeath =false;
     private bool activateBH = false;
-    public float SecondsInBH = 2.0f;
-    public float SecondsOutBH = 2.0f;
+    private float SecondsInBH = 16.0f;
+    private float SecondsOutBH = 3.0f;
     void Start()
     {
         Cursor.visible = false;
@@ -75,9 +75,11 @@ public class ChangeScene : MonoBehaviour {
     }
     IEnumerator FadeToInitBH()
     {
-        BlackFade.CrossFadeAlpha(1.0f, SecondsInBH, false);
+        yield return new WaitForSeconds(3.0f);
+        RumblePad.RumbleState = 7;
+        BlackFade.CrossFadeAlpha(1.0f, 3.0f, false);
         yield return new WaitForSeconds(SecondsInBH);
-        BlackFade.CrossFadeAlpha(0.0f, SecondsOutBH, false);
+        BlackFade.CrossFadeAlpha(0.0f, 5.0f, false);
         yield return new WaitForSeconds(SecondsOutBH);
     }
 

@@ -10,6 +10,7 @@ public class CameraBehaviour : MonoBehaviour {
     public float speed = 5.0f;
     public float timeToMove = 12.0f;
     public float rumbleDuration = 0.5f;
+    public float rumbleBHDuration = 16.0f;
     public float rumbleScope = 0.5f;
     private float t = 0.0f;
     public bool startRotating;
@@ -42,6 +43,14 @@ public class CameraBehaviour : MonoBehaviour {
             //Not working in this map.
             isShaking = true;
             cameraShake = CrashShake(rumbleDuration, rumbleScope);
+            StartCoroutine(cameraShake);
+        }else if (GameObject.FindGameObjectWithTag("Managers")
+            .GetComponent<MapManger>().actualStage == MapManger.Stages.BOSS_TRANSITION
+            && RumblePad.RumbleState==7 && !isShaking)
+        {
+            //Not working in this map.
+            isShaking = true;
+            cameraShake = CrashShake(rumbleBHDuration, rumbleScope);
             StartCoroutine(cameraShake);
         }
         
@@ -140,7 +149,10 @@ public class CameraBehaviour : MonoBehaviour {
                 case MapManger.Stages.BOSS:
                     transform.localPosition = new Vector3(xCamShake, cameraPosition.y, cameraPosition.z);
                 break;
-                }
+                case MapManger.Stages.BOSS_TRANSITION:
+                    transform.localPosition = new Vector3(xCamShake, yCamShake, cameraPosition.z);
+                break;
+            }
                   
                 GameObject.FindGameObjectWithTag("UI_Panel").GetComponent<Transform>().localPosition = new Vector3(xShakeUI * 2, yShakeUI*2, UIoriginalPosition.z);
                 elapsed += Time.deltaTime;
