@@ -98,8 +98,15 @@ public class PlayerDestroyScript : MonoBehaviour
             {
                 child.GetComponent<Transform>().transform.position = newPos;
                 child.GetComponent<TimeRewindBody>().rewinding = false;
-                child.GetComponent<TimeRewindBody>().timeBeforeRewind = 1.5f;
-                child.GetComponent<TimeRewindBody>().recordingTime = 2.5f;
+                if (!noLifesRemaining)
+                {
+                    child.GetComponent<TimeRewindBody>().timeBeforeRewind = 1.5f;
+                    child.GetComponent<TimeRewindBody>().recordingTime = 2.5f;
+                }else
+                {
+                    child.GetComponent<TimeRewindBody>().timeBeforeRewind = 20f;
+                    child.GetComponent<TimeRewindBody>().recordingTime = 20f;
+                }
             }
             else child.gameObject.SetActive(false);
         }
