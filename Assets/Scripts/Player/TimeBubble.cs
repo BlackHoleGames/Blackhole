@@ -56,13 +56,20 @@ public class TimeBubble : MonoBehaviour {
             || other.tag == "DodgeSection" && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
             if (tb) {
-                if (inTimeWarp)
-                {
+                if (inTimeWarp) {
                     tb.SlowDown(timeWarpSlowdownAmount, timeWarpSlowdownDuration);
                 }
-                else
-                {
+                else {
                     tb.SlowDown(slowdownAmount, slowdownDuration);
+                }
+            }
+            ParticleTimeReducer ptr = other.GetComponent<ParticleTimeReducer>();
+            if (ptr) {
+                if (inTimeWarp) {
+                    ptr.SlowDown(timeWarpSlowdownAmount, timeWarpSlowdownDuration);
+                }
+                else {
+                    ptr.SlowDown(slowdownAmount, slowdownDuration);
                 }
             }
         }

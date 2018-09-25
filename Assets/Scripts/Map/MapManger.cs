@@ -11,11 +11,13 @@ public class MapManger : MonoBehaviour {
     public float meteorDelayDuration = 0.75f;
     public float blackScreenDuration = 30.0f;
     public float secondsBeforeBoss = 3.0f;
+    public float secondsAfterEachWave = 3.0f;
     public MiniBossScript mbs;
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
         battleTunnel, blackHole, spacelights, structlights, bosslights;
 
+    private float afterWaveCounter;
     private EnemyManager em;
     private AsteroidsMovement am;
     private TimeManager tm;
@@ -42,6 +44,7 @@ public class MapManger : MonoBehaviour {
         meteorDelayCounter = 0.0f;
         timewarpDelayCounter = 0.0f;
         blackScreenCounter = 0.0f;
+        afterWaveCounter = 0.0f;
         structureMoving = false;
         bossEnabled = false;
         meteorsDelayOn = false;
@@ -64,19 +67,29 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.METEORS_TIMEWARP:
-                if (!am.AsteroidsAreMoving()) {
-                    if (!meteors) {
-                        GameObject obj = Instantiate(Resources.Load("MeteorStormFull 1"),new Vector3(0,0,0), new Quaternion()) as GameObject;
-                        meteors = obj;
-                        am = obj.GetComponentInChildren<AsteroidsMovement>();
-                        asteroidsDodge = am.gameObject;
+                if (afterWaveCounter < secondsAfterEachWave) {
+                    afterWaveCounter += Time.unscaledDeltaTime;
+                    if (afterWaveCounter >= secondsAfterEachWave) CleanUpBullets();
+                }
+                else
+                {
+                    if (!am.AsteroidsAreMoving())
+                    {
+                        CleanUpBullets();
+                        if (!meteors)
+                        {
+                            GameObject obj = Instantiate(Resources.Load("MeteorStormFull 1"), new Vector3(0, 0, 0), new Quaternion()) as GameObject;
+                            meteors = obj;
+                            am = obj.GetComponentInChildren<AsteroidsMovement>();
+                            asteroidsDodge = am.gameObject;
+                        }
+                        else meteors.SetActive(true);
+                        asteroidsDodge.SetActive(true);
+                        am.StartMovingAsteroids();
+                        tm.StartTimeWarp();
+                        timewarpEffect.SetActive(true);
+                        timewarpBackground.SetActive(true);
                     }
-                    else meteors.SetActive(true);
-                    asteroidsDodge.SetActive(true);
-                    am.StartMovingAsteroids();
-                    tm.StartTimeWarp();
-                    timewarpEffect.SetActive(true);
-                    timewarpBackground.SetActive(true);
                 }
                 break;
             case Stages.METEORS_ENEMIES:
@@ -88,7 +101,9 @@ public class MapManger : MonoBehaviour {
                     meteorsDelayOn = true;
                     timewarpBackgroundDelay = true;
                     timewarpEffect.SetActive(false);
+                    afterWaveCounter = 0.0f;
                 }
+
                 break;
             case Stages.MINIBOSS_FIRSTPHASE:
                 if (mbs)
@@ -151,35 +166,42 @@ public class MapManger : MonoBehaviour {
                 }
                 break;
             case Stages.BOSS_TRANSITION:
-                if (!blackholeenabled)
-                {
-                    blackHole.SetActive(true);
-                    tm.StartTimeWarp();
-                    timewarpEffect.SetActive(true);
-                    blackholeenabled = true;
+                if (afterWaveCounter < secondsAfterEachWave) {
+                    afterWaveCounter += Time.unscaledDeltaTime;
+                    if (afterWaveCounter >= secondsAfterEachWave) CleanUpBullets();
                 }
-                if (!removeBattleStruct)
+                else
                 {
-                    if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
+                    if (!blackholeenabled)
                     {
-                        foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
+                        blackHole.SetActive(true);
+                        tm.StartTimeWarp();
+                        timewarpEffect.SetActive(true);
+                        blackholeenabled = true;
                     }
-                    else
+                    if (!removeBattleStruct)
                     {
-                        Destroy(battleTunnel);
-                        removeBattleStruct = true;
+                        if (battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>().Length > 0)
+                        {
+                            foreach (StructEnemyStageTunnel sest in battleTunnel.GetComponentsInChildren<StructEnemyStageTunnel>()) sest.FinishSequence();
+                        }
+                        else
+                        {
+                            Destroy(battleTunnel);
+                            removeBattleStruct = true;
+                        }
                     }
-                }                                  
-                if (onBlackScreen)
-                {
-                    if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
-                    else
+                    if (onBlackScreen)
                     {
-                        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
-                        tm.StopTimeWarp();
-                        GoToNextStage();
+                        if (blackScreenCounter < blackScreenDuration) blackScreenCounter += Time.deltaTime;
+                        else
+                        {
+                            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
+                            tm.StopTimeWarp();
+                            GoToNextStage();
+                        }
                     }
-                }                                 
+                }
                 break;
             case Stages.BOSS:                                               
                 if (!bossEnabled) {
@@ -385,6 +407,13 @@ public class MapManger : MonoBehaviour {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
                 GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
                 break;
+        }
+    }
+
+    private void CleanUpBullets() {
+        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+        foreach (GameObject obj in projectiles) {
+            Destroy(obj);
         }
     }
 

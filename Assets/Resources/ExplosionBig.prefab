@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 4079357088349408}
   - component: {fileID: 114159035729608512}
   - component: {fileID: 82555027690777632}
+  - component: {fileID: 114555062302443694}
+  - component: {fileID: 114883765374493738}
   m_Layer: 0
   m_Name: ExplosionBig
   m_TagString: Untagged
@@ -258,6 +260,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 198251529551832550}
   timeToLive: 1.8
+--- !u!114 &114555062302443694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454508911598622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ca26ba0da75945b750ba33cd229c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleOfTime: 1
+--- !u!114 &114883765374493738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454508911598622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100ebdb4e53b0094fb30bf5d407e3081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198091670850102968
 ParticleSystem:
   m_ObjectHideFlags: 1

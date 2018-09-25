@@ -181,9 +181,9 @@ public class SwitchablePlayerController : MonoBehaviour
                 int clipIndex = (int)Random.Range(0, 3);
                 timebomb.clip = timeBombClips[clipIndex];
                 timebomb.Play();
-                tm.StartSloMo();
-                //GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
-                //if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+                //tm.StartSloMo();
+                GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+                if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
             }
         }        
     }

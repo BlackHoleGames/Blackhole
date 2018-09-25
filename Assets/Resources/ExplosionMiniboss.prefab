@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 4079357088349408}
   - component: {fileID: 114159035729608512}
   - component: {fileID: 82555027690777632}
+  - component: {fileID: 114073645903371100}
+  - component: {fileID: 114135968482593596}
   m_Layer: 0
   m_Name: ExplosionMiniboss
   m_TagString: Untagged
@@ -245,6 +247,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114073645903371100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454508911598622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ca26ba0da75945b750ba33cd229c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleOfTime: 1
+--- !u!114 &114135968482593596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454508911598622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100ebdb4e53b0094fb30bf5d407e3081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114159035729608512
 MonoBehaviour:
   m_ObjectHideFlags: 1
