@@ -11,6 +11,7 @@ public class Logo : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
+        Cursor.visible = false;
         LogoImage.canvasRenderer.SetAlpha(0.0f);
         CurtainImage.canvasRenderer.SetAlpha(0.0f);
         yield return new WaitForSeconds(1.0f);

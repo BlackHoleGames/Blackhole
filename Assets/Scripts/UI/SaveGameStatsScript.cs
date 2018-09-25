@@ -63,6 +63,7 @@ public class SaveGameStatsScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = false;
         earthArray = new List<GameObject>();
         foreach (Transform child in transform)
         {
@@ -78,6 +79,7 @@ public class SaveGameStatsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = false;
         if (SceneisChanged) {
             SceneisChanged = false;
             GameObject temp = GameObject.FindGameObjectWithTag("Earth") ;
@@ -88,11 +90,13 @@ public class SaveGameStatsScript : MonoBehaviour
         switch (SceneManager.GetActiveScene().buildIndex)
         {
             case 1://Eartittle
+                Cursor.lockState= CursorLockMode.Locked;
                 //foreach (Transform earth in transform)
                 //{
                 //    earth.gameObject.SetActive(true);
                 //}
                 camera2Objects.SetActive(false);
+                cameraEndObjects.SetActive(false);
                 //cameraLeaderBoards.SetActive(false);
                 //camera2Objects.SetActive(false);
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
@@ -101,36 +105,32 @@ public class SaveGameStatsScript : MonoBehaviour
                 InitialMusicScreen.SetActive(true);
                 break;
             case 2://Tutorial
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(true);
-                //}
-                //cameraLeaderBoards.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
                 camera2Objects.SetActive(false);
+                cameraEndObjects.SetActive(false);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 InitialMusicScreen.SetActive(false);
             break;
             case 3://Menu
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(true);
-                //}
+                Cursor.lockState = CursorLockMode.Confined;
                 cameraLeaderBoards.SetActive(false);
                 camera2Objects.SetActive(false);
+                //cameraEndObjects.SetActive(false);
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 InitialMusicScreen.SetActive(true);
             break;
             case 4://Briefing -> Camera 3
-                   //cameraLeaderBoards.SetActive(false);
-                   //camera2Objects.SetActive(false);
-                   //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
-                   //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
-                   //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
-                   //InitialMusicScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.Locked;
+                //cameraLeaderBoards.SetActive(false);
+                //camera2Objects.SetActive(false);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
+                //InitialMusicScreen.SetActive(true);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(false);
@@ -138,7 +138,9 @@ public class SaveGameStatsScript : MonoBehaviour
                 InitialMusicScreen.SetActive(true);
                 break;
             case 8://LeaderBoards -> Camera 2
+                Cursor.lockState = CursorLockMode.Locked;
                 camera2Objects.SetActive(true);
+                cameraEndObjects.SetActive(false);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(true);
@@ -149,17 +151,21 @@ public class SaveGameStatsScript : MonoBehaviour
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 break;
             case 5:
+                Cursor.lockState = CursorLockMode.None;
                 GameObject.FindGameObjectWithTag("MainCamera").SetActive(true);
                 camera2Objects.SetActive(false);
                 InitialMusicScreen.SetActive(false);
+                //cameraEndObjects.SetActive(false);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(false);
                 }
                 break;
             case 6:
+                Cursor.lockState = CursorLockMode.Locked;
                 InitialMusicScreen.SetActive(false);
                 camera2Objects.SetActive(false);
+                cameraEndObjects.SetActive(false);
                 foreach (Transform earth in transform)
                 {
                     earth.gameObject.SetActive(false);
@@ -169,6 +175,7 @@ public class SaveGameStatsScript : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
                 break;
             case 7:
+                Cursor.lockState = CursorLockMode.Locked;
                 InitialMusicScreen.SetActive(false);
                 camera2Objects.SetActive(false);
                 cameraEndObjects.SetActive(true);
