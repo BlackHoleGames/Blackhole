@@ -104,7 +104,7 @@ public class BossEyeScript : MonoBehaviour {
                 transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
                 gameObject.GetComponent<Renderer>().material = matOn;
             }
-            else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed);
+            else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed * tb.scaleOfTime);
         }
         if (goToExitPoint) {
             if (waitBeforeCharge > 0.0f) waitBeforeCharge -= Time.unscaledDeltaTime;
@@ -113,7 +113,7 @@ public class BossEyeScript : MonoBehaviour {
                     Instantiate(Resources.Load("ExplosionEye"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
-                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed);
+                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed* tb.scaleOfTime);
             }
         }
     }
