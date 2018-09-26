@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d6a7c62e3d8ee8c44a1c4db3e59fcbf0
+timeCreated: 1537986441
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ferret Face 3D
+  fontNames:
+  - Ferret Face 3D
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

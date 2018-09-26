@@ -20,8 +20,8 @@ public class UI_DeathDoor : MonoBehaviour {
     // Use this for initialization
     void Start () {
         CTimeBomb1  = GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color;
-        CTimeBomb2  = GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color;
-        CTimeBomb3  = GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color;
+        //CTimeBomb2  = GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color;
+        //CTimeBomb3  = GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color;
         //CMultiplier1= GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color;
         //CMultiplier2= GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color;
         //CMultiplier3= GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color;
@@ -51,8 +51,8 @@ public class UI_DeathDoor : MonoBehaviour {
     public void NormalColor()
     {
         GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CTimeBomb1;
-        GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CTimeBomb2;
-        GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CTimeBomb3;
+        //GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CTimeBomb2;
+        //GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CTimeBomb3;
         //GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color   =CMultiplier1;
         //GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color   =CMultiplier2;
         //GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color   =CMultiplier3;
@@ -64,8 +64,8 @@ public class UI_DeathDoor : MonoBehaviour {
     public void RedColor()
     {
         GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CDeathDoor;
-        GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CDeathDoor;
-        GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CDeathDoor;
+        //GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CDeathDoor;
+        //GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CDeathDoor;
         //GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color = CDeathDoor;
         //GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color = CDeathDoor;
         //GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color = CDeathDoor;

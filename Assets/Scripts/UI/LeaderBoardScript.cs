@@ -11,6 +11,8 @@ public class LeaderBoardScript : MonoBehaviour
     public Text LeaderBoardsTitle;
     
     public Text Letter;
+    public Text congrats;
+    public Text numPosition;
     public string loadLevel;
     public bool WaitingForName = false;
     public bool isLeaderBoardTime = false;
@@ -45,12 +47,18 @@ public class LeaderBoardScript : MonoBehaviour
         ScoreResultC.canvasRenderer.SetAlpha(0.0f);
         ScoreResultD.canvasRenderer.SetAlpha(0.0f);
         ScoreResultE.canvasRenderer.SetAlpha(0.0f);
+        numPosition.canvasRenderer.SetAlpha(0.0f);
+        congrats.canvasRenderer.SetAlpha(0.0f);
+        isLeaderBoardTime = false;
         if (SaveGameStatsScript.GameStats!=null && SaveGameStatsScript.GameStats.isGameOver) {            
-            if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
-            else GameOverText.text = "Game Over";
+            //if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
+            //else GameOverText.text = "Game Over";
             if (CompareScore()) {
                 //Congrats Name
                 GetComponent<InputNameScore>().IsInputName = true;
+                setPosition();
+                congrats.CrossFadeAlpha(1.0f, 1.0f, false);
+                numPosition.CrossFadeAlpha(1.0f, 1.0f, false);
                 Timer.gameObject.SetActive(true);
                 Initials.gameObject.SetActive(true);
                 //while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
@@ -74,6 +82,30 @@ public class LeaderBoardScript : MonoBehaviour
 //        SceneManager.LoadScene(1);
 
     }
+
+    private void setPosition()
+    {
+        switch (ScorePosition)
+        {
+            case 1:
+                numPosition.text = "1ST";
+            break;
+            case 2:
+                numPosition.text = "2ND";
+                break;
+            case 3:
+                numPosition.text = "3RD";
+                break;
+            case 4:
+                numPosition.text = "4TH";
+                break;
+            case 5:
+                numPosition.text = "5TH";
+                break;
+        }
+
+    }
+
     void Update()
     {
         if (isLeaderBoardTime)

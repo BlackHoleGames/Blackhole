@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: b8c123ec9591bf246bbe3bc08d076b43
+timeCreated: 1537986441
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ferret Face Expanded Italic
+  fontNames:
+  - Ferret Face Expanded Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

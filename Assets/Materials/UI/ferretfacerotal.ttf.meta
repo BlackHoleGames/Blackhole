@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: bce2b81f5654d61428dd6fcb1f1ff1fa
+timeCreated: 1537986441
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ferret Face Rotalic
+  fontNames:
+  - Ferret Face Rotalic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
