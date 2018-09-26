@@ -197,7 +197,6 @@ public class MapManger : MonoBehaviour {
                         else
                         {
                             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>().SwitchPostProcess(PostProcessingSwitcher.Profiles.MAGNETIC_STORM);
-                            tm.StopTimeWarp();
                             GoToNextStage();
                         }
                     }
@@ -210,6 +209,7 @@ public class MapManger : MonoBehaviour {
                     //bosslights.SetActive(true);
                     if (secondsBeforeBoss > 0.0f) secondsBeforeBoss -= Time.deltaTime;
                     else {
+                        tm.StopTimeWarp();
                         ams.ChangeToBossMusic();
                         TimeBombManager.activateBomb2 = true;
                         TimeBombManager.activateBomb3 = true;
