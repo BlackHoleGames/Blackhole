@@ -110,7 +110,7 @@ public class BossEyeScript : MonoBehaviour {
             if (waitBeforeCharge > 0.0f) waitBeforeCharge -= Time.unscaledDeltaTime;
             else {
                 if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f) {
-                    Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                    Instantiate(Resources.Load("ExplosionEye"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
                 else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed);
