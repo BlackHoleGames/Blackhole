@@ -10,6 +10,8 @@ public class GTLManager : MonoBehaviour {
     private bool onTop = false;
     private List<GameObject> multiplierArray;
     private int statusGTL =0;
+    private IEnumerator GTLTimerDoor;
+
     void Start()
     {
         multiplierArray = new List<GameObject>();
@@ -27,82 +29,94 @@ public class GTLManager : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        if (ScoreScript.multiplierScore == 1.0f)
+        if (ScoreScript.multiplierScore == 1.0f && statusGTL != 1)
         {
-            X1.GetComponent<Image>().fillAmount +=
-            MultiplierIncrease * Time.unscaledDeltaTime;
-            X2.GetComponent<Image>().fillAmount = 0.0f;
-            X3.GetComponent<Image>().fillAmount = 0.0f;
-            if (gtlBar.value < 3.0f && !onTop)
-            {
-                gtlBar.value += Time.unscaledDeltaTime;
-            }
-            else
-            {
-                onTop = true;
-            } 
-            if (onTop)
-            {
-                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
-            }
-            if (gtlBar.value <= 2.0f) onTop = false;
-            //if (statusGTL == 0) statusGTL = 1;
-            //else if (statusGTL == 1) statusGTL = 11;
-            //else if (statusGTL == 11) statusGTL = 21;
-            //else if (statusGTL == 21) statusGTL = 1;
-            //else .
             statusGTL = 1;
-        }
-        else if (ScoreScript.multiplierScore == 1.5f)
-        {
-            X2.GetComponent<Image>().fillAmount +=
-            MultiplierIncrease * Time.unscaledDeltaTime;
-            X1.GetComponent<Image>().fillAmount = 0.0f;
-            X3.GetComponent<Image>().fillAmount = 0.0f;
-            if (gtlBar.value < 6.0f && !onTop)
-            {
-                gtlBar.value += Time.unscaledDeltaTime;
+            if (X1.GetComponent<Image>().fillAmount == 0.0f) { 
+                GTLTimerDoor = GTLSequence(statusGTL);
+                StartCoroutine(GTLTimerDoor);
             }
-            else
-            {
-                onTop = true;
-            }
-            if (onTop)
-            {
-                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
-            }
-            if (gtlBar.value <= 5.0f) onTop = false;
-            statusGTL = 2;
-        }
-        else if (ScoreScript.multiplierScore == 2.0f)
-        {
-            X3.GetComponent<Image>().fillAmount +=
-            MultiplierIncrease * Time.unscaledDeltaTime;
-            X1.GetComponent<Image>().fillAmount = 0.0f;
+
             X2.GetComponent<Image>().fillAmount = 0.0f;
-            if (gtlBar.value < 10.0f && !onTop)
-            {
-                gtlBar.value += Time.unscaledDeltaTime;
-            }
-            else
-            {
-                onTop = true;
-            }
-            if (onTop)
-            {
-                gtlBar.value -= MovementGtlPerSec * Time.unscaledDeltaTime;
-            }
-            if (gtlBar.value <= 9.0f) onTop = false;
-            statusGTL = 3;
-            //if (statusGTL == 0) statusGTL = 3;
-            //else if (statusGTL == 3) statusGTL = 13;
-            //else if (statusGTL == 13) statusGTL = 23;
-            //else if (statusGTL == 23) statusGTL = 3;
-            //else 
+            X3.GetComponent<Image>().fillAmount = 0.0f;
 
         }
-        //UpdateGTLBar();
+        else if (ScoreScript.multiplierScore == 1.5f && statusGTL != 2)
+        {
+            statusGTL = 2;
+            if (X2.GetComponent<Image>().fillAmount == 0.0f)
+            {
+                GTLTimerDoor = GTLSequence(statusGTL);
+                StartCoroutine(GTLTimerDoor);
+            }
+            X1.GetComponent<Image>().fillAmount = 0.0f;
+            X3.GetComponent<Image>().fillAmount = 0.0f;
+        }
+        else if (ScoreScript.multiplierScore == 2.0f && statusGTL != 3)
+        {
+            statusGTL = 3;
+            if (X3.GetComponent<Image>().fillAmount == 0.0f)
+            {
+                GTLTimerDoor = GTLSequence(statusGTL);
+                StartCoroutine(GTLTimerDoor);
+            }
+            X1.GetComponent<Image>().fillAmount = 0.0f;
+            X2.GetComponent<Image>().fillAmount = 0.0f;
+        }
+
     }
+    IEnumerator GTLSequence(int multiplierGtl)
+    {
+        switch (multiplierGtl) {
+            case 1:
+                for (int i = 0; i < 4; i++)
+                {
+                    X1.GetComponent<Image>().fillAmount = 1.0f;
+                    yield return new WaitForSeconds(0.5f);
+                    X1.GetComponent<Image>().fillAmount = 0.0f;
+                    yield return new WaitForSeconds(0.5f);
+                }
+                X1.GetComponent<Image>().fillAmount = 1.0f;
+            break;
+            case 2:
+                for (int i = 0; i < 4; i++)
+                {
+                    X2.GetComponent<Image>().fillAmount = 1.0f;
+                    yield return new WaitForSeconds(0.5f);
+                    X2.GetComponent<Image>().fillAmount = 0.0f;
+                    yield return new WaitForSeconds(0.5f);
+                }
+                X2.GetComponent<Image>().fillAmount = 1.0f;
+            break;
+            case 3:
+                for (int i = 0; i < 4; i++)
+                {
+                    X3.GetComponent<Image>().fillAmount = 1.0f;
+                    yield return new WaitForSeconds(0.5f);
+                    X3.GetComponent<Image>().fillAmount = 0.0f;
+                    yield return new WaitForSeconds(0.5f);
+                }
+                X3.GetComponent<Image>().fillAmount = 1.0f;
+            break;
+        }
+    }
+    public IEnumerator RestoreMultiplier()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            X1.GetComponent<Image>().fillAmount = 1.0f;
+            yield return new WaitForSeconds(0.5f);
+            X1.GetComponent<Image>().fillAmount = 0.0f;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    public void disableMultiplier()
+    {
+        X1.GetComponent<Image>().fillAmount = 0.0f;
+        X2.GetComponent<Image>().fillAmount = 0.0f;
+        X3.GetComponent<Image>().fillAmount = 0.0f;
+    }
+
     private void UpdateGTLBar()
     {
         switch (statusGTL)

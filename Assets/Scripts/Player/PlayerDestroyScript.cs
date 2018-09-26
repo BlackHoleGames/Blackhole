@@ -21,13 +21,16 @@ public class PlayerDestroyScript : MonoBehaviour
     public float timeForHitEffect = 0.1f;
     private bool finishTimeInv = false;
     public List<Transform> alertList;
-    private GameObject player;
+    private GameObject player,UI;
     private SwitchablePlayerController spc;
+    private GTLManager gtm;
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        UI = GameObject.FindGameObjectWithTag("UI_InGame");
         spc = player.GetComponent<SwitchablePlayerController>();
+        gtm = UI.GetComponent<GTLManager>();
         playerFirstPosition = gameObject.transform.position;
         DestroyedFirstPosition = gameObject.transform.position;
         destroyArray = new List<GameObject>();
@@ -51,6 +54,7 @@ public class PlayerDestroyScript : MonoBehaviour
             if (player != null && spc.isDestroying && !waitingForDeath) {
                 Debug.Log("Here");
                 waitingForDeath = true;
+                gtm.disableMultiplier();
                 DeathTimerSequence = DeathSequence(3.0f);
                 StartCoroutine(DeathTimerSequence);
 
@@ -135,6 +139,8 @@ public class PlayerDestroyScript : MonoBehaviour
     IEnumerator InvulnerableSequence()
     {
         spc.isRestoring = true;
+        ScoreScript.multiplierScore = 1.0f;
+        gtm.RestoreMultiplier();
         foreach (BoxCollider pc in PlayerColliders) pc.enabled = false;
         if (!waitingForHit)
         {
