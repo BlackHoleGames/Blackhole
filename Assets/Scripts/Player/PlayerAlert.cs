@@ -6,18 +6,22 @@ public class PlayerAlert : MonoBehaviour {
     public GameObject psAlert;
     private IEnumerator AlertTimerSequence;
     private bool secure = false;
+    private SwitchablePlayerController spc;
+    private GameObject player;
     // Use this for initialization
     void Start () {
-		
-	}
+        spc = GetComponent<SwitchablePlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameObject.FindGameObjectWithTag("Player") != null)
+        if (player != null)
         {
-            if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isAlert
-                && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath
-                && !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isRestoring
+            if (spc.isAlert
+                && !spc.isDeath
+                && !spc.isRestoring
                 && !secure)
             {                
                 secure = true;
@@ -38,11 +42,11 @@ public class PlayerAlert : MonoBehaviour {
         for (int i = 0; i < 6; i++)
         {
             yield return new WaitForSeconds(waitToDeath / 6);
-            if (GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath)break;
+            if (spc.isDeath)break;
         }
         psAlert.GetComponent<ParticleSystem>().Stop();
         psAlert.SetActive(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isAlert = false;
+        spc.isAlert = false;
         secure = false;
     }
 }

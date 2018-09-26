@@ -39,7 +39,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
     private AudioManagerScript ams;
-    public List<GameObject> ghostList;
+    private List<GameObject> ghostList;
     private bool isSavingData, is_vertical, is_firing, play;
     public int lifePoints, lives = 2;
     //public Transform cameraTrs;
@@ -52,12 +52,14 @@ public class SwitchablePlayerController : MonoBehaviour
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
+    private bool gamePaused;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
     {
         godMode = false;
         play = true;
+        gamePaused = false;
         actualLife = shield;
         life.value = actualLife;
         lifePoints = (int)actualLife;
@@ -100,39 +102,56 @@ public class SwitchablePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (!isEnding) {
             if (!isDeath && !isDestroying)
             {
-                if (play)
+                if (Input.GetKeyDown(KeyCode.X))
                 {
-                    float axisX = Input.GetAxis("Horizontal");
-                    float axisY = Input.GetAxis("Vertical");
-                    double RT = Input.GetAxis("RT");
+                    if (!gamePaused)
+                    {
+                        tm.PauseGame();
+                        gamePaused = true;
+                    }
+                    else
+                    {
+                        tm.UnPauseGame();
+                        gamePaused = false;
+                    }
+                }
+                if (!gamePaused)
+                {
+                    if (play)
+                    {
+                        float axisX = Input.GetAxis("Horizontal");
+                        float axisY = Input.GetAxis("Vertical");
+                        double RT = Input.GetAxis("RT");
 
-                    Move(axisX, axisY);
-                    //ManagePitchRotation(axisY);
-                    ManageRollRotation(axisX);
-                    ManageInput(RT);
+                        Move(axisX, axisY);
+                        //ManagePitchRotation(axisY);
+                        ManageRollRotation(axisX);
+                        ManageInput(RT);
+                    }
+                    if (startRotatingRoll || startRotatingPitch) Rotate();
+                    else
+                    {
+                        playerHit = false;
+                    }
+                    if (readjustPosition) ReadjustPlayer();
+                    if (is_firing)
+                    {
+                        Fire();
+                        firingCounter -= Time.unscaledDeltaTime;
+                    }
+                    if (isDeathDoor)
+                    {
+                        DeathDoor();
+                        pps.GetComponent<PostProcessingSwitcher>().ActivateDamageEffect();
+                    }
+                    else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
+                    if (actualLife == 0.0) fillLife.enabled = false;
+                    else fillLife.enabled = true;
                 }
-                if (startRotatingRoll || startRotatingPitch) Rotate();
-                else
-                {
-                    playerHit = false;
-                }
-                if (readjustPosition) ReadjustPlayer();
-                if (is_firing)
-                {
-                    Fire();
-                    firingCounter -= Time.unscaledDeltaTime;
-                }
-                if (isDeathDoor)
-                {
-                    DeathDoor();
-                    pps.GetComponent<PostProcessingSwitcher>().ActivateDamageEffect();
-                }
-                else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
-                if (actualLife == 0.0) fillLife.enabled = false;
-                else fillLife.enabled = true;
             }else if (!isSavingData)
             {
                 isSavingData = true;
@@ -150,42 +169,46 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void ManageInput(double RT)
     {
-        
-        isShotingbyPad = false;
-        RT=System.Math.Round(RT, 2);
-        if (RT > 0) isShotingbyPad = true;
-        if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing)
+
+        if (!gamePaused)
         {
-            is_firing = true;
-            if(ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StartFiring();
-            
-        }
-        if ((Input.GetButtonUp("Fire1")) && is_firing)
-        {
-            is_firing = false;
-            firingCounter = 0.0f;
-            if(ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
-            
-        }
-        if (isShotingbyPad)
-        {
-            FireRutine = StoppingShoot(0.5f);
-            StartCoroutine(FireRutine);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
-        {        
-            if (!emptyStockBombs && !activateBomb)
+            isShotingbyPad = false;
+            RT = System.Math.Round(RT, 2);
+            if (RT > 0) isShotingbyPad = true;
+            if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing)
             {
-                RumblePad.RumbleState = 3;
-                activateBomb = true;
-                int clipIndex = (int)Random.Range(0, 3);
-                timebomb.clip = timeBombClips[clipIndex];
-                timebomb.Play();
-                //tm.StartSloMo();
-                GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
-                if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+                is_firing = true;
+                if (ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StartFiring();
+
             }
-        }        
+            if ((Input.GetButtonUp("Fire1")) && is_firing)
+            {
+                is_firing = false;
+                firingCounter = 0.0f;
+                if (ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
+
+            }
+            if (isShotingbyPad)
+            {
+                FireRutine = StoppingShoot(0.5f);
+                StartCoroutine(FireRutine);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+            {
+                if (!emptyStockBombs && !activateBomb)
+                {
+                    RumblePad.RumbleState = 3;
+                    activateBomb = true;
+                    int clipIndex = (int)Random.Range(0, 3);
+                    timebomb.clip = timeBombClips[clipIndex];
+                    timebomb.Play();
+                    //tm.StartSloMo();
+                    GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+                    if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+                }
+            }
+        }
     }
 
     public void DeathDoor()
@@ -570,6 +593,7 @@ public class SwitchablePlayerController : MonoBehaviour
         ghostEnabled = false;
         foreach (GameObject g in ghostList)
         {
+            Instantiate(Resources.Load("PS_TimeGhost_D"), g.transform.position, g.transform.rotation);
             Destroy(g);
         }
         ghostList.Clear();

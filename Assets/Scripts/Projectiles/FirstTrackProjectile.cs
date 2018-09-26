@@ -37,7 +37,7 @@ public class FirstTrackProjectile : MonoBehaviour {
             Destroy(gameObject);
         }
         if (transform.position.z < -15) Destroy(gameObject);
-        gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
+        gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime* Time.deltaTime;
         /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
         if (Vector3.Distance(gameObject.transform.position , new Vector3(target.x, 0.0f, target.z)) < 0.1f){
             Destroy(gameObject);

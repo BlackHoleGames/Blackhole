@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour {
         if (timeToLive <= 0.0f) {
             Destroy(gameObject);
         }
-        gameObject.transform.Translate(0.0f, 0.0f, speed*Time.unscaledDeltaTime);
+        if(Time.timeScale > 0.0f) gameObject.transform.Translate(0.0f, 0.0f, speed*Time.unscaledDeltaTime);
 	}
 
     private void OnTriggerEnter(Collider other)

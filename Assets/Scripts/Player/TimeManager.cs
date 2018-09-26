@@ -19,13 +19,15 @@ public class TimeManager : MonoBehaviour {
     public bool isMaxGTLReached;
     public float gtlFast = 1.5f;
     public float gtlFaster = 2.0f;
-    private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter;
+    private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter, previousTimeScale;
     public CameraBehaviour cb;
     private SwitchablePlayerController sp;
     private AudioManagerScript ams;
     public GameObject timewarpEffect;
     private AudioSource timewarpSound;
     private AudioSource gtlUp;
+    private bool paused;
+
 
     void Start(){
         sp = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
@@ -36,19 +38,23 @@ public class TimeManager : MonoBehaviour {
         gtlCounter = 0.0f;
         timewarpSound = GetComponents<AudioSource>()[3];
         gtlUp = GetComponents<AudioSource>()[5];
-
+        paused = false;
     }
 
     // Update is called once per frame
     void Update() {
-        if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
-        if (slowDown) DoSlowDown();
-        else if (speedUp) {
-            if (slomoCounter < slomoDuration) slomoCounter += Time.unscaledDeltaTime;
-            else DoSpeedUp();
+        if (!paused)
+        {
+            if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
+            if (slowDown) DoSlowDown();
+            else if (speedUp)
+            {
+                if (slomoCounter < slomoDuration) slomoCounter += Time.unscaledDeltaTime;
+                else DoSpeedUp();
+            }
+            else if (gtlIncreasing) DoGTLIncrease();
+            //if (isMaxGTLReached) DoTimeWarp();
         }
-        else if (gtlIncreasing) DoGTLIncrease();
-        //if (isMaxGTLReached) DoTimeWarp();
     }
 
     public void StartSloMo() {
@@ -203,5 +209,16 @@ public class TimeManager : MonoBehaviour {
         }
         maxGTLCounter = 0.0f;
         sp.DebugInstantiateGhosts(gtlindex);
+    }
+
+    public void PauseGame() {
+        paused = true;
+        previousTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+    }
+
+    public void UnPauseGame() {
+        paused = true;
+        Time.timeScale = previousTimeScale;
     }
 }
