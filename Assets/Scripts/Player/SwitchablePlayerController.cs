@@ -465,82 +465,74 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser")
                 {
-                    RumblePad.RumbleState = 1;//Normal Impact
-                    //if (alertModeTime > 0.0f) {
-                        
-                        //if (alertModeTime < (alertModeDuration - invulnerabilityDuration)) {
-                            isUpdatingLife = true;
-                            if (other.tag == "DeathLaser") actualLife = -0.1f;    
-                            else actualLife = actualLife - (shield / 2.0f);
-                            alertModeTime = alertModeDuration;
-                            life.value = actualLife;
-                            lifePoints = (int)actualLife;
-                            if (actualLife < 0.0f)
-                            {
-                                Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
-                                //alertModeTime = 0.0f;
-                                //isAlert = false;
-                                //if (tm.InSlowMo()) tm.DoSpeedUp();
-                                is_firing = false;
-                                firingCounter = 0.0f;
-                                DestroyGhosts();
-                                actualLife = 0.0f;
-                                lifePoints = (int)actualLife;
-                                tm.RestoreTime();
-                                fillLife.enabled = false;
-                                isDestroying = true;
-                                lives--;
-                                isDeathDoor = false;
-                                if (lives < 0)
-                                {
-                                    ams.StopMusic();
-                                    RumblePad.RumbleState = 6;
-                                    GameObject.FindGameObjectWithTag("L1").SetActive(false);
-                                    isDeath = true;
-                                    isFinished = true;
-                                    liveValue.text = "";
-                                    SaveGameStatsScript.GameStats.isGameOver = true;
-                                    SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
-                                }
-                                else
-                                {
-                                    switch (lives) {
-                                        case 1:
-                                            GameObject.FindGameObjectWithTag("L3").SetActive(false);
-                                        break;
-                                        case 0:
-                                            GameObject.FindGameObjectWithTag("L2").SetActive(false);
-                                        break;
-                                    }
-                                    liveValue.text = "X" + lives.ToString();
-                                    RumblePad.RumbleState = 5;
-                                    alertModeTime = 0.0f;
-                                }
-                            
-                                //SceneManager.LoadScene(6);
-                                //TimerScript.gameover = true;
-                                //Remaining deaht animation before this bool.                        
-                            } // Death  
-                            else
-                            {
-                                if (actualLife < 0.2f) actualLife = 0.0f;
-                                if (actualLife == 0.0f) isDeathDoor = true;
-                                if (!isDeathDoor) pps.DamageEffect1Round();
-                                impactforshake = true;
-                                if (!tm.InSlowMo()) invulAfterSlow = true;
-                                //RumblePad.RumbleState = 1; //Alarm
-                            }              
-                        //}
-                        if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
-                        {                            
-                            slomo.Play();
-                            //tm.StartSloMo();
-                            alertModeTime = alertModeDuration;
-                            DestroyGhosts();
+                    RumblePad.RumbleState = 1;//Normal Impact                        
+                    isUpdatingLife = true;
+                    if (other.tag == "DeathLaser") actualLife = -0.1f;    
+                    else actualLife = actualLife - (shield / 2.0f);
+                    life.value = actualLife;
+                    lifePoints = (int)actualLife;
+                    if (actualLife < 0.0f)
+                    {
+                        Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
+                        is_firing = false;
+                        firingCounter = 0.0f;
+                        DestroyGhosts();
+                        actualLife = 0.0f;
+                        lifePoints = (int)actualLife;
+                        tm.RestoreTime();
+                        fillLife.enabled = false;
+                        isDestroying = true;
+                        lives--;
+                        isDeathDoor = false;
+                        if (lives < 0)
+                        {
+                            ams.StopMusic();
+                            RumblePad.RumbleState = 6;
+                            GameObject.FindGameObjectWithTag("L1").SetActive(false);
+                            isDeath = true;
+                            isFinished = true;
+                            liveValue.text = "";
+                            SaveGameStatsScript.GameStats.isGameOver = true;
+                            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                         }
-                    //}
-                    else alertModeTime = alertModeDuration;
+                        else
+                        {
+                            switch (lives) {
+                                case 1:
+                                    GameObject.FindGameObjectWithTag("L3").SetActive(false);
+                                break;
+                                case 0:
+                                    GameObject.FindGameObjectWithTag("L2").SetActive(false);
+                                break;
+                            }
+                            liveValue.text = "X" + lives.ToString();
+                            RumblePad.RumbleState = 5;
+                        }
+                            
+                        //SceneManager.LoadScene(6);
+                        //TimerScript.gameover = true;
+                        //Remaining deaht animation before this bool.                        
+                    } // Death  
+                    else
+                    {
+                        if (actualLife < 0.2f) actualLife = 0.0f;
+                        if (actualLife == 0.0f) isDeathDoor = true;
+                        if (!isDeathDoor) pps.DamageEffect1Round();
+                        impactforshake = true;
+                        invulAfterSlow = true;
+                        //RumblePad.RumbleState = 1; //Alarm
+                    }              
+                    if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
+                    {
+                        activateBomb = true;
+                        int clipIndex = (int)Random.Range(0, 3);
+                        timebomb.clip = timeBombClips[clipIndex];
+                        timebomb.Play();
+                        GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+                        if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
 
+                        DestroyGhosts();
+                    }
                 }
             }
         }else

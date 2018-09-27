@@ -412,8 +412,14 @@ public class MapManger : MonoBehaviour {
 
     private void CleanUpBullets() {
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+        GameObject[] powerups = GameObject.FindGameObjectsWithTag("powerUp");
         foreach (GameObject obj in projectiles) {
             Instantiate(Resources.Load("PS_ProjectileHit"), transform.position, transform.rotation);
+            Destroy(obj);
+        }
+        foreach (GameObject obj in powerups)
+        {
+            Instantiate(Resources.Load("TimeBubbleCatched"), transform.position, transform.rotation);
             Destroy(obj);
         }
     }

@@ -18,11 +18,10 @@ public class TimeBubble : MonoBehaviour {
     public bool inTimeWarp;
     private AudioManagerScript ams;
     private float sizeMultiplier = 1.0f;
-    private AudioReverbZone reverbZone;
+    public AudioReverbZone reverbZone;
     // Use this for initialization
     void Start () {
         ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        reverbZone = GameObject.Find("Reverb Zone").GetComponent<AudioReverbZone>();        
         toDestroy = false;
         Instantiate(tmPartSys, transform);
         t = 0;
