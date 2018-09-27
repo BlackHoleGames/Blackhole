@@ -480,7 +480,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
                                 //alertModeTime = 0.0f;
                                 //isAlert = false;
-                                if (tm.InSlowMo()) tm.DoSpeedUp();
+                                //if (tm.InSlowMo()) tm.DoSpeedUp();
                                 is_firing = false;
                                 firingCounter = 0.0f;
                                 DestroyGhosts();
@@ -534,7 +534,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
                         {                            
                             slomo.Play();
-                            tm.StartSloMo();
+                            //tm.StartSloMo();
                             alertModeTime = alertModeDuration;
                             DestroyGhosts();
                         }
