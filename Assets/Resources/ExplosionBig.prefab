@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114883765374493738}
   m_Layer: 0
   m_Name: ExplosionBig
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
