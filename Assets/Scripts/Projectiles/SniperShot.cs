@@ -49,7 +49,7 @@ public class SniperShot : MonoBehaviour {
             timeToLive -= Time.deltaTime * tb.scaleOfTime;
             if (lightningUp) StartLight();
             if (timeToLive < 2.5f && timeToLive > 0.25f && !bc.enabled) bc.enabled = true;
-            if (timeToLive <= 0.25) {
+            if (timeToLive <= 0.5) {
                 if (bc.enabled) bc.enabled = false;
                 if (projlight.intensity == 60.0f) projlight.intensity = 30.0f;
                 StopLight();

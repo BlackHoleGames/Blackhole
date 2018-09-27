@@ -99,7 +99,6 @@ public class BossEyeScript : MonoBehaviour {
                 orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
-                exitTargetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
                 transform.LookAt(KamikazeExit);
                 transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
                 gameObject.GetComponent<Renderer>().material = matOn;
@@ -107,13 +106,19 @@ public class BossEyeScript : MonoBehaviour {
             else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed * tb.scaleOfTime);
         }
         if (goToExitPoint) {
-            if (waitBeforeCharge > 0.0f) waitBeforeCharge -= Time.unscaledDeltaTime;
-            else {
-                if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f) {
+            if (waitBeforeCharge > 0.0f)
+            {
+                waitBeforeCharge -= Time.unscaledDeltaTime;
+                if (waitBeforeCharge <= 0.0f) exitTargetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f)
+                {
                     Instantiate(Resources.Load("ExplosionEye"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
-                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed* tb.scaleOfTime);
+                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed * tb.scaleOfTime);
             }
         }
     }
