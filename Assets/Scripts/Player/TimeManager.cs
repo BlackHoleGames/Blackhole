@@ -140,6 +140,7 @@ public class TimeManager : MonoBehaviour {
             slowDown = false;
             speedUp = true;
             slomoCounter = 0.0f;
+            ScoreScript.multiplierScore = 1.0f;
         //}
     }
 

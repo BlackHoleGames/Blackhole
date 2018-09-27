@@ -9,11 +9,15 @@ public class GTLManager : MonoBehaviour {
     public float MovementGtlPerSec = 0.05f;
     private bool onTop = false;
     private List<GameObject> multiplierArray;
-    private int statusGTL =0;
+    public int statusGTL =0;
+    private bool isRestoring, isRegenGtl = false;
     private IEnumerator GTLTimerDoor;
-
+    private TimeManager tm;
+    private GameObject Timer;
     void Start()
     {
+        Timer = GameObject.FindGameObjectWithTag("Player");
+        tm = Timer.GetComponent<TimeManager>();
         multiplierArray = new List<GameObject>();
         foreach (Transform child in transform)
         {
@@ -29,10 +33,10 @@ public class GTLManager : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        if (ScoreScript.multiplierScore == 1.0f && statusGTL != 1)
+        if (ScoreScript.multiplierScore == 1.0f && statusGTL != 1 && !isRegenGtl)
         {
             statusGTL = 1;
-            if (X1.GetComponent<Image>().fillAmount == 0.0f) { 
+            if (X1.GetComponent<Image>().fillAmount < 1.0f && !tm.InSlowMo()) { 
                 GTLTimerDoor = GTLSequence(statusGTL);
                 StartCoroutine(GTLTimerDoor);
             }
@@ -41,7 +45,7 @@ public class GTLManager : MonoBehaviour {
             X3.GetComponent<Image>().fillAmount = 0.0f;
 
         }
-        else if (ScoreScript.multiplierScore == 1.5f && statusGTL != 2)
+        else if (ScoreScript.multiplierScore == 1.5f && statusGTL != 2 && !isRegenGtl)
         {
             statusGTL = 2;
             if (X2.GetComponent<Image>().fillAmount == 0.0f)
@@ -52,7 +56,7 @@ public class GTLManager : MonoBehaviour {
             X1.GetComponent<Image>().fillAmount = 0.0f;
             X3.GetComponent<Image>().fillAmount = 0.0f;
         }
-        else if (ScoreScript.multiplierScore == 2.0f && statusGTL != 3)
+        else if (ScoreScript.multiplierScore == 2.0f && statusGTL != 3 && !isRegenGtl)
         {
             statusGTL = 3;
             if (X3.GetComponent<Image>().fillAmount == 0.0f)
@@ -67,6 +71,7 @@ public class GTLManager : MonoBehaviour {
     }
     IEnumerator GTLSequence(int multiplierGtl)
     {
+        isRegenGtl = true;
         switch (multiplierGtl) {
             case 1:
                 for (int i = 0; i < 4; i++)
@@ -74,6 +79,7 @@ public class GTLManager : MonoBehaviour {
                     X1.GetComponent<Image>().fillAmount = 1.0f;
                     yield return new WaitForSeconds(0.5f);
                     X1.GetComponent<Image>().fillAmount = 0.0f;
+                    if (isRestoring) break;
                     yield return new WaitForSeconds(0.5f);
                 }
                 X1.GetComponent<Image>().fillAmount = 1.0f;
@@ -84,6 +90,7 @@ public class GTLManager : MonoBehaviour {
                     X2.GetComponent<Image>().fillAmount = 1.0f;
                     yield return new WaitForSeconds(0.5f);
                     X2.GetComponent<Image>().fillAmount = 0.0f;
+                    if (isRestoring) break;
                     yield return new WaitForSeconds(0.5f);
                 }
                 X2.GetComponent<Image>().fillAmount = 1.0f;
@@ -94,14 +101,18 @@ public class GTLManager : MonoBehaviour {
                     X3.GetComponent<Image>().fillAmount = 1.0f;
                     yield return new WaitForSeconds(0.5f);
                     X3.GetComponent<Image>().fillAmount = 0.0f;
+                    if (isRestoring) break;
                     yield return new WaitForSeconds(0.5f);
                 }
                 X3.GetComponent<Image>().fillAmount = 1.0f;
             break;
         }
+        isRegenGtl = false;
+        isRestoring = false;
     }
     public IEnumerator RestoreMultiplier()
     {
+        isRestoring = true;
         for (int i = 0; i < 4; i++)
         {
             X1.GetComponent<Image>().fillAmount = 1.0f;
@@ -112,6 +123,7 @@ public class GTLManager : MonoBehaviour {
     }
     public void disableMultiplier()
     {
+        isRestoring = true;
         X1.GetComponent<Image>().fillAmount = 0.0f;
         X2.GetComponent<Image>().fillAmount = 0.0f;
         X3.GetComponent<Image>().fillAmount = 0.0f;

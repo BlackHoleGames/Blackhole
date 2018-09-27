@@ -62,6 +62,7 @@ public class PlayerDestroyScript : MonoBehaviour
             else if (player != null && spc.invulAfterSlow && !waitingForHit)
             {
                 waitingForHit = true;
+                gtm.RestoreMultiplier();
                 InvulnerableTimerSequence = InvulnerableSequence();
                 StartCoroutine(InvulnerableTimerSequence);
             }

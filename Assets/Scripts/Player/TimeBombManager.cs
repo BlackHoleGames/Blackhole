@@ -14,15 +14,21 @@ public class TimeBombManager : MonoBehaviour {
     public static bool activateBomb2, activateBomb3 = false;
     public float secondsTimePanel = 0.1f;
     private bool bomb1Ok, bomb2Ok, bomb3Ok;
+    private GameObject UI;
     private SwitchablePlayerController spc;
-
+    private GTLManager gtm;
+    private TimeManager tm;
+    private GameObject Timer;
     void Start () {
+        UI = GameObject.FindGameObjectWithTag("UI_InGame");
+        gtm = UI.GetComponent<GTLManager>();        
         player = GameObject.FindGameObjectWithTag("Player");
+        tm = player.GetComponent<TimeManager>();
         spc = player.GetComponent<SwitchablePlayerController>();
         timeBombPanel.SetActive(false);
         timeBomb.SetActive(true);
-        bombs = 1;
-
+        bombs = 0;
+        TimeBomb1.fillAmount = 0.0f;
     }
     void Update()
     {
@@ -32,10 +38,16 @@ public class TimeBombManager : MonoBehaviour {
                 UsingBomb();
                 spc.activateBomb = false;
             }
-            RegenTimeBomb1();
+            if(gtm.statusGTL>1 && !tm.InSlowMo()) RegenTimeBomb1();
             if (activateBomb2) RegenTimeBomb2();
             if (activateBomb3) RegenTimeBomb3();
-        }        
+        }
+        if (tm.InSlowMo())
+        {
+            TimeBomb1.fillAmount = 0.0f;
+            bombs = 0;
+            bomb1Ok = false;
+        }    
     }
     private void UsingBomb()
     {
