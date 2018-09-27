@@ -52,7 +52,7 @@ public class TimeBubble : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if ((other.tag == "EnemyProjectile" || other.tag == "powerUp" || other.tag == "Enemy" || other.tag == "SquadManager")
-            || other.tag == "DodgeSection" && !toDestroy) {
+            || other.tag == "DodgeSection" || other.tag == "Particles" && !toDestroy) {
             TimeBehaviour tb = other.GetComponent<TimeBehaviour>();
             if (tb) {
                 if (inTimeWarp) {

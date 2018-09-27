@@ -45,7 +45,7 @@ public class TimeManager : MonoBehaviour {
     void Update() {
         if (!paused)
         {
-            if (!slowDown && !speedUp && !gtlIncreasing && !isMaxGTLReached) DoGTL();
+            if (!gtlIncreasing && !isMaxGTLReached) DoGTL();
             if (slowDown) DoSlowDown();
             else if (speedUp)
             {
@@ -186,7 +186,6 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void DebugSwitchGTL(int gtlindex) {
-        Debug.Log("Switching");
         switch (gtlindex) {
             case 0:
                 inFasterGTL = false;
