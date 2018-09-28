@@ -522,7 +522,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         invulAfterSlow = true;
                         //RumblePad.RumbleState = 1; //Alarm
                     }              
-                    if (!tm.InSlowMo() && (!isDestroying || actualLife < 2.0f))
+                    if (!isDestroying || actualLife < 2.0f)
                     {
                         activateBomb = true;
                         int clipIndex = (int)Random.Range(0, 3);
