@@ -6,7 +6,7 @@ public class StructEnemyStageTunnel : MonoBehaviour {
 
     public float speed = 100.0f;
     public GameObject attachedTo;
-
+    public BattleTunnelManager btm;
     private bool stopRespawn = false;
     private bool toReadjust = false;
 	// Use this for initialization
@@ -29,7 +29,7 @@ public class StructEnemyStageTunnel : MonoBehaviour {
                 transform.position = attachedTo.transform.position + new Vector3(0.0f, 0.0f, 100.0f);
                 if ((Vector3.Distance(transform.position, attachedTo.transform.position) - 100.0f) <= 0.1f) toReadjust = false;
             }
-            transform.Translate(new Vector3(0.0f, 0.0f, speed * Time.deltaTime));
+            transform.Translate(new Vector3(0.0f, 0.0f, speed * Time.deltaTime* btm.actualScale));
         }
 	}
 

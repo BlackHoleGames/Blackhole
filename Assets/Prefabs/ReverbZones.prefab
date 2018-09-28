@@ -135,7 +135,7 @@ AudioReverbZone:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229307832345218}
-  m_Enabled: 0
+  m_Enabled: 1
   m_MinDistance: 35
   m_MaxDistance: 40
   m_ReverbPreset: 27
