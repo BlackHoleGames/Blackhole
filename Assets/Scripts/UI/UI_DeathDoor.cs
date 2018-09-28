@@ -20,11 +20,6 @@ public class UI_DeathDoor : MonoBehaviour {
     // Use this for initialization
     void Start () {
         CTimeBomb1  = GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color;
-        //CTimeBomb2  = GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color;
-        //CTimeBomb3  = GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color;
-        //CMultiplier1= GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color;
-        //CMultiplier2= GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color;
-        //CMultiplier3= GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color;
         CL1         = GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color;
         CL2         = GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color;
         CL3         = GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color;
@@ -38,9 +33,9 @@ public class UI_DeathDoor : MonoBehaviour {
            !isDeathDoorSecure &&
            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeathDoor)
         {
-            isDeathDoorSecure = true;
-            DeathTimerDoor = DeathSequenceDoor(0.5f);
-            StartCoroutine(DeathTimerDoor);
+            //isDeathDoorSecure = true;
+            //DeathTimerDoor = DeathSequenceDoor(0.5f);
+            //StartCoroutine(DeathTimerDoor);
         }
         else
         {
@@ -51,11 +46,6 @@ public class UI_DeathDoor : MonoBehaviour {
     public void NormalColor()
     {
         GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CTimeBomb1;
-        //GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CTimeBomb2;
-        //GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CTimeBomb3;
-        //GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color   =CMultiplier1;
-        //GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color   =CMultiplier2;
-        //GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color   =CMultiplier3;
         if(GameObject.FindGameObjectWithTag("L1")!=null)GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color = CL1;
         if(GameObject.FindGameObjectWithTag("L2")!=null)GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color = CL2;
         if(GameObject.FindGameObjectWithTag("L3")!=null)GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color = CL3;
@@ -64,11 +54,6 @@ public class UI_DeathDoor : MonoBehaviour {
     public void RedColor()
     {
         GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CDeathDoor;
-        //GameObject.FindGameObjectWithTag("TimeBomb2").GetComponent<Image>().material.color = CDeathDoor;
-        //GameObject.FindGameObjectWithTag("TimeBomb3").GetComponent<Image>().material.color = CDeathDoor;
-        //GameObject.FindGameObjectWithTag("MultiplierX1").GetComponent<Image>().color = CDeathDoor;
-        //GameObject.FindGameObjectWithTag("MultiplierX2").GetComponent<Image>().color = CDeathDoor;
-        //GameObject.FindGameObjectWithTag("MultiplierX3").GetComponent<Image>().color = CDeathDoor;
         if(GameObject.FindGameObjectWithTag("L1")!=null)GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color = CDeathDoor;
         if(GameObject.FindGameObjectWithTag("L2")!=null)GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color = CDeathDoor;
         if (GameObject.FindGameObjectWithTag("L3") != null) GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color = CDeathDoor;
@@ -87,6 +72,5 @@ public class UI_DeathDoor : MonoBehaviour {
             NormalColor();
         }
         isDeathDoorSecure = false;
-        //GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeathDoor = false;
     }
 }
