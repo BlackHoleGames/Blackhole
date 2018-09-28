@@ -155,7 +155,7 @@ public class LeaderBoardScript : MonoBehaviour
             }            
         }
         //Ending
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(20.0f);
         SceneManager.LoadScene(1);
     }
     void GettingTags()

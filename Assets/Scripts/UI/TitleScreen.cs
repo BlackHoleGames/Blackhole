@@ -32,19 +32,20 @@ public class TitleScreen : MonoBehaviour {
         }
         SaveGameStatsScript.GameStats.isGameOver = false;
         //Score
+        //SceneManager.LoadScene(7);
         if (SaveGameStatsScript.GameStats.StatusUISequence) { 
-            SceneManager.LoadScene(8);
+            SceneManager.LoadScene(7);
             SaveGameStatsScript.GameStats.StatusUISequence = false;
             SaveGameStatsScript.GameStats.SetStats();
         }
         else//Video Tutorial
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
             SaveGameStatsScript.GameStats.StatusUISequence = true;
             SaveGameStatsScript.GameStats.SetStats();
         }
-        
-        
+
+
     }
 
     void FadeInText()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,73 +19,62 @@ public class HistoryScreen : MonoBehaviour {
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
+    private float SecondsFlick = 0.75f;
+    private float Active = 1.0f;
+    private float Inactive = 1.0f;
+    private IEnumerator FlickAction;
     // Use this for initialization
 
 
     IEnumerator Start()
     {
-
+        FlickAction = PanelTimer(SecondsFlick);
+        StartCoroutine(FlickAction);
         TitleText.canvasRenderer.SetAlpha(0.0f);
         PressStartText.canvasRenderer.SetAlpha(0.0f);
-        Curtain.canvasRenderer.SetAlpha(1.0f);
-        Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
-        yield return new WaitForSeconds(3.0f);
+        Curtain.canvasRenderer.SetAlpha(Active);
+        Curtain.CrossFadeAlpha(0.0f, 0.5f, false);
+        yield return new WaitForSeconds(0.5f);
         /*InitCam1*/
         FadeInTT();
-        yield return new WaitForSeconds(2.0f);
-        for (int i = 0; i < 5; i++)
-        {
-            FadeInText();
-            yield return new WaitForSeconds(0.75f);
-            FadeOut();
-            yield return new WaitForSeconds(0.75f);
-        }
-        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
+        yield return new WaitForSeconds(3.0f);
+        Curtain.CrossFadeAlpha(1.0f, 1.0f, false);
+        yield return new WaitForSeconds(1.0f);
         FadeOutTT();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         /*Ending Cam1*/
-        //Cam1BH = Cam2BH;
-        Cam1BH.SetActive(false);
-        Cam2BH.SetActive(true);
-        //Cam2BH = Camera.main;
-        Cam2GO.SetActive(true);        
-        Cam1GO.SetActive(false);
-        Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
-        yield return new WaitForSeconds(3.0f);
+        EnableCam2();
+        Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
+        yield return new WaitForSeconds(1.0f);
         /*Init Cam2*/
         TitleText.text = "...from which emerged an alien race that has nearly destroyed the earth...";
         FadeInTT();
         yield return new WaitForSeconds(2.0f);
-        for (int i = 0; i < 5; i++)
-        {
-            FadeInText();
-            yield return new WaitForSeconds(0.75f);
-            FadeOut();
-            yield return new WaitForSeconds(0.75f);
-        }
-        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
+        Curtain.CrossFadeAlpha(Active, 1.0f, false);
         FadeOutTT();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         /*Ending Cam2*/
-        //Cam1BH = Cam3BH;
-        Cam2BH.SetActive(false);
-        Cam3BH.SetActive(true);
-        Cam3GO.SetActive(true);
-        Cam2GO.SetActive(false);
-        Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
-        yield return new WaitForSeconds(3.0f);
         /*Init Cam3*/
+        EnableCam3();
+        Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
+        yield return new WaitForSeconds(1.0f);
         TitleText.text = "Scarlett, you are the last hope to save our world.";
         FadeInTT();
         yield return new WaitForSeconds(2.0f);
-        for (int i = 0; i < 5; i++)
+        Curtain.CrossFadeAlpha(1.0f, 2.0f, false);
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(2);
+    }
+
+    private IEnumerator PanelTimer(float secondsFlick)
+    {
+        for (int i = 0; i < 8; i++)
         {
             FadeInText();
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(secondsFlick);
             FadeOut();
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(secondsFlick);
         }
-        SceneManager.LoadScene(3);
     }
 
     void FadeInText()
@@ -103,4 +93,19 @@ public class HistoryScreen : MonoBehaviour {
     {
         PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
     }
+    public void EnableCam2()
+    {
+        Cam1BH.SetActive(false);
+        Cam2BH.SetActive(true);
+        Cam2GO.SetActive(true);
+        Cam1GO.SetActive(false);
+    }
+    public void EnableCam3()
+    {
+        Cam2BH.SetActive(false);
+        Cam3BH.SetActive(true);
+        Cam3GO.SetActive(true);
+        Cam2GO.SetActive(false);
+    }
+
 }

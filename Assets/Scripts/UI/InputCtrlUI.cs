@@ -8,7 +8,7 @@ public class InputCtrlUI : MonoBehaviour
     public int scene = 0;
     public AudioClip soundPlay;
     private IEnumerator PlayFile;
-
+    public GameObject UIMenu, UIPressStart, EventSystemStart, EventSystemMenu;
     private AudioSource source1 { get { return GetComponent<AudioSource>(); } }
     // Use this for initialization
     void Start()
@@ -35,7 +35,12 @@ public class InputCtrlUI : MonoBehaviour
         switch (scene)
         {
             case 1:
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                UIPressStart.SetActive(false);
+                EventSystemStart.SetActive(false);
+                
+                UIMenu.SetActive(true);
+                EventSystemMenu.SetActive(true);
                 scene = 0;
                 break;
             case 2:

@@ -747,6 +747,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 4
   soundPlay: {fileID: 0}
+  UIMenu: {fileID: 0}
+  UIPressStart: {fileID: 0}
+  EventSystemStart: {fileID: 0}
+  EventSystemMenu: {fileID: 0}
 --- !u!114 &862067657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,8 +1356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.9, y: -10}
-  m_SizeDelta: {x: 1500, y: 1000}
+  m_AnchoredPosition: {x: 0.000045776, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803667756
 MonoBehaviour:
@@ -1374,7 +1378,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0de411afc5780e34799cf01968830e0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7af197e74d438d4491d6d3af5bd970c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
