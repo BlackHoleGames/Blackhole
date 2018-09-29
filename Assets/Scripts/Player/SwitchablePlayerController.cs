@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
+using System;
 
 public class SwitchablePlayerController : MonoBehaviour
 {
@@ -41,7 +41,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private AudioManagerScript ams;
     private List<GameObject> ghostList;
     private bool isSavingData, is_vertical, is_firing, play;
-    public int lifePoints, lives = 2;
+    public int lifePoints, lives = 3;
     //public Transform cameraTrs;
     //public bool camRotate = false;
     private PostProcessingSwitcher pps;
@@ -53,6 +53,8 @@ public class SwitchablePlayerController : MonoBehaviour
     private float disableTimer = 2.0f;
     public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
     private bool gamePaused;
+    private float lifeDeath = -0.1f;
+    private float lifeLimit = 0.1f;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -200,7 +202,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     RumblePad.RumbleState = 3;
                     activateBomb = true;
-                    int clipIndex = (int)Random.Range(0, 3);
+                    int clipIndex = (int)UnityEngine.Random.Range(0, 3);
                     timebomb.clip = timeBombClips[clipIndex];
                     timebomb.Play();
                     //tm.StartSloMo();
@@ -467,10 +469,15 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     RumblePad.RumbleState = 1;//Normal Impact                        
                     isUpdatingLife = true;
-                    if (other.tag == "DeathLaser") actualLife = -0.1f;    
-                    else actualLife = actualLife - (shield / 2.0f);
-                    life.value = actualLife;
-                    lifePoints = (int)actualLife;
+                    if (actualLife > lifeLimit)
+                    {
+                        if (other.tag == "DeathLaser") actualLife = lifeDeath;
+                        else actualLife = lifeLimit;
+                    }
+                    else actualLife = lifeDeath;
+                    UpdateStatusLifeIcons();
+                    //life.value = actualLife;
+                    //lifePoints = (int)actualLife;
                     if (actualLife < 0.0f)
                     {
                         Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
@@ -484,7 +491,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         isDestroying = true;
                         lives--;
                         isDeathDoor = false;
-                        if (lives < 0)
+                        if (lives == 0)
                         {
                             ams.StopMusic();
                             RumblePad.RumbleState = 6;
@@ -498,10 +505,10 @@ public class SwitchablePlayerController : MonoBehaviour
                         else
                         {
                             switch (lives) {
-                                case 1:
+                                case 2:
                                     GameObject.FindGameObjectWithTag("L3").SetActive(false);
                                 break;
-                                case 0:
+                                case 1:
                                     GameObject.FindGameObjectWithTag("L2").SetActive(false);
                                 break;
                             }
@@ -525,7 +532,7 @@ public class SwitchablePlayerController : MonoBehaviour
                     if (!isDestroying || actualLife < 2.0f)
                     {
                         activateBomb = true;
-                        int clipIndex = (int)Random.Range(0, 3);
+                        int clipIndex = (int)UnityEngine.Random.Range(0, 3);
                         timebomb.clip = timeBombClips[clipIndex];
                         timebomb.Play();
                         GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
@@ -538,6 +545,31 @@ public class SwitchablePlayerController : MonoBehaviour
         }else
         {
             impactforshake = false;
+        }
+    }
+
+    private void UpdateStatusLifeIcons()
+    {
+        switch (lives)
+        {
+            case 3:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L3").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+            break;
+            case 2:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L2").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                break;
+            case 1:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L1").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                break;
         }
     }
 
