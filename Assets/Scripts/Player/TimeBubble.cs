@@ -30,8 +30,8 @@ public class TimeBubble : MonoBehaviour {
         GameObject ReverbZones = GameObject.Find("ReverbZones");
         reverbZone = ams.GetActualReverb();
         reverbZoneTimeBomb = ams.GetReverbTimeBomb();
-        reverbZoneTimeBomb.SetActive(true);
         reverbZone.SetActive(false);
+        reverbZoneTimeBomb.SetActive(true);
         //if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
         //if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
     }
