@@ -43,7 +43,7 @@ public class InputCtrlUI : MonoBehaviour
                 
                 UIMenu.SetActive(true);
                 EventSystemMenu.SetActive(true);
-                scene = 0;
+                scene = 4;
                 break;
             case 2:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

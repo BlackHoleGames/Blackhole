@@ -14,12 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScenes/UI_EarthTitleScreen.unity
     guid: f646778cb64566d40aa43796aca9b041
-  - enabled: 0
-    path: Assets/Scenes/UIScenes/UI_Tutorial.unity
-    guid: fafddc033a0d02041beaf1f8d016a8d2
-  - enabled: 0
-    path: Assets/Scenes/UIScenes/UI_Menu.unity
-    guid: 5d9dfd9645877cd4495ea9dcba8b7a09
   - enabled: 1
     path: Assets/Scenes/UIScenes/UI_Briefing.unity
     guid: 4b2628d01fcf8674fb43f9365005de4c
@@ -38,6 +32,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScenes/UI_LeaderBoard.unity
     guid: f607e003b00c87043910d98ee05bfc1f
-  - enabled: 0
-    path: Assets/Scenes/UIScenes/UI_History_Back.unity
-    guid: da5b0c0289d5ebe48afe91cc5af323bb

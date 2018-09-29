@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         source1.PlayOneShot(sound);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(3);
         //Application.LoadLevel(Application.loadedLevel);
         //TimerScript TS = new TimerScript();
         //TS.startTime = Time.time;
