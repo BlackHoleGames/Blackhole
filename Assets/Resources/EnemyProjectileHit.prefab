@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 198099094740430954}
   - component: {fileID: 199173034718972214}
   - component: {fileID: 114865871487427912}
+  - component: {fileID: 114143548479894248}
   m_Layer: 0
   m_Name: EnemyProjectileHit
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +74,17 @@ Transform:
   m_Father: {fileID: 4290879664620396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114143548479894248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1029398252795560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100ebdb4e53b0094fb30bf5d407e3081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114865871487427912
 MonoBehaviour:
   m_ObjectHideFlags: 1
