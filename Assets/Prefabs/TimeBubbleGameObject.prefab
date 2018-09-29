@@ -56,13 +56,11 @@ MonoBehaviour:
   slowdownAmount: 0.075
   timeWarpSlowdownDuration: 2.5
   timeWarpSlowdownAmount: 0.25
-  timeBubbleDuration: 1
+  timeBubbleDuration: 3.5
   timeBubbleMaxRadius: 50
   timeToMaxSize: 0.4
   tmPartSys: {fileID: 1592929931469916, guid: fbf703056a335bf48b2eebbadcaa2c2a, type: 2}
   inTimeWarp: 0
-  reverbZone: {fileID: 167126085606438932, guid: 890d222088091f344b0f856aed019004,
-    type: 2}
 --- !u!135 &135777493238372996
 SphereCollider:
   m_ObjectHideFlags: 1
