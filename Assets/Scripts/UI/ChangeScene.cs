@@ -13,6 +13,7 @@ public class ChangeScene : MonoBehaviour {
     private IEnumerator TextBHSequence;
     public Image BlackFade;
     public Text BHText;
+    public AudioClip soundPlay;
     public bool shutdown = false;
     public bool isBlackHoleTime = false;
     private bool activateDeath =false;
@@ -25,9 +26,13 @@ public class ChangeScene : MonoBehaviour {
     public float SecondsTextFlick = 1.0f;
     private GameObject player;
     private AudioSource alarmSound;
+    private AudioSource sourceAlarm { get { return GetComponent<AudioSource>(); } }
     void Start()
     {
         Cursor.visible = false;
+        gameObject.AddComponent<AudioSource>();
+        sourceAlarm.clip = soundPlay;
+        sourceAlarm.playOnAwake = false;
         BlackFade.canvasRenderer.SetAlpha(1.0f);
         BHText.canvasRenderer.SetAlpha(0.0f);
         SceneOpenTimerSequence = FadeToInitLevel(2.0f);
@@ -98,8 +103,10 @@ public class ChangeScene : MonoBehaviour {
         for (int i=0; i < 3; i++) {
             alarmSound.Play();
             BHText.CrossFadeAlpha(1.0f, flickText, false);
+            sourceAlarm.PlayOneShot(soundPlay);
             yield return new WaitForSeconds(flickText);
             BHText.CrossFadeAlpha(0.0f, flickText, false);
+            sourceAlarm.PlayOneShot(soundPlay);
             yield return new WaitForSeconds(flickText);
         }
         activateTextBH = true;
