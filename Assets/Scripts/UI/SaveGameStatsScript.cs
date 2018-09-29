@@ -72,7 +72,7 @@ public class SaveGameStatsScript : MonoBehaviour
         GetStats();
         GetScore();
 
-        earthOriginal=GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>();
+        //earthOriginal=GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>();
 
     }
 
@@ -80,118 +80,43 @@ public class SaveGameStatsScript : MonoBehaviour
     void Update()
     {
         Cursor.visible = false;
-        if (SceneisChanged) {
-            SceneisChanged = false;
-            GameObject temp = GameObject.FindGameObjectWithTag("Earth") ;
-            //temp.transform.position = earthOriginal.position;  //new Vector3(-195.6456f, -165.0f, 528.1803f);
-            //temp.transform.rotation = earthOriginal.rotation;
-            //GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>().transform.eulerAngles = //new Vector3(6.583f, 289.706f, 156.25f);
-        }
+        //if (SceneisChanged) {
+        //    SceneisChanged = false;
+        //    GameObject temp = GameObject.FindGameObjectWithTag("Earth") ;
+        //    //temp.transform.position = earthOriginal.position;  //new Vector3(-195.6456f, -165.0f, 528.1803f);
+        //    //temp.transform.rotation = earthOriginal.rotation;
+        //    //GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>().transform.eulerAngles = //new Vector3(6.583f, 289.706f, 156.25f);
+        //}
         switch (SceneManager.GetActiveScene().buildIndex)
         {
-            case 1://Eartittle
-                //Cursor.lockState= CursorLockMode.Locked;
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(true);
-                //}
-                //camera2Objects.SetActive(false);
-                //cameraEndObjects.SetActive(false);
-                //cameraLeaderBoards.SetActive(false);
-                //camera2Objects.SetActive(false);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+            case 1://History
                 InitialMusicScreen.SetActive(true);
                 break;
-            case 2://Tutorial
-                //Cursor.lockState = CursorLockMode.Locked;
-                //camera2Objects.SetActive(false);
-                //cameraEndObjects.SetActive(false);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(0.0f, 0.0f, -148.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
-                InitialMusicScreen.SetActive(false);
-            break;
-            case 3://Menu
-                //Cursor.lockState = CursorLockMode.Confined;
-                //cameraLeaderBoards.SetActive(false);
-                //camera2Objects.SetActive(false);
-                //cameraEndObjects.SetActive(false);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-140f, -140f, 28.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+            case 2://EarthTittleScreen + Menu
                 InitialMusicScreen.SetActive(true);
             break;
-            case 4://Briefing -> Camera 3
-                //Cursor.lockState = CursorLockMode.Locked;
-                //cameraLeaderBoards.SetActive(false);
-                //camera2Objects.SetActive(false);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(111.9f, 14.9f, 316.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(24.26f, -48.764f, 0.0f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 32;
-                //InitialMusicScreen.SetActive(true);
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(false);
-                //}
+            case 3://Briefing
+                InitialMusicScreen.SetActive(true);
+            break;
+            case 4://InGame
                 InitialMusicScreen.SetActive(false);
-                break;
-            case 8://LeaderBoards -> Camera 2
-                //Cursor.lockState = CursorLockMode.Locked;
-                //camera2Objects.SetActive(true);
-                //cameraEndObjects.SetActive(false);
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(true);
-                //}
-                //GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
-                break;
-            case 5:
-                //Cursor.lockState = CursorLockMode.None;
-                //GameObject.FindGameObjectWithTag("MainCamera").SetActive(true);
-                //camera2Objects.SetActive(false);
+            break;
+            case 5://GameOver
                 InitialMusicScreen.SetActive(false);
-                //cameraEndObjects.SetActive(false);
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(false);
-                //}
-                break;
-            case 6:
-                //Cursor.lockState = CursorLockMode.Locked;
+            break;
+            case 6://GameOver
                 InitialMusicScreen.SetActive(false);
-                //camera2Objects.SetActive(false);
-                //cameraEndObjects.SetActive(false);
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(false);
-                //}
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
-                break;
+            break;
             case 7:
-                //Cursor.lockState = CursorLockMode.Locked;
-                InitialMusicScreen.SetActive(false);
-                //camera2Objects.SetActive(false);
-                //cameraEndObjects.SetActive(true);
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(false);
-                //}
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.position = new Vector3(-61.4f, -138.7f, 183.8f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().transform.eulerAngles = new Vector3(-25.085f, -29.139f, 26.167f);
-                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60;
+                InitialMusicScreen.SetActive(true);
             break;
+            case 8://LeaderBoards -> Camera 2
+            break;
+
+
+
             default:
-                //foreach (Transform earth in transform)
-                //{
-                //    earth.gameObject.SetActive(true);
-                //}
+                InitialMusicScreen.SetActive(false);
             break;
         }
     }

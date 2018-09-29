@@ -33,36 +33,36 @@ public class HistoryScreen : MonoBehaviour {
         TitleText.canvasRenderer.SetAlpha(0.0f);
         PressStartText.canvasRenderer.SetAlpha(0.0f);
         Curtain.canvasRenderer.SetAlpha(Active);
-        Curtain.CrossFadeAlpha(0.0f, 0.5f, false);
-        yield return new WaitForSeconds(0.5f);
-        /*InitCam1*/
-        FadeInTT();
-        yield return new WaitForSeconds(3.0f);
-        Curtain.CrossFadeAlpha(1.0f, 1.0f, false);
-        yield return new WaitForSeconds(1.0f);
-        FadeOutTT();
-        yield return new WaitForSeconds(1.0f);
-        /*Ending Cam1*/
-        EnableCam2();
         Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
         yield return new WaitForSeconds(1.0f);
+        /*InitCam1*/
+        FadeInTT();
+        yield return new WaitForSeconds(6.0f);
+        Curtain.CrossFadeAlpha(1.0f, 1.0f, false);
+        yield return new WaitForSeconds(2.0f);
+        FadeOutTT();
+        yield return new WaitForSeconds(2.0f);
+        /*Ending Cam1*/
+        EnableCam2();
+        Curtain.CrossFadeAlpha(0.0f, 2.0f, false);
+        yield return new WaitForSeconds(2.0f);
         /*Init Cam2*/
         TitleText.text = "...from which emerged an alien race that has nearly destroyed the earth...";
         FadeInTT();
-        yield return new WaitForSeconds(2.0f);
-        Curtain.CrossFadeAlpha(Active, 1.0f, false);
+        yield return new WaitForSeconds(4.0f);
+        Curtain.CrossFadeAlpha(Active,2.0f, false);
         FadeOutTT();
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         /*Ending Cam2*/
         /*Init Cam3*/
         EnableCam3();
-        Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
-        yield return new WaitForSeconds(1.0f);
-        TitleText.text = "Scarlett, you are the last hope to save our world.";
+        Curtain.CrossFadeAlpha(0.0f, 2.0f, false);
+        yield return new WaitForSeconds(2.0f);
+        TitleText.text = "Scarlett,\n you are the last hope to save our world.";
         FadeInTT();
-        yield return new WaitForSeconds(2.0f);
-        Curtain.CrossFadeAlpha(1.0f, 2.0f, false);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
+        Curtain.CrossFadeAlpha(1.0f, 4.0f, false);
+        yield return new WaitForSeconds(4.0f);
         SceneManager.LoadScene(2);
     }
 
