@@ -18,7 +18,7 @@ public class ChangeScene : MonoBehaviour {
     private bool activateDeath =false;
     private bool activateBH = false;
     private bool activateTextBH = false;
-    public float SecondsInBH = 16.0f;
+    public float SecondsInBH = 20.0f;
     public float SecondsOutBH = 3.0f;
     public float SecondsToWaitDestroy = 2.0f;
     public float SecondsToWaitEnd = 2.0f;
@@ -91,16 +91,12 @@ public class ChangeScene : MonoBehaviour {
     }
     IEnumerator FadeToTextBH(float flickText)
     {
-        BHText.CrossFadeAlpha(1.0f, flickText, false);
-        
-        //var tempColor = BHText.color;
-        //tempColor.a = 1f;
-        //BHText.color = tempColor;
-        yield return new WaitForSeconds(flickText);
-        BHText.CrossFadeAlpha(0.0f, flickText, false);
-        //tempColor.a = 0.0f;
-        //BHText.color = tempColor;
-        yield return new WaitForSeconds(flickText);
+        for (int i=0; i < 3; i++) { 
+            BHText.CrossFadeAlpha(1.0f, flickText, false);
+            yield return new WaitForSeconds(flickText);
+            BHText.CrossFadeAlpha(0.0f, flickText, false);
+            yield return new WaitForSeconds(flickText);
+        }
         activateTextBH = true;
     }
 }

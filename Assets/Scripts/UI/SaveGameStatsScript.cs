@@ -135,7 +135,7 @@ public class SaveGameStatsScript : MonoBehaviour
                 //{
                 //    earth.gameObject.SetActive(false);
                 //}
-                InitialMusicScreen.SetActive(true);
+                InitialMusicScreen.SetActive(false);
                 break;
             case 8://LeaderBoards -> Camera 2
                 //Cursor.lockState = CursorLockMode.Locked;
