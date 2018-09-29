@@ -22,7 +22,9 @@ public class ChangeScene : MonoBehaviour {
     public float SecondsOutBH = 3.0f;
     public float SecondsToWaitDestroy = 2.0f;
     public float SecondsToWaitEnd = 2.0f;
-    public float SecondsTextFlick = 0.5f;
+    public float SecondsTextFlick = 1.0f;
+    private GameObject player;
+    private AudioSource alarmSound;
     void Start()
     {
         Cursor.visible = false;
@@ -31,7 +33,9 @@ public class ChangeScene : MonoBehaviour {
         SceneOpenTimerSequence = FadeToInitLevel(2.0f);
         StartCoroutine(SceneOpenTimerSequence);
         changeScene = false;
-        activateDeath = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isDeath;
+        player = GameObject.FindGameObjectWithTag("Player");
+        activateDeath = player.GetComponent<SwitchablePlayerController>().isDeath;
+        alarmSound = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update () {
@@ -64,8 +68,8 @@ public class ChangeScene : MonoBehaviour {
         BlackFade.CrossFadeAlpha(1.0f, SecondsToWaitEnd, false);
         //BlackFade.canvasRenderer.SetAlpha(1.0f);
         yield return new WaitForSeconds(levelTimer);
-        if (GameObject.FindGameObjectWithTag("Player") != null &&
-            !GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding)
+        if (player != null &&
+            !player.GetComponent<SwitchablePlayerController>().isEnding)
         {
             SceneManager.LoadScene(6);
         }else
@@ -91,7 +95,8 @@ public class ChangeScene : MonoBehaviour {
     }
     IEnumerator FadeToTextBH(float flickText)
     {
-        for (int i=0; i < 3; i++) { 
+        for (int i=0; i < 3; i++) {
+            alarmSound.Play();
             BHText.CrossFadeAlpha(1.0f, flickText, false);
             yield return new WaitForSeconds(flickText);
             BHText.CrossFadeAlpha(0.0f, flickText, false);
