@@ -10,7 +10,7 @@ public class SaveGameStatsScript : MonoBehaviour
 {
 
     //public int MaxScore = 0;
-    public bool StatusUISequence = true;
+    public bool StatusUISequence = false;
     public bool isGameOver = false;
     public bool isGoodEnding = false;
     public int playerScore = 0;
