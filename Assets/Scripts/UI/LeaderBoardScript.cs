@@ -79,8 +79,6 @@ public class LeaderBoardScript : MonoBehaviour
             ScoreSequence = ScorePresentation(0.5f);
             StartCoroutine(ScoreSequence);
         }
-//        SceneManager.LoadScene(1);
-
     }
 
     private void setPosition()
@@ -155,8 +153,9 @@ public class LeaderBoardScript : MonoBehaviour
             }            
         }
         //Ending
+        SaveGameStatsScript.GameStats.StatusUISequence = false;
         yield return new WaitForSeconds(20.0f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     void GettingTags()
     {

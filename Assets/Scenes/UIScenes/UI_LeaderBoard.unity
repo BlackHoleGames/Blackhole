@@ -1023,8 +1023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3b9e452e26b5b4b801fa4da5de5ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 0
-  soundPlay: {fileID: 0}
+  scene: 7
+  soundPlay: {fileID: 8300000, guid: 4d8f63e95d766f043a2402214e55e70d, type: 3}
   UIMenu: {fileID: 0}
   UIPressStart: {fileID: 0}
   EventSystemStart: {fileID: 0}
@@ -1068,8 +1068,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeaderBoardsTitle: {fileID: 1775333952}
   Letter: {fileID: 2078846832}
-  congrats: {fileID: 0}
-  numPosition: {fileID: 0}
+  congrats: {fileID: 83923805}
+  numPosition: {fileID: 1088024413}
   loadLevel: 
   WaitingForName: 0
   isLeaderBoardTime: 1

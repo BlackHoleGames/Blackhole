@@ -35,7 +35,9 @@ public class InputCtrlUI : MonoBehaviour
         switch (scene)
         {
             case 1:
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                if (SaveGameStatsScript.GameStats.StatusUISequence) SaveGameStatsScript.GameStats.StatusUISequence = false;
+                else SaveGameStatsScript.GameStats.StatusUISequence = true;
+                SaveGameStatsScript.GameStats.isGameOver = false;
                 UIPressStart.SetActive(false);
                 EventSystemStart.SetActive(false);
                 
@@ -47,7 +49,7 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
-            case 3: //LeaderBoard
+            case 3: 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
@@ -55,8 +57,15 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
+            case 7: //LeaderBoard
+
+                if (!SaveGameStatsScript.GameStats.isGameOver) SceneManager.LoadScene(2);
+                scene = 0;
+            break;
             case 9: //History
-                SceneManager.LoadScene(3);
+                //if (SaveGameStatsScript.GameStats.StatusUISequence) SaveGameStatsScript.GameStats.StatusUISequence = false;
+                //else SaveGameStatsScript.GameStats.StatusUISequence = true;
+                SceneManager.LoadScene(2);
                 scene = 0;
                 break;
             case 10: //EndGame
