@@ -209,6 +209,7 @@ public class MapManger : MonoBehaviour {
                     //bosslights.SetActive(true);
                     if (secondsBeforeBoss > 0.0f) secondsBeforeBoss -= Time.deltaTime;
                     else {
+                        ams.SetBlackHoleReverb();
                         tm.StopTimeWarp();
                         ams.ChangeToBossMusic();
                         TimeBombManager.activateBomb2 = true;
