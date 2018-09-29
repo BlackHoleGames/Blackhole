@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class BossEyeScript : MonoBehaviour {
 
-    public float life = 30.0f;
+    public float life = 300.0f;
     public float shotDecreaseTime = 0.25f;
-    public float afterDefeatSpeed = 2.0f;
-    public float rotationSpeed = 1.0f;
+    public float afterDefeatSpeed = 35.0f;
+    public float rotationSpeed = 5.0f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
     private bool hit, materialHitOn, disabled, orienting, goToExitPoint, goToEntryPoint;
-    public float shotCooldown = 5.0f;
-    public float rateOfFire = 0.2f;
+    public float shotCooldown = 1.0f;
+    public float rateOfFire = 0.25f;
     public float shotOffset = 0.2f;
     public float waitBeforeCharge;
-    public int numberOfShots = 3;
+    public int numberOfShots = 1;
     public GameObject enemyProjectile, explosion;
     private float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
