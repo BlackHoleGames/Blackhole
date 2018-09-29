@@ -74,35 +74,47 @@ public class GTLManager : MonoBehaviour {
         isRegenGtl = true;
         switch (multiplierGtl) {
             case 1:
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     X1.GetComponent<Image>().fillAmount = 1.0f;
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.125f);
                     X1.GetComponent<Image>().fillAmount = 0.0f;
-                    if (isRestoring) break;
-                    yield return new WaitForSeconds(0.5f);
+                    if (isRestoring)
+                    {
+                        statusGTL = 0;
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.125f);
                 }
                 X1.GetComponent<Image>().fillAmount = 1.0f;
             break;
             case 2:
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     X2.GetComponent<Image>().fillAmount = 1.0f;
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.125f);
                     X2.GetComponent<Image>().fillAmount = 0.0f;
-                    if (isRestoring) break;
-                    yield return new WaitForSeconds(0.5f);
+                    if (isRestoring)
+                    {
+                        statusGTL = 0;
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.125f);
                 }
                 X2.GetComponent<Image>().fillAmount = 1.0f;
             break;
             case 3:
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     X3.GetComponent<Image>().fillAmount = 1.0f;
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.125f);
                     X3.GetComponent<Image>().fillAmount = 0.0f;
-                    if (isRestoring) break;
-                    yield return new WaitForSeconds(0.5f);
+                    if (isRestoring)
+                    {
+                        statusGTL = 0;
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.125f);
                 }
                 X3.GetComponent<Image>().fillAmount = 1.0f;
             break;
@@ -110,16 +122,17 @@ public class GTLManager : MonoBehaviour {
         isRegenGtl = false;
         isRestoring = false;
     }
-    public IEnumerator RestoreMultiplier()
+    public void RestoreMultiplier()
     {
         isRestoring = true;
-        for (int i = 0; i < 4; i++)
-        {
-            X1.GetComponent<Image>().fillAmount = 1.0f;
-            yield return new WaitForSeconds(0.5f);
-            X1.GetComponent<Image>().fillAmount = 0.0f;
-            yield return new WaitForSeconds(0.5f);
-        }
+        statusGTL = 0;
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    X1.GetComponent<Image>().fillAmount = 1.0f;
+        //    yield return new WaitForSeconds(0.5f);
+        //    X1.GetComponent<Image>().fillAmount = 0.0f;
+        //    yield return new WaitForSeconds(0.5f);
+        //}
     }
     public void disableMultiplier()
     {

@@ -38,9 +38,10 @@ public class TimeBombManager : MonoBehaviour {
                 UsingBomb();
                 spc.activateBomb = false;
             }
-            if(gtm.statusGTL>1) RegenTimeBomb1();
-            if (activateBomb2) RegenTimeBomb2();
-            if (activateBomb3) RegenTimeBomb3();
+            if(gtm.statusGTL>0) RegenTimeBomb1();
+            else TimeBomb1.fillAmount = 0.0f;
+//            if (activateBomb2) RegenTimeBomb2();
+//            if (activateBomb3) RegenTimeBomb3();
         }
         if (tm.InSlowMo())
         {

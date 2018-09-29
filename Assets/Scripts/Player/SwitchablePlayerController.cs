@@ -494,6 +494,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (lives == 0)
                         {
                             ams.StopMusic();
+                            tm.RestoreTime();
                             RumblePad.RumbleState = 6;
                             GameObject.FindGameObjectWithTag("L1").SetActive(false);
                             isDeath = true;

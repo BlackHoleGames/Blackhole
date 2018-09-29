@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 23350798735707240}
   - component: {fileID: 135126855445877632}
   - component: {fileID: 54683528230578962}
+  - component: {fileID: 114732949446470448}
   m_Layer: 0
   m_Name: The4eye_Body
   m_TagString: Enemy
@@ -816,6 +817,18 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114732949446470448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289643516497590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c478c8b0f5d3b1041b3fa9de7eb8cd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!135 &135126855445877632
 SphereCollider:
   m_ObjectHideFlags: 1
