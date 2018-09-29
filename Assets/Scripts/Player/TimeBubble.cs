@@ -18,16 +18,18 @@ public class TimeBubble : MonoBehaviour {
     public bool inTimeWarp;
     private AudioManagerScript ams;
     private float sizeMultiplier = 1.0f;
-    public AudioReverbZone reverbZone;
+    private GameObject reverbZone, reverbZoneTimeBomb;
     // Use this for initialization
     void Start () {
         ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         toDestroy = false;
         Instantiate(tmPartSys, transform);
         t = 0;
-        if (inTimeWarp) ams.LowerMusic(slowdownDuration);
-        else ams.LowerMusic(timeWarpSlowdownDuration);
-        reverbZone.enabled = true;
+        //if (inTimeWarp) ams.LowerMusic(slowdownDuration);
+        //else ams.LowerMusic(timeWarpSlowdownDuration);
+        GameObject ReverbZones = GameObject.Find("ReverbZones");
+        reverbZone = ams.GetActualReverb();
+        reverbZoneTimeBomb = ams.GetReverbTimeBomb();
         //if (Time.timeScale == 1.5f) sizeMultiplier = 1.5f;
         //if (Time.timeScale >= 2.0f) sizeMultiplier = 3.0f;
     }
@@ -43,7 +45,8 @@ public class TimeBubble : MonoBehaviour {
         else {
             if (timeBubbleDuration > 0.0f) timeBubbleDuration -= Time.deltaTime;
             else {
-                reverbZone.enabled = false;
+                reverbZoneTimeBomb.SetActive(false);
+                reverbZone.SetActive(true);
                 Destroy(gameObject);
             }
         }          

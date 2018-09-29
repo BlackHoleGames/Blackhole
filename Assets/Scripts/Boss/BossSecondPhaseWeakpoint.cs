@@ -7,12 +7,12 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     public float life = 30.0f;
     public Material matOn, matOff, matHit;
     public GameObject projectile;
+    public float hitFeedbackDuration = 0.05f;
 
     private bool hit, materialHitOn, shooting, start, doubleShotSpeed;
     private EnemyLookAt ela;
-    private float shotRechargeTime;
+    private float shotRechargeTime, hitFeedbackCounter, shotCounter;
     private float shotDuration = 4.5f;
-    private float shotCounter;
     private GameObject actualLaser;
     private AudioSource audioSource;
     // Use this for initialization
@@ -21,7 +21,8 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
         ela = GetComponent<EnemyLookAt>();
         start = false;
         audioSource = GetComponent<AudioSource>();
-	}
+        hitFeedbackCounter = 0.0f;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -73,13 +74,18 @@ public class BossSecondPhaseWeakpoint : MonoBehaviour {
     {
         if (materialHitOn)
         {
-            gameObject.GetComponent<Renderer>().material = matOn;
-            materialHitOn = false;
+            if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = matOn;
+                materialHitOn = false;
+                hitFeedbackCounter = hitFeedbackDuration;
+            }
         }
         if (hit)
         {
             hit = false;
-            gameObject.GetComponent<Renderer>().material = matHit;
+            gameObject.GetComponent<Renderer>().material = matOff;
             materialHitOn = true;
         }
     }

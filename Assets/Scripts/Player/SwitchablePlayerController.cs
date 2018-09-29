@@ -465,8 +465,9 @@ public class SwitchablePlayerController : MonoBehaviour
         { 
             if (!godMode)
             {
-                if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser")
+                if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser" || other.tag == "Meteorites")
                 {
+                    if (other.tag == "Meteorites") other.tag = "Untagged";
                     RumblePad.RumbleState = 1;//Normal Impact                        
                     isUpdatingLife = true;
                     if (actualLife > lifeLimit)
@@ -528,8 +529,9 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (!isDeathDoor) pps.DamageEffect1Round();
                         impactforshake = true;
                         invulAfterSlow = true;
+                        tm.RestoreTime();
                         //RumblePad.RumbleState = 1; //Alarm
-                    }              
+                    }
                     if (!isDestroying || actualLife < 2.0f)
                     {
                         activateBomb = true;

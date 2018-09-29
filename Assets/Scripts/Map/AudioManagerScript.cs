@@ -11,13 +11,18 @@ public class AudioManagerScript : MonoBehaviour {
     private AudioSource audioSource;
     private AudioClip clipToPlay;
     private float startingPitch, targetPitch, lerpTime;
-    
+    private GameObject reverbNormal, reverbBlackHole, reverbTimeBomb, actualReverb;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
         stopMusic = false;
         switchMusic = false;
-	}
+        GameObject ReverbZones = GameObject.Find("ReverbZones");
+        reverbNormal = ReverbZones.transform.GetChild(0).gameObject;
+        reverbTimeBomb = ReverbZones.transform.GetChild(1).gameObject;
+        reverbBlackHole = ReverbZones.transform.GetChild(2).gameObject;
+        actualReverb = reverbNormal;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -89,5 +94,19 @@ public class AudioManagerScript : MonoBehaviour {
     public void StopMusicInXSeconds(float duration) {
         stopMusic = true;
         secondsToStopMusic = duration;
+    }
+
+    public GameObject GetActualReverb() {
+        return actualReverb;
+    }
+
+    public GameObject GetReverbTimeBomb() {
+        return reverbTimeBomb;
+    }
+
+    public void SetBlackHoleReverb() {
+        reverbNormal.SetActive(false);
+        reverbBlackHole.SetActive(true);
+        actualReverb = reverbBlackHole;
     }
 }
