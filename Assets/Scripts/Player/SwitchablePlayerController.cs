@@ -92,6 +92,7 @@ public class SwitchablePlayerController : MonoBehaviour
         timewarp = audioSources[3];
         liveValue.text = "X3";
         isDeathDoor = false;
+        onTutorial = false;
         //parentAxis = gameObject;
     }
 
@@ -168,6 +169,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageInput(RT);
                                     tm.UnPauseGame();
                                     ++actualTutorialStage;
+                                    onTutorial = false;
                                 }
                                 break;
                             case TutorialStages.TIMEBOMBTUTORIAL:
@@ -176,6 +178,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
                                     ++actualTutorialStage;
+                                    onTutorial = false;
                                 }
                                 break;
                             case TutorialStages.TIMEWARPTUTORIAL:
@@ -184,6 +187,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
                                     ++actualTutorialStage;
+                                    onTutorial = false;
                                 }
                                 break;
                         }
@@ -204,6 +208,10 @@ public class SwitchablePlayerController : MonoBehaviour
             SaveGameStatsScript.GameStats.isGameOver = true;
             SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 1000000;
         }
+    }
+
+    public void ActivateOnTutorial() {
+        onTutorial = true;
     }
 
     public void ManageInput(double RT)
