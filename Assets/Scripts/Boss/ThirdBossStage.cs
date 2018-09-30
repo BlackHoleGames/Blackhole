@@ -20,7 +20,7 @@ public class ThirdBossStage : MonoBehaviour {
     private TimeBehaviour tb;
     // Use this for initialization
     void Start () {
-        transform.position = parentAxis.transform.position;
+        //transform.position = parentAxis.transform.position;
         defeatedEyeCounter = 0;
         start = true;
         defeated = false;
@@ -47,7 +47,7 @@ public class ThirdBossStage : MonoBehaviour {
 
     public void ManageMovement()
     {
-        transform.position = Vector3.Lerp(parentAxis.transform.position, (parentAxis.transform.position-transform.position) , Time.deltaTime * tb.scaleOfTime);
+        //transform.position = Vector3.Lerp(parentAxis.transform.position, (parentAxis.transform.position-transform.position) , Time.deltaTime * tb.scaleOfTime);
         foreach (GameObject g in eyes)
         {
             g.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime * tb.scaleOfTime);
