@@ -31,7 +31,7 @@ public class LeaderBoardScript : MonoBehaviour
     public Text Initials;
     private int ScorePosition = 0;
     private int ObjectsToShow = 6;
-    private IEnumerator ScoreSequence;
+    private IEnumerator ScoreSequence, InitialSequence;
     void Start()
     {
         LeaderBoardsTitle.canvasRenderer.SetAlpha(0.0f);
@@ -49,6 +49,8 @@ public class LeaderBoardScript : MonoBehaviour
         ScoreResultE.canvasRenderer.SetAlpha(0.0f);
         numPosition.canvasRenderer.SetAlpha(0.0f);
         congrats.canvasRenderer.SetAlpha(0.0f);
+        Timer.canvasRenderer.SetAlpha(0.0f);
+        Initials.canvasRenderer.SetAlpha(0.0f);
         isLeaderBoardTime = false;
         if (SaveGameStatsScript.GameStats!=null && SaveGameStatsScript.GameStats.isGameOver) {            
             //if (SaveGameStatsScript.GameStats.isGoodEnding) GameOverText.text = "THE END";
@@ -57,10 +59,10 @@ public class LeaderBoardScript : MonoBehaviour
                 //Congrats Name
                 GetComponent<InputNameScore>().IsInputName = true;
                 setPosition();
-                congrats.CrossFadeAlpha(1.0f, 1.0f, false);
-                numPosition.CrossFadeAlpha(1.0f, 1.0f, false);
-                Timer.gameObject.SetActive(true);
-                Initials.gameObject.SetActive(true);
+                InitialSequence = InitialPresentation(0.5f);
+                StartCoroutine(InitialSequence);
+                //Timer.gameObject.SetActive(true);
+                //Initials.gameObject.SetActive(true);
                 //while (!GameObject.FindGameObjectWithTag("UIScore").GetComponent<InputNameScore>().WaitingForName){}
                 //  SaveGameStatsScript.GameStats.SetScore("", SaveGameStatsScript.GameStats.playerScore.ToString());
                 //ReasingScore();
@@ -79,6 +81,15 @@ public class LeaderBoardScript : MonoBehaviour
             ScoreSequence = ScorePresentation(0.5f);
             StartCoroutine(ScoreSequence);
         }
+    }
+
+    private IEnumerator InitialPresentation(float timeToAppear)
+    {
+        Initials.CrossFadeAlpha(1.0f, timeToAppear, false);
+        Timer.CrossFadeAlpha(1.0f, timeToAppear, false);
+        congrats.CrossFadeAlpha(1.0f, timeToAppear, false);
+        numPosition.CrossFadeAlpha(1.0f, timeToAppear, false);
+        yield return new WaitForSeconds(timeToAppear);
     }
 
     private void setPosition()
@@ -237,7 +248,7 @@ public class LeaderBoardScript : MonoBehaviour
             if (System.Int32.Parse(SaveGameStatsScript.GameStats.ScoreResults[i])
                 <= SaveGameStatsScript.GameStats.playerScore)
             {
-                ScorePosition = i;
+                ScorePosition = i+1;
                 return true;
             }
         }

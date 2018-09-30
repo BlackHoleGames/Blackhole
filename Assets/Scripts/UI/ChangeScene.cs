@@ -77,9 +77,16 @@ public class ChangeScene : MonoBehaviour {
             !player.GetComponent<SwitchablePlayerController>().isEnding)
         {
             SceneManager.LoadScene(7);
-        }else
+            SaveGameStatsScript.GameStats.isGameOver = true;
+            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 19999999;
+            SaveGameStatsScript.GameStats.SetStats();
+        }
+        else
         {
             SceneManager.LoadScene(5);
+            SaveGameStatsScript.GameStats.isGameOver = true;
+            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 15555555;
+            SaveGameStatsScript.GameStats.SetStats();
         }
     }
     IEnumerator FadeToInitLevel(float levelTimer)

@@ -90,7 +90,7 @@ public class EndingScript : MonoBehaviour {
 
     void FadeInText()
     {
-        PressStartText.CrossFadeAlpha(1.0f, 0.75f, false);
+        if(PressStartText!=null) PressStartText.CrossFadeAlpha(1.0f, 0.75f, false);
     }
     void FadeInTT()
     {
@@ -102,6 +102,6 @@ public class EndingScript : MonoBehaviour {
     }
     void FadeOut()
     {
-        PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
+        if (PressStartText != null) PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
     }
 }

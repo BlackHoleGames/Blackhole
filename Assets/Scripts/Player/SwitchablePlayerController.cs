@@ -157,6 +157,7 @@ public class SwitchablePlayerController : MonoBehaviour
             }else if (!isSavingData)
             {
                 isSavingData = true;
+                tm.RestoreTime();
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
             }
@@ -164,6 +165,7 @@ public class SwitchablePlayerController : MonoBehaviour
             //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }else
         {
+            tm.RestoreTime();
             SaveGameStatsScript.GameStats.isGameOver = true;
             SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 1000000;
         }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class InputNameScore : MonoBehaviour {
     public Text timerText;
     public Text initialsText;
+    public Text Congrats;
+    public Text NumPosition;
     private int timeRemaining=19;
     private IEnumerator Timercoroutine;
     private IEnumerator Initialcoroutine;
@@ -44,7 +46,8 @@ public class InputNameScore : MonoBehaviour {
             axisX = Input.GetAxis("Horizontal");
             if (!isDone)
             {
-                if (Input.GetButtonDown("AButton"))
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown("enter") ||
+            Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Space))
                 {
                     initialAuxDone = true;
                     initialAux = initialAux + letter;
@@ -102,6 +105,7 @@ public class InputNameScore : MonoBehaviour {
         WaitingForName = false;
 
         SaveGameStatsScript.GameStats.SetScore(initialsText.text, SaveGameStatsScript.GameStats.playerScore.ToString());
+        yield return new WaitForSeconds(seconds);
         FadeOutInputName();
         yield return new WaitForSeconds(seconds);
         GetComponent<LeaderBoardScript>().isLeaderBoardTime = true;
@@ -127,5 +131,7 @@ public class InputNameScore : MonoBehaviour {
     {
         timerText.CrossFadeAlpha(0.0f, 1.0f, false);
         initialsText.CrossFadeAlpha(0.0f, 1.0f, false);
+        Congrats.CrossFadeAlpha(0.0f, 1.0f, false);
+        NumPosition.CrossFadeAlpha(0.0f, 1.0f, false);
     }
 }

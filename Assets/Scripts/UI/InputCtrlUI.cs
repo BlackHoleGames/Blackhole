@@ -38,7 +38,9 @@ public class InputCtrlUI : MonoBehaviour
                 if (SaveGameStatsScript.GameStats.StatusUISequence) SaveGameStatsScript.GameStats.StatusUISequence = false;
                 else SaveGameStatsScript.GameStats.StatusUISequence = true;
                 SaveGameStatsScript.GameStats.isGameOver = false;
+                SaveGameStatsScript.GameStats.playerScore = 0;
                 SaveGameStatsScript.GameStats.SetStats();
+                SaveGameStatsScript.GameStats.GetStats();
                 UIPressStart.SetActive(false);
                 EventSystemStart.SetActive(false);
                 
