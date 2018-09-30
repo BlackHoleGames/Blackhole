@@ -52,7 +52,7 @@ public class SwitchablePlayerController : MonoBehaviour
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
-    private bool gamePaused;
+    public bool gamePaused;
     private float lifeDeath = -0.1f;
     private float lifeLimit = 0.1f;
     private bool onTutorial;

@@ -79,8 +79,8 @@ public class ChangeScene : MonoBehaviour {
         yield return new WaitForSeconds(levelTimer);
         if (quitGame)
         {
-            SaveGameStatsScript.GameStats.isGameOver = false;
-            SaveGameStatsScript.GameStats.SetStats();
+            //SaveGameStatsScript.GameStats.isGameOver = false;
+            //SaveGameStatsScript.GameStats.SetStats();
             SceneManager.LoadScene(1);
         }
         else
