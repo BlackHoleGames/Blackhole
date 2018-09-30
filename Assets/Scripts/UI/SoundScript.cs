@@ -45,7 +45,7 @@ public class SoundScript : MonoBehaviour, ISelectHandler
             case 0: //PlayGame
                 yield return new WaitForSeconds(secondsFinishPlay);
                 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(3);
                 break;
             case 1: //Settings Menu
                 yield return new WaitForSeconds(secondsFinishSettings);
@@ -81,6 +81,10 @@ public class SoundScript : MonoBehaviour, ISelectHandler
             case 5: //Quit Confirm
                 yield return new WaitForSeconds(secondsFinishSettings);
                 Application.Quit();
+                break;
+            case 6: //Play
+                yield return new WaitForSeconds(secondsFinishSettings);
+                SceneManager.LoadScene(4);
                 break;
         }
 

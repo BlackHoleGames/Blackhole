@@ -352,7 +352,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117694390}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4155,6 +4155,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 114221580404098350, guid: 758d57766ded7e841a9320bc15f95fa2,
+        type: 2}
+      propertyPath: activateScroll
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 758d57766ded7e841a9320bc15f95fa2, type: 2}
   m_IsPrefabParent: 0
@@ -4946,7 +4951,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1337830768
+  randomSeed: -1496973596
   InitialModule:
     serializedVersion: 3
     enabled: 1
