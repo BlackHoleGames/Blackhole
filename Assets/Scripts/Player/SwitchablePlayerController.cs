@@ -167,6 +167,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 if (Input.GetButtonDown("Fire1") || (RT > 0)) {
                                     ManageInput(RT);
                                     tm.UnPauseGame();
+                                    ++actualTutorialStage;
                                 }
                                 break;
                             case TutorialStages.TIMEBOMBTUTORIAL:
@@ -174,6 +175,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 {
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
+                                    ++actualTutorialStage;
                                 }
                                 break;
                             case TutorialStages.TIMEWARPTUTORIAL:
@@ -181,6 +183,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 {
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
+                                    ++actualTutorialStage;
                                 }
                                 break;
                         }
