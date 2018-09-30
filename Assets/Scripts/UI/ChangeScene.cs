@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour {
 
     private bool changeScene = false;
+    private IEnumerator SceneQuitGameSequence;
     private IEnumerator SceneCloseTimerSequence;
     private IEnumerator SceneOpenTimerSequence;
     private IEnumerator SceneBHSequence;
@@ -16,6 +17,7 @@ public class ChangeScene : MonoBehaviour {
     public AudioClip soundPlay;
     public bool shutdown = false;
     public bool isBlackHoleTime = false;
+    public bool quitGame = false;
     private bool activateDeath =false;
     private bool activateBH = false;
     private bool activateTextBH = false;
@@ -57,7 +59,6 @@ public class ChangeScene : MonoBehaviour {
             StartCoroutine(TextBHSequence);
 
         }
-
     }
 
 
@@ -66,27 +67,39 @@ public class ChangeScene : MonoBehaviour {
         SceneBHSequence = FadeToInitBH();
         StartCoroutine(SceneBHSequence);
     }
-
+    IEnumerator FadeToQuitLevel(float levelTimer)
+    {
+        yield return new WaitForSeconds(levelTimer);
+    }
     IEnumerator FadeToEndingLevel (float levelTimer)
     {
         yield return new WaitForSeconds(SecondsToWaitDestroy);
         BlackFade.CrossFadeAlpha(1.0f, SecondsToWaitEnd, false);
         //BlackFade.canvasRenderer.SetAlpha(1.0f);
         yield return new WaitForSeconds(levelTimer);
-        if (player != null &&
-            !player.GetComponent<SwitchablePlayerController>().isEnding)
+        if (quitGame)
         {
-            SceneManager.LoadScene(7);
-            SaveGameStatsScript.GameStats.isGameOver = true;
-            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 19999999;
+            SaveGameStatsScript.GameStats.isGameOver = false;
             SaveGameStatsScript.GameStats.SetStats();
+            SceneManager.LoadScene(1);
         }
         else
         {
-            SceneManager.LoadScene(5);
-            SaveGameStatsScript.GameStats.isGameOver = true;
-            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 15555555;
-            SaveGameStatsScript.GameStats.SetStats();
+            if (player != null &&
+                !player.GetComponent<SwitchablePlayerController>().isEnding)
+            {
+                SceneManager.LoadScene(7);
+                SaveGameStatsScript.GameStats.isGameOver = true;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 19999999;
+                SaveGameStatsScript.GameStats.SetStats();
+            }
+            else
+            {
+                SceneManager.LoadScene(5);
+                SaveGameStatsScript.GameStats.isGameOver = true;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 15555555;
+                SaveGameStatsScript.GameStats.SetStats();
+            }
         }
     }
     IEnumerator FadeToInitLevel(float levelTimer)
