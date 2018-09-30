@@ -30,7 +30,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public Slider life;
     public Image fillLife, fillTimeBomb;
     public Text liveValue;
-    public GameObject projectile, sphere, ghost, parentAxis, pShoot;
+    public GameObject projectile, sphere, ghost, parentAxis, pShoot, quitMenu;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
@@ -112,11 +112,13 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     if (!gamePaused)
                     {
+                        quitMenu.SetActive(true);
                         tm.PauseGame();
                         gamePaused = true;
                     }
                     else
                     {
+                        quitMenu.SetActive(false);
                         tm.UnPauseGame();
                         gamePaused = false;
                     }
