@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3b9e452e26b5b4b801fa4da5de5ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 4
+  scene: 3
   soundPlay: {fileID: 8300000, guid: 4d8f63e95d766f043a2402214e55e70d, type: 3}
   UIMenu: {fileID: 0}
   UIPressStart: {fileID: 0}

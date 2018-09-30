@@ -34,7 +34,7 @@ public class Briefing : MonoBehaviour {
         {
             blockCoroutineFadeOut = true;
             Confirmed = true;
-            ShutDownSequence = InitScreen();
+            ShutDownSequence = ShutDownScreen();
             StartCoroutine(ShutDownSequence);
         }
     }
@@ -61,7 +61,7 @@ public class Briefing : MonoBehaviour {
         FadeOut();
         curtainImage.CrossFadeAlpha(0.0f, 1.0f, false);
         yield return new WaitForSeconds(2.5f);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
     IEnumerator PressStartTextUI()
     {

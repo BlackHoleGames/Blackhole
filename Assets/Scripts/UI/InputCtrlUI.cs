@@ -53,7 +53,7 @@ public class InputCtrlUI : MonoBehaviour
                 scene = 0;
                 break;
             case 3: 
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
             case 4: //Briefing
