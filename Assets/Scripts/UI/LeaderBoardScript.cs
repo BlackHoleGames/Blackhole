@@ -153,7 +153,7 @@ public class LeaderBoardScript : MonoBehaviour
             }            
         }
         //Ending
-        SaveGameStatsScript.GameStats.StatusUISequence = false;
+        //SaveGameStatsScript.GameStats.StatusUISequence = false;
         yield return new WaitForSeconds(20.0f);
         SceneManager.LoadScene(2);
     }

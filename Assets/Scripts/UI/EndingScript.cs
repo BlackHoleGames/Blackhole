@@ -30,7 +30,7 @@ public class EndingScript : MonoBehaviour {
         Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
         yield return new WaitForSeconds(3.0f);
         /*InitCam1*/
-        TitleText.text = "C O N G R A T U L A T I O N S ! ! !\n You Save The Humanity";
+        //TitleText.text = "GAME OVER \nTHERE'S NO HOPE FOR HUMANITY";
         FadeInTT();
         yield return new WaitForSeconds(2.0f);
         for (int i = 0; i < 5; i++)

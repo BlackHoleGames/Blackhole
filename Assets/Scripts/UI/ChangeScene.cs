@@ -76,10 +76,10 @@ public class ChangeScene : MonoBehaviour {
         if (player != null &&
             !player.GetComponent<SwitchablePlayerController>().isEnding)
         {
-            SceneManager.LoadScene(6);
+            SceneManager.LoadScene(7);
         }else
         {
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene(5);
         }
     }
     IEnumerator FadeToInitLevel(float levelTimer)

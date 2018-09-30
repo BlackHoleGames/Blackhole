@@ -4150,6 +4150,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224001593406357424, guid: 758d57766ded7e841a9320bc15f95fa2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 758d57766ded7e841a9320bc15f95fa2, type: 2}
   m_IsPrefabParent: 0
@@ -4941,7 +4946,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 811347083
+  randomSeed: -1337830768
   InitialModule:
     serializedVersion: 3
     enabled: 1

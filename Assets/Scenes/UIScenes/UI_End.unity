@@ -3996,7 +3996,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The human craving for knowledge opened a black hole..
+  m_Text: 'C O N G R A T U L A T I O N S ! ! !
+
+    You Save The Humanity'
 --- !u!222 &1095710018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4422,7 +4424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3b9e452e26b5b4b801fa4da5de5ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 10
+  scene: 5
   soundPlay: {fileID: 8300000, guid: 4d8f63e95d766f043a2402214e55e70d, type: 3}
   UIMenu: {fileID: 0}
   UIPressStart: {fileID: 0}
@@ -4656,7 +4658,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -820648080
+  randomSeed: -2072469413
   InitialModule:
     serializedVersion: 3
     enabled: 1

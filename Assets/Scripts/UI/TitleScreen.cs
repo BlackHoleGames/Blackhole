@@ -32,16 +32,15 @@ public class TitleScreen : MonoBehaviour {
         }
         SaveGameStatsScript.GameStats.isGameOver = false;
         //Score
-        //SceneManager.LoadScene(7);
-        if (SaveGameStatsScript.GameStats.StatusUISequence) { 
-            SceneManager.LoadScene(7);
-            SaveGameStatsScript.GameStats.StatusUISequence = false;
+        if (!SaveGameStatsScript.GameStats.StatusUISequence) { 
+            SceneManager.LoadScene(6);
+            SaveGameStatsScript.GameStats.StatusUISequence = true;
             SaveGameStatsScript.GameStats.SetStats();
         }
-        else//Video Tutorial
+        else//History
         {
             SceneManager.LoadScene(1);
-            SaveGameStatsScript.GameStats.StatusUISequence = true;
+            SaveGameStatsScript.GameStats.StatusUISequence = false;
             SaveGameStatsScript.GameStats.SetStats();
         }
 

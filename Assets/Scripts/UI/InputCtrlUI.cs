@@ -38,6 +38,7 @@ public class InputCtrlUI : MonoBehaviour
                 if (SaveGameStatsScript.GameStats.StatusUISequence) SaveGameStatsScript.GameStats.StatusUISequence = false;
                 else SaveGameStatsScript.GameStats.StatusUISequence = true;
                 SaveGameStatsScript.GameStats.isGameOver = false;
+                SaveGameStatsScript.GameStats.SetStats();
                 UIPressStart.SetActive(false);
                 EventSystemStart.SetActive(false);
                 
@@ -57,9 +58,17 @@ public class InputCtrlUI : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 scene = 0;
                 break;
-            case 7: //LeaderBoard
+            case 5: //End
+                SceneManager.LoadScene(6);
+                scene = 0;
+            break;
+            case 6: //LeaderBoard
 
                 if (!SaveGameStatsScript.GameStats.isGameOver) SceneManager.LoadScene(2);
+                scene = 0;
+            break;
+            case 7: //GameOver
+                SceneManager.LoadScene(6);
                 scene = 0;
             break;
             case 9: //History
