@@ -37,32 +37,13 @@ public class QuitMenu : MonoBehaviour {
         Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
         yield return new WaitForSeconds(1.0f);
     }
-    //public void PlayGame()
-    //{
-    //    source1.PlayOneShot(sound);
-    //    SceneManager.LoadScene(3);
-    //    //Application.LoadLevel(Application.loadedLevel);
-    //    //TimerScript TS = new TimerScript();
-    //    //TS.startTime = Time.time;
-    //}
-    //public void Settings()
-    //{
 
-    //    mainMenu.SetActive(false);
-    //    //source1.PlayOneShot(sound);
-    //    settingsMenu.SetActive(true);
-    //}
-
-    //public void QuitGame()
-    //{
-    //    //Application.Quit();
-    //    mainMenu.SetActive(false);
-    //    QuitConfirm.SetActive(true);
-    //}
     void Update()
     {
         float axisY = Input.GetAxis("Vertical");
-
+        //if (axisY > 0.0f) Action++;
+        //else Action = 0;
+        //if (Action > 1) Action = 0;
     }
     IEnumerator playFileScroll()
     {
@@ -70,11 +51,12 @@ public class QuitMenu : MonoBehaviour {
         {
             case 0: //Quit NoConfirm
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
-                Cursor.transform.localPosition = new Vector3(-159, -164f, 0.0f);
+                Cursor.transform.localPosition = new Vector3(-180, -79f, 0.0f);
                 break;
             case 1: //Quit Confirm
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
-                Cursor.transform.localPosition = new Vector3(-159, -79f, 0.0f);
+                Cursor.transform.localPosition = new Vector3(-180, -164f, 0.0f);
+
                 break;
         }
         if (activateScroll)
@@ -91,16 +73,17 @@ public class QuitMenu : MonoBehaviour {
         switch (Action)
         {
             case 0: //Quit NoConfirm
-                yield return new WaitForSeconds(secondsReturnPlay);
-                tm.UnPauseGame();
+
                 quitMenu.SetActive(false);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().UnPauseGame();
             break;
             case 1: //Quit Confirm
-                yield return new WaitForSeconds(secondsFinishSettings);
+//                tm.UnPauseGame();
                 GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
                 GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().quitGame = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().UnPauseGame();
                 break;
         }
-
+        yield return new WaitForSeconds(secondsReturnPlay);
     }
 }

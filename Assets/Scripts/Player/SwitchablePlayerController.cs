@@ -153,7 +153,6 @@ public class SwitchablePlayerController : MonoBehaviour
                     }
                     if (isDeathDoor)
                     {
-                        DeathDoor();
                         pps.GetComponent<PostProcessingSwitcher>().ActivateDamageEffect();
                     }
                     else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
@@ -262,9 +261,9 @@ public class SwitchablePlayerController : MonoBehaviour
         if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
     }
 
-    public void DeathDoor()
+    public void UnPauseGame()
     {
-
+        tm.UnPauseGame();
     }
 
     IEnumerator StoppingShoot(float waitshoot)
