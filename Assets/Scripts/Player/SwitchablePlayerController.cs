@@ -55,6 +55,9 @@ public class SwitchablePlayerController : MonoBehaviour
     private bool gamePaused;
     private float lifeDeath = -0.1f;
     private float lifeLimit = 0.1f;
+    private bool onTutorial;
+    public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
+    private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -156,6 +159,33 @@ public class SwitchablePlayerController : MonoBehaviour
                     if (actualLife == 0.0) fillLife.enabled = false;
                     else fillLife.enabled = true;
                 }
+                else {
+                    if (onTutorial) {
+                        switch (actualTutorialStage) {
+                            case TutorialStages.SHOOTTUTORIAL:
+                                double RT = Input.GetAxis("RT");
+                                if (Input.GetButtonDown("Fire1") || (RT > 0)) {
+                                    ManageInput(RT);
+                                    tm.UnPauseGame();
+                                }
+                                break;
+                            case TutorialStages.TIMEBOMBTUTORIAL:
+                                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+                                {
+                                    ManageTimeBomb();
+                                    tm.UnPauseGame();
+                                }
+                                break;
+                            case TutorialStages.TIMEWARPTUTORIAL:
+                                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+                                {
+                                    ManageTimeBomb();
+                                    tm.UnPauseGame();
+                                }
+                                break;
+                        }
+                    }
+                }
             }else if (!isSavingData)
             {
                 isSavingData = true;
@@ -204,17 +234,21 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 if (!emptyStockBombs && !activateBomb)
                 {
-                    RumblePad.RumbleState = 3;
-                    activateBomb = true;
-                    int clipIndex = (int)UnityEngine.Random.Range(0, 3);
-                    timebomb.clip = timeBombClips[clipIndex];
-                    timebomb.Play();
-                    //tm.StartSloMo();
-                    GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
-                    if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+                    ManageTimeBomb();
                 }
             }
         }
+    }
+
+    public void ManageTimeBomb() {
+        RumblePad.RumbleState = 3;
+        activateBomb = true;
+        int clipIndex = (int)UnityEngine.Random.Range(0, 3);
+        timebomb.clip = timeBombClips[clipIndex];
+        timebomb.Play();
+        //tm.StartSloMo();
+        GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+        if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
     }
 
     public void DeathDoor()
