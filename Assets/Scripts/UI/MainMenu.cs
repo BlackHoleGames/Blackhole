@@ -27,13 +27,13 @@ public class MainMenu : MonoBehaviour {
         //TimerScript TS = new TimerScript();
         //TS.startTime = Time.time;
     }
-    public void Settings()
-    {
+    //public void Settings()
+    //{
 
-        mainMenu.SetActive(false);
-        //source1.PlayOneShot(sound);
-        settingsMenu.SetActive(true);
-    }
+    //    mainMenu.SetActive(false);
+    //    //source1.PlayOneShot(sound);
+    //    settingsMenu.SetActive(true);
+    //}
 
     public void QuitGame()
     {

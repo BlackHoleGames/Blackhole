@@ -14,7 +14,6 @@ public class SoundScript : MonoBehaviour, ISelectHandler
     private float secondsFinishQuit = 1.0f;
     private float secondsToScroll = 0.5f;
     public GameObject mainMenu;
-    public GameObject Settings;
     public GameObject Quit;
     private Transform Cursor;
     public bool activateScroll = true;
@@ -47,44 +46,25 @@ public class SoundScript : MonoBehaviour, ISelectHandler
                 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 SceneManager.LoadScene(3);
                 break;
-            case 1: //Settings Menu
-                yield return new WaitForSeconds(secondsFinishSettings);
+            case 1: //Close app
                 mainMenu.SetActive(false);
-                Settings.SetActive(true);
-                Button back = GameObject.FindGameObjectWithTag("back").GetComponent<Button>();
-                back.Select();
-                break;
-            case 2: //Close app
-                mainMenu.SetActive(false);
-                Settings.SetActive(false);
+                //Settings.SetActive(false);
                 Quit.SetActive(true);
                 Button QYes = GameObject.FindGameObjectWithTag("QYes").GetComponent<Button>();
                 QYes.Select();
                 break;
-            case 3: //Back Settings
+            case 2: //Quit NoConfirm
                 yield return new WaitForSeconds(secondsFinishSettings);
                 mainMenu.SetActive(true);
-                Settings.SetActive(false);
-                Button play = GameObject.FindGameObjectWithTag("play").GetComponent<Button>();
-                play.Select();
-                activateScroll = false;
-                break;
-            case 4: //Quit NoConfirm
-                yield return new WaitForSeconds(secondsFinishSettings);
-                mainMenu.SetActive(true);
-                Settings.SetActive(false);
+                //Settings.SetActive(false);
                 Quit.SetActive(false);
                 Button qplay = GameObject.FindGameObjectWithTag("play").GetComponent<Button>();
                 qplay.Select();
                 activateScroll = false;
                 break;
-            case 5: //Quit Confirm
+            case 3: //Quit Confirm
                 yield return new WaitForSeconds(secondsFinishSettings);
                 Application.Quit();
-                break;
-            case 6: //Play
-                yield return new WaitForSeconds(secondsFinishSettings);
-                SceneManager.LoadScene(4);
                 break;
         }
 
@@ -101,23 +81,17 @@ public class SoundScript : MonoBehaviour, ISelectHandler
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
                 Cursor.transform.localPosition = new Vector3(-159, 7.2f, 0.0f);
                 break;
-            case 1: //Settings Menu
+            case 1: //Close app
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
-                Cursor.transform.localPosition = new Vector3(-159, -78f, 0.0f);
-                break;
-            case 2: //Close app
-                Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
+                //Cursor.transform.localPosition = new Vector3(-159, -78f, 0.0f);
+                //Cursor.transform.localPosition = new Vector3(-159, -258f, 0.0f);
                 Cursor.transform.localPosition = new Vector3(-159, -162f, 0.0f);
                 break;
-            case 3: //Back Settings
-                Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
-                Cursor.transform.localPosition = new Vector3(-159, -258f, 0.0f);
-                break;
-            case 4: //Quit NoConfirm
+            case 2: //Quit NoConfirm
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
                 Cursor.transform.localPosition = new Vector3(-159, -164f, 0.0f);
                 break;
-            case 5: //Quit Confirm
+            case 3: //Quit Confirm
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
                 Cursor.transform.localPosition = new Vector3(-159, -79f, 0.0f);
                 break;
