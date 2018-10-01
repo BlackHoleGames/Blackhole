@@ -266,6 +266,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public void UnPauseGame()
     {
         tm.UnPauseGame();
+        tm.RestoreTime();
     }
 
     IEnumerator StoppingShoot(float waitshoot)

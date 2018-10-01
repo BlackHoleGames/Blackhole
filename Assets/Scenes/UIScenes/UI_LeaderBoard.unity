@@ -1057,6 +1057,7 @@ MonoBehaviour:
   NumPosition: {fileID: 1088024413}
   WaitingForName: 0
   IsInputName: 0
+  Confirm: 0
 --- !u!114 &862067659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,6 +1864,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39, y: -383.7}
-  m_SizeDelta: {x: 160, y: 92.5}
+  m_AnchoredPosition: {x: -3.474977, y: -383.7}
+  m_SizeDelta: {x: 231.05, y: 92.5}
   m_Pivot: {x: 0.5, y: 0}

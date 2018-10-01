@@ -20,6 +20,7 @@ public class InputNameScore : MonoBehaviour {
     private bool isDone = false;
     public bool WaitingForName = false;
     public bool IsInputName = false;
+    public int Confirm = 0;
     // Use this for initialization
     void Start () {
         if (SaveGameStatsScript.GameStats!=null &&
@@ -51,7 +52,9 @@ public class InputNameScore : MonoBehaviour {
                 {
                     initialAuxDone = true;
                     initialAux = initialAux + letter;
-                    if (initialAux.Length == 3) isDone = true;
+                    Confirm++;
+                    if (Confirm == 3) isDone = true;
+                    //if (initialAux.Length == 3) isDone = true;
                 }
                 if (Input.GetButtonDown("BButton"))
                 {
