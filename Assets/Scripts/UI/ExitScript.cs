@@ -43,12 +43,15 @@ public class ExitScript : MonoBehaviour, ISelectHandler
             case 0: //PlayGame
                 Quit.SetActive(false);
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().UnPauseGame();
-            break;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().gamePaused = false;
+                break;
             case 1: //Settings Menu
-                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
-                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().quitGame = true;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().gamePaused = false;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().UnPauseGame();
+                SceneManager.LoadScene(1);
+                //                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
+                //                GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().quitGame = true;
+
                 Quit.SetActive(false);
                 break;
         }

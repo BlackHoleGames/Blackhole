@@ -79,8 +79,9 @@ public class ChangeScene : MonoBehaviour {
         yield return new WaitForSeconds(levelTimer);
         if (quitGame)
         {
-            //SaveGameStatsScript.GameStats.isGameOver = false;
-            //SaveGameStatsScript.GameStats.SetStats();
+            SaveGameStatsScript.GameStats.isGameOver = false;
+            SaveGameStatsScript.GameStats.playerScore = 0;
+            SaveGameStatsScript.GameStats.SetStats();
             SceneManager.LoadScene(1);
         }
         else
@@ -88,17 +89,19 @@ public class ChangeScene : MonoBehaviour {
             if (player != null &&
                 !player.GetComponent<SwitchablePlayerController>().isEnding)
             {
-                SceneManager.LoadScene(7);
+                
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 19999999;
                 SaveGameStatsScript.GameStats.SetStats();
+                SceneManager.LoadScene(7);
             }
             else
             {
-                SceneManager.LoadScene(5);
+                
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 15555555;
                 SaveGameStatsScript.GameStats.SetStats();
+                SceneManager.LoadScene(5);
             }
         }
     }
