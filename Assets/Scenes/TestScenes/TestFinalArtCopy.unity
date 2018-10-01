@@ -20878,11 +20878,11 @@ MonoBehaviour:
   life: 300
   shotDecreaseTime: 0.25
   afterDefeatSpeed: 35
-  rotationSpeed: 5
+  rotationSpeed: 25
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
   tb: {fileID: 0}
-  shotCooldown: 1
+  shotCooldown: 2
   rateOfFire: 0.25
   shotOffset: 0.2
   waitBeforeCharge: 1
