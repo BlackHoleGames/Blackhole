@@ -212,17 +212,17 @@ public class SaveGameStatsScript : MonoBehaviour
     }
     public void DefaultScore()
     {
-        ScoreNames[0] = "MPM";
-        ScoreNames[1] = "EMI";
-        ScoreNames[2] = "FPA";
-        ScoreNames[3] = "AME";
-        ScoreNames[4] = "CSP";
+        ScoreNames[0] = "AGL";
+        ScoreNames[1] = "JIN";
+        ScoreNames[2] = "MPM";
+        ScoreNames[3] = "EMI";
+        ScoreNames[4] = "FPA";
 
-        ScoreResults[0] = "2000000";
-        ScoreResults[1] = "1000000";
-        ScoreResults[2] = "500000";
-        ScoreResults[3] = "250000";
-        ScoreResults[4] = "10000";
+        ScoreResults[0] = "20000";
+        ScoreResults[1] = "10000";
+        ScoreResults[2] =  "5000";
+        ScoreResults[3] =  "2500";
+        ScoreResults[4] =  "1000";
 
         using (StreamWriter sw = File.CreateText(scoreFile))
         {
