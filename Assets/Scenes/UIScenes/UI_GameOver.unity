@@ -435,7 +435,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 417159647
+  randomSeed: -58899663
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3984,7 +3984,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 479c5cef9c60e384dbc1d8843f67d869, type: 3}
+    m_Font: {fileID: 12800000, guid: 9ece5d94bb93eb44b934617040ade84e, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -4387,8 +4387,7 @@ GameObject:
   - component: {fileID: 1757261885}
   - component: {fileID: 1757261884}
   - component: {fileID: 1757261883}
-  - component: {fileID: 1757261882}
-  - component: {fileID: 1757261889}
+  - component: {fileID: 1757261888}
   m_Layer: 5
   m_Name: UI_TittleScreen
   m_TagString: Untagged
@@ -4396,23 +4395,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1757261882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1757261881}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0335895e6a50918459d4a802555ad96e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TitleText: {fileID: 1095710017}
-  PressStartText: {fileID: 1030126227}
-  Curtain: {fileID: 616063863}
-  loadLevel: 
-  PStart: 0
-  isLeaderBoardTime: 1
 --- !u!114 &1757261883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4508,7 +4490,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1757261889
+--- !u!114 &1757261888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4516,14 +4498,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1757261881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e6ca1ff300810428ffe7254bc5133b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cb2ae9f9d2cf8c46adab9a281d1c069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TitleText: {fileID: 1095710017}
-  PressStartText: {fileID: 0}
+  PressStartText: {fileID: 1030126227}
   Curtain: {fileID: 616063863}
-  Cam1BH: {fileID: 1875127233}
-  Cam1GO: {fileID: 613167935}
   loadLevel: 
   PStart: 0
   isLeaderBoardTime: 1
