@@ -86,7 +86,7 @@ public class TimeManager : MonoBehaviour {
     {
         if (Time.timeScale < targetGTL)
         {
-            Time.timeScale += Time.unscaledDeltaTime;
+            Time.timeScale += Time.deltaTime;
             if (Time.timeScale > targetGTL)
             {
                 Time.timeScale = targetGTL;
