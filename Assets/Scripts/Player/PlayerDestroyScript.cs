@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDestroyScript : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerDestroyScript : MonoBehaviour
     public float timeForHitEffect = 0.1f;
     private bool finishTimeInv = false;
     public List<Transform> alertList;
-    private GameObject player,UI;
+    private GameObject player,UI,TimeBomb;
     private SwitchablePlayerController spc;
     private GTLManager gtm;
     // Use this for initialization
@@ -29,6 +30,7 @@ public class PlayerDestroyScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         UI = GameObject.FindGameObjectWithTag("UI_InGame");
+        TimeBomb = GameObject.FindGameObjectWithTag("TimeBomb1");
         spc = player.GetComponent<SwitchablePlayerController>();
         gtm = UI.GetComponent<GTLManager>();
         playerFirstPosition = gameObject.transform.position;
@@ -197,6 +199,7 @@ public class PlayerDestroyScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToInvulnerability);
         finishTimeInv = true;
+        TimeBomb.GetComponent<Image>().fillAmount = 1.0f;
     }
 }
 
