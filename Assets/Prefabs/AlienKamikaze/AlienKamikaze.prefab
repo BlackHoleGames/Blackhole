@@ -900,7 +900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9103028b0aa44944bacba15003f26ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeDestroy: 1.5
   flickerTime: 0.05
   matOff: {fileID: 2100000, guid: 18f416f0d4c1b5d498240e97c50b389d, type: 2}
   matFlicker: {fileID: 2100000, guid: 9d3a7e0643a9e4c49b919cb9abab37d8, type: 2}
@@ -928,7 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  turbospeed: 30
+  turbospeed: 25
   life: 100
   hitFeedbackDuration: 0.02
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
