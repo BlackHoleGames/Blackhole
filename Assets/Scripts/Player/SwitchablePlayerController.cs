@@ -55,7 +55,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool gamePaused;
     private float lifeDeath = -0.1f;
     private float lifeLimit = 0.1f;
-    private bool onTutorial;
+    public bool onTutorial = false;
     public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
     private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
     //public CameraBehaviour cameraShaking;

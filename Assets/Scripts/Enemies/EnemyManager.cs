@@ -25,6 +25,7 @@ public class EnemyManager : MonoBehaviour {
     private GameObject actualSquad;
     private MapManger mm;
     private bool done;
+    private bool firstTutorial = false;
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
@@ -129,6 +130,12 @@ public class EnemyManager : MonoBehaviour {
         }
         if (squadronIndex == minibossSquadronIndex) {
             mm.NotifyManagerSpawnedMinidboss();
+        }
+        //Tutorial 1
+        if (!firstTutorial)
+        {
+            firstTutorial = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().onTutorial = true;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,9 @@ using UnityEngine.UI;
 public class EndingScript : MonoBehaviour {
 
     public Text TitleText;
+    public Text TitleText2;
     public Text PressStartText;
+    public Text Credits;
     public Image Curtain;
     public GameObject Cam1BH;
     public GameObject Cam1GO;
@@ -16,7 +19,7 @@ public class EndingScript : MonoBehaviour {
     //public GameObject Cam3BH;
     //public GameObject Cam3GO;
     public string loadLevel;
-    public bool PStart;
+    public bool startCredits;
     public bool isLeaderBoardTime = true;
     // Use this for initialization
 
@@ -25,6 +28,7 @@ public class EndingScript : MonoBehaviour {
     {
 
         TitleText.canvasRenderer.SetAlpha(0.0f);
+        TitleText2.canvasRenderer.SetAlpha(0.0f);
         //PressStartText.canvasRenderer.SetAlpha(0.0f);
         Curtain.canvasRenderer.SetAlpha(1.0f);
         Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
@@ -32,30 +36,23 @@ public class EndingScript : MonoBehaviour {
         /*InitCam1*/
         //TitleText.text = "GAME OVER \nTHERE'S NO HOPE FOR HUMANITY";
         FadeInTT();
-        yield return new WaitForSeconds(2.0f);
-        for (int i = 0; i < 5; i++)
-        {
-            FadeInText();
-            yield return new WaitForSeconds(0.75f);
-            FadeOut();
-            yield return new WaitForSeconds(0.75f);
-        }
-        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
+        yield return new WaitForSeconds(3.0f);
         FadeOutTT();
         yield return new WaitForSeconds(3.0f);
-        /*Ending Cam1*/
-        ////Cam1BH = Cam2BH;
-        //Cam1BH.SetActive(false);
-        //Cam2BH.SetActive(true);
-        ////Cam2BH = Camera.main;
-        //Cam2GO.SetActive(true);
-        //Cam1GO.SetActive(false);
-        //Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
-        //yield return new WaitForSeconds(3.0f);
-        ///*Init Cam2*/
-        //TitleText.text = "...from which emerged an alien race that has nearly destroyed the earth...";
-        //FadeInTT();
-        //yield return new WaitForSeconds(2.0f);
+        TitleText.text = "Unfortunately, nothing can escape a black hole...";
+        FadeInTT();
+        yield return new WaitForSeconds(3.0f);
+        FadeInTT2();
+        yield return new WaitForSeconds(3.0f);
+        FadeOutTT();
+        FadeOutTT2();
+        yield return new WaitForSeconds(3.0f);
+        TitleText.text = "You fade to black proud that the earth has a future";
+        FadeInTT();
+        yield return new WaitForSeconds(3.0f);
+        FadeOutTT();
+        yield return new WaitForSeconds(3.0f);
+        startCredits = true;
         //for (int i = 0; i < 5; i++)
         //{
         //    FadeInText();
@@ -66,26 +63,22 @@ public class EndingScript : MonoBehaviour {
         //Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
         //FadeOutTT();
         //yield return new WaitForSeconds(3.0f);
-        ///*Ending Cam2*/
-        ////Cam1BH = Cam3BH;
-        //Cam2BH.SetActive(false);
-        //Cam3BH.SetActive(true);
-        //Cam3GO.SetActive(true);
-        //Cam2GO.SetActive(false);
-        //Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
-        //yield return new WaitForSeconds(3.0f);
-        ///*Init Cam3*/
-        //TitleText.text = "Scarlett, you are the last hope to save our world.";
-        //FadeInTT();
-        //yield return new WaitForSeconds(2.0f);
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    FadeInText();
-        //    yield return new WaitForSeconds(0.75f);
-        //    FadeOut();
-        //    yield return new WaitForSeconds(0.75f);
-        //}
-        SceneManager.LoadScene(3);
+
+        //        SceneManager.LoadScene(6);
+    }
+    void Update()
+    {
+        //Acabar en 4400
+        if (startCredits) Credits.transform.position += new Vector3(0.0f, Time.deltaTime * 100, 0.0f); 
+    }
+    private void FadeOutTT2()
+    {
+        TitleText2.CrossFadeAlpha(0.0f, 1.0f, false);
+    }
+
+    private void FadeInTT2()
+    {
+        TitleText2.CrossFadeAlpha(1.0f, 1.0f, false);
     }
 
     void FadeInText()
