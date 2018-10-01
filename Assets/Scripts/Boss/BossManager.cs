@@ -14,13 +14,15 @@ public class BossManager : MonoBehaviour {
     private FirstBossStage fbs;
     private SecondBossStage sbs;
     private Vector3 initialPos, lastPhase1Pos;
+    private MapManger mm;
 
-	void Start () {
+    void Start () {
         //actualStage =   BossStage.ENTERING;
+        mm = GameObject.Find("Managers").GetComponent<MapManger>();
         lerpTime = 0.0f;
         fbs = GetComponentInChildren<FirstBossStage>();
         sbs = GetComponentInChildren<SecondBossStage>();
-        initialPos = transform.position;    
+        initialPos = transform.position;
     }
 	
 	// Update is called once per frame
@@ -109,11 +111,18 @@ public class BossManager : MonoBehaviour {
             case BossStage.PHASE4:
                 thirdPhaseBoss.SetActive(true);
                 thirdPhaseBoss.GetComponent<ThirdBossStage>().enabled = true;
+
                 // StartLastSection
                 //GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
                 //GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;                
             break;
         }
+    }
+
+    public void BossDone() {
+        Debug.Log("Here");
+        mm.GoToNextStage();
+
     }
 
     // Add control to deactivate scripts

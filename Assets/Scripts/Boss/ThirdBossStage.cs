@@ -9,7 +9,10 @@ public class ThirdBossStage : MonoBehaviour {
     public float offsetDistance;
     public GameObject[] eyes;
     public bool defeated;
+    public BossManager bm;
+
     private int defeatedEyeCounter;
+    private int destroyedEyeCounter;
 
     private Vector3 axis = Vector3.up;
     private Vector3 desiredPosition;
@@ -19,16 +22,17 @@ public class ThirdBossStage : MonoBehaviour {
     public bool start;
     private TimeBehaviour tb;
     // Use this for initialization
-    void Start () {
+    void Start() {
         //transform.position = parentAxis.transform.position;
         defeatedEyeCounter = 0;
+        destroyedEyeCounter = 0;
         start = true;
         defeated = false;
         tb = GetComponent<TimeBehaviour>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         if (start)
         {
             if (!defeated) ManageMovement();
@@ -60,7 +64,7 @@ public class ThirdBossStage : MonoBehaviour {
         ++defeatedEyeCounter;
         if (defeatedEyeCounter >= 4)
         {
-            foreach (GameObject g in eyes) g.GetComponentInChildren<BossEyeScript>().StartExit();          
+            foreach (GameObject g in eyes) g.GetComponentInChildren<BossEyeScript>().StartExit();
             defeated = true;
         }
         else
@@ -72,5 +76,13 @@ public class ThirdBossStage : MonoBehaviour {
 
     public void StartBossPhase() {
         start = true;
+    }
+
+    public void EyeDestroyed(){
+        ++destroyedEyeCounter;
+        if (destroyedEyeCounter >= 4) {
+            bm.BossDone();
+            Destroy(gameObject);
+        }
     }
 }

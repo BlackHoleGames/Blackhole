@@ -22,8 +22,10 @@ public class BossEyeScript : MonoBehaviour {
     private Vector3 initialOrientation, orientationTarget, exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
     private AudioSource audioSource;
+    private GameObject player;
     // Use this for initialization
     void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
@@ -99,7 +101,6 @@ public class BossEyeScript : MonoBehaviour {
                 orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
-                transform.LookAt(KamikazeExit);
                 transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
                 gameObject.GetComponent<Renderer>().material = matOn;
             }
@@ -109,12 +110,16 @@ public class BossEyeScript : MonoBehaviour {
             if (waitBeforeCharge > 0.0f)
             {
                 waitBeforeCharge -= Time.unscaledDeltaTime;
-                if (waitBeforeCharge <= 0.0f) exitTargetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+                if (waitBeforeCharge <= 0.0f) {
+                    exitTargetPos = player.transform.position;
+                    transform.LookAt(exitTargetPos);
+                }
             }
             else
             {
                 if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f)
                 {
+                    tbs.EyeDestroyed();
                     Instantiate(Resources.Load("ExplosionEye"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
