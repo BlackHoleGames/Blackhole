@@ -104,8 +104,8 @@ public class SaveGameStatsScript : MonoBehaviour
             case 5://GameOver
                 InitialMusicScreen.SetActive(false);
             break;
-            case 6://GameOver
-                InitialMusicScreen.SetActive(false);
+            case 6://LeaderBoard
+                InitialMusicScreen.SetActive(true);
             break;
             case 7:
                 InitialMusicScreen.SetActive(true);
@@ -215,7 +215,7 @@ public class SaveGameStatsScript : MonoBehaviour
         ScoreNames[0] = "MPM";
         ScoreNames[1] = "EMI";
         ScoreNames[2] = "FPA";
-        ScoreNames[3] = "AM3";
+        ScoreNames[3] = "AME";
         ScoreNames[4] = "CSP";
 
         ScoreResults[0] = "2000000";
