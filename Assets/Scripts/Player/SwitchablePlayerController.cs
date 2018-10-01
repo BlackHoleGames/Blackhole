@@ -114,7 +114,9 @@ public class SwitchablePlayerController : MonoBehaviour
         if (!isEnding) {
             if (!isDeath && !isDestroying)
             {
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X) 
+                    || Input.GetKeyDown(KeyCode.Escape) 
+                    || Input.GetButtonDown("Pause"))
                 {
                     if (!gamePaused)
                     {
