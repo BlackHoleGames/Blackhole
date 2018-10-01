@@ -120,9 +120,8 @@ public class BossManager : MonoBehaviour {
     }
 
     public void BossDone() {
-        Debug.Log("Here");
+        ScoreScript.score = ScoreScript.score + 5000;
         mm.GoToNextStage();
-
     }
 
     // Add control to deactivate scripts
