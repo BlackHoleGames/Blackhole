@@ -91,7 +91,7 @@ public class ChangeScene : MonoBehaviour {
             {
                 
                 SaveGameStatsScript.GameStats.isGameOver = true;
-                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 19999999;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                 SaveGameStatsScript.GameStats.SetStats();
                 SceneManager.LoadScene(7);
             }
@@ -99,7 +99,7 @@ public class ChangeScene : MonoBehaviour {
             {
                 
                 SaveGameStatsScript.GameStats.isGameOver = true;
-                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 15555555;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                 SaveGameStatsScript.GameStats.SetStats();
                 SceneManager.LoadScene(5);
             }

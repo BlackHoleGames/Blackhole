@@ -34,6 +34,7 @@ public class LeaderBoardScript : MonoBehaviour
     private IEnumerator ScoreSequence, InitialSequence;
     void Start()
     {
+        Time.timeScale = 1.0f;
         LeaderBoardsTitle.canvasRenderer.SetAlpha(0.0f);
         GameOverText.canvasRenderer.SetAlpha(0.0f);
         GettingTags();

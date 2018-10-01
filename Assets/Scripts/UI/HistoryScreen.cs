@@ -28,6 +28,7 @@ public class HistoryScreen : MonoBehaviour {
 
     IEnumerator Start()
     {
+        Time.timeScale = 1.0f;
         SaveGameStatsScript.GameStats.isGameOver = false;
         FlickAction = PanelTimer(SecondsFlick);
         StartCoroutine(FlickAction);

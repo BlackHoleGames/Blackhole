@@ -13,6 +13,7 @@ public class GameOverScene : MonoBehaviour {
     // Use this for initialization
     IEnumerator Start()
     {
+        Time.timeScale = 1.0f;
         splashText.canvasRenderer.SetAlpha(0.0f);
         splashImage.canvasRenderer.SetAlpha(1.0f);
         FadeIn();
