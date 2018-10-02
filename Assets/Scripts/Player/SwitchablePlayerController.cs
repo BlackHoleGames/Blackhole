@@ -48,14 +48,14 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
     public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
+    public bool activateBomb, emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
     private IEnumerator DisableAction;
     private float disableTimer = 2.0f;
     public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
     public bool gamePaused;
     private float lifeDeath = -0.1f;
     private float lifeLimit = 0.1f;
-    public bool onTutorial,secureBomb = false;
+    public bool onTutorial, secureBomb = false;
     public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
     private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
     private bool antiDoubleImpact;
@@ -95,6 +95,7 @@ public class SwitchablePlayerController : MonoBehaviour
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;
+        //parentAxis = gameObject;
     }
 
     /*
@@ -110,11 +111,12 @@ public class SwitchablePlayerController : MonoBehaviour
     void Update()
     {
 
-        if (!isEnding) {
+        if (!isEnding)
+        {
             if (!isDeath && !isDestroying)
             {
-                if ((Input.GetKeyDown(KeyCode.X) 
-                    || Input.GetKeyDown(KeyCode.Escape) 
+                if ((Input.GetKeyDown(KeyCode.X)
+                    || Input.GetKeyDown(KeyCode.Escape)
                     || Input.GetButtonDown("Pause")) && (lives > 0))
                 {
                     if (!gamePaused)
@@ -163,31 +165,37 @@ public class SwitchablePlayerController : MonoBehaviour
                     if (actualLife == 0.0) fillLife.enabled = false;
                     else fillLife.enabled = true;
                 }
-                else {
-                    if (onTutorial) {
-                        switch (actualTutorialStage) {
+                else
+                {
+                    if (onTutorial)
+                    {
+                        switch (actualTutorialStage)
+                        {
                             case TutorialStages.SHOOTTUTORIAL:
-                                tutorial3.SetActive(true);
+                                tutorial1.SetActive(true);
                                 double RT = Input.GetAxis("RT");
-                                if (Input.GetButtonDown("Fire1") || (RT > 0)) {
+                                if (Input.GetButtonDown("Fire1") || (RT > 0))
+                                {
                                     ManageInput(RT);
                                     tm.UnPauseGame();
-                                    tutorial3.SetActive(false);
+                                    tutorial1.SetActive(false);
                                     ++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
+
                                 }
                                 break;
                             case TutorialStages.TIMEBOMBTUTORIAL:
-                                tutorial3.SetActive(true);
+                                tutorial2.SetActive(true);
                                 if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
                                 {
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
-                                    tutorial3.SetActive(false);
+                                    tutorial2.SetActive(false);
                                     ++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
+
                                 }
                                 break;
                             case TutorialStages.TIMEWARPTUTORIAL:
@@ -205,23 +213,28 @@ public class SwitchablePlayerController : MonoBehaviour
                         }
                     }
                 }
-            }else if (!isSavingData)
+            }
+            else if (!isSavingData)
             {
                 isSavingData = true;
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
             }
-           
-        }else
+            //if (actualLife < shield) Regen();
+            //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
+        }
+        else
         {
             SaveGameStatsScript.GameStats.isGameOver = true;
             SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
         }
     }
 
-    public void ActivateOnTutorial() {
+    public void ActivateOnTutorial()
+    {
         onTutorial = true;
     }
+
     public void StopTimeTutorial1()
     {
         actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
@@ -235,6 +248,7 @@ public class SwitchablePlayerController : MonoBehaviour
         gamePaused = true;
         secureBomb = true;
     }
+
     public void StopTimeTutorial3()
     {
         actualTutorialStage = TutorialStages.TIMEWARPTUTORIAL;
@@ -242,6 +256,7 @@ public class SwitchablePlayerController : MonoBehaviour
         gamePaused = true;
         secureBomb = true;
     }
+
     public void ManageInput(double RT)
     {
 
@@ -271,10 +286,11 @@ public class SwitchablePlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
             {
-                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs>0 && !secureBomb)
+                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs > 0 && !secureBomb)
                 {
                     ManageTimeBomb();
-                }else
+                }
+                else
                 {
                     secureBomb = false;
                 }
@@ -282,12 +298,14 @@ public class SwitchablePlayerController : MonoBehaviour
         }
     }
 
-    public void ManageTimeBomb() {
+    public void ManageTimeBomb()
+    {
         RumblePad.RumbleState = 3;
         activateBomb = true;
         int clipIndex = (int)UnityEngine.Random.Range(0, 3);
         timebomb.clip = timeBombClips[clipIndex];
         timebomb.Play();
+        //tm.StartSloMo();
         GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
         if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
     }
@@ -302,12 +320,19 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitshoot);
         is_firing = false;
-        foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();       
+        //firingCounter = 0.0f;
+        foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
     }
 
     public void RegenLife()
     {
-
+        fillLife.enabled = true;
+        actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
+        fillLife.fillAmount += shieldRegenPerSec * Time.unscaledDeltaTime;
+        if (isDeathDoor) isDeathDoor = false;
+        life.value = actualLife;
+        lifePoints = (int)actualLife;
+        isUpdatingLife = true;
     }
 
     public void RegenTimeBomb()
@@ -321,17 +346,20 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (pShoot != null) pShoot.GetComponent<ParticleSystem>().Play();
             Transform t = transform;
+            //Instantiate(projectile, t.position, t.rotation);
             Instantiate(projectile, transform.position, transform.rotation);
             gunshot.Play();
             firingCounter = fireCooldown;
         }
     }
 
-    public bool IsFiring() {
+    public bool IsFiring()
+    {
         return is_firing;
     }
 
-    public bool VerticalAxisOn() {
+    public bool VerticalAxisOn()
+    {
         return is_vertical;
     }
 
@@ -347,9 +375,10 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void Move(float Xinput, float YZinput)
     {
-        float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); 
-        float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  
-
+        float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); // / Time.timeScale));
+        float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  // / Time.timeScale));
+        //cameraTrs.Rotate(0, rotSpeed * Time.deltaTime ,0);
+        //        cameraTrs.Rotate(0, 0, -ZLimit);
         float coordAD, coordWS;
         float LimitHorizontal, LimitVertical;
         if (is_vertical)
@@ -388,7 +417,7 @@ public class SwitchablePlayerController : MonoBehaviour
     //parentAxis
     public void ManageRollRotation(float Xinput)
     {
-        
+
         if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0))
         {
             rotationTargetZ = 0.0f;
@@ -416,13 +445,14 @@ public class SwitchablePlayerController : MonoBehaviour
             rtimeZ += Time.unscaledDeltaTime / 1.0f;
             rotZ = AngleLerp(initialRot, new Vector3(0.0f, 0.0f, rotationTargetZ), rtimeZ * rotationSpeed);
 
+            //transform.eulerAngles = targetRotationZ;
             if (Mathf.Abs(transform.rotation.eulerAngles.z - rotationTargetZ) < 0.01)
             {
                 startRotatingRoll = false;
             }
 
         }
-        
+
     }
 
     public void ManagePitchRotation(float YZinput)
@@ -455,6 +485,7 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 rtimeX += Time.unscaledDeltaTime / 1.0f;
                 rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
+                //parentAxis.transform.eulerAngles = targetRotationX;
                 if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01)
                 {
                     startRotatingPitch = false;
@@ -489,6 +520,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     rtimeX += Time.unscaledDeltaTime / 1.0f;
                     rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
+                    //parentAxis.transform.eulerAngles = targetRotationX;
                     if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01)
                     {
                         parentAxis.transform.eulerAngles = new Vector3(0.0f, 0.0f, parentAxis.transform.eulerAngles.z);
@@ -545,11 +577,11 @@ public class SwitchablePlayerController : MonoBehaviour
                         {
                             if (other.tag == "DeathLaser") actualLife = lifeDeath;
                             else actualLife = lifeLimit;
-                            
-                            
                         }
                         else actualLife = lifeDeath;
                         UpdateStatusLifeIcons();
+                        //life.value = actualLife;
+                        //lifePoints = (int)actualLife;
                         if (actualLife < 0.0f)
                         {
                             Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
@@ -588,7 +620,11 @@ public class SwitchablePlayerController : MonoBehaviour
                                 }
                                 liveValue.text = "X" + lives.ToString();
                                 RumblePad.RumbleState = 5;
-                            }                                                
+                            }
+
+                            //SceneManager.LoadScene(6);
+                            //TimerScript.gameover = true;
+                            //Remaining deaht animation before this bool.                        
                         } // Death  
                         else
                         {
@@ -631,7 +667,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-            break;
+                break;
             case 2:
                 foreach (Transform child in GameObject.FindGameObjectWithTag("L2").transform)
                 {
@@ -647,12 +683,13 @@ public class SwitchablePlayerController : MonoBehaviour
         }
     }
 
-    public void AddPoints() {
+    public void AddPoints()
+    {
         ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
 
     }
 
-   
+
     public void InitiateWormHole()
     {
         tm.StartWorhmHole();
@@ -667,23 +704,27 @@ public class SwitchablePlayerController : MonoBehaviour
         return Lerped;
     }
 
-    public void SetNewLimits(float newX, float newY, bool verticalLimits) {
+    public void SetNewLimits(float newX, float newY, bool verticalLimits)
+    {
         if (verticalLimits)
         {
             XLimit = newX;
             ZLimit = newY;
         }
-        else {
+        else
+        {
             TimeWarpXLimit = newX;
             TimeWarpYLimit = newY;
         }
     }
 
-    public void ActivatePlayer() {
+    public void ActivatePlayer()
+    {
         play = true;
     }
 
-    public void SetPlayerGodMode(bool enabled) {
+    public void SetPlayerGodMode(bool enabled)
+    {
         godMode = enabled;
     }
     public void DestroyGhosts()
@@ -694,7 +735,20 @@ public class SwitchablePlayerController : MonoBehaviour
             Instantiate(Resources.Load("PS_TimeGhost_D"), g.transform.position, g.transform.rotation);
             Destroy(g);
         }
-        ghostList.Clear();        
+        ghostList.Clear();
+        /*foreach (GameObject g in ghostList)
+        {
+            g.GetComponent<TimeGhost>().StopFiring();
+            g.GetComponent<TimeGhost>().DisableGhosts();
+        }
+        //2 Seconds to disapear
+        if (!disableSecure)
+        {
+            ghostEnabled = false;
+            disableSecure = true;
+            DisableAction = DisableGhotTimer(disableTimer);
+            StartCoroutine(DisableAction);
+        }*/
     }
 
     IEnumerator DisableGhotTimer(float disableDuration)
@@ -709,19 +763,23 @@ public class SwitchablePlayerController : MonoBehaviour
         disableSecure = false;
     }
 
-    public void DebugInstantiateGhosts(int numbghosts) {
-        if (numbghosts != ghostList.Count) {
+    public void DebugInstantiateGhosts(int numbghosts)
+    {
+        if (numbghosts != ghostList.Count)
+        {
             if (numbghosts < ghostList.Count)
             {
-                for (int i= ghostList.Count; i > numbghosts; i--)
+                for (int i = ghostList.Count; i > numbghosts; i--)
                 {
-                    GameObject toRemove = ghostList[i-1];
+                    GameObject toRemove = ghostList[i - 1];
                     ghostList.Remove(toRemove);
                     Destroy(toRemove);
                 }
             }
-            else {
-                for (int j = 0; j < numbghosts; ++j) {
+            else
+            {
+                for (int j = 0; j < numbghosts; ++j)
+                {
                     SpawnGhost();
                 }
             }
