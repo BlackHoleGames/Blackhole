@@ -55,7 +55,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool gamePaused;
     private float lifeDeath = -0.1f;
     private float lifeLimit = 0.1f;
-    public bool onTutorial = false;
+    public bool onTutorial,secureBomb = false;
     public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
     private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
     private bool antiDoubleImpact;
@@ -123,6 +123,7 @@ public class SwitchablePlayerController : MonoBehaviour
                         quitMenu.SetActive(true);
                         tm.PauseGame();
                         gamePaused = true;
+                        secureBomb = true;
                     }
                     else
                     {
@@ -244,9 +245,12 @@ public class SwitchablePlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
             {
-                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs>0)
+                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs>0 && !secureBomb)
                 {
                     ManageTimeBomb();
+                }else
+                {
+                    secureBomb = false;
                 }
             }
         }

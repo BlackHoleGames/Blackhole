@@ -6397,7 +6397,6 @@ MonoBehaviour:
   spacelights: {fileID: 883898407}
   structlights: {fileID: 1232972361}
   bosslights: {fileID: 883898407}
-  twem: {fileID: 1800315417}
   onBlackScreen: 0
   blackScreenCounter: 0
 --- !u!114 &609360213
@@ -7061,6 +7060,16 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.type
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198865002657741810, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198732535911713352, guid: 50ae9cd8a4e27f74ba62c69f5c50f853,
         type: 2}
@@ -17483,6 +17492,7 @@ MonoBehaviour:
   disableSecure: 0
   gamePaused: 0
   onTutorial: 0
+  secureBomb: 0
 --- !u!23 &893946461
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20004,7 +20014,7 @@ Prefab:
     - target: {fileID: 82725511220806966, guid: 35ba9af0b77fe7e43b3a2b92b1ce55bc,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1094139240635104, guid: 35ba9af0b77fe7e43b3a2b92b1ce55bc, type: 2}
       propertyPath: m_IsActive
@@ -23956,6 +23966,7 @@ MonoBehaviour:
   disableSecure: 0
   gamePaused: 0
   onTutorial: 0
+  secureBomb: 0
 --- !u!23 &1738764858
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24628,6 +24639,21 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startColor.minColor.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198706760475134804, guid: b3b9d48cd898cd34680eb2adf2678f34,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198293964679123502, guid: b3b9d48cd898cd34680eb2adf2678f34,
         type: 2}
