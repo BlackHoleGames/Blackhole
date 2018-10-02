@@ -74,11 +74,17 @@ public class TimeManager : MonoBehaviour {
         {
             targetGTL = gtlFast;
             ScoreScript.multiplierScore = 1.5f;
+            if (twem.gameObject.activeInHierarchy) twem.SetSimulationSpeed(gtlFast);
+            else twem.gameObject.SetActive(true);
         }
         else
         {
             targetGTL = gtlFaster;
             ScoreScript.multiplierScore = 2.0f;
+            
+            if (twem.gameObject.activeInHierarchy) twem.SetSimulationSpeed(gtlFaster);            
+            else twem.gameObject.SetActive(true);  
+            
         }
         gtlIncreasing = true;
     }
@@ -103,6 +109,7 @@ public class TimeManager : MonoBehaviour {
     public void RestoreTime() {
         slowDown = false;
         Time.timeScale = 1.0f;
+        twem.SetSimulationSpeed(1.0f);
         isMaxGTLReached = false;
         inFasterGTL = false;
         gtlIncreasing = false;
@@ -122,7 +129,7 @@ public class TimeManager : MonoBehaviour {
 
 
     public void StartTimeWarp() {
-        Time.timeScale = 1.0f;
+        //Time.timeScale = 1.0f;
         cb.SwitchToTimeWarp();
         if (sp.VerticalAxisOn()) sp.SwitchAxis();
         gtlCounter = 0.0f;
@@ -131,8 +138,9 @@ public class TimeManager : MonoBehaviour {
         inTimeWarp = true;
         //if (inFasterGTL) returnToFasterGTL = true;
         //else returnToFasterGTL = false;
-        inFasterGTL = false;
+        //inFasterGTL = false;
         timewarpSound.Play();
+        twem.SetSimulationSpeed(Time.timeScale);
         //timewarpEffect.SetActive(true);
         //targetGTL = timeWarp;        
     }

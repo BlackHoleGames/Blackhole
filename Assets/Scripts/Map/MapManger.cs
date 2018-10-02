@@ -16,7 +16,6 @@ public class MapManger : MonoBehaviour {
     public GameObject structure,boss, miniboss, meteors, meteors2d,
         meteorsEnd, asteroidsDodge, timewarpEffect, timewarpBackground,
         battleTunnel, blackHole, spacelights, structlights, bosslights;
-
     private float afterWaveCounter;
     private EnemyManager em;
     private AsteroidsMovement am;
@@ -86,9 +85,11 @@ public class MapManger : MonoBehaviour {
                         else meteors.SetActive(true);
                         asteroidsDodge.SetActive(true);
                         am.StartMovingAsteroids();
-                        tm.StartTimeWarp();
                         timewarpEffect.SetActive(true);
                         timewarpBackground.SetActive(true);
+                        tm.StartTimeWarp();
+
+                        
                     }
                 }
                 break;
@@ -175,8 +176,9 @@ public class MapManger : MonoBehaviour {
                     if (!blackholeenabled)
                     {
                         blackHole.SetActive(true);
-                        tm.StartTimeWarp();
                         timewarpEffect.SetActive(true);
+                        tm.StartTimeWarp();
+
                         blackholeenabled = true;
                     }
                     if (!removeBattleStruct)
@@ -323,9 +325,9 @@ public class MapManger : MonoBehaviour {
                     meteors.SetActive(true);
                     asteroidsDodge.SetActive(true);
                     am.StartMovingAsteroids();
-                    tm.StartTimeWarp();
                     timewarpEffect.SetActive(true);
                     timewarpBackground.SetActive(true);
+                    tm.StartTimeWarp();
                 }
                 break;
             case Stages.METEORS_ENEMIES:
