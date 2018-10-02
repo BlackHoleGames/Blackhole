@@ -35,8 +35,8 @@ public class SwitchablePlayerController : MonoBehaviour
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp;
-    private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
+    private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX, vulnerableTimeCounter;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode, vulnerable;
     private TimeManager tm;
     private AudioManagerScript ams;
     private List<GameObject> ghostList;
@@ -95,7 +95,7 @@ public class SwitchablePlayerController : MonoBehaviour
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;
-        //parentAxis = gameObject;
+        vulnerableTimeCounter = 0.0f;
     }
 
     /*
@@ -163,6 +163,7 @@ public class SwitchablePlayerController : MonoBehaviour
                     else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
                     if (actualLife == 0.0) fillLife.enabled = false;
                     else fillLife.enabled = true;
+                    if (vulnerable) RegenLife();
                 }
                 else {
                     if (onTutorial) {
@@ -203,8 +204,7 @@ public class SwitchablePlayerController : MonoBehaviour
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
             }
-            //if (actualLife < shield) Regen();
-            //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
+           
         }else
         {
             SaveGameStatsScript.GameStats.isGameOver = true;
@@ -262,7 +262,6 @@ public class SwitchablePlayerController : MonoBehaviour
         int clipIndex = (int)UnityEngine.Random.Range(0, 3);
         timebomb.clip = timeBombClips[clipIndex];
         timebomb.Play();
-        //tm.StartSloMo();
         GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
         if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
     }
@@ -277,19 +276,18 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitshoot);
         is_firing = false;
-        //firingCounter = 0.0f;
         foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();       
     }
 
     public void RegenLife()
     {
-        fillLife.enabled = true;
-        actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
-        fillLife.fillAmount += shieldRegenPerSec * Time.unscaledDeltaTime;
-        if (isDeathDoor) isDeathDoor = false;
-        life.value = actualLife;
-        lifePoints = (int)actualLife;
-        isUpdatingLife = true;
+        vulnerableTimeCounter += Time.deltaTime / shieldRegenPerSec;
+        if (vulnerableTimeCounter >= shield)
+        {
+            vulnerable = false;
+            vulnerableTimeCounter = 0.0f;
+        }
+
     }
 
     public void RegenTimeBomb()
@@ -303,7 +301,6 @@ public class SwitchablePlayerController : MonoBehaviour
         {
             if (pShoot != null) pShoot.GetComponent<ParticleSystem>().Play();
             Transform t = transform;
-            //Instantiate(projectile, t.position, t.rotation);
             Instantiate(projectile, transform.position, transform.rotation);
             gunshot.Play();
             firingCounter = fireCooldown;
@@ -330,10 +327,9 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void Move(float Xinput, float YZinput)
     {
-        float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); // / Time.timeScale));
-        float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  // / Time.timeScale));
-        //cameraTrs.Rotate(0, rotSpeed * Time.deltaTime ,0);
-        //        cameraTrs.Rotate(0, 0, -ZLimit);
+        float nextPosX = ((Xinput * speedFactor) * (Time.unscaledDeltaTime)); 
+        float nextPosYZ = ((YZinput * speedFactor) * (Time.unscaledDeltaTime));  
+
         float coordAD, coordWS;
         float LimitHorizontal, LimitVertical;
         if (is_vertical)
@@ -400,7 +396,6 @@ public class SwitchablePlayerController : MonoBehaviour
             rtimeZ += Time.unscaledDeltaTime / 1.0f;
             rotZ = AngleLerp(initialRot, new Vector3(0.0f, 0.0f, rotationTargetZ), rtimeZ * rotationSpeed);
 
-            //transform.eulerAngles = targetRotationZ;
             if (Mathf.Abs(transform.rotation.eulerAngles.z - rotationTargetZ) < 0.01)
             {
                 startRotatingRoll = false;
@@ -440,7 +435,6 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 rtimeX += Time.unscaledDeltaTime / 1.0f;
                 rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
-                //parentAxis.transform.eulerAngles = targetRotationX;
                 if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01)
                 {
                     startRotatingPitch = false;
@@ -475,7 +469,6 @@ public class SwitchablePlayerController : MonoBehaviour
                 {
                     rtimeX += Time.unscaledDeltaTime / 1.0f;
                     rotX = AngleLerp(initialRot, new Vector3(rotationTargetX, 0.0f, 0.0f), rtimeX * rotationSpeed);
-                    //parentAxis.transform.eulerAngles = targetRotationX;
                     if (Mathf.Abs(parentAxis.transform.rotation.eulerAngles.x - rotationTargetX) < 0.01)
                     {
                         parentAxis.transform.eulerAngles = new Vector3(0.0f, 0.0f, parentAxis.transform.eulerAngles.z);
@@ -528,15 +521,18 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (other.tag == "Meteorites") other.tag = "Untagged";
                         RumblePad.RumbleState = 1;//Normal Impact                        
                         isUpdatingLife = true;
-                        if (actualLife > lifeLimit)
+                        //if (actualLife > lifeLimit && !vulnerable)
+                        if(!vulnerable)
                         {
                             if (other.tag == "DeathLaser") actualLife = lifeDeath;
-                            else actualLife = lifeLimit;
+                            else {
+                                actualLife = lifeLimit;
+                                vulnerable = true;
+                            }
+                            
                         }
                         else actualLife = lifeDeath;
                         UpdateStatusLifeIcons();
-                        //life.value = actualLife;
-                        //lifePoints = (int)actualLife;
                         if (actualLife < 0.0f)
                         {
                             Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
@@ -575,23 +571,20 @@ public class SwitchablePlayerController : MonoBehaviour
                                 }
                                 liveValue.text = "X" + lives.ToString();
                                 RumblePad.RumbleState = 5;
-                            }
-
-                            //SceneManager.LoadScene(6);
-                            //TimerScript.gameover = true;
-                            //Remaining deaht animation before this bool.                        
+                            }                                                
                         } // Death  
                         else
                         {
-                            if (actualLife < 0.2f) actualLife = 0.0f;
-                            if (actualLife == 0.0f) isDeathDoor = true;
-                            if (!isDeathDoor) pps.DamageEffect1Round();
+                            //if (actualLife < 0.2f) actualLife = 0.0f;
+                            //if (actualLife == 0.0f) isDeathDoor = true;
+                            //if (!isDeathDoor) pps.DamageEffect1Round();
                             impactforshake = true;
                             invulAfterSlow = true;
                             tm.RestoreTime();
                             //RumblePad.RumbleState = 1; //Alarm
                         }
-                        if (!isDestroying || actualLife < 2.0f)
+                        //if (!isDestroying || actualLife < 2.0f)
+                        if (!isDestroying)
                         {
                             activateBomb = true;
                             int clipIndex = (int)UnityEngine.Random.Range(0, 3);
@@ -685,20 +678,7 @@ public class SwitchablePlayerController : MonoBehaviour
             Instantiate(Resources.Load("PS_TimeGhost_D"), g.transform.position, g.transform.rotation);
             Destroy(g);
         }
-        ghostList.Clear();
-        /*foreach (GameObject g in ghostList)
-        {
-            g.GetComponent<TimeGhost>().StopFiring();
-            g.GetComponent<TimeGhost>().DisableGhosts();
-        }
-        //2 Seconds to disapear
-        if (!disableSecure)
-        {
-            ghostEnabled = false;
-            disableSecure = true;
-            DisableAction = DisableGhotTimer(disableTimer);
-            StartCoroutine(DisableAction);
-        }*/
+        ghostList.Clear();        
     }
 
     IEnumerator DisableGhotTimer(float disableDuration)
