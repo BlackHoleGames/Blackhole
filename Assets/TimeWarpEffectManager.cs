@@ -8,16 +8,11 @@ public class TimeWarpEffectManager : MonoBehaviour {
     private float actualSpeed;
     // Use this for initialization
     void Start () {
-        actualSpeed = Time.timeScale;
-        SetSimulationSpeed(actualSpeed);
     }
 
     // Update is called once per frame
     void Update () {
-        if (Time.timeScale != actualSpeed && Time.timeScale > 0.0f) {
-            actualSpeed = Time.timeScale;
-            SetSimulationSpeed(actualSpeed);
-        }
+
 	}
 
     public void SetSimulationSpeed(float speed) {
