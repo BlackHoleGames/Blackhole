@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeBombManager : MonoBehaviour {
 
     private float timeBombRegenPerSec = 0.2f;
-    public int bombs =1;
+    public static int bombs =0;
     public GameObject timeBomb, timeBombPanel, player;
     public Image TimeBomb1, TimeBomb2, TimeBomb3;
     private IEnumerator BombAction;

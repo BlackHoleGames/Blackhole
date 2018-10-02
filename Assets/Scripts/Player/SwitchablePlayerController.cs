@@ -244,7 +244,7 @@ public class SwitchablePlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
             {
-                if (!emptyStockBombs && !activateBomb)
+                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs>0)
                 {
                     ManageTimeBomb();
                 }
