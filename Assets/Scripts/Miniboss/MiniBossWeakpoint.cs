@@ -60,10 +60,10 @@ public class MiniBossWeakpoint : MonoBehaviour {
                 shotCounter = shotDuration;
                 ela.enabled = true;
                 shooting = false;
-                shotRechargeTime = Random.Range(4.0f, 6.0f);
+                shotRechargeTime = 1.0f;
             }
             else {
-                if (!shooting && shotCounter < 4.0f) {
+                if (!shooting && shotCounter < 4.1f) {
                     ela.enabled = false;
                     shooting = true;
                     GameObject laser = Instantiate(projectile, transform.position, transform.rotation);

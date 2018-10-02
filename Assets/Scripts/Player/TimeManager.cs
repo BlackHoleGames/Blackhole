@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour {
     public bool isMaxGTLReached;
     public float gtlFast = 1.5f;
     public float gtlFaster = 2.0f;
-    private float targetGTL, maxGTLCounter, gtlCounter, wormHoleCounter, previousTimeScale;
+    private float targetGTL, gtlCounter, wormHoleCounter, previousTimeScale;
     public CameraBehaviour cb;
     private SwitchablePlayerController sp;
     private AudioManagerScript ams;
@@ -101,6 +101,10 @@ public class TimeManager : MonoBehaviour {
 
     public void RestoreTime() {
         slowDown = false;
+        Time.timeScale = 1.0f;
+        isMaxGTLReached = false;
+        inFasterGTL = false;
+        gtlIncreasing = false;
     }
 
     public void DoGTL() {
@@ -176,11 +180,10 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StopTimeWarp() {
-        Time.timeScale = 1.0f;
+        /*Time.timeScale = 1.0f;
         isMaxGTLReached = false;
-        inFasterGTL = false;
+        inFasterGTL = false;*/
         inTimeWarp = false;
-        maxGTLCounter = 0.0f;
         cb.SwitchToMiddle();
         if (!sp.VerticalAxisOn()) sp.SwitchAxis();
     }
@@ -207,7 +210,6 @@ public class TimeManager : MonoBehaviour {
                 ScoreScript.multiplierScore = 2.0f;
                 break;         
         }
-        maxGTLCounter = 0.0f;
         sp.DebugInstantiateGhosts(gtlindex);
     }
 
@@ -218,7 +220,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void UnPauseGame() {
-        paused = true;
+        paused = false;
         Time.timeScale = previousTimeScale;
     }
 }
