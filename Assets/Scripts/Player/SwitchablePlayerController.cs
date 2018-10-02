@@ -35,8 +35,8 @@ public class SwitchablePlayerController : MonoBehaviour
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp;
-    private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX, vulnerableTimeCounter;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode, vulnerable;
+    private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
     private TimeManager tm;
     private AudioManagerScript ams;
     private List<GameObject> ghostList;
@@ -95,7 +95,6 @@ public class SwitchablePlayerController : MonoBehaviour
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;
-        vulnerableTimeCounter = 0.0f;
     }
 
     /*
@@ -163,7 +162,6 @@ public class SwitchablePlayerController : MonoBehaviour
                     else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
                     if (actualLife == 0.0) fillLife.enabled = false;
                     else fillLife.enabled = true;
-                    if (vulnerable) RegenLife();
                 }
                 else {
                     if (onTutorial) {
@@ -281,12 +279,6 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void RegenLife()
     {
-        vulnerableTimeCounter += Time.deltaTime / shieldRegenPerSec;
-        if (vulnerableTimeCounter >= shield)
-        {
-            vulnerable = false;
-            vulnerableTimeCounter = 0.0f;
-        }
 
     }
 
@@ -521,14 +513,11 @@ public class SwitchablePlayerController : MonoBehaviour
                         if (other.tag == "Meteorites") other.tag = "Untagged";
                         RumblePad.RumbleState = 1;//Normal Impact                        
                         isUpdatingLife = true;
-                        //if (actualLife > lifeLimit && !vulnerable)
-                        if(!vulnerable)
+                        if (actualLife > lifeLimit)
                         {
                             if (other.tag == "DeathLaser") actualLife = lifeDeath;
-                            else {
-                                actualLife = lifeLimit;
-                                vulnerable = true;
-                            }
+                            else actualLife = lifeLimit;
+                            
                             
                         }
                         else actualLife = lifeDeath;
@@ -575,16 +564,15 @@ public class SwitchablePlayerController : MonoBehaviour
                         } // Death  
                         else
                         {
-                            //if (actualLife < 0.2f) actualLife = 0.0f;
-                            //if (actualLife == 0.0f) isDeathDoor = true;
-                            //if (!isDeathDoor) pps.DamageEffect1Round();
+                            if (actualLife < 0.2f) actualLife = 0.0f;
+                            if (actualLife == 0.0f) isDeathDoor = true;
+                            if (!isDeathDoor) pps.DamageEffect1Round();
                             impactforshake = true;
                             invulAfterSlow = true;
                             tm.RestoreTime();
                             //RumblePad.RumbleState = 1; //Alarm
                         }
-                        //if (!isDestroying || actualLife < 2.0f)
-                        if (!isDestroying)
+                        if (!isDestroying || actualLife < 2.0f)
                         {
                             activateBomb = true;
                             int clipIndex = (int)UnityEngine.Random.Range(0, 3);
