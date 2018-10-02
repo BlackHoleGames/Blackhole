@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114684499911694888}
   - component: {fileID: 135548901010335908}
   - component: {fileID: 54897617194734908}
+  - component: {fileID: 114120430867602868}
   m_Layer: 0
   m_Name: Squad 0 0
   m_TagString: SquadManager
@@ -88,6 +89,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114120430867602868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783847063888482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854aeae4e48374f4b85904e28dde1223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: 4
 --- !u!114 &114590716084976922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +147,7 @@ MonoBehaviour:
   Manager: {fileID: 0}
   speed: 3
   timeToStay: -1
+  isMiniBoss: 0
 --- !u!135 &135548901010335908
 SphereCollider:
   m_ObjectHideFlags: 1
