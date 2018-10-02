@@ -22,7 +22,7 @@ public class PlayerDestroyScript : MonoBehaviour
     public float timeForHitEffect = 0.1f;
     private bool finishTimeInv = false;
     public List<Transform> alertList;
-    private GameObject player,UI,TimeBomb;
+    private GameObject player,UI;
     private SwitchablePlayerController spc;
     private GTLManager gtm;
     // Use this for initialization
@@ -30,7 +30,7 @@ public class PlayerDestroyScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         UI = GameObject.FindGameObjectWithTag("UI_InGame");
-        TimeBomb = GameObject.FindGameObjectWithTag("TimeBomb1");
+        //TimeBomb = GameObject.FindGameObjectWithTag("TimeBomb1");
         spc = player.GetComponent<SwitchablePlayerController>();
         gtm = UI.GetComponent<GTLManager>();
         playerFirstPosition = gameObject.transform.position;
@@ -44,6 +44,7 @@ public class PlayerDestroyScript : MonoBehaviour
             alertList.Add(child);
         }
         //Invulnerability First Time
+        //TimeBombManager.stopChargeBomb = true;
         InvulnerableTimerSequence = InvulnerableSequence();
         StartCoroutine(InvulnerableTimerSequence);
     }
@@ -57,6 +58,8 @@ public class PlayerDestroyScript : MonoBehaviour
                 Debug.Log("Here");
                 waitingForDeath = true;
                 gtm.disableMultiplier();
+                TimeBombManager.resetBomb = true;
+                //TimeBombManager.stopChargeBomb = true;
                 DeathTimerSequence = DeathSequence(3.0f);
                 StartCoroutine(DeathTimerSequence);
 
@@ -64,6 +67,9 @@ public class PlayerDestroyScript : MonoBehaviour
             else if (player != null && spc.invulAfterSlow && !waitingForHit)
             {
                 waitingForHit = true;
+                TimeBombManager.resetBomb = true;
+                //TimeBomb.GetComponent<Image>().fillAmount = 0.0f;
+                //TimeBombManager.stopChargeBomb = true;
                 gtm.RestoreMultiplier();
                 InvulnerableTimerSequence = InvulnerableSequence();
                 StartCoroutine(InvulnerableTimerSequence);
@@ -76,12 +82,15 @@ public class PlayerDestroyScript : MonoBehaviour
         noLifesRemaining = spc.isFinished;
         if (!noLifesRemaining)
         {
+            TimeBombManager.stopCharge = true;
             Destroy();
             yield return new WaitForSeconds(waitToDeath);
             Restore();
+            TimeBombManager.stopCharge = false;
         }
         else
         {
+            TimeBombManager.stopCharge = true;
             GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
             Destroy();
         }
@@ -199,7 +208,8 @@ public class PlayerDestroyScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToInvulnerability);
         finishTimeInv = true;
-        TimeBomb.GetComponent<Image>().fillAmount = 1.0f;
+        //TimeBomb.GetComponent<Image>().fillAmount = 1.0f;
+        //TimeBombManager.stopChargeBomb = false;
     }
 }
 

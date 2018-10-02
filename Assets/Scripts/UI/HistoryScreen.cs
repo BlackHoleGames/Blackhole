@@ -18,7 +18,7 @@ public class HistoryScreen : MonoBehaviour {
     public GameObject Cam3GO;
     public string loadLevel;
     public bool PStart;
-    public bool isLeaderBoardTime = false;
+    public bool isLeaderBoardTime = true;
     private float SecondsFlick = 0.75f;
     private float Active = 1.0f;
     private float Inactive = 1.0f;

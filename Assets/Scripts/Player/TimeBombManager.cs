@@ -11,7 +11,7 @@ public class TimeBombManager : MonoBehaviour {
     public Image TimeBomb1, TimeBomb2, TimeBomb3;
     private IEnumerator BombAction;
     public bool isUsingBomb = false;
-    public static bool activateBomb2, activateBomb3 = false;
+    public static bool stopCharge, resetBomb, activateBomb2, activateBomb3 = false;
     public float secondsTimePanel = 0.1f;
     private bool bomb1Ok, bomb2Ok, bomb3Ok;
     private GameObject UI;
@@ -32,23 +32,43 @@ public class TimeBombManager : MonoBehaviour {
     }
     void Update()
     {
-        if (player != null) {             
-            if( spc.activateBomb && bombs > 0)
-            {
-                UsingBomb();
-                spc.activateBomb = false;
-            }
-            if(gtm.statusGTL>0) RegenTimeBomb1();
-            else TimeBomb1.fillAmount = 0.0f;
-//            if (activateBomb2) RegenTimeBomb2();
-//            if (activateBomb3) RegenTimeBomb3();
-        }
-        if (tm.InSlowMo())
+        if (!stopCharge)
         {
+            if (player != null)
+            {
+                if (spc.activateBomb && bombs > 0)
+                {
+                    UsingBomb();
+                    spc.activateBomb = false;
+                }
+                if (gtm.statusGTL > 0) RegenTimeBomb1();
+                else TimeBomb1.fillAmount = 0.0f;
+                //            if (activateBomb2) RegenTimeBomb2();
+                //            if (activateBomb3) RegenTimeBomb3();
+            }
+            if (tm.InSlowMo())
+            {
+                TimeBomb1.fillAmount = 0.0f;
+                bombs = 0;
+                bomb1Ok = false;
+            }
+            if (resetBomb) RestetBomb();
+        }else
+        {
+            resetBomb = false;
             TimeBomb1.fillAmount = 0.0f;
-            bombs = 0;
+            spc.emptyStockBombs = true;
             bomb1Ok = false;
+            bombs = 0;
         }    
+    }
+    public void RestetBomb()
+    {
+        resetBomb = false;
+        TimeBomb1.fillAmount = 0.0f;
+        spc.emptyStockBombs = true;
+        bomb1Ok = false;
+        bombs = 0;
     }
     private void UsingBomb()
     {
