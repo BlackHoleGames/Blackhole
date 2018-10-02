@@ -16,6 +16,7 @@ public class CallTutorial1 : MonoBehaviour {
         counter -= Time.deltaTime;
         if (counter <= 0.0f) {
             spc.StopTimeTutorial1();
+            Destroy(this);
         }
 	}
 }

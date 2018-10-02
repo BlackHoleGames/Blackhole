@@ -18,6 +18,7 @@ public class CallTutorial2 : MonoBehaviour {
         if (counter <= 0.0f)
         {
             spc.StopTimeTutorial2();
+            Destroy(this);
         }
     }
 }

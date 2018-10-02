@@ -59,7 +59,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
     private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
     private bool antiDoubleImpact;
-
+    public bool IsTutorial1, IsTutorial2, IsTutorial3 = false;
     //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
@@ -179,7 +179,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageInput(RT);
                                     tm.UnPauseGame();
                                     tutorial1.SetActive(false);
-                                    ++actualTutorialStage;
+                                    //++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
 
@@ -192,7 +192,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
                                     tutorial2.SetActive(false);
-                                    ++actualTutorialStage;
+                                    //++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
 
@@ -205,7 +205,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
                                     tutorial3.SetActive(false);
-                                    ++actualTutorialStage;
+                                    //++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
                                 }
@@ -243,10 +243,10 @@ public class SwitchablePlayerController : MonoBehaviour
     }
     public void StopTimeTutorial2()
     {
-        actualTutorialStage = TutorialStages.TIMEBOMBTUTORIAL;
-        tm.PauseGame();
-        gamePaused = true;
-        secureBomb = true;
+        //actualTutorialStage = TutorialStages.TIMEBOMBTUTORIAL;
+        //tm.PauseGame();
+        //gamePaused = true;
+        //secureBomb = true;
     }
 
     public void StopTimeTutorial3()
