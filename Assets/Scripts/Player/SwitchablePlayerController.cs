@@ -114,9 +114,9 @@ public class SwitchablePlayerController : MonoBehaviour
         if (!isEnding) {
             if (!isDeath && !isDestroying)
             {
-                if (Input.GetKeyDown(KeyCode.X) 
+                if ((Input.GetKeyDown(KeyCode.X) 
                     || Input.GetKeyDown(KeyCode.Escape) 
-                    || Input.GetButtonDown("Pause"))
+                    || Input.GetButtonDown("Pause")) && (lives > 0))
                 {
                     if (!gamePaused)
                     {
@@ -546,7 +546,7 @@ public class SwitchablePlayerController : MonoBehaviour
                             isDestroying = true;
                             lives--;
                             isDeathDoor = false;
-                            if (lives == 0)
+                            if (lives <= 0)
                             {
                                 ams.StopMusic();
                                 tm.RestoreTime();

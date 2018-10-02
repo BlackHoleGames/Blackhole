@@ -21,9 +21,10 @@ public class TimeManager : MonoBehaviour {
     public float gtlFaster = 2.0f;
     private float targetGTL, gtlCounter, wormHoleCounter, previousTimeScale;
     public CameraBehaviour cb;
+    public GameObject timewarpEffect;
+    public TimeWarpEffectManager twem;
     private SwitchablePlayerController sp;
     private AudioManagerScript ams;
-    public GameObject timewarpEffect;
     private AudioSource timewarpSound;
     private AudioSource gtlUp;
     private bool paused;
