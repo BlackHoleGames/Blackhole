@@ -96,7 +96,7 @@ public class SwitchablePlayerController : MonoBehaviour
         isDeathDoor = false;
         onTutorial = false;
         ScoreScript.score = 0;
-        fireblocked = false;
+        fireblocked = true;
         //parentAxis = gameObject;
     }
 
@@ -225,8 +225,6 @@ public class SwitchablePlayerController : MonoBehaviour
                 SaveGameStatsScript.GameStats.isGameOver = true;
                 SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
             }
-            //if (actualLife < shield) Regen();
-            //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
         else
         {
