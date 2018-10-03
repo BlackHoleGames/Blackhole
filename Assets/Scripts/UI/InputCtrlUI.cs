@@ -22,7 +22,8 @@ public class InputCtrlUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown("enter") ||
-            Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+            Input.GetKeyDown(KeyCode.Return) || 
+            Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape))
         {
             PlayFile = playFileStart();
             StartCoroutine(PlayFile);
