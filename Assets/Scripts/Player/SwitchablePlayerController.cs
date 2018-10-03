@@ -30,7 +30,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public Slider life;
     public Image fillLife, fillTimeBomb;
     public Text liveValue;
-    public GameObject projectile, sphere, ghost, parentAxis, pShoot, quitMenu, tutorial1, tutorial2, tutorial3;
+    public GameObject projectile, sphere, ghost, parentAxis, pShoot, quitMenu, tutorial1, tutorial2, tutorial3, UIBomb;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
@@ -190,6 +190,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 break;
                             case TutorialStages.TIMEBOMBTUTORIAL:
                                 tutorial2.SetActive(true);
+                                UIBomb.SetActive(true);
                                 if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
                                 {
                                     ManageTimeBomb();
@@ -208,6 +209,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                     ManageTimeBomb();
                                     tm.UnPauseGame();
                                     tutorial3.SetActive(false);
+                                    IsTutorial3 = false;
                                     //++actualTutorialStage;
                                     onTutorial = false;
                                     gamePaused = false;
@@ -257,6 +259,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public void StopTimeTutorial3()
     {
         onTutorial = true;
+        IsTutorial3 = true;
         actualTutorialStage = TutorialStages.TIMEWARPTUTORIAL;
         tm.PauseGame();
         gamePaused = true;

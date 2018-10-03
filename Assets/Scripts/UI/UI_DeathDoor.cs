@@ -5,9 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 public class UI_DeathDoor : MonoBehaviour {
     public bool isDeathDoorSecure;
-    public Color CTimeBomb1;
-    public Color CTimeBomb2;
-    public Color CTimeBomb3;
     public Color CMultiplier1;
     public Color CMultiplier2;
     public Color CMultiplier3;
@@ -19,7 +16,7 @@ public class UI_DeathDoor : MonoBehaviour {
     private IEnumerator DeathTimerDoor;
     // Use this for initialization
     void Start () {
-        CTimeBomb1  = GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color;
+        
         CL1         = GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color;
         CL2         = GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color;
         CL3         = GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color;
@@ -45,7 +42,7 @@ public class UI_DeathDoor : MonoBehaviour {
     }
     public void NormalColor()
     {
-        GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CTimeBomb1;
+        
         if(GameObject.FindGameObjectWithTag("L1")!=null)GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color = CL1;
         if(GameObject.FindGameObjectWithTag("L2")!=null)GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color = CL2;
         if(GameObject.FindGameObjectWithTag("L3")!=null)GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color = CL3;
@@ -53,7 +50,7 @@ public class UI_DeathDoor : MonoBehaviour {
     }
     public void RedColor()
     {
-        GameObject.FindGameObjectWithTag("TimeBomb1").GetComponent<Image>().material.color = CDeathDoor;
+        
         if(GameObject.FindGameObjectWithTag("L1")!=null)GameObject.FindGameObjectWithTag("L1").GetComponent<Image>().material.color = CDeathDoor;
         if(GameObject.FindGameObjectWithTag("L2")!=null)GameObject.FindGameObjectWithTag("L2").GetComponent<Image>().material.color = CDeathDoor;
         if (GameObject.FindGameObjectWithTag("L3") != null) GameObject.FindGameObjectWithTag("L3").GetComponent<Image>().material.color = CDeathDoor;

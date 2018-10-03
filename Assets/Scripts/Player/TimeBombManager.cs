@@ -28,21 +28,28 @@ public class TimeBombManager : MonoBehaviour {
         spc = player.GetComponent<SwitchablePlayerController>();
         timeBombPanel.SetActive(false);
         timeBomb.SetActive(true);
-        bombs = 0;
-        TimeBomb1.fillAmount = 0.0f;
+        bombs = 1;
+        bomb1Ok = true;
+        TimeBomb1.fillAmount = 1.0f;
+        dot.SetActive(false);
+        symbol.SetActive(true);
+        spc.emptyStockBombs = false;
     }
     void Update()
     {
         if (!stopCharge)
         {
-            if (player != null)
+            if (player != null && !spc.gamePaused)
             {
                 if (spc.activateBomb && bombs > 0)
                 {
                     UsingBomb();
                     spc.activateBomb = false;
                 }
-                if (gtm.statusGTL > 0) RegenTimeBomb1();
+                if (gtm.statusGTL > 0)
+                {
+                    if (TimeBomb1.fillAmount != 1.0f) RegenTimeBomb1();
+                }
                 else
                 {
                     TimeBomb1.fillAmount = 0.0f;
@@ -51,6 +58,15 @@ public class TimeBombManager : MonoBehaviour {
                 }
                 //            if (activateBomb2) RegenTimeBomb2();
                 //            if (activateBomb3) RegenTimeBomb3();
+            }
+            if(spc.IsTutorial3)
+            {
+                bombs = 1;
+                bomb1Ok = true;
+                TimeBomb1.fillAmount = 1.0f;
+                dot.SetActive(false);
+                symbol.SetActive(true);
+                spc.emptyStockBombs = false;
             }
             if (tm.InSlowMo())
             {
