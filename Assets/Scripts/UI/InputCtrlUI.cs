@@ -67,8 +67,11 @@ public class InputCtrlUI : MonoBehaviour
             break;
             case 6: //LeaderBoard
 
-                if (!SaveGameStatsScript.GameStats.isGameOver) SceneManager.LoadScene(2);
-                scene = 0;
+                if (!SaveGameStatsScript.GameStats.isGameOver)
+                {
+                    SceneManager.LoadScene(2);
+                    scene = 0;
+                }
             break;
             case 7: //GameOver
                 SceneManager.LoadScene(6);

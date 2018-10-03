@@ -33,6 +33,9 @@ public class InputNameScore : MonoBehaviour {
             isDone = false;
         }else
         {
+            SaveGameStatsScript.GameStats.isGameOver = false;
+            SaveGameStatsScript.GameStats.playerScore = 0;
+            SaveGameStatsScript.GameStats.SetStats();
             timerText.enabled = false;
             initialsText.enabled = false;
         }

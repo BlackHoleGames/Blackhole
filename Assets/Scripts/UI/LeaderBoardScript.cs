@@ -166,6 +166,9 @@ public class LeaderBoardScript : MonoBehaviour
         }
         //Ending
         //SaveGameStatsScript.GameStats.StatusUISequence = false;
+        SaveGameStatsScript.GameStats.isGameOver = false;
+        SaveGameStatsScript.GameStats.playerScore = 0;
+        SaveGameStatsScript.GameStats.SetStats();
         yield return new WaitForSeconds(20.0f);
         SceneManager.LoadScene(2);
     }
