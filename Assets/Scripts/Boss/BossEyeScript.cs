@@ -23,6 +23,7 @@ public class BossEyeScript : MonoBehaviour {
     public Transform KamikazeEntry, KamikazeExit;
     private AudioSource audioSource;
     private GameObject player;
+    private float delay = 15.0f;
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -37,7 +38,8 @@ public class BossEyeScript : MonoBehaviour {
     void Update () {
         if (!disabled) {
             transform.eulerAngles += new Vector3(0.0f,0.0f, rotationSpeed* Time.deltaTime);
-            ManageShot();
+            if (delay < 0.0f) ManageShot();
+            else delay -= Time.deltaTime;
             ManageHit();
         }
         else {

@@ -35,7 +35,13 @@ public class ThirdBossStage : MonoBehaviour {
     void Update() {
         if (start)
         {
-            if (!defeated) ManageMovement();
+            if (!defeated) {
+                if (radius > 7.5f) {
+                    radius -= Time.deltaTime*2.0f;
+                    if (radius < 7.5f) radius = 7.5f;
+                }
+                ManageMovement();
+            }
         }
     }
 
