@@ -96,8 +96,7 @@ public class SwitchablePlayerController : MonoBehaviour
         isDeathDoor = false;
         onTutorial = false;
 
-        fireblocked = false;
-        secureBomb = false;
+        fireblocked = true;
         //parentAxis = gameObject;
     }
 
