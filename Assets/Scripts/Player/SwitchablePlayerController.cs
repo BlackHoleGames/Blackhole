@@ -237,20 +237,23 @@ public class SwitchablePlayerController : MonoBehaviour
 
     public void StopTimeTutorial1()
     {
+        onTutorial = true;
         actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
         tm.PauseGame();
         gamePaused = true;
     }
     public void StopTimeTutorial2()
     {
-        //actualTutorialStage = TutorialStages.TIMEBOMBTUTORIAL;
-        //tm.PauseGame();
-        //gamePaused = true;
-        //secureBomb = true;
+        onTutorial = true;
+        actualTutorialStage = TutorialStages.TIMEBOMBTUTORIAL;
+        tm.PauseGame();
+        gamePaused = true;
+        secureBomb = true;
     }
 
     public void StopTimeTutorial3()
     {
+        onTutorial = true;
         actualTutorialStage = TutorialStages.TIMEWARPTUTORIAL;
         tm.PauseGame();
         gamePaused = true;
