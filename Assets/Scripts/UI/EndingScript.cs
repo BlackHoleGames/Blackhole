@@ -22,7 +22,7 @@ public class EndingScript : MonoBehaviour {
     public bool startCredits;
     public bool isLeaderBoardTime = true;
     // Use this for initialization
-
+    private bool shutdown = false;
 
     IEnumerator Start()
     {
@@ -69,7 +69,13 @@ public class EndingScript : MonoBehaviour {
     void Update()
     {
         //Acabar en 4400
-        if (startCredits) Credits.transform.position += new Vector3(0.0f, Time.deltaTime * 100, 0.0f); 
+        if (startCredits) Credits.transform.position += new Vector3(0.0f, Time.deltaTime * 100, 0.0f);
+        if (Credits.transform.position.y > 5000.0f && !shutdown)
+        {
+            shutdown = true;
+            FadeInCurtain();
+            StartCoroutine(ShutdownGame());
+        }
     }
     private void FadeOutTT2()
     {
@@ -80,7 +86,10 @@ public class EndingScript : MonoBehaviour {
     {
         TitleText2.CrossFadeAlpha(1.0f, 1.0f, false);
     }
-
+    void FadeInCurtain()
+    {
+        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
+    }
     void FadeInText()
     {
         if(PressStartText!=null) PressStartText.CrossFadeAlpha(1.0f, 0.75f, false);
@@ -96,5 +105,10 @@ public class EndingScript : MonoBehaviour {
     void FadeOut()
     {
         if (PressStartText != null) PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
+    }
+    IEnumerator ShutdownGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(6);
     }
 }
