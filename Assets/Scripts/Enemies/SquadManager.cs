@@ -12,6 +12,7 @@ public class SquadManager : MonoBehaviour {
     public GameObject subSquadron;
     public float subSquadUnitDelayTime;
     public SquadManager squadManagerParent;
+    public float timeToLiveSecure = 30.0f;
     // If it's only a squadron
     public int numOfMembers;
     public EnemyManager Manager;
@@ -52,7 +53,7 @@ public class SquadManager : MonoBehaviour {
             }
             if (!stayIsDone && arrivedToStart)
             {
-                timeToStay -= Time.deltaTime;
+                timeToStay -= Time.deltaTime * tb.scaleOfTime;
                 if (timeToStay <= 0.0f)
                 {
                     timeToMove = 0.0f;
@@ -61,6 +62,14 @@ public class SquadManager : MonoBehaviour {
                     movingToPosition = true;
                     stayIsDone = true;
                 }
+            }
+        }
+        else {
+            timeToLiveSecure -= Time.deltaTime * tb.scaleOfTime;
+            if (timeToLiveSecure <= 0) {
+                Manager.StartWait();
+                Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
         }
     }
