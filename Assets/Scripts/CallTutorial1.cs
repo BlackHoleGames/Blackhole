@@ -5,18 +5,25 @@ using UnityEngine;
 public class CallTutorial1 : MonoBehaviour {
 
     public float counter = 4.0f;
+    public GameObject player;
+
     private SwitchablePlayerController spc;
 	// Use this for initialization
 	void Start () {
-        spc = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        spc = player.GetComponent<SwitchablePlayerController>();
     }
 
     // Update is called once per frame
     void Update () {
-        counter -= Time.deltaTime;
-        if (counter <= 0.0f) {
-            spc.StopTimeTutorial1();
-            Destroy(this);
+        if (player.activeInHierarchy)
+        {
+            counter -= Time.deltaTime;
+            if (counter <= 0.0f)
+            {
+                spc.StopTimeTutorial1();
+                Destroy(this);
+            }
         }
 	}
 }

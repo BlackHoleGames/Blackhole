@@ -95,7 +95,9 @@ public class SwitchablePlayerController : MonoBehaviour
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;
-        fireblocked = true;
+
+        fireblocked = true; 
+
         //parentAxis = gameObject;
     }
 

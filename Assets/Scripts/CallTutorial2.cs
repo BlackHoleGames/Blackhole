@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class CallTutorial2 : MonoBehaviour {
     public float counter = 4.0f;
+    public GameObject player;
     private SwitchablePlayerController spc;
     // Use this for initialization
     void Start()
     {
-        spc = GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        spc = player.GetComponent<SwitchablePlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        counter -= Time.deltaTime;
-        if (counter <= 0.0f)
+        if (player.activeInHierarchy)
         {
-            spc.StopTimeTutorial2();
-            Destroy(this);
+            counter -= Time.deltaTime;
+            if (counter <= 0.0f)
+            {
+                spc.StopTimeTutorial2();
+                Destroy(this);
+            }
         }
     }
 }
