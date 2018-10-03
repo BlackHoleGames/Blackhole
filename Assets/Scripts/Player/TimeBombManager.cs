@@ -15,6 +15,7 @@ public class TimeBombManager : MonoBehaviour {
     public float secondsTimePanel = 0.1f;
     private bool bomb1Ok, bomb2Ok, bomb3Ok;
     private GameObject UI;
+    public GameObject dot,symbol;
     private SwitchablePlayerController spc;
     private GTLManager gtm;
     private TimeManager tm;
@@ -42,7 +43,12 @@ public class TimeBombManager : MonoBehaviour {
                     spc.activateBomb = false;
                 }
                 if (gtm.statusGTL > 0) RegenTimeBomb1();
-                else TimeBomb1.fillAmount = 0.0f;
+                else
+                {
+                    TimeBomb1.fillAmount = 0.0f;
+                    dot.SetActive(true);
+                    symbol.SetActive(false);
+                }
                 //            if (activateBomb2) RegenTimeBomb2();
                 //            if (activateBomb3) RegenTimeBomb3();
             }
@@ -51,12 +57,16 @@ public class TimeBombManager : MonoBehaviour {
                 TimeBomb1.fillAmount = 0.0f;
                 bombs = 0;
                 bomb1Ok = false;
+                dot.SetActive(true);
+                symbol.SetActive(false);
             }
             if (resetBomb) RestetBomb();
         }else
         {
             resetBomb = false;
             TimeBomb1.fillAmount = 0.0f;
+            dot.SetActive(true);
+            symbol.SetActive(false);
             spc.emptyStockBombs = true;
             bomb1Ok = false;
             bombs = 0;
@@ -66,6 +76,8 @@ public class TimeBombManager : MonoBehaviour {
     {
         resetBomb = false;
         TimeBomb1.fillAmount = 0.0f;
+        dot.SetActive(true);
+        symbol.SetActive(false);
         spc.emptyStockBombs = true;
         bomb1Ok = false;
         bombs = 0;
@@ -79,6 +91,8 @@ public class TimeBombManager : MonoBehaviour {
                 case 1:
                     TimeBomb1.fillAmount = 0.0f;
                     spc.emptyStockBombs = true;
+                    dot.SetActive(true);
+                    symbol.SetActive(false);
                     if (TimeBomb2.fillAmount < 1.0f)
                         TimeBomb2.fillAmount = 0.0f;
                     if (activateBomb3 && TimeBomb3.fillAmount < 1.0f)
@@ -119,6 +133,8 @@ public class TimeBombManager : MonoBehaviour {
             bombs=1;
             bomb1Ok = true;
             TimeBomb1.fillAmount = 1.0f;
+            dot.SetActive(false);
+            symbol.SetActive(true);
             spc.emptyStockBombs = false;
 
         }
