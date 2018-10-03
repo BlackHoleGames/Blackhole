@@ -100,7 +100,7 @@ public class BasicEnemy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && life > 0.0f)
         {
             if (!hitAudioSource.enabled) hitAudioSource.enabled = true;
             hitAudioSource.Play();

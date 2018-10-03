@@ -123,8 +123,8 @@ public class EnemyManager : MonoBehaviour {
             else {
                 if ((!instantiatingSubSquads))
                 {
+                    if (squadronIndex < squadrons.Length) waitingTime = delayTime[squadronIndex];
                     waitForDelay = true;
-                    waitingTime = delayTime[squadronIndex];
                 }
             }
         }
