@@ -29,8 +29,8 @@ public class Briefing : MonoBehaviour {
             ConfirmSequence = PressStartTextUI();
             StartCoroutine(ConfirmSequence);
         }else if (activatePressStart && Input.GetKeyDown("enter") ||
-            Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start")
-            && !blockCoroutineFadeOut)
+            Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") ||
+            Input.GetKeyDown(KeyCode.Escape) && !blockCoroutineFadeOut)
         {
             blockCoroutineFadeOut = true;
             Confirmed = true;

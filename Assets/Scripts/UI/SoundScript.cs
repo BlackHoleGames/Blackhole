@@ -85,7 +85,7 @@ public class SoundScript : MonoBehaviour, ISelectHandler
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
                 //Cursor.transform.localPosition = new Vector3(-159, -78f, 0.0f);
                 //Cursor.transform.localPosition = new Vector3(-159, -258f, 0.0f);
-                Cursor.transform.localPosition = new Vector3(-159, -162f, 0.0f);
+                Cursor.transform.localPosition = new Vector3(-159, -107f, 0.0f);
                 break;
             case 2: //Quit NoConfirm
                 Cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Transform>();
