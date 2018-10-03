@@ -36,7 +36,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public float actualLife;
     private AudioSource slomo, timebomb, gunshot, timewarp;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode, fireblocked;
     private TimeManager tm;
     private AudioManagerScript ams;
     private List<GameObject> ghostList;
@@ -95,6 +95,7 @@ public class SwitchablePlayerController : MonoBehaviour
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;
+        fireblocked = true;
         //parentAxis = gameObject;
     }
 
@@ -176,6 +177,7 @@ public class SwitchablePlayerController : MonoBehaviour
                                 double RT = Input.GetAxis("RT");
                                 if (Input.GetButtonDown("Fire1") || (RT > 0))
                                 {
+                                    fireblocked = false;
                                     ManageInput(RT);
                                     tm.UnPauseGame();
                                     tutorial1.SetActive(false);
@@ -268,7 +270,7 @@ public class SwitchablePlayerController : MonoBehaviour
             isShotingbyPad = false;
             RT = System.Math.Round(RT, 2);
             if (RT > 0) isShotingbyPad = true;
-            if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing)
+            if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing && !fireblocked)
             {
                 is_firing = true;
                 if (ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StartFiring();
