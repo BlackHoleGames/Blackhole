@@ -46,18 +46,8 @@ public class TimeBombManager : MonoBehaviour {
                     UsingBomb();
                     spc.activateBomb = false;
                 }
-                //if (gtm.statusGTL > 0)
-                //{
-                if (TimeBomb1.fillAmount != 1.0f) RegenTimeBomb1();
-                //}
-                //else
-                //{
-                //    TimeBomb1.fillAmount = 0.0f;
-                //    dot.SetActive(true);
-                //    symbol.SetActive(false);
-                //}
-                //            if (activateBomb2) RegenTimeBomb2();
-                //            if (activateBomb3) RegenTimeBomb3();
+                if (TimeBomb1.fillAmount != 1.0f && !tm.InSlowMo()) RegenTimeBomb1();
+
             }
             if(spc.IsTutorial3)
             {
@@ -67,14 +57,6 @@ public class TimeBombManager : MonoBehaviour {
                 dot.SetActive(false);
                 symbol.SetActive(true);
                 spc.emptyStockBombs = false;
-            }
-            if (tm.InSlowMo())
-            {
-                TimeBomb1.fillAmount = 0.0f;
-                bombs = 0;
-                bomb1Ok = false;
-                dot.SetActive(true);
-                symbol.SetActive(false);
             }
             if (resetBomb) RestetBomb();
         }else

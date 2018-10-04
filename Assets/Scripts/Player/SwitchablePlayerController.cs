@@ -261,7 +261,6 @@ public class SwitchablePlayerController : MonoBehaviour
         actualTutorialStage = TutorialStages.TIMEWARPTUTORIAL;
         tm.PauseGame();
         gamePaused = true;
-        secureBomb = true;
     }
 
     public void ManageInput(double RT)
@@ -290,17 +289,22 @@ public class SwitchablePlayerController : MonoBehaviour
                 FireRutine = StoppingShoot(0.5f);
                 StartCoroutine(FireRutine);
             }
-
-            if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+            if (!secureBomb)
             {
-                if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs > 0 && !secureBomb)
+                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
                 {
-                    ManageTimeBomb();
+                    if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs > 0 && !secureBomb)
+                    {
+                        ManageTimeBomb();
+                    }
+                    else
+                    {
+                        secureBomb = false;
+                    }
                 }
-                else
-                {
-                    secureBomb = false;
-                }
+            }else
+            {
+                secureBomb = true;
             }
         }
     }
