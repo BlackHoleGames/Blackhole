@@ -87,6 +87,7 @@ public class SecondBossStage : MonoBehaviour {
 
     public void FinishBossPhase() {
         foreach (GameObject t in Turrets) t.GetComponentInChildren<BossTurretScript>().enabled = false;
+        ScoreScript.score = ScoreScript.score + 10000;
         GetComponentInParent<BossManager>().GoToNextPhase();
     }
 

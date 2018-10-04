@@ -120,7 +120,7 @@ public class BossManager : MonoBehaviour {
     }
 
     public void BossDone() {
-        ScoreScript.score = ScoreScript.score + 5000;
+        ScoreScript.score = ScoreScript.score + 10000;
         mm.GoToNextStage();
     }
 
