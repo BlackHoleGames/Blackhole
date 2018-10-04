@@ -211,6 +211,8 @@ public class PlayerDestroyScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToInvulnerability);
         finishTimeInv = true;
+        TimeBombManager.isPlayerRestored = true;
+        TimeBombManager.stopCharge = false;
         //TimeBomb.GetComponent<Image>().fillAmount = 1.0f;
         //TimeBombManager.stopChargeBomb = false;
     }

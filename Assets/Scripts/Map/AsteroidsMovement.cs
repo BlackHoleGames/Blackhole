@@ -14,13 +14,18 @@ public class AsteroidsMovement : MonoBehaviour {
     void Start () {
         tb = GetComponent<TimeBehaviour>();
         player = GameObject.FindGameObjectWithTag("Player");
-        spc = player.GetComponent<SwitchablePlayerController>();
+        if(player) spc = player.GetComponent<SwitchablePlayerController>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (!player)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player) spc = player.GetComponent<SwitchablePlayerController>();
+        }
         if (start) transform.Translate(new Vector3(0.0f,0.0f,-speed*Time.deltaTime*tb.scaleOfTime));
-        if(transform.position.z < -700.0f && !isTutorialTime)
+        if(transform.position.z < -700.0f && !isTutorialTime && player.activeInHierarchy)
         {
             isTutorialTime = true;
             spc.onTutorial = true;
