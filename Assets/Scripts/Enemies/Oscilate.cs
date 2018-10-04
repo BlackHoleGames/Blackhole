@@ -8,22 +8,18 @@ public class Oscilate : MonoBehaviour {
     public float travelDistance = 2.0f;
     public float speed = 1.0f;
     float direction = 1.0f;
-    float leftPos, rightPos, upPos, downPos;
+    float leftPos, rightPos;
 	// Use this for initialization
 	void Start () {
         tb = gameObject.GetComponent<TimeBehaviour>();
         leftPos = transform.parent.transform.position.x - travelDistance;
         rightPos = transform.parent.transform.position.x + travelDistance;
-        upPos = transform.parent.transform.position.y - travelDistance;
-        downPos = transform.parent.transform.position.y + travelDistance;
     }
 	
 	// Update is called once per frame
 	void Update () {
         leftPos = transform.parent.transform.position.x - travelDistance;
         rightPos = transform.parent.transform.position.x + travelDistance;
-        upPos = transform.parent.transform.position.y - travelDistance;
-        downPos = transform.parent.transform.position.y + travelDistance;
         if (!SwitchablePlayerController.camMovementEnemies)
         {
             if (gameObject.transform.position.x < leftPos) direction = 1.0f;

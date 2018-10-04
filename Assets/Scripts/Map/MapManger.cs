@@ -22,7 +22,6 @@ public class MapManger : MonoBehaviour {
     private TimeManager tm;
     private GameObject spawnedEndMeteors;
     private StructMovement sm;
-    private CameraBehaviour cb;
     private EarthRotation er;
     private bool structureMoving, bossEnabled, meteorsDelayOn,timewarpBackgroundDelay,
         managerstartedminiboss, blackholeenabled,  removeBattleStruct;
@@ -35,7 +34,6 @@ public class MapManger : MonoBehaviour {
     void Start () {
         em = GetComponentInChildren<EnemyManager>();
         //actualStage = Stages.METEORS_TIMEWARP;
-        cb = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
         am = asteroidsDodge.GetComponent<AsteroidsMovement>();
         tm = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeManager>();
         er = GameObject.Find("EarthHighFullV2").GetComponent<EarthRotation>();

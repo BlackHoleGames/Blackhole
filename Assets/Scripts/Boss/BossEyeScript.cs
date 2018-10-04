@@ -10,7 +10,7 @@ public class BossEyeScript : MonoBehaviour {
     public float rotationSpeed = 5.0f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
-    private bool hit, materialHitOn, disabled, orienting, goToExitPoint, goToEntryPoint;
+    private bool hit, materialHitOn, disabled, goToExitPoint, goToEntryPoint;
     public float shotCooldown = 1.0f;
     public float rateOfFire = 0.25f;
     public float shotOffset = 0.2f;
@@ -20,7 +20,7 @@ public class BossEyeScript : MonoBehaviour {
     public GameObject enemyProjectile, explosion;
     public float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
-    private Vector3 initialOrientation, orientationTarget, exitTargetPos;
+    private Vector3 exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
     private AudioSource audioSource;
     private GameObject player;
@@ -103,7 +103,6 @@ public class BossEyeScript : MonoBehaviour {
     private void ManageExit() {
         if (goToEntryPoint) {
             if (Vector3.Distance(transform.position, KamikazeEntry.position) < 0.1f) {
-                orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
                 transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
@@ -138,9 +137,6 @@ public class BossEyeScript : MonoBehaviour {
     }
 
     public void StartExit() {
-        orienting = true;
-        initialOrientation = transform.rotation.eulerAngles;
-        orientationTarget =  Quaternion.LookRotation( KamikazeEntry.position - transform.position).eulerAngles;
         goToEntryPoint = true;
     }
 

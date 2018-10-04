@@ -15,7 +15,6 @@ public class TimeGhost : MonoBehaviour
     public float startDelayCounter = 0.0f;
     private float firingCounter;
     public bool is_firing;
-    private ParticleSystem partSys;
     //------------------------------------------
 
     const int MAX_FPS = 60;
@@ -47,7 +46,6 @@ public class TimeGhost : MonoBehaviour
         counter = Time.time;
         if (blocksProjectiles) gameObject.tag = "ghost";
         else gameObject.tag = "Untagged";
-        partSys = GetComponent<ParticleSystem>();
     }
 
     public void SetFiringCounter(float newFiringCounter)

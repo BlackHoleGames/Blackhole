@@ -9,7 +9,6 @@ public class ReactorShotFX : MonoBehaviour {
     private Light projlight;
     private bool lightningUp;
     private BoxCollider bc;
-    private TimeBehaviour tb;
     private AudioSource audioSource;
 
     // Use this for initialization
@@ -17,7 +16,6 @@ public class ReactorShotFX : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         bc = GetComponent<BoxCollider>();
         bc.enabled = false;
-        tb = gameObject.GetComponentInParent<TimeBehaviour>();
         lightningUp = true;
         projlight = GetComponentInChildren<Light>();
     }

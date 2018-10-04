@@ -100,7 +100,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                GameObject goHead = Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation) as GameObject;
+                Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation);
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);

@@ -10,7 +10,6 @@ public class AudioManagerScript : MonoBehaviour {
     private bool  stopMusic,  switchMusic, lowerMusic;
     private AudioSource audioSource;
     private AudioClip clipToPlay;
-    private float startingPitch, targetPitch, lerpTime;
     private GameObject reverbNormal, reverbBlackHole, reverbTimeBomb, actualReverb;
 	// Use this for initialization
 	void Start () {
@@ -71,18 +70,6 @@ public class AudioManagerScript : MonoBehaviour {
     public void StopMusic() {
         stopMusic = true;
         secondsToStopMusic = 1.0f;
-    }
-
-    public void LowerThePitch() {
-        startingPitch = 1.0f;
-        targetPitch = 0.5f;
-        lerpTime = 0.0f;
-    }
-
-    public void RestoreThePitch() {
-        targetPitch = 1.0f;
-        startingPitch = 0.5f;
-        lerpTime = 0.0f;
     }
 
     public void LowerMusic(float  duration) {

@@ -11,13 +11,11 @@ public class EnemyDestroyed : MonoBehaviour {
     private bool isFlickeringParts = true;
     private float flickerCounter;
     public Material matOff, matFlicker;
-    private SquadManager squadManager;
     private GameObject eye;
     private List<RandomDestructible> listRandDes = new List<RandomDestructible>();
     // Use this for initialization
     void Start() {
         timeBeforeDestroy = 1.0f;
-        squadManager = GetComponentInParent<SquadManager>();
         foreach (Transform child in transform)
         {
             if (child.name == "AlienEye")

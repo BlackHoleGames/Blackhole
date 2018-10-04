@@ -27,7 +27,6 @@ public class TimeBubble : MonoBehaviour {
         t = 0;
         //if (inTimeWarp) ams.LowerMusic(slowdownDuration);
         //else ams.LowerMusic(timeWarpSlowdownDuration);
-        GameObject ReverbZones = GameObject.Find("ReverbZones");
         reverbZone = ams.GetActualReverb();
         reverbZoneTimeBomb = ams.GetReverbTimeBomb();
         reverbZone.SetActive(false);

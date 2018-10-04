@@ -15,7 +15,7 @@ public class KamikazeEnemy : MonoBehaviour {
     private GameObject player, enemyDestroyed;
     private float direction, hitFeedbackCounter, propellerStartCounter;
     private bool turbo, hit, materialHitOn, alive;
-    private AudioSource audioSource, hitAudioSource;
+    private AudioSource hitAudioSource;
     private SquadManager squadManager;
     // Use this for initialization
     void Start()
@@ -23,7 +23,6 @@ public class KamikazeEnemy : MonoBehaviour {
         alive = true;
         squadManager = GetComponentInParent<SquadManager>();
 
-        audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
 
         turbo = false;

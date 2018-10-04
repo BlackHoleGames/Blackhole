@@ -8,18 +8,16 @@ public class TimeManager : MonoBehaviour {
     public float actualmaxspeed = 2.0f;
     public float timeWarpDuration = 10.0f;
     public float timeToGTLIncrease = 5.0f;
-    public float wormHoleDuration = 10.0f;
     private bool slowDown = false;
     private bool gtlIncreasing = false;
     private bool speedUp = false;
     private bool inFasterGTL = false;
-    private bool returnToFasterGTL = false;
     private bool inTimeWarp = false;
     private float slomoCounter = 0.0f;
     public bool isMaxGTLReached;
     public float gtlFast = 1.5f;
     public float gtlFaster = 2.0f;
-    private float targetGTL, gtlCounter, wormHoleCounter, previousTimeScale;
+    private float targetGTL, gtlCounter, previousTimeScale;
     public CameraBehaviour cb;
     public GameObject timewarpEffect;
     public TimeWarpEffectManager twem;
@@ -35,7 +33,6 @@ public class TimeManager : MonoBehaviour {
         cb = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraBehaviour>();
         ams = GameObject.FindGameObjectWithTag("Managers").GetComponentInChildren<AudioManagerScript>();
         isMaxGTLReached = false;
-        wormHoleCounter = wormHoleDuration;
         gtlCounter = 0.0f;
         timewarpSound = GetComponents<AudioSource>()[3];
         gtlUp = GetComponents<AudioSource>()[5];
@@ -54,7 +51,6 @@ public class TimeManager : MonoBehaviour {
                 else DoSpeedUp();
             }
             else if (gtlIncreasing) DoGTLIncrease();
-            //if (isMaxGTLReached) DoTimeWarp();
         }
     }
 
@@ -129,32 +125,23 @@ public class TimeManager : MonoBehaviour {
 
 
     public void StartTimeWarp() {
-        //Time.timeScale = 1.0f;
         cb.SwitchToTimeWarp();
         if (sp.VerticalAxisOn()) sp.SwitchAxis();
         gtlCounter = 0.0f;
         slowDown = false;
         speedUp = false;
         inTimeWarp = true;
-        //if (inFasterGTL) returnToFasterGTL = true;
-        //else returnToFasterGTL = false;
-        //inFasterGTL = false;
         timewarpSound.Play();
         twem.SetSimulationSpeed(Time.timeScale);
-        //timewarpEffect.SetActive(true);
-        //targetGTL = timeWarp;        
+    
     }
 
     public void DoSlowDown() {
-       /*if (Time.timeScale > slomoTime && (Time.timeScale - Time.unscaledDeltaTime) > 0) Time.timeScale -= Time.unscaledDeltaTime;
-        else if (Time.timeScale < slomoTime && Time.timeScale != slomoTime)
-        {*/
-            Time.timeScale = slomoTime;
-            slowDown = false;
-            speedUp = true;
-            slomoCounter = 0.0f;
-            ScoreScript.multiplierScore = 1.0f;
-        //}
+        Time.timeScale = slomoTime;
+        slowDown = false;
+        speedUp = true;
+        slomoCounter = 0.0f;
+        ScoreScript.multiplierScore = 1.0f;
     }
 
     public void DoSpeedUp() {       
@@ -168,15 +155,7 @@ public class TimeManager : MonoBehaviour {
    
 
     public void DoTimeWarp() {
-       /* maxGTLCounter += Time.unscaledDeltaTime;
-        if (maxGTLCounter > timeWarpDuration)
-        {
-            Time.timeScale = gtlFaster;
-            isMaxGTLReached = true;
-            inFasterGTL = false;
-            maxGTLCounter = 0.0f;
-            cb.ResetToInitial();
-        }*/
+
     }
 
 
@@ -189,9 +168,6 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void StopTimeWarp() {
-        /*Time.timeScale = 1.0f;
-        isMaxGTLReached = false;
-        inFasterGTL = false;*/
         inTimeWarp = false;
         cb.SwitchToMiddle();
         if (!sp.VerticalAxisOn()) sp.SwitchAxis();
