@@ -118,7 +118,7 @@ public class MiniBossScript : MonoBehaviour {
             life -= other.gameObject.GetComponent<Projectile>().damage;
             hit = true;            
             if (life <= 0.0f) {
-                GameObject goBody = Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation) as GameObject;
+                Instantiate(Resources.Load("ExplosionMiniboss"), transform.position, transform.rotation);
                 destroyedBody.SetActive(true);
                 Destroy(GetComponent<SphereCollider>());
                 GetComponent<Renderer>().enabled = false;

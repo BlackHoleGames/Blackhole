@@ -52,6 +52,10 @@ public class BasicEnemy : MonoBehaviour {
         //gameObject.GetComponent<Renderer>().material = matOff;
     }
 
+    public void Protect() {
+        shielded = true;
+    }
+
     public void ManageShot() {
         if (rateCounter <= 0.0f)
         {

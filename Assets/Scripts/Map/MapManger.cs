@@ -169,7 +169,10 @@ public class MapManger : MonoBehaviour {
             case Stages.BOSS_TRANSITION:
                 if (afterWaveCounter < secondsAfterEachWave) {
                     afterWaveCounter += Time.unscaledDeltaTime;
-                    if (afterWaveCounter >= secondsAfterEachWave) CleanUpBullets();
+                    if (afterWaveCounter >= secondsAfterEachWave) {
+                        CleanUpBullets();
+                        CleanUpEnemies();
+                    }
                 }
                 else
                 {
@@ -425,6 +428,12 @@ public class MapManger : MonoBehaviour {
             Instantiate(Resources.Load("TimeBubbleCatched"), transform.position, transform.rotation);
             Destroy(obj);
         }
+    }
+
+    private void CleanUpEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("SquadManager");
+        foreach (GameObject obj in enemies) Destroy(obj);        
     }
 
     public Stages GetStage() {
