@@ -487,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.012573242, y: -3747}
+  m_AnchoredPosition: {x: -0.012573242, y: -4073}
   m_SizeDelta: {x: 1920, y: 10131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966502436
@@ -523,25 +523,25 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Team:\r\n\r\nMaximino Puncernau Margarit\r\nFrancesc Perez Arias\r\nEsteban
-    Marin Illana \r\n\r\nThanks to:\r\n\r\nCarlos Francisco Alamo \r\nMaria Angeles
+    Marin Illana \r\n\n\n\r\nThanks to:\r\n\r\nCarlos Francisco Alamo \r\nMaria Angeles
     Almansa \r\nAdria Bancells\r\nXavier Bravo \r\nMarc Campins \r\nFerran Coma \r\nAlex
-    Espinet Perez\r\nMarta Florido \r\nNil Grau \r\nAdrian Leroy \r\nOscar Lopez \r\nIris
+    Espinet\nMarta Florido \r\nNil Grau \r\nAdrian Leroy \r\nOscar Lopez \r\nIris
     Martinez \r\nDaniel Mateu \r\nAdrian Meizoso\r\nGrace Silvana Mites\r\nBruno Alonso
     Ortiz \r\nGerard Pros \r\nMark Ramos \r\nEmma Raventos \r\nDaniel Reyes \r\nMario
     Rodriguez \r\nDaniel Romero \r\nAlbert Sanchez \r\nPau Sanchez \t\r\nVictoria
     Sukhonenko\t\r\nPere Viader\r\n\r\nJesus Alonso \r\nRicardo Javier Pillosu \r\nMarc
-    Ripoll \r\nPablo Borja Belmonte\r\nCarlos Fuentes \r\n\r\nAlejandro Arque \r\nLukas
+    Ripoll \r\nPablo Borja Belmonte\r\nCarlos Fuentes \r\n\nAlejandro Arque \r\nLukas
     Bahrle \r\nJon Beltran \r\nOriol Boira \r\nKevin Cerda \r\nMatthew Clarke  \r\nFrederic
     Cordoba \r\nDavid Darnes \r\nLuis d'Estrees \r\nJose Luis Eguia \r\nVanessa Estorach
     \r\nDavid Font \r\nJavier Galvez \r\nSebastian Gil\r\nCarlos \"Nikotxan\" Gomez\r\nJordi
     Guasch \r\nRaul Herrero \r\nAna Jimenez \r\nEdin Kapic \r\nUnai Landa \r\nRamon
     Nafria \r\nElias Pereiras \r\nAlvaro Rico \r\nAntonio Sanchez\r\nRamon Santamaria
-    \r\nPere Torrents \r\nGeorgina Tost Faus \r\n\r\nSpecial thanks to:\r\n\r\nMaximino
+    \r\nPere Torrents \r\nGeorgina Tost\r\n\r\n\n\nSpecial thanks to:\r\n\r\nMaximino
     Puncernau \r\nElena Margarit \r\nAna Puncernau \r\nAdria Abella \r\nJavier Trius
-    \r\n\r\nPaquita Arias\r\nAngel Perez\r\nMonica Perez\r\nOscar Perez\r\nJosep Gala\r\nElena
-    Dios\r\nCarla Perez\r\nPaula Perez\r\nRoger Gala\r\nToni Frommann\r\nAndreu Lopez\r\nJudith
-    Garcia\r\nBea Pay\r\nAndreu Van Walre\r\nRaquel Bouso\r\nNestor Perez\r\nLaia
-    Onieva\r\nXavier Rife\r\nArtur Marti\r\nManuel Mora\r\nSergio Iba\xF1ez\r\n\r\nMatilde
+    \r\n\n\r\nPaquita Arias\r\nAngel Perez\r\nMonica Perez\r\nOscar Perez\r\nJosep
+    Gala\r\nElena Dios\r\nCarla Perez\r\nPaula Perez\r\nRoger Gala\r\nToni Frommann\r\nAndreu
+    Lopez\r\nJudith Garcia\r\nBea Pay\r\nAndreu Van Walre\r\nRaquel Bouso\r\nNestor
+    Perez\r\nLaia Onieva\r\nXavier Rife\r\nArtur Marti\r\nManuel Mora\r\nSergio Iba\xF1ez\r\n\n\r\nMatilde
     Illana \r\nSalvador Marin \r\nAngel Marin \r\nMilena Masferrer \r\nOriol Avila
     \r\nAlbert Gil\r\nCarlos Perso\r\nMarc Samper\r\nAdrian Castillo\r\nAnais Sanchez
     \r\nSergi Ramirez \r\n\r\n\n"
@@ -667,6 +667,26 @@ Prefab:
     - target: {fileID: 1177254419732142, guid: f60672d107da0a741a6cf8306e9b762b, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198815507145845050, guid: f60672d107da0a741a6cf8306e9b762b,
+        type: 2}
+      propertyPath: startDelay.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198815507145845050, guid: f60672d107da0a741a6cf8306e9b762b,
+        type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198168483072147736, guid: f60672d107da0a741a6cf8306e9b762b,
+        type: 2}
+      propertyPath: startDelay.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198168483072147736, guid: f60672d107da0a741a6cf8306e9b762b,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1972976668
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f60672d107da0a741a6cf8306e9b762b, type: 2}
@@ -1309,7 +1329,7 @@ MonoBehaviour:
   TitleText_4: {fileID: 1383126306}
   PressStartText: {fileID: 0}
   Credits: {fileID: 966502436}
-  DedicatedTo: {fileID: 1574059196}
+  DedicatedTo: {fileID: 0}
   Curtain: {fileID: 616063863}
   Cam1BH: {fileID: 1875127233}
   Cam1GO: {fileID: 613167935}
