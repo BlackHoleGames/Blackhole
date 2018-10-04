@@ -38,7 +38,12 @@ public class ThirdBossStage : MonoBehaviour {
             if (!defeated) {
                 if (radius > 7.5f) {
                     radius -= Time.deltaTime*2.0f;
-                    if (radius < 7.5f) radius = 7.5f;
+                    if (radius < 7.5f) {
+                        radius = 7.5f;
+                        foreach (GameObject e in eyes) {
+                            e.GetComponentInChildren<BossEyeScript>().UnProtect();
+                        }
+                    }
                 }
                 ManageMovement();
             }

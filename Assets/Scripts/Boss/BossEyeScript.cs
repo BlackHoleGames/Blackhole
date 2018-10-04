@@ -14,16 +14,18 @@ public class BossEyeScript : MonoBehaviour {
     public float shotCooldown = 1.0f;
     public float rateOfFire = 0.25f;
     public float shotOffset = 0.2f;
+    public float initialShotDelay;
     public float waitBeforeCharge;
     public int numberOfShots = 1;
     public GameObject enemyProjectile, explosion;
-    private float rateCounter, shotTimeCounter, shotCounter;
+    public float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
     private Vector3 initialOrientation, orientationTarget, exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
     private AudioSource audioSource;
     private GameObject player;
     private float delay = 15.0f;
+    private bool vulnerable;
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -31,7 +33,8 @@ public class BossEyeScript : MonoBehaviour {
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
         disabled = false;
-        
+        vulnerable = false;
+        rateCounter = initialShotDelay;
     }
 
     // Update is called once per frame
@@ -49,7 +52,7 @@ public class BossEyeScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile" && !disabled)
+        if (other.gameObject.tag == "PlayerProjectile" && !disabled && vulnerable)
         {
             audioSource.Play();
             if (life > 0.0f) {
@@ -147,5 +150,9 @@ public class BossEyeScript : MonoBehaviour {
         float zLerp = Mathf.LerpAngle(StartAngle.z, FinishAngle.z, t);
         Vector3 Lerped = new Vector3(xLerp, yLerp, zLerp);
         return Lerped;
+    }
+
+    public void UnProtect() {
+        vulnerable = true;
     }
 }
