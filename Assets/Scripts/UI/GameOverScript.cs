@@ -7,6 +7,7 @@ public class GameOverScript : MonoBehaviour {
 
     public Text TitleText;
     public Text PressStartText;
+    public Text GOtext;
     public Image Curtain;
     public string loadLevel;
     public bool PStart;
@@ -18,6 +19,7 @@ public class GameOverScript : MonoBehaviour {
     {
         Time.timeScale = 1.0f;
         TitleText.canvasRenderer.SetAlpha(0.0f);
+        GOtext.canvasRenderer.SetAlpha(0.0f);
         PressStartText.canvasRenderer.SetAlpha(0.0f);
         Curtain.canvasRenderer.SetAlpha(1.0f);
         Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
@@ -45,6 +47,7 @@ public class GameOverScript : MonoBehaviour {
     void FadeInTT()
     {
         TitleText.CrossFadeAlpha(1.0f, 1.0f, false);
+        GOtext.CrossFadeAlpha(1.0f, 1.0f, false);
     }
     void FadeOutTT()
     {
