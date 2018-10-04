@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class HistoryScreen : MonoBehaviour {
 
     public Text TitleText;
-    public Text PressStartText;
+    public Text TittleScarlett;
     public Image Curtain;
     public GameObject Cam1BH;
     public GameObject Cam1GO;
@@ -30,10 +30,8 @@ public class HistoryScreen : MonoBehaviour {
     {
         Time.timeScale = 1.0f;
         SaveGameStatsScript.GameStats.isGameOver = false;
-        FlickAction = PanelTimer(SecondsFlick);
-        StartCoroutine(FlickAction);
         TitleText.canvasRenderer.SetAlpha(0.0f);
-        PressStartText.canvasRenderer.SetAlpha(0.0f);
+        TittleScarlett.canvasRenderer.SetAlpha(0.0f);
         Curtain.canvasRenderer.SetAlpha(Active);
         Curtain.CrossFadeAlpha(0.0f, 1.0f, false);
         yield return new WaitForSeconds(1.0f);
@@ -60,29 +58,16 @@ public class HistoryScreen : MonoBehaviour {
         EnableCam3();
         Curtain.CrossFadeAlpha(0.0f, 2.0f, false);
         yield return new WaitForSeconds(2.0f);
-        TitleText.text = "Scarlett,\n you are the last hope to save our world.";
+        TittleScarlett.CrossFadeAlpha(Active, 1.5f, false);
+        yield return new WaitForSeconds(1.5f);
+        TitleText.text = "you are the last hope to save our world!";
         FadeInTT();
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(3.0f);
         Curtain.CrossFadeAlpha(1.0f, 4.0f, false);
         yield return new WaitForSeconds(4.0f);
         SceneManager.LoadScene(2);
     }
 
-    private IEnumerator PanelTimer(float secondsFlick)
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            FadeInText();
-            yield return new WaitForSeconds(secondsFlick);
-            FadeOut();
-            yield return new WaitForSeconds(secondsFlick);
-        }
-    }
-
-    void FadeInText()
-    {
-        PressStartText.CrossFadeAlpha(1.0f, 0.75f, false);
-    }
     void FadeInTT()
     {
         TitleText.CrossFadeAlpha(1.0f, 1.0f, false);
@@ -91,10 +76,7 @@ public class HistoryScreen : MonoBehaviour {
     {
         TitleText.CrossFadeAlpha(0.0f, 1.0f, false);
     }
-    void FadeOut()
-    {
-        PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
-    }
+
     public void EnableCam2()
     {
         Cam1BH.SetActive(false);
