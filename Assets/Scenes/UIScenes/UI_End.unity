@@ -487,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.012573242, y: -4526}
+  m_AnchoredPosition: {x: -0.012573242, y: -3747}
   m_SizeDelta: {x: 1920, y: 10131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966502436
@@ -544,8 +544,7 @@ MonoBehaviour:
     Onieva\r\nXavier Rife\r\nArtur Marti\r\nManuel Mora\r\nSergio Iba\xF1ez\r\n\r\nMatilde
     Illana \r\nSalvador Marin \r\nAngel Marin \r\nMilena Masferrer \r\nOriol Avila
     \r\nAlbert Gil\r\nCarlos Perso\r\nMarc Samper\r\nAdrian Castillo\r\nAnais Sanchez
-    \r\nSergi Ramirez \r\n\r\nDedicated to:\r\n\r\nMaximino Puncernau Pedro\r\nLola
-    Galceran\r\nCosme Illana Lara\r\n"
+    \r\nSergi Ramirez \r\n\r\n\n"
 --- !u!222 &966502437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -892,6 +891,81 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1383126304}
+--- !u!1 &1574059194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1574059195}
+  - component: {fileID: 1574059197}
+  - component: {fileID: 1574059196}
+  m_Layer: 5
+  m_Name: DedicatedTo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1574059195
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574059194}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1757261887}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -2, y: 6}
+  m_SizeDelta: {x: 1184.4, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1574059196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574059194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 9ece5d94bb93eb44b934617040ade84e, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 200
+    m_Alignment: 4
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Dedicated to:\r\n\r\nMaximino Puncernau Pedro\r\nLola Galceran\r\nCosme
+    Illana Lara\r\n"
+--- !u!222 &1574059197
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574059194}
 --- !u!1 &1619347436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1202,7 @@ RectTransform:
   - {fileID: 966502435}
   - {fileID: 120965628}
   - {fileID: 1619347437}
+  - {fileID: 1574059195}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1146,7 +1221,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 612069cb02d8129439568d46039479fb, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1227,12 +1302,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e6ca1ff300810428ffe7254bc5133b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundPlay: {fileID: 0}
   TitleText_1: {fileID: 1095710017}
   TitleText_2: {fileID: 1154686712}
   TitleText_3: {fileID: 2085916672}
   TitleText_4: {fileID: 1383126306}
   PressStartText: {fileID: 0}
   Credits: {fileID: 966502436}
+  DedicatedTo: {fileID: 1574059196}
   Curtain: {fileID: 616063863}
   Cam1BH: {fileID: 1875127233}
   Cam1GO: {fileID: 613167935}

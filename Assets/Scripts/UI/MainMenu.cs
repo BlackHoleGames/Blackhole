@@ -23,17 +23,8 @@ public class MainMenu : MonoBehaviour {
     {
         source1.PlayOneShot(sound);
         SceneManager.LoadScene(3);
-        //Application.LoadLevel(Application.loadedLevel);
-        //TimerScript TS = new TimerScript();
-        //TS.startTime = Time.time;
     }
-    //public void Settings()
-    //{
 
-    //    mainMenu.SetActive(false);
-    //    //source1.PlayOneShot(sound);
-    //    settingsMenu.SetActive(true);
-    //}
 
     public void QuitGame()
     {
