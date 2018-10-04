@@ -52,7 +52,7 @@ public class HistoryScreen : MonoBehaviour {
         yield return new WaitForSeconds(4.0f);
         Curtain.CrossFadeAlpha(Active,1.5f, false);
         FadeOutTT();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.7f);
         /*Ending Cam2*/
         /*Init Cam3*/
         EnableCam3();
