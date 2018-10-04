@@ -50,7 +50,7 @@ public class HistoryScreen : MonoBehaviour {
         TitleText.text = "...from which emerged an alien race that has nearly destroyed the earth...";
         FadeInTT();
         yield return new WaitForSeconds(4.0f);
-        Curtain.CrossFadeAlpha(Active,1.5f, false);
+        Curtain.CrossFadeAlpha(Active,1.0f, false);
         FadeOutTT();
         yield return new WaitForSeconds(2.0f);
         /*Ending Cam2*/
