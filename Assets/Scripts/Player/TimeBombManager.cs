@@ -46,16 +46,16 @@ public class TimeBombManager : MonoBehaviour {
                     UsingBomb();
                     spc.activateBomb = false;
                 }
-                if (gtm.statusGTL > 0)
-                {
-                    if (TimeBomb1.fillAmount != 1.0f) RegenTimeBomb1();
-                }
-                else
-                {
-                    TimeBomb1.fillAmount = 0.0f;
-                    dot.SetActive(true);
-                    symbol.SetActive(false);
-                }
+                //if (gtm.statusGTL > 0)
+                //{
+                if (TimeBomb1.fillAmount != 1.0f) RegenTimeBomb1();
+                //}
+                //else
+                //{
+                //    TimeBomb1.fillAmount = 0.0f;
+                //    dot.SetActive(true);
+                //    symbol.SetActive(false);
+                //}
                 //            if (activateBomb2) RegenTimeBomb2();
                 //            if (activateBomb3) RegenTimeBomb3();
             }
