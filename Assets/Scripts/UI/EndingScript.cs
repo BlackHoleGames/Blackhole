@@ -70,21 +70,22 @@ public class EndingScript : MonoBehaviour {
         {
             StartCoroutine(DedicatedToEnd());
         }
-        if (countTimer == 242)
+        if (countTimer == 162)
         {
             StartCoroutine(EndInit1());
         }
-        if (countTimer == 246)
+        if (countTimer == 166)
         {
             StartCoroutine(EndInit2());
-        }
-
-        if (Credits.transform.position.y > 5000.0f && !shutdown)
-        {
             shutdown = true;
             FadeInCurtain();
             StartCoroutine(ShutdownGame());
         }
+
+        //if (Credits.transform.position.y > 5000.0f && !shutdown)
+        //{
+
+        //}
     }
 
     private IEnumerator EndInit1()
@@ -123,8 +124,8 @@ public class EndingScript : MonoBehaviour {
     }
     IEnumerator ShutdownGame()
     {
-        yield return new WaitForSeconds(6.0f);
-        Curtain.CrossFadeAlpha(1.0f,5.0f,false);
+        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
+        yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(6);
     }
 }
