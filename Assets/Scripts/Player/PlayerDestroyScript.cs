@@ -186,7 +186,7 @@ public class PlayerDestroyScript : MonoBehaviour
             if (renderEnabled) renderEnabled = false;
             else renderEnabled = true;          
         }
-
+        TimeBombManager.stopCharge = false;
         pspacecraft.gameObject.SetActive(true);
         propeller.GetComponent<Renderer>().enabled = true;
         propeller.GetComponent<ParticleSystem>().Play();

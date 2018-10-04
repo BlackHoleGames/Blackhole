@@ -61,13 +61,13 @@ public class TimeBombManager : MonoBehaviour {
             if (resetBomb) RestetBomb();
         }else
         {
-            resetBomb = false;
-            TimeBomb1.fillAmount = 0.0f;
-            dot.SetActive(true);
-            symbol.SetActive(false);
-            spc.emptyStockBombs = true;
-            bomb1Ok = false;
-            bombs = 0;
+            //resetBomb = false;
+            //TimeBomb1.fillAmount = 0.0f;
+            //dot.SetActive(true);
+            //symbol.SetActive(false);
+            //spc.emptyStockBombs = true;
+            //bomb1Ok = false;
+            //bombs = 0;
         }    
     }
     public void RestetBomb()
