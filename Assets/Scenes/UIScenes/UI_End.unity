@@ -1052,7 +1052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Dedicated to:\r\n\r\nMaximino Puncernau Pedro\r\nLola Galceran\r\nCosme
+  m_Text: "Dedicated to:\r\n\r\nMaximino Puncernau Pedro\r\nLola Galceran\r Soler\nCosme
     Illana Lara\r\n"
 --- !u!222 &1574059197
 CanvasRenderer:
