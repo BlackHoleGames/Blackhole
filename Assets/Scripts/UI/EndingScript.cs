@@ -124,8 +124,10 @@ public class EndingScript : MonoBehaviour {
     }
     IEnumerator ShutdownGame()
     {
-        Curtain.CrossFadeAlpha(1.0f, 3.0f, false);
-        yield return new WaitForSeconds(4.5f);
+        TheEnd.CrossFadeAlpha(0.0f, 2.0f, false);
+        ThanksForPlaying.CrossFadeAlpha(0.0f, 2.0f, false);
+        Curtain.CrossFadeAlpha(1.0f, 2.0f, false);
+        yield return new WaitForSeconds(5.5f);
         SceneManager.LoadScene(6);
     }
 }
