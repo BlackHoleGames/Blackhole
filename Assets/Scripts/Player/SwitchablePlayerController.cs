@@ -119,7 +119,7 @@ public class SwitchablePlayerController : MonoBehaviour
             {
                 if ((Input.GetKeyDown(KeyCode.X)
                     || Input.GetKeyDown(KeyCode.Escape)
-                    || Input.GetButtonDown("Pause")) && (lives > 0))
+                    || Input.GetButtonDown("Pause")) && (lives > 0) && !onTutorial)
                 {
                     if (!gamePaused)
                     {
@@ -231,11 +231,6 @@ public class SwitchablePlayerController : MonoBehaviour
             SaveGameStatsScript.GameStats.isGameOver = true;
             SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
         }
-    }
-
-    public void ActivateOnTutorial()
-    {
-        onTutorial = true;
     }
 
     public void StopTimeTutorial1()
