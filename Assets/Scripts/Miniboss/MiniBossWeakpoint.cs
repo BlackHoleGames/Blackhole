@@ -104,7 +104,7 @@ public class MiniBossWeakpoint : MonoBehaviour {
                 SwitchToDestroy();
                 alive = false;
                 //Destroy(transform.parent.gameObject);
-                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
+                ScoreScript.score = ScoreScript.score + 5000;
             }
         }
     }
