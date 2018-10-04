@@ -120,7 +120,7 @@ public class CameraBehaviour : MonoBehaviour {
         {            
             float xCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
             float yCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
-            float zCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
+            //float zCamShake = Random.Range(-0.5f, 0.5f) * ShakeScope;
             float xShakeUI = Random.Range(-10f, 10f) * ShakeScope;
             float yShakeUI = Random.Range(-10f, 10f) * ShakeScope;            
             switch (GameObject.FindGameObjectWithTag("Managers").GetComponent<MapManger>().actualStage)
