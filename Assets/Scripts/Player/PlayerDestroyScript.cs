@@ -58,7 +58,7 @@ public class PlayerDestroyScript : MonoBehaviour
                 Debug.Log("Here");
                 waitingForDeath = true;
                 gtm.disableMultiplier();
-                TimeBombManager.resetBomb = true;
+                //TimeBombManager.resetBomb = true;
                 //TimeBombManager.stopChargeBomb = true;
                 DeathTimerSequence = DeathSequence(3.0f);
                 StartCoroutine(DeathTimerSequence);
@@ -67,9 +67,8 @@ public class PlayerDestroyScript : MonoBehaviour
             else if (player != null && spc.invulAfterSlow && !waitingForHit)
             {
                 waitingForHit = true;
+                TimeBombManager.stopCharge = true;
                 TimeBombManager.resetBomb = true;
-                //TimeBomb.GetComponent<Image>().fillAmount = 0.0f;
-                //TimeBombManager.stopChargeBomb = true;
                 gtm.RestoreMultiplier();
                 InvulnerableTimerSequence = InvulnerableSequence();
                 StartCoroutine(InvulnerableTimerSequence);
@@ -80,17 +79,18 @@ public class PlayerDestroyScript : MonoBehaviour
     IEnumerator DeathSequence(float waitToDeath)
     {
         noLifesRemaining = spc.isFinished;
+        TimeBombManager.stopCharge = true;
+        TimeBombManager.resetBomb = true;
         if (!noLifesRemaining)
         {
-            TimeBombManager.stopCharge = true;
+            
             Destroy();
             yield return new WaitForSeconds(waitToDeath);
             Restore();
-            TimeBombManager.stopCharge = false;
+            
         }
         else
         {
-            TimeBombManager.stopCharge = true;
             GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;
             Destroy();
         }
@@ -186,7 +186,7 @@ public class PlayerDestroyScript : MonoBehaviour
             if (renderEnabled) renderEnabled = false;
             else renderEnabled = true;          
         }
-        TimeBombManager.stopCharge = false;
+        //TimeBombManager.stopCharge = false;
         pspacecraft.gameObject.SetActive(true);
         propeller.GetComponent<Renderer>().enabled = true;
         propeller.GetComponent<ParticleSystem>().Play();
@@ -203,6 +203,9 @@ public class PlayerDestroyScript : MonoBehaviour
             waitingForHit = false;
             spc.invulAfterSlow = false;
         }
+
+        TimeBombManager.isPlayerRestored = true;
+        TimeBombManager.stopCharge = false;
     }
     IEnumerator InvulnerableTimeSequence()
     {
@@ -214,30 +217,3 @@ public class PlayerDestroyScript : MonoBehaviour
 }
 
 
-/*
- while (!finishTimeInv)
-        {
-
-            pspacecraft.gameObject.SetActive(false);
-            propeller.GetComponent<Renderer>().enabled = false;
-            //alert.GetComponent<Renderer>().enabled = false;
-            foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = false;
-            if (waitingForDeath)
-            {
-                pspacecraft.gameObject.SetActive(false);
-                propeller.GetComponent<Renderer>().enabled = false;
-                foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = false;
-                break;
-            }
-            yield return new WaitForSeconds(0.2f);
-
-
-            pspacecraft.gameObject.SetActive(true);
-            propeller.GetComponent<Renderer>().enabled = true;
-            propeller.GetComponent<ParticleSystem>().Play();
-            //alert.GetComponent<Renderer>().enabled = true;
-            foreach (Transform g in alertList) g.GetComponent<Renderer>().enabled = true;
-            yield return new WaitForSeconds(0.2f);
-        }
-     
-     */

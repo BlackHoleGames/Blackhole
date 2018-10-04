@@ -11,7 +11,8 @@ public class TimeBombManager : MonoBehaviour {
     public Image TimeBomb1, TimeBomb2, TimeBomb3;
     private IEnumerator BombAction;
     public bool isUsingBomb = false;
-    public static bool stopCharge, resetBomb, activateBomb2, activateBomb3 = false;
+    public static bool resetBomb, stopCharge, activateBomb2, activateBomb3 = false;
+    public static bool isPlayerRestored = false; 
     public float secondsTimePanel = 0.1f;
     private bool bomb1Ok, bomb2Ok, bomb3Ok;
     private GameObject UI;
@@ -34,12 +35,15 @@ public class TimeBombManager : MonoBehaviour {
         dot.SetActive(false);
         symbol.SetActive(true);
         spc.emptyStockBombs = false;
+        isPlayerRestored = false;
+        stopCharge = false;
+        resetBomb = false;
     }
     void Update()
     {
         if (!stopCharge)
         {
-            if (player != null && !spc.gamePaused)
+            if (player != null && !spc.gamePaused )
             {
                 if (spc.activateBomb && bombs > 0)
                 {
@@ -58,28 +62,41 @@ public class TimeBombManager : MonoBehaviour {
                 symbol.SetActive(true);
                 spc.emptyStockBombs = false;
             }
-            if (resetBomb) RestetBomb();
         }else
         {
-            //resetBomb = false;
+            if (resetBomb)
+            {
+                resetBomb = false;
+                TimeBomb1.fillAmount = 0.0f;
+            }
             //TimeBomb1.fillAmount = 0.0f;
             //dot.SetActive(true);
             //symbol.SetActive(false);
             //spc.emptyStockBombs = true;
             //bomb1Ok = false;
             //bombs = 0;
-        }    
+        }
+        if (isPlayerRestored)
+        {
+            isPlayerRestored = false;
+            bombs = 1;
+            bomb1Ok = true;
+            TimeBomb1.fillAmount = 1.0f;
+            dot.SetActive(false);
+            symbol.SetActive(true);
+            spc.emptyStockBombs = false;
+        }
     }
-    public void RestetBomb()
-    {
-        resetBomb = false;
-        TimeBomb1.fillAmount = 0.0f;
-        dot.SetActive(true);
-        symbol.SetActive(false);
-        spc.emptyStockBombs = true;
-        bomb1Ok = false;
-        bombs = 0;
-    }
+    //public void RestetBomb()
+    //{
+    //    resetBomb = false;
+    //    TimeBomb1.fillAmount = 0.0f;
+    //    dot.SetActive(true);
+    //    symbol.SetActive(false);
+    //    spc.emptyStockBombs = true;
+    //    bomb1Ok = false;
+    //    bombs = 0;
+    //}
     private void UsingBomb()
     {
         if (bombs > 0)
