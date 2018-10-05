@@ -424,7 +424,7 @@ public class MapManger : MonoBehaviour {
         foreach (GameObject obj in powerups)
         {
             Instantiate(Resources.Load("TimeBubbleCatched"), transform.position, transform.rotation);
-            Destroy(obj);
+            if (obj.transform.parent.gameObject)Destroy(obj.transform.parent.gameObject);
         }
     }
 
