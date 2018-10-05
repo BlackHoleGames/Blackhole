@@ -55,7 +55,6 @@ public class PlayerDestroyScript : MonoBehaviour
         if (!waitingForDeath)
         {
             if (player != null && spc.isDestroying && !waitingForDeath) {
-                Debug.Log("Here");
                 waitingForDeath = true;
                 gtm.disableMultiplier();
                 //TimeBombManager.resetBomb = true;

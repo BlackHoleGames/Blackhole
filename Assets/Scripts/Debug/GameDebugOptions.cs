@@ -7,12 +7,9 @@ public class GameDebugOptions : MonoBehaviour {
     public EnemyManager enemyManager;
     public MapManger mapManager;
     public SwitchablePlayerController player;
-    //private Camera cam, debugCam;
-    //private TimeManager timeManager;
     private bool godModeEnabled = false;
 	// Use this for initialization
 	void Start () {
-        //timeManager = player.gameObject.GetComponent<TimeManager>();
 	}
 
     // Update is called once per frame

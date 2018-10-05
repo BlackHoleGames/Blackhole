@@ -41,13 +41,16 @@ public class BossEyeScript : MonoBehaviour {
     void Update () {
         if (!disabled) {
             transform.eulerAngles += new Vector3(0.0f,0.0f, rotationSpeed* Time.deltaTime);
-            if (delay < 0.0f) ManageShot();
-            else delay -= Time.deltaTime;
+            
             ManageHit();
         }
         else {
             ManageExit();
         }
+        if (delay < 0.0f) {
+            if (!goToEntryPoint && !goToExitPoint) ManageShot();
+        }
+        else delay -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
