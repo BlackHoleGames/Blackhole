@@ -542,9 +542,9 @@ MonoBehaviour:
     Gala\r\nElena Dios\r\nCarla Perez\r\nPaula Perez\r\nRoger Gala\r\nToni Frommann\r\nAndreu
     Lopez\r\nJudith Garcia\r\nBea Pay\r\nAndreu Van Walre\r\nRaquel Bouso\r\nNestor
     Perez\r\nLaia Onieva\r\nXavier Rife\r\nArtur Marti\r\nManuel Mora\r\nSergio Iba\xF1ez\r\n\n\r\nMatilde
-    Illana \r\nSalvador Marin \r\nAngel Marin \r\nMilena Masferrer \r\nOriol Avila
-    \r\nAlbert Gil\r\nCarlos Perso\r\nMarc Samper\r\nAdrian Castillo\r\nAnais Sanchez
-    \r\nSergi Ramirez \r\n\r\n\n"
+    Illana \r\nSalvador Marin \r\nAngel Marin \r\nMilena Masferrer \r\nAlbert Gil\r\nCarlos
+    Perso\r\nMarc Samper\r\nAdrian Castillo\r\nAnais Sanchez \r\nSergi Ramirez \r\n\rOriol
+    Avila \r\n\n"
 --- !u!222 &966502437
 CanvasRenderer:
   m_ObjectHideFlags: 0
