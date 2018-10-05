@@ -12,7 +12,7 @@ public class InputNameScore : MonoBehaviour {
     private IEnumerator Timercoroutine;
     private IEnumerator Initialcoroutine;
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private string letter = "Z";
+    private string letter = "A";
     private float axisX;
     private float RT;
     private string initialAux="";
