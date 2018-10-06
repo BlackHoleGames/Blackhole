@@ -34,7 +34,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
-    private AudioSource slomo, timebomb, gunshot, timewarp;
+    private AudioSource /*slomo,/*timewarp*/ timebomb, gunshot;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
     private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode, fireblocked;
     private TimeManager tm;
@@ -50,7 +50,7 @@ public class SwitchablePlayerController : MonoBehaviour
     public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
     public bool activateBomb, emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
     private IEnumerator DisableAction;
-    private float disableTimer = 2.0f;
+    //private float disableTimer = 2.0f;
     public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
     public bool gamePaused;
     private float lifeDeath = -0.1f;
@@ -88,10 +88,10 @@ public class SwitchablePlayerController : MonoBehaviour
         camMovementEnemies = false;
         playerHit = false;
         AudioSource[] audioSources = GetComponents<AudioSource>();
-        slomo = audioSources[0];
+        //slomo = audioSources[0];
         timebomb = audioSources[1];
         gunshot = audioSources[2];
-        timewarp = audioSources[3];
+        //timewarp = audioSources[3];
         liveValue.text = "X3";
         isDeathDoor = false;
         onTutorial = false;

@@ -6,7 +6,6 @@ public class ScoreScript : MonoBehaviour {
     public static int score = 0;
     public static float multiplierScore = 1.0f;
     public Text ScoreTextValue;
-    private float MultiplierIncrease = 1.0f;
     // Use this for initialization
     void Start () {
 		
@@ -14,7 +13,6 @@ public class ScoreScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //score = score + 10;
         ScoreTextValue.text = score.ToString();
     }
 }

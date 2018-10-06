@@ -16,7 +16,6 @@ public class InputNameScore : MonoBehaviour {
     private float axisX;
     private float RT;
     private string initialAux="";
-    private bool initialAuxDone = false;
     private bool isDone = false;
     public bool WaitingForName = false;
     public bool IsInputName = false;
@@ -53,7 +52,6 @@ public class InputNameScore : MonoBehaviour {
                 if (Input.GetButtonDown("AButton") || Input.GetKeyDown("enter") ||
             Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Space))
                 {
-                    initialAuxDone = true;
                     initialAux = initialAux + letter;
                     Confirm++;
                     if (Confirm == 3) isDone = true;
@@ -61,7 +59,6 @@ public class InputNameScore : MonoBehaviour {
                 }
                 if (Input.GetButtonDown("BButton"))
                 {
-                    initialAuxDone = false;
                     switch (initialAux.Length)
                     {
                         case 0:

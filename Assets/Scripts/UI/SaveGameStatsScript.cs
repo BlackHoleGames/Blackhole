@@ -218,8 +218,8 @@ public class SaveGameStatsScript : MonoBehaviour
         ScoreNames[3] = "EMI";
         ScoreNames[4] = "FPA";
 
-        ScoreResults[0] = "70000";
-        ScoreResults[1] = "65000";
+        ScoreResults[0] = "80000";
+        ScoreResults[1] = "70000";
         ScoreResults[2] = "60000";
         ScoreResults[3] = "55000";
         ScoreResults[4] = "50000";

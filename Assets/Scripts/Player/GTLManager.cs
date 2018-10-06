@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class GTLManager : MonoBehaviour {
-    private float MultiplierIncrease = 0.5f;
     public GameObject X1, X2, X3;
     public Slider gtlBar;
     public float MovementGtlPerSec = 0.05f;
-    private bool onTop = false;
     private List<GameObject> multiplierArray;
     public int statusGTL =0;
     private bool isRestoring, isRegenGtl = false;

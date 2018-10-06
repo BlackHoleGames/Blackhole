@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimeBombManager : MonoBehaviour {
 
-    private float timeBombRegenPerSec = 0.2f;
+    private float timeBombRegenPerSec = 0.12f;
     public static int bombs =0;
     public GameObject timeBomb, timeBombPanel, player;
     public Image TimeBomb1, TimeBomb2, TimeBomb3;
@@ -15,15 +15,11 @@ public class TimeBombManager : MonoBehaviour {
     public static bool isPlayerRestored = false; 
     public float secondsTimePanel = 0.1f;
     private bool bomb1Ok, bomb2Ok, bomb3Ok;
-    private GameObject UI;
     public GameObject dot,symbol;
     private SwitchablePlayerController spc;
-    private GTLManager gtm;
     private TimeManager tm;
     private GameObject Timer;
     void Start () {
-        UI = GameObject.FindGameObjectWithTag("UI_InGame");
-        gtm = UI.GetComponent<GTLManager>();        
         player = GameObject.FindGameObjectWithTag("Player");
         tm = player.GetComponent<TimeManager>();
         spc = player.GetComponent<SwitchablePlayerController>();

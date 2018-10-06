@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
 
-    private bool changeScene = false;
     private IEnumerator SceneQuitGameSequence;
     private IEnumerator SceneCloseTimerSequence;
     private IEnumerator SceneOpenTimerSequence;
@@ -18,8 +17,6 @@ public class ChangeScene : MonoBehaviour {
     public bool shutdown = false;
     public bool isBlackHoleTime = false;
     public bool quitGame = false;
-    private bool activateDeath =false;
-    private bool activateBH = false;
     private bool activateTextBH = false;
     public float SecondsInBH = 20.0f;
     public float SecondsOutBH = 3.0f;
@@ -39,16 +36,13 @@ public class ChangeScene : MonoBehaviour {
         BHText.canvasRenderer.SetAlpha(0.0f);
         SceneOpenTimerSequence = FadeToInitLevel(2.0f);
         StartCoroutine(SceneOpenTimerSequence);
-        changeScene = false;
         player = GameObject.FindGameObjectWithTag("Player");
-        activateDeath = player.GetComponent<SwitchablePlayerController>().isDeath;
         alarmSound = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update () {
         if(shutdown)
         {
-            changeScene = true;
             SceneCloseTimerSequence = FadeToEndingLevel(SecondsToWaitEnd);
             StartCoroutine(SceneCloseTimerSequence);
         }

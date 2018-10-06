@@ -22,7 +22,6 @@ public class EndingScript : MonoBehaviour {
     public bool startCredits;
     public bool isLeaderBoardTime = true;
     // Use this for initialization
-    private bool shutdown = false;
     private int countTimer;
 
     private AudioSource sourcePlay { get { return GetComponent<AudioSource>(); } }
@@ -77,15 +76,9 @@ public class EndingScript : MonoBehaviour {
         if (countTimer == 166)
         {
             StartCoroutine(EndInit2());
-            shutdown = true;
             FadeInCurtain();
             StartCoroutine(ShutdownGame());
         }
-
-        //if (Credits.transform.position.y > 5000.0f && !shutdown)
-        //{
-
-        //}
     }
 
     private IEnumerator EndInit1()

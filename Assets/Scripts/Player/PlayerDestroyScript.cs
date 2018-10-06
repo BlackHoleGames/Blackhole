@@ -12,9 +12,7 @@ public class PlayerDestroyScript : MonoBehaviour
     private IEnumerator DeathTimerSequence;
     private IEnumerator InvulnerableTimerSequence;
     public GameObject pdestroyed, pspacecraft, propeller, playercontrol, alert;
-    Vector3 playerFirstPosition;
-    Vector3 DestroyedFirstPosition;
-    private List<GameObject> destroyArray;
+    //private List<GameObject> destroyArray;
     public bool noLifesRemaining = false;
     //public float TimeFlickRespawn = 0.1f;
     BoxCollider[] PlayerColliders;
@@ -33,9 +31,7 @@ public class PlayerDestroyScript : MonoBehaviour
         //TimeBomb = GameObject.FindGameObjectWithTag("TimeBomb1");
         spc = player.GetComponent<SwitchablePlayerController>();
         gtm = UI.GetComponent<GTLManager>();
-        playerFirstPosition = gameObject.transform.position;
-        DestroyedFirstPosition = gameObject.transform.position;
-        destroyArray = new List<GameObject>();
+        //destroyArray = new List<GameObject>();
         alertList = new List<Transform>();
         noLifesRemaining = false;
         PlayerColliders = playercontrol.GetComponents<BoxCollider>();

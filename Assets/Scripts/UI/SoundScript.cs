@@ -11,8 +11,6 @@ public class SoundScript : MonoBehaviour, ISelectHandler
     public int Action;
     private float secondsFinishPlay = 0.5f;
     private float secondsFinishSettings = 0.5f;
-    private float secondsFinishQuit = 1.0f;
-    private float secondsToScroll = 0.5f;
     public GameObject mainMenu;
     public GameObject Quit;
     private Transform Cursor;

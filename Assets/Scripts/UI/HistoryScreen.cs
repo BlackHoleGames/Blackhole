@@ -19,9 +19,7 @@ public class HistoryScreen : MonoBehaviour {
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
-    private float SecondsFlick = 0.75f;
     private float Active = 1.0f;
-    private float Inactive = 1.0f;
     private IEnumerator FlickAction;
     // Use this for initialization
 

@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour {
     }
     void Update()
     {
-        float axisY = Input.GetAxis("Vertical");
+        //float axisY = Input.GetAxis("Vertical");
 
     }
 }
