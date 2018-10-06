@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
+using System;
 
 public class SwitchablePlayerController : MonoBehaviour
 {
@@ -19,45 +19,60 @@ public class SwitchablePlayerController : MonoBehaviour
     public float TimeWarpYLimit;
     public float RollLimit = 30.0f;
     public float PitchLimit = 30.0f;
-    public float invul = 1.0f;
+    //public float invul = 1.0f;
     public float sloMo = 2.0f;
     public float alertModeDuration = 3.0f;
-    public float invulnerabilityDuration = 1.0f;
+    public float invulnerabilityDuration = 2.0f;
     public static float shield = 10.0f;
     public float shieldRegenPerSec = 1.0f;
     public float timeBombRegenPerSec = 1.0f;
     public AudioClip[] timeBombClips;
     public Slider life;
     public Image fillLife, fillTimeBomb;
-    public GameObject projectile, sphere, ghost, parentAxis, pdestroyed;
+    public Text liveValue;
+    public GameObject projectile, sphere, ghost, parentAxis, pShoot, quitMenu, tutorial1, tutorial2, tutorial3, UIBomb;
     public static bool camMovementEnemies;
     public Vector3 readjustInitialPos, initialRot, rotX, rotZ;
     public float actualLife;
-    private AudioSource slomo, timebomb, gunshot, timewarp, alarm;
+    private AudioSource /*slomo,/*timewarp*/ timebomb, gunshot;
     private float firingCounter, t, rtimeZ, rtimeX, alertModeTime, rotationTargetZ, rotationTargetX;
-    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, playerHit, godMode;
+    private bool readjustPosition, startRotatingRoll, startRotatingPitch, restorePitch, godMode, fireblocked;
     private TimeManager tm;
-    private List<GameObject> ghostArray;
-    private bool is_vertical, is_firing, play;
-
-
+    private AudioManagerScript ams;
+    private List<GameObject> ghostList;
+    private bool isSavingData, is_vertical, is_firing, play;
+    public int lifePoints, lives = 3;
     //public Transform cameraTrs;
     //public bool camRotate = false;
+    private PostProcessingSwitcher pps;
     public bool speedOnProp, StandByVertProp = false;
     private IEnumerator FireRutine;
-    public bool isDeath, emptyStockLives = false;
-    public bool activateBomb , emptyStockBombs = false;
+    public bool isUpdatingLife, isDestroying, isDeath, emptyStockLives = false;
+    public bool activateBomb, emptyStockBombs, isFinished, isShotingbyPad, playerHit, impactforshake, isAlert = false;
+    private IEnumerator DisableAction;
+    //private float disableTimer = 2.0f;
+    public bool isEnding, isRestoring, isDeathDoor, ghostEnabled, invulAfterSlow, disableSecure = false;
+    public bool gamePaused;
+    private float lifeDeath = -0.1f;
+    private float lifeLimit = 0.1f;
+    public bool onTutorial, secureBomb = false;
+    public enum TutorialStages { SHOOTTUTORIAL, TIMEBOMBTUTORIAL, TIMEWARPTUTORIAL };
+    private TutorialStages actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
+    private bool antiDoubleImpact;
+    public bool IsTutorial1, IsTutorial2, IsTutorial3 = false;
+    //public CameraBehaviour cameraShaking;
     // Use this for initialization
     void Start()
     {
         godMode = false;
         play = true;
+        gamePaused = false;
         actualLife = shield;
         life.value = actualLife;
+        lifePoints = (int)actualLife;
         rotationTargetZ = 0.0f;
         rotationTargetX = 0.0f;
         firingCounter = 0.0f;
-        alertModeTime = 0.0f;
         rtimeZ = 0.0f;
         rtimeX = 0.0f;
         initialRot = transform.rotation.eulerAngles;
@@ -67,15 +82,21 @@ public class SwitchablePlayerController : MonoBehaviour
         is_firing = false;
         is_vertical = true;
         tm = GetComponent<TimeManager>();
-        ghostArray = new List<GameObject>();
+        ams = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        pps = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessingSwitcher>();
+        ghostList = new List<GameObject>();
         camMovementEnemies = false;
         playerHit = false;
         AudioSource[] audioSources = GetComponents<AudioSource>();
-        slomo = audioSources[0];
+        //slomo = audioSources[0];
         timebomb = audioSources[1];
         gunshot = audioSources[2];
-        timewarp = audioSources[3];
-        alarm = audioSources[4];
+        //timewarp = audioSources[3];
+        liveValue.text = "X3";
+        isDeathDoor = false;
+        onTutorial = false;
+        ScoreScript.score = 0;
+        fireblocked = true;
         //parentAxis = gameObject;
     }
 
@@ -91,80 +112,210 @@ public class SwitchablePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDeath)
+
+        if (!isEnding)
         {
-            if (play)
+            if (!isDeath && !isDestroying)
             {
-                float axisX = Input.GetAxis("Horizontal");
-                float axisY = Input.GetAxis("Vertical");
-                double RT = Input.GetAxis("RT");
-                Move(axisX, axisY);
-                //ManagePitchRotation(axisY);
-                ManageRollRotation(axisX);
-                ManageInput(RT);
+                if ((Input.GetKeyDown(KeyCode.X)
+                    || Input.GetKeyDown(KeyCode.Escape)
+                    || Input.GetButtonDown("Pause")) && (lives > 0) && !onTutorial)
+                {
+                    if (!gamePaused)
+                    {
+                        quitMenu.SetActive(true);
+                        tm.PauseGame();
+                        gamePaused = true;
+                        secureBomb = true;
+                    }
+                    else
+                    {
+                        quitMenu.SetActive(false);
+                        tm.UnPauseGame();
+                        gamePaused = false;
+                    }
+                }
+                if (!gamePaused)
+                {
+                    if (play)
+                    {
+                        float axisX = Input.GetAxis("Horizontal");
+                        float axisY = Input.GetAxis("Vertical");
+                        double RT = Input.GetAxis("RT");
+
+                        Move(axisX, axisY);
+                        //ManagePitchRotation(axisY);
+                        ManageRollRotation(axisX);
+                        ManageInput(RT);
+                    }
+                    if (startRotatingRoll || startRotatingPitch) Rotate();
+                    else
+                    {
+                        playerHit = false;
+                    }
+                    if (readjustPosition) ReadjustPlayer();
+                    if (is_firing)
+                    {
+                        Fire();
+                        firingCounter -= Time.unscaledDeltaTime;
+                    }
+                    if (isDeathDoor)
+                    {
+                        pps.GetComponent<PostProcessingSwitcher>().ActivateDamageEffect();
+                    }
+                    else pps.GetComponent<PostProcessingSwitcher>().StopDamageEffect();
+                    if (actualLife == 0.0) fillLife.enabled = false;
+                    else fillLife.enabled = true;
+                }
+                else
+                {
+                    if (onTutorial)
+                    {
+                        switch (actualTutorialStage)
+                        {
+                            case TutorialStages.SHOOTTUTORIAL:
+                                tutorial1.SetActive(true);
+                                double RT = Input.GetAxis("RT");
+                                if (Input.GetButtonDown("Fire1") || (RT > 0))
+                                {
+                                    fireblocked = false;
+                                    ManageInput(RT);
+                                    tm.UnPauseGame();
+                                    tutorial1.SetActive(false);
+                                    //++actualTutorialStage;
+                                    onTutorial = false;
+                                    gamePaused = false;
+
+                                }
+                                break;
+                            case TutorialStages.TIMEBOMBTUTORIAL:
+                                tutorial2.SetActive(true);
+                                UIBomb.SetActive(true);
+                                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+                                {
+                                    ManageTimeBomb();
+                                    tm.UnPauseGame();
+                                    tutorial2.SetActive(false);
+                                    //++actualTutorialStage;
+                                    onTutorial = false;
+                                    gamePaused = false;
+
+                                }
+                                break;
+                            case TutorialStages.TIMEWARPTUTORIAL:
+                                tutorial3.SetActive(true);
+                                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+                                {
+                                    ManageTimeBomb();
+                                    tm.UnPauseGame();
+                                    tutorial3.SetActive(false);
+                                    IsTutorial3 = false;
+                                    //++actualTutorialStage;
+                                    onTutorial = false;
+                                    gamePaused = false;
+                                }
+                                break;
+                        }
+                    }
+                }
             }
-            if (startRotatingRoll || startRotatingPitch) Rotate();
-            if (alertModeTime > 0.0f) alertModeTime -= Time.unscaledDeltaTime;
-            else
+            else if (!isSavingData)
             {
-                if (alarm.isPlaying) alarm.Stop();
-                playerHit = false;
+                isSavingData = true;
+                SaveGameStatsScript.GameStats.isGameOver = true;
+                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
             }
-            if (readjustPosition) ReadjustPlayer();
-            if (is_firing)
-            {
-                Fire();
-                firingCounter -= Time.unscaledDeltaTime;
-            }
-            //if (actualLife < shield) Regen();
-            //if (fillTimeBomb.fillAmount < 1.0f) RegenTimeBomb();
         }
+        else
+        {
+            SaveGameStatsScript.GameStats.isGameOver = true;
+            SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
+        }
+    }
+
+    public void StopTimeTutorial1()
+    {
+        onTutorial = true;
+        actualTutorialStage = TutorialStages.SHOOTTUTORIAL;
+        tm.PauseGame();
+        gamePaused = true;
+    }
+    public void StopTimeTutorial2()
+    {
+        onTutorial = true;
+        actualTutorialStage = TutorialStages.TIMEBOMBTUTORIAL;
+        tm.PauseGame();
+        gamePaused = true;
+        secureBomb = true;
+    }
+
+    public void StopTimeTutorial3()
+    {
+        onTutorial = true;
+        IsTutorial3 = true;
+        actualTutorialStage = TutorialStages.TIMEWARPTUTORIAL;
+        tm.PauseGame();
+        gamePaused = true;
     }
 
     public void ManageInput(double RT)
     {
-        
-        bool isShotingbyPath = false;
-        RT=System.Math.Round(RT, 2);
-        if (RT > 0) isShotingbyPath = true;
-        if ((Input.GetButtonDown("Fire1") || ((RT > 0) && (RT >= 1))) && !is_firing)
+
+        if (!gamePaused)
         {
-            is_firing = true;
-            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StartFiring();
-        }
-        if ((Input.GetButtonUp("Fire1")) && is_firing)
-        {
-            is_firing = false;
-            firingCounter = 0.0f;
-            foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
-        }
-        if (isShotingbyPath)
-        {
-            FireRutine = StoppingShoot(0.5f);
-            StartCoroutine(FireRutine);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
-        {
-            //            if (fillTimeBomb.fillAmount == 1.0f){
-            //                fillTimeBomb.fillAmount = 0.0f;            
-            if (!emptyStockBombs)
+            isShotingbyPad = false;
+            RT = System.Math.Round(RT, 2);
+            if (RT > 0) isShotingbyPad = true;
+            if ((Input.GetButtonDown("Fire1") || (RT > 0)) && !is_firing && !fireblocked)
             {
-                activateBomb = true;
-                int clipIndex = (int)Random.Range(0, 3);
-                timebomb.clip = timeBombClips[clipIndex];
-                timebomb.Play();
-                Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation);
+                is_firing = true;
+                if (ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StartFiring();
+
+            }
+            if ((Input.GetButtonUp("Fire1")) && is_firing)
+            {
+                is_firing = false;
+                firingCounter = 0.0f;
+                if (ghostEnabled) foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
+
+            }
+            if (isShotingbyPad)
+            {
+                FireRutine = StoppingShoot(0.5f);
+                StartCoroutine(FireRutine);
+            }
+            if (!secureBomb)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetButtonDown("AButton")))
+                {
+                    if (!emptyStockBombs && !activateBomb && TimeBombManager.bombs > 0)
+                    {
+                        ManageTimeBomb();
+                    }
+                }
+            }else
+            {
+                secureBomb = false;
             }
         }
-        /*if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (tm.HasCharges())
-            {
-                SwitchAxis();
-                tm.StartTimeWarp();
-                timewarp.Play();
-            }
-        }*/
+    }
+
+    public void ManageTimeBomb()
+    {
+        RumblePad.RumbleState = 3;
+        activateBomb = true;
+        int clipIndex = (int)UnityEngine.Random.Range(0, 3);
+        timebomb.clip = timeBombClips[clipIndex];
+        timebomb.Play();
+        //tm.StartSloMo();
+        GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+        if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+    }
+
+    public void UnPauseGame()
+    {
+        tm.UnPauseGame();
+        tm.RestoreTime();
     }
 
     IEnumerator StoppingShoot(float waitshoot)
@@ -172,13 +323,18 @@ public class SwitchablePlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitshoot);
         is_firing = false;
         //firingCounter = 0.0f;
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().StopFiring();
+        foreach (GameObject g in ghostList) g.GetComponent<TimeGhost>().StopFiring();
     }
 
-    public void Regen()
+    public void RegenLife()
     {
+        fillLife.enabled = true;
         actualLife += shieldRegenPerSec * Time.unscaledDeltaTime;
+        fillLife.fillAmount += shieldRegenPerSec * Time.unscaledDeltaTime;
+        if (isDeathDoor) isDeathDoor = false;
         life.value = actualLife;
+        lifePoints = (int)actualLife;
+        isUpdatingLife = true;
     }
 
     public void RegenTimeBomb()
@@ -190,18 +346,22 @@ public class SwitchablePlayerController : MonoBehaviour
     {
         if (firingCounter <= 0.0f)
         {
+            if (pShoot != null) pShoot.GetComponent<ParticleSystem>().Play();
             Transform t = transform;
-            Instantiate(projectile, t.position, t.rotation);
+            //Instantiate(projectile, t.position, t.rotation);
+            Instantiate(projectile, transform.position, transform.rotation);
             gunshot.Play();
             firingCounter = fireCooldown;
         }
     }
 
-    public bool IsFiring() {
+    public bool IsFiring()
+    {
         return is_firing;
     }
 
-    public bool VerticalAxisOn() {
+    public bool VerticalAxisOn()
+    {
         return is_vertical;
     }
 
@@ -259,7 +419,7 @@ public class SwitchablePlayerController : MonoBehaviour
     //parentAxis
     public void ManageRollRotation(float Xinput)
     {
-        
+
         if (Xinput == 0 && (transform.rotation.eulerAngles.z != 0))
         {
             rotationTargetZ = 0.0f;
@@ -294,7 +454,7 @@ public class SwitchablePlayerController : MonoBehaviour
             }
 
         }
-        
+
     }
 
     public void ManagePitchRotation(float YZinput)
@@ -339,7 +499,10 @@ public class SwitchablePlayerController : MonoBehaviour
     public void Rotate()
     {
         parentAxis.transform.eulerAngles = new Vector3(rotX.x, 0.0f, rotZ.z);
-        foreach (GameObject g in ghostArray) g.GetComponent<TimeGhost>().RotateGhosts();
+        foreach (GameObject g in ghostList)
+        {
+            g.GetComponent<TimeGhost>().RotateGhosts();
+        }
     }
 
     public void ReadjustPlayer()
@@ -375,81 +538,159 @@ public class SwitchablePlayerController : MonoBehaviour
         else
         {
             t += Time.unscaledDeltaTime / 1.0f;
-            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(parentAxis.transform.position.x, parentAxis.transform.position.y, -7.5f), t);
-            if ((Mathf.Abs(Mathf.Abs(parentAxis.transform.position.z) - 7.5f) < 0.01)) readjustPosition = false;
+            float targetX = parentAxis.transform.position.x;
+            if (targetX > TimeWarpXLimit) targetX = TimeWarpXLimit - 0.1f;
+            else if (targetX < -TimeWarpXLimit) targetX = -TimeWarpXLimit + 0.1f;
+            parentAxis.transform.position = Vector3.Lerp(readjustInitialPos, new Vector3(targetX, parentAxis.transform.position.y, -7.5f), t);
+            if ((Mathf.Abs(Mathf.Abs(parentAxis.transform.position.z) - 7.5f) < 0.01) &&
+                (Mathf.Abs(targetX) < TimeWarpXLimit)) readjustPosition = false;
         }
     }
 
     public void SpawnGhost()
     {
-        if (ghostArray.Count < 2)
+        if (ghostList.Count < 2)
         {
             GameObject obj = Instantiate(ghost, transform.position, transform.rotation);
-            if (ghostArray.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostArray[(ghostArray.Count - 1)].transform;
+            if (ghostList.Count > 0) obj.GetComponent<TimeGhost>().leader = ghostList[(ghostList.Count - 1)].transform;
             else obj.GetComponent<TimeGhost>().leader = transform;
             obj.transform.rotation = Quaternion.identity;
             obj.GetComponent<TimeGhost>().SetFiringCounter(firingCounter);
-            ghostArray.Add(obj);
+            ghostList.Add(obj);
+            ghostEnabled = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDestroyScript>().waitToRespawn)
-        if (!godMode)
+        if (!antiDoubleImpact)
         {
-            if (other.tag == "Enemy" || other.tag == "EnemyProjectile")
+            antiDoubleImpact = true;
+            if (!isRestoring)
             {
-                if (alertModeTime > 0.0f)
+                if (!godMode)
                 {
-                    if (!alarm.isPlaying) alarm.Play();
-                    if (playerHit)
+                    if (other.tag == "Enemy" || other.tag == "EnemyProjectile" || other.tag == "DeathLaser" || other.tag == "Meteorites")
                     {
-                        //
-                        if (alertModeTime < (alertModeDuration - invulnerabilityDuration))
+                        if (other.tag == "Meteorites") other.tag = "Untagged";
+                        RumblePad.RumbleState = 1;//Normal Impact                        
+                        isUpdatingLife = true;
+                        if (actualLife > lifeLimit)
                         {
-                            actualLife = actualLife - (shield / 2.0f);
-                            alertModeTime = alertModeDuration;
-                            life.value = actualLife;
-                            if (actualLife < 0.0f)
-                            {
-                                fillLife.enabled = false;
-                                //Comentat per no parar el joc isDeath = true;
-                                //SaveGameStatsScript.GameStats.isGameOver = true;
-                                //SaveGameStatsScript.GameStats.playerScore = ScoreScript.score + 5555555;
-                                //SceneManager.LoadScene(6);
-                                //TimerScript.gameover = true;
-                                //Remaining deaht animation before this bool.                        
-                            } // Death                
+                            if (other.tag == "DeathLaser") actualLife = lifeDeath;
+                            else actualLife = lifeLimit;
                         }
-                        if (!tm.InSlowMo() && !isDeath)
+                        else actualLife = lifeDeath;
+                        UpdateStatusLifeIcons();
+                        //life.value = actualLife;
+                        //lifePoints = (int)actualLife;
+                        if (actualLife < 0.0f)
                         {
-                            slomo.Play();
-                            tm.StartSloMo();
-                            alertModeTime = alertModeDuration;
-                            while (ghostArray.Count > 0)
+                            Instantiate(Resources.Load("BlueExplosion"), transform.position, transform.rotation);
+                            is_firing = false;
+                            firingCounter = 0.0f;
+                            DestroyGhosts();
+                            actualLife = 0.0f;
+                            lifePoints = (int)actualLife;
+                            tm.RestoreTime();
+                            fillLife.enabled = false;
+                            isDestroying = true;
+                            lives--;
+                            isDeathDoor = false;
+                            if (lives <= 0)
                             {
-                                Destroy(ghostArray[0]);
-                                ghostArray.Remove(ghostArray[0]);
+                                ams.StopMusic();
+                                tm.RestoreTime();
+                                RumblePad.RumbleState = 6;
+                                GameObject.FindGameObjectWithTag("L1").SetActive(false);
+                                isDeath = true;
+                                isFinished = true;
+                                liveValue.text = "";
+                                SaveGameStatsScript.GameStats.isGameOver = true;
+                                SaveGameStatsScript.GameStats.playerScore = ScoreScript.score;
                             }
-                            ghostArray.Clear();
+                            else
+                            {
+                                switch (lives)
+                                {
+                                    case 2:
+                                        GameObject.FindGameObjectWithTag("L3").SetActive(false);
+                                        break;
+                                    case 1:
+                                        GameObject.FindGameObjectWithTag("L2").SetActive(false);
+                                        break;
+                                }
+                                liveValue.text = "X" + lives.ToString();
+                                RumblePad.RumbleState = 5;
+                            }
+
+                            //SceneManager.LoadScene(6);
+                            //TimerScript.gameover = true;
+                            //Remaining deaht animation before this bool.                        
+                        } // Death  
+                        else
+                        {
+                            if (actualLife < 0.2f) actualLife = 0.0f;
+                            if (actualLife == 0.0f) isDeathDoor = true;
+                            if (!isDeathDoor) pps.DamageEffect1Round();
+                            impactforshake = true;
+                            invulAfterSlow = true;
+                            tm.RestoreTime();
+                            //RumblePad.RumbleState = 1; //Alarm
+                        }
+                        if (!isDestroying || actualLife < 2.0f)
+                        {
+                            activateBomb = true;
+                            int clipIndex = (int)UnityEngine.Random.Range(0, 3);
+                            timebomb.clip = timeBombClips[clipIndex];
+                            timebomb.Play();
+                            GameObject Bubble = Instantiate(sphere, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+                            if (!is_vertical) Bubble.GetComponent<TimeBubble>().inTimeWarp = true;
+
+                            DestroyGhosts();
                         }
                     }
-                    else playerHit = true;
                 }
-                else alertModeTime = alertModeDuration;
-
+            }
+            else
+            {
+                impactforshake = false;
             }
         }
-        //}
+        antiDoubleImpact = false;
     }
 
-    public void AddLife(float amount)
+    private void UpdateStatusLifeIcons()
     {
-        if (actualLife + amount > shield) actualLife = shield;
-        else actualLife += amount;
-        life.value = actualLife;
+        switch (lives)
+        {
+            case 3:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L3").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                break;
+            case 2:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L2").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                break;
+            case 1:
+                foreach (Transform child in GameObject.FindGameObjectWithTag("L1").transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                break;
+        }
     }
+
+    public void AddPoints()
+    {
+        ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
+
+    }
+
 
     public void InitiateWormHole()
     {
@@ -465,23 +706,85 @@ public class SwitchablePlayerController : MonoBehaviour
         return Lerped;
     }
 
-    public void SetNewLimits(float newX, float newY, bool verticalLimits) {
+    public void SetNewLimits(float newX, float newY, bool verticalLimits)
+    {
         if (verticalLimits)
         {
             XLimit = newX;
             ZLimit = newY;
         }
-        else {
+        else
+        {
             TimeWarpXLimit = newX;
             TimeWarpYLimit = newY;
         }
     }
 
-    public void ActivatePlayer() {
+    public void ActivatePlayer()
+    {
         play = true;
     }
 
-    public void SetPlayerGodMode(bool enabled) {
+    public void SetPlayerGodMode(bool enabled)
+    {
         godMode = enabled;
+    }
+    public void DestroyGhosts()
+    {
+        ghostEnabled = false;
+        foreach (GameObject g in ghostList)
+        {
+            Instantiate(Resources.Load("PS_TimeGhost_D"), g.transform.position, g.transform.rotation);
+            Destroy(g);
+        }
+        ghostList.Clear();
+        /*foreach (GameObject g in ghostList)
+        {
+            g.GetComponent<TimeGhost>().StopFiring();
+            g.GetComponent<TimeGhost>().DisableGhosts();
+        }
+        //2 Seconds to disapear
+        if (!disableSecure)
+        {
+            ghostEnabled = false;
+            disableSecure = true;
+            DisableAction = DisableGhotTimer(disableTimer);
+            StartCoroutine(DisableAction);
+        }*/
+    }
+
+    IEnumerator DisableGhotTimer(float disableDuration)
+    {
+        yield return new WaitForSeconds(disableDuration);
+        while (ghostList.Count > 0)
+        {
+            Destroy(ghostList[0]);
+            ghostList.Remove(ghostList[0]);
+        }
+        ghostList.Clear();
+        disableSecure = false;
+    }
+
+    public void DebugInstantiateGhosts(int numbghosts)
+    {
+        if (numbghosts != ghostList.Count)
+        {
+            if (numbghosts < ghostList.Count)
+            {
+                for (int i = ghostList.Count; i > numbghosts; i--)
+                {
+                    GameObject toRemove = ghostList[i - 1];
+                    ghostList.Remove(toRemove);
+                    Destroy(toRemove);
+                }
+            }
+            else
+            {
+                for (int j = 0; j < numbghosts; ++j)
+                {
+                    SpawnGhost();
+                }
+            }
+        }
     }
 }

@@ -12,6 +12,10 @@ public class TimeBubbleCatched : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!ps.isPlaying) Destroy(transform.parent.gameObject);
+        if (!ps.isPlaying)
+        {
+            if (transform.parent) Destroy(transform.parent.gameObject);
+            else Destroy(gameObject);
+        }
 	}
 }

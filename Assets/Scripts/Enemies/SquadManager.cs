@@ -6,16 +6,19 @@ using UnityEngine;
 public class SquadManager : MonoBehaviour {
 
     // If this squad is a chain of enemies
-    public bool isChainOfEnemies = false;
+    public bool isChainOfEnemies;
+    public bool isSubsquad;
     public int subSquadCount = 0;
     public GameObject subSquadron;
     public float subSquadUnitDelayTime;
-
+    public SquadManager squadManagerParent;
+    public float timeToLiveSecure = 30.0f;
     // If it's only a squadron
     public int numOfMembers;
     public EnemyManager Manager;
     public float speed = 2.0f;
     public float timeToStay = -1.0f;
+    public bool isMiniBoss;
     private bool movingToPosition, stayIsDone, arrivedToStart;
     private EnemyManager.SpawnPoint entryPoint = EnemyManager.SpawnPoint.NOT_SET;
 
@@ -31,13 +34,16 @@ public class SquadManager : MonoBehaviour {
         timeToMove = 0;
         initialPos = transform.position;
         movingToPosition = true;
+        if (isMiniBoss) center += new Vector3(0.0f, 0.0f, 2.0f);
         target = center;
         stayIsDone = false;
         arrivedToStart = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        if (isChainOfEnemies) numOfMembers = subSquadCount;
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (!isChainOfEnemies)
         {
             if (entryPoint != EnemyManager.SpawnPoint.NOT_SET)
@@ -47,7 +53,7 @@ public class SquadManager : MonoBehaviour {
             }
             if (!stayIsDone && arrivedToStart)
             {
-                timeToStay -= Time.deltaTime;
+                timeToStay -= Time.deltaTime * tb.scaleOfTime;
                 if (timeToStay <= 0.0f)
                 {
                     timeToMove = 0.0f;
@@ -56,6 +62,14 @@ public class SquadManager : MonoBehaviour {
                     movingToPosition = true;
                     stayIsDone = true;
                 }
+            }
+        }
+        else {
+            timeToLiveSecure -= Time.deltaTime * tb.scaleOfTime;
+            if (timeToLiveSecure <= 0) {
+                Manager.StartWait();
+                Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
         }
     }
@@ -73,13 +87,21 @@ public class SquadManager : MonoBehaviour {
         timeToStay = time;
     }
 
-    public void DecreaseNumber() {
-        
+    public void DecreaseNumber() {        
         --numOfMembers;
         if (numOfMembers == 0)
         {
-            Manager.StartWait();
-            Destroy(gameObject);
+            if (isSubsquad)
+            {
+                squadManagerParent.DecreaseNumber();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Manager.StartWait();
+                Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
+            }
         }
     }
 
@@ -89,22 +111,23 @@ public class SquadManager : MonoBehaviour {
         {
             timeToMove += Time.deltaTime*tb.scaleOfTime / 3.0f;
             transform.position = Vector3.Lerp(initialPos, target, timeToMove);
-            if (Vector3.Distance(transform.position,target)< 1.0 ) {
+            if (Vector3.Distance(transform.position,target) < 1.0 ) {
                 movingToPosition = false;
-                if (arrivedToStart)
+                if (stayIsDone)
                 {
                     Manager.StartWait();
                     Destroy(gameObject);
                 }
                 else {
-                    MiniBossScript script = GetComponentInChildren<MiniBossScript>();
-                    if (script) {
+                    if (isMiniBoss)
+                    {
+                        MiniBossScript script = GetComponentInChildren<MiniBossScript>();                        
                         transform.parent.GetComponent<MapManger>().mbs = script;
-                        script.InitiateBoss();                        
-                        Manager.StartNewPhase();
+                        script.InitiateBoss();
+                        Manager.NotifyMiniBossArrivedToPosition();
                         Destroy(this);
                     }
-                    else arrivedToStart = true;
+                    arrivedToStart = true;
                 }
             }
         }

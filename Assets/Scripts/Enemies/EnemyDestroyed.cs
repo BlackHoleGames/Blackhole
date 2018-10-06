@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class EnemyDestroyed : MonoBehaviour {
 
-    public float timeBeforeDestroy = 1.5f;
+    private float timeBeforeDestroy;
     public float flickerTime = 0.1f;
     private bool matOn;
     private bool isFlickeringEye = true;
     private bool isFlickeringParts = true;
     private float flickerCounter;
     public Material matOff, matFlicker;
-    private SquadManager squadManager;
     private GameObject eye;
     private List<RandomDestructible> listRandDes = new List<RandomDestructible>();
     // Use this for initialization
     void Start() {
-        timeBeforeDestroy = 3.0f;
-        squadManager = GetComponentInParent<SquadManager>();
+        timeBeforeDestroy = 1.0f;
         foreach (Transform child in transform)
         {
             if (child.name == "AlienEye")
@@ -27,7 +25,7 @@ public class EnemyDestroyed : MonoBehaviour {
                 break;
             }
             else {
-                float time = Random.Range(1.0f,2.0f);
+                float time = Random.Range(1.5f,2.5f);
                 RandomDestructible rd = new RandomDestructible(child.gameObject,time);
                 listRandDes.Add(rd);
             }
@@ -39,7 +37,8 @@ public class EnemyDestroyed : MonoBehaviour {
         // Update is called once per frame
     void Update () {
         timeBeforeDestroy -= Time.deltaTime;
-        if (timeBeforeDestroy <= 1.5f) isFlickeringEye = false;
+        float timeEye = Random.Range(0.6f, 1.2f);
+        if (timeBeforeDestroy <= timeEye) isFlickeringEye = false;
         if (timeBeforeDestroy < 0.0f && eye) {
             Instantiate(Resources.Load("Explosion"), eye.transform.position, eye.transform.rotation);
             CallDestroy();
@@ -47,38 +46,38 @@ public class EnemyDestroyed : MonoBehaviour {
         }
         if (listRandDes.Count > 0)
         {
+            List<RandomDestructible> toDestroy = new List<RandomDestructible>();
             foreach (RandomDestructible rd in listRandDes)
             {
                 float newTime = rd.GetRandTime();
                 newTime -= Time.deltaTime;
-                List<RandomDestructible> toDestroy = new List<RandomDestructible>();
                 if (newTime < 0.0f)
                 {
                     toDestroy.Add(rd);
                     GameObject obj = Instantiate(Resources.Load("Explosion"), rd.GetPiece().transform.position, rd.GetPiece().transform.rotation) as GameObject;
-                    obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    obj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 }
                 else rd.SetRandTime(newTime);
-                if (toDestroy.Count > 0) {
-                    foreach (RandomDestructible destroy in toDestroy) {
-                        Destroy(rd.GetPiece());
-                        listRandDes.Remove(destroy);
-
-                    }
-                    toDestroy.Clear();
-                }
-                if (rd.GetRandTime()<1.0f) isFlickeringParts = false;
+                float timeParts = Random.Range(0.6f, 1.2f);
+                if (rd.GetRandTime()< timeParts) isFlickeringParts = false;
                 else isFlickeringParts = true;
+            }
+            if (toDestroy.Count > 0)
+            {
+                foreach (RandomDestructible destroy in toDestroy)
+                {
+                    Destroy(destroy.GetPiece());
+                    listRandDes.Remove(destroy);
+
+                }
+                toDestroy.Clear();
             }
         }
         if (listRandDes.Count == 0 && !eye) Destroy(gameObject);
         if (flickerCounter < 0.0f) {
-            foreach (Transform child in transform)
-            {
-                if(child.name == "AlienEye")
-                { 
-                    if (!matOn && isFlickeringEye)
-                    {
+            foreach (Transform child in transform) {
+                if(child.name == "AlienEye") { 
+                    if (!matOn && isFlickeringEye) {
                         child.GetComponent<Renderer>().material = matFlicker;
                         matOn = true;
                     }
@@ -101,9 +100,9 @@ public class EnemyDestroyed : MonoBehaviour {
                     }
                 }
             }
-            flickerCounter = flickerTime;
+            flickerCounter = Time.deltaTime*0.01f;//flickerTime;
         }
-        else flickerCounter -= Time.deltaTime;
+        else flickerCounter -= Time.deltaTime * 2.0f;
 	}
 
     public void CallDestroy() {
@@ -113,7 +112,7 @@ public class EnemyDestroyed : MonoBehaviour {
             if (child.name != "AlienEye") obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             Destroy(child.gameObject);
         }*/
-        squadManager.DecreaseNumber();
+        //squadManager.DecreaseNumber();
         //Destroy(gameObject);
     }
 

@@ -10,17 +10,21 @@ public class PostProcessingSwitcher : MonoBehaviour {
 
     public PostProcessingProfile[] profiles;
     private PostProcessingBehaviour ppb;
-    private float intentsityEffect, smoothingEffect, lerpTime, damageTimer;
-    private bool StartMagneticEffect, StartDamageEffect, IncreasingSmooth;
-    
-	// Use this for initialization
-	void Start () {
+    private float intentsityEffect, smoothingEffect, lerpTime, damageTimer, damageEffectDuration;
+    private bool StartMagneticEffect, IncreasingSmooth, endlessDamageEffect, stopDamageEffect;
+    public bool StartDamageEffect = false;
+
+    // Use this for initialization
+    void Start () {
         ppb = GetComponent<PostProcessingBehaviour>();
         intentsityEffect = 0.0f;
         smoothingEffect = 0.0f;
         IncreasingSmooth = true;
         damageTimer = 0.0f;
-	}
+        damageEffectDuration = 1.5f;
+        endlessDamageEffect = false;
+        stopDamageEffect = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -31,14 +35,23 @@ public class PostProcessingSwitcher : MonoBehaviour {
         if (!StartMagneticEffect && profiles[1].grain.settings.intensity > 0.0f) MagneticIntensityDown();
         if (StartDamageEffect) {
             damageTimer += Time.unscaledDeltaTime;
-            if (damageTimer < 3.0f) ManageDamageEffect();
+            if (damageTimer < damageEffectDuration) ManageDamageEffect();
             else {
                 StartDamageEffect = false;
                 damageTimer = 0.0f;
                 SetSmoothSettings(0.0f);
             }
         }
-
+        if (endlessDamageEffect) {
+            if (stopDamageEffect) {
+                if (smoothingEffect == 0) {
+                    endlessDamageEffect = false;
+                    stopDamageEffect = false;
+                }
+                else ManageDamageEffect();
+            }
+            else ManageDamageEffect();
+        }
     }
 
     public void MagneticIntensityUp() {
@@ -97,5 +110,31 @@ public class PostProcessingSwitcher : MonoBehaviour {
         ppb.profile = profiles[(int)newProfile];
         if (newProfile == Profiles.MAGNETIC_STORM) StartMagneticEffect = true;
  
+    }
+
+    public void ActivateDamageEffect() {
+        if (StartDamageEffect) {
+            StartDamageEffect = false;
+            lerpTime = 0.0f;
+            smoothingEffect = 1.0f;
+            damageTimer = 0.0f;
+            IncreasingSmooth = true;
+        }
+    }
+
+    public void StopDamageEffect() {
+        stopDamageEffect = true;
+    }
+
+    public void DamageEffect1Round() {
+        if (StartDamageEffect) {
+            IncreasingSmooth = false;
+            lerpTime = 0.0f;
+            smoothingEffect = 1.0f;
+        }
+        else {
+            StartDamageEffect = true;
+            damageEffectDuration = 1.5f;            
+        }
     }
 }

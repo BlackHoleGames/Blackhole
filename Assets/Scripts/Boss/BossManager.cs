@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossManager : MonoBehaviour {
 
-    public enum BossStage  {ENTERING, TOPHASE1, PHASE1, TOPHASE21, PHASE21, TOPHASE22, PHASE22,TOPHASE3, PHASE3}
+    public enum BossStage  {ENTERING, TOPHASE1, PHASE1, TOPHASE21, PHASE21, TOPHASE22, PHASE2,TOPHASE3, PHASE3, TOPHASE4, PHASE4}
     // Use this for initialization
     public BossStage actualStage;
     public Transform[] goToPoints;
@@ -13,14 +13,16 @@ public class BossManager : MonoBehaviour {
     private float lerpTime;
     private FirstBossStage fbs;
     private SecondBossStage sbs;
-    private Vector3 initialPos;
+    private Vector3 initialPos, lastPhase1Pos;
+    private MapManger mm;
 
-	void Start () {
+    void Start () {
         //actualStage =   BossStage.ENTERING;
+        mm = GameObject.Find("Managers").GetComponent<MapManger>();
         lerpTime = 0.0f;
         fbs = GetComponentInChildren<FirstBossStage>();
         sbs = GetComponentInChildren<SecondBossStage>();
-        initialPos = transform.position;    
+        initialPos = transform.position;
     }
 	
 	// Update is called once per frame
@@ -41,35 +43,51 @@ public class BossManager : MonoBehaviour {
                     actualStage = BossStage.PHASE1;
                     fbs.StartBossPhase();
                     lerpTime = 0.0f;
-
                 }
                 break;
             case BossStage.TOPHASE21:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[2];
-                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[1].position, goToPoints[2].position, lerpTime);
+                if (Vector3.Distance(transform.position, goToPoints[2].position) > 0.1f) transform.position = Vector3.Lerp(lastPhase1Pos, goToPoints[2].position, lerpTime);
                 else {
                     actualStage = BossStage.PHASE21;
-                    sbs.StartBossPhase();
                     lerpTime = 0.0f;
                 }
+                break;
+            case BossStage.PHASE21:
+                actualStage = BossStage.TOPHASE22;
                 break;
             case BossStage.TOPHASE22:
                 lerpTime += Time.deltaTime / timeToMoveEachPhase[3];
                 if (Vector3.Distance(transform.position, goToPoints[3].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[2].position, goToPoints[3].position, lerpTime);
-                else
-                {
-                    actualStage = BossStage.PHASE22;
-                    sbs.StartBossPhase2();
+                else { 
+                    actualStage = BossStage.PHASE2;
                     lerpTime = 0.0f;
-
+                }
+                break;
+            case BossStage.PHASE2:
+                if (!sbs.HasStarted()) {
+                    lerpTime += Time.deltaTime / timeToMoveEachPhase[4];
+                    if (Vector3.Distance(transform.position, goToPoints[4].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[3].position, goToPoints[4].position, lerpTime);
+                    else {
+                        lerpTime = 0.0f;
+                        sbs.StartBossPhase();
+                    }
                 }
                 break;
             case BossStage.TOPHASE3:
-                lerpTime += Time.deltaTime / timeToMoveEachPhase[4];
-                if (Vector3.Distance(transform.position, goToPoints[4].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[3].position, goToPoints[4].position, lerpTime);
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[5];
+                if (Vector3.Distance(transform.position, goToPoints[5].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[4].position, goToPoints[5].position, lerpTime);
+                else {
+                    actualStage = BossStage.PHASE3;
+                    lerpTime = 0.0f;
+                }
+                break;            
+            case BossStage.TOPHASE4:
+                lerpTime += Time.deltaTime / timeToMoveEachPhase[6];
+                if (Vector3.Distance(transform.position, goToPoints[6].position) > 0.1f) transform.position = Vector3.Lerp(goToPoints[5].position, goToPoints[6].position, lerpTime);
                 else
                 {
-                    actualStage = BossStage.PHASE3;
+                    actualStage = BossStage.PHASE4;
                     lerpTime = 0.0f;
                     GoToNextPhase();
                 }
@@ -82,19 +100,28 @@ public class BossManager : MonoBehaviour {
         {
             case BossStage.PHASE1:
                 actualStage = BossStage.TOPHASE21;
-                break;
-            case BossStage.PHASE21:
-                actualStage = BossStage.TOPHASE22;
-                break;
-            case BossStage.PHASE22:
+                lastPhase1Pos = transform.position;
+                break;            
+            case BossStage.PHASE2:
                 actualStage = BossStage.TOPHASE3;
                 break;
             case BossStage.PHASE3:
+                actualStage = BossStage.TOPHASE4;
+                break;
+            case BossStage.PHASE4:
                 thirdPhaseBoss.SetActive(true);
                 thirdPhaseBoss.GetComponent<ThirdBossStage>().enabled = true;
+
                 // StartLastSection
-                break;
+                //GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().isEnding = true;
+                //GameObject.FindGameObjectWithTag("UI_InGame").GetComponent<ChangeScene>().shutdown = true;                
+            break;
         }
+    }
+
+    public void BossDone() {
+        ScoreScript.score = ScoreScript.score + 10000;
+        mm.GoToNextStage();
     }
 
     // Add control to deactivate scripts
@@ -117,9 +144,9 @@ public class BossManager : MonoBehaviour {
                 actualStage = BossStage.TOPHASE22;
                 break;
             case BossStage.TOPHASE22:
-                actualStage = BossStage.PHASE22;               
+                actualStage = BossStage.PHASE2;               
                 break;
-            case BossStage.PHASE22:
+            case BossStage.PHASE2:
                 actualStage = BossStage.TOPHASE3;
                 break;
             case BossStage.TOPHASE3:               

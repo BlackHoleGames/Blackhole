@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class BossTurretScript : MonoBehaviour {
 
-    public float shotCooldown = 5.0f;
+    public float shotCooldown = 6.0f;
     public float rateOfFire = 0.2f;
     public int numberOfShots = 3;
     public GameObject enemyProjectile;
-    private float rateCounter, shotTimeCounter, shotCounter;
+    public float rateCounter;
+    private float shotTimeCounter, shotCounter;
     private GameObject player;
 
     // Use this for initialization
     void Start () {
         shotCounter = numberOfShots;
         shotTimeCounter = rateOfFire;
-        rateCounter = 0.0f;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
 	void Update () {
         transform.LookAt(player.transform.position);
+        ManageShot();
+    }
+
+    public void ManageShot() {
         if (rateCounter <= 0.0f) {
             if (shotCounter > 0) {
                 shotTimeCounter -= Time.deltaTime;
@@ -38,5 +42,9 @@ public class BossTurretScript : MonoBehaviour {
             }
         }
         else rateCounter -= Time.deltaTime;
+    }
+
+    public void SetRateCounter(float newValue) {
+        rateCounter = newValue;
     }
 }

@@ -36,13 +36,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4757762315309290}
   - component: {fileID: 114742809263926072}
-  - component: {fileID: 82238533514953506}
   - component: {fileID: 114795361784131964}
-  - component: {fileID: 135460252869603416}
-  - component: {fileID: 54937944910703948}
+  - component: {fileID: 135821986771306030}
+  - component: {fileID: 54402049979792726}
   m_Layer: 0
   m_Name: Squad 2 1
-  m_TagString: Enemy
+  m_TagString: SquadManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +77,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1412438550670820
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +193,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54937944910703948
+--- !u!54 &54402049979792726
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -209,93 +208,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &82238533514953506
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1156871886942860}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 510c9e60a54bbd1489280a68891ec437, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!114 &114235251825192824
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382222683461548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c86ebe0a4d4b0234f9b961beca298fdc, type: 3}
   m_Name: 
@@ -352,13 +271,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChainOfEnemies: 0
+  isSubsquad: 0
   subSquadCount: 0
   subSquadron: {fileID: 0}
   subSquadUnitDelayTime: 0
+  squadManagerParent: {fileID: 0}
+  timeToLiveSecure: 15
   numOfMembers: 4
   Manager: {fileID: 0}
   speed: 3
   timeToStay: -1
+  isMiniBoss: 0
 --- !u!114 &114795361784131964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyToInstantiate: {fileID: 1201413291637864, guid: 3f58c08a2c9a8d44f9a944dd4c19e7f7,
     type: 2}
---- !u!135 &135460252869603416
+--- !u!135 &135821986771306030
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

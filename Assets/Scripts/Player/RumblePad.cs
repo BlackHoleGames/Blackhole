@@ -3,9 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 public class RumblePad : MonoBehaviour {
-    public int RumbleState = 1;
+    public static int RumbleState = 1;
     private IEnumerator RumbleAction;
     private bool WaitToRumble = false;
+    public float rumbleHit = 0.5f;
+    public float rumbleHitIntensity = 1.0f;
+    public float rumbleAlarm = 0.5f;
+    public float rumbleAlarmIntensity = 0.5f;
+    public float rumblePulse = 0.5f;
+    public float rumblePulseIntensity = 2.0f;
+    public float rumbleAsteroid = 0.5f;
+    public float rumbleAsteroidIntensity = 0.5f;
+    public float rumbleDeath = 3.0f;
+    public float rumbleDeathIntensity = 3.0f;
+    public float rumbleFinish = 1.5f;
+    public float rumbleFinishIntensity = 3.0f;
+    public float rumbleBH = 20.0f;
+    public float rumbleBHIntensity = 4.0f;
     // Use this for initialization
     void Start () {
         RumbleState = 0;
@@ -13,42 +27,50 @@ public class RumblePad : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //TESTINGif (!WaitToRumble) { 
-        //TESTING    switch (RumbleState)
-        //TESTING    {
-        //TESTING        case 1: //Hit
-        //TESTING            RumbleAction = RumbleTimer(1.0f);
-        //TESTING            StartCoroutine(RumbleAction);
-        //TESTING            break;
-        //TESTING        case 2: //Alarm
-        //TESTING            RumbleAction = RumbleTimer(0.001f);
-        //TESTING            StartCoroutine(RumbleAction);
-        //TESTING            break;
-        //TESTING        case 3: //Pulse
-        //TESTING            RumbleAction = RumbleTimer(0.5f);
-        //TESTING            StartCoroutine(RumbleAction);
-        //TESTING            break;
-        //TESTING        case 4: //Asteroid Impact
-        //TESTING            RumbleAction = RumbleTimer(1.0f);
-        //TESTING            StartCoroutine(RumbleAction);
-        //TESTING            break;
-        //TESTING        case 5: //Death
-        //TESTING            RumbleAction = RumbleTimer(4.0f);
-        //TESTING            StartCoroutine(RumbleAction);
-        //TESTING            break;
-        //TESTING        default:
-        //TESTING            GamePad.SetVibration(0, 0.0f, 0.0f);
-        //TESTING        break;
-        //TESTING    }
-        //TESTING}
+        if (!WaitToRumble) { 
+            switch (RumbleState)
+            {
+                case 1: //Hit
+                    RumbleAction = RumbleTimer(rumbleHit, rumbleHitIntensity);
+                    StartCoroutine(RumbleAction);
+                    break;
+                case 2: //Alarm
+                    RumbleAction = RumbleTimer(rumbleAlarm, rumbleAlarmIntensity);
+                    StartCoroutine(RumbleAction);
+                    break;
+                case 3: //Pulse
+                    RumbleAction = RumbleTimer(rumblePulse, rumblePulseIntensity);
+                    StartCoroutine(RumbleAction);
+                    break;
+                case 4: //Asteroid Impact
+                    RumbleAction = RumbleTimer(rumbleAsteroid, rumbleAsteroidIntensity);
+                    StartCoroutine(RumbleAction);
+                    break;
+                case 5: //Death
+                    RumbleAction = RumbleTimer(rumbleDeath, rumbleDeathIntensity);
+                    StartCoroutine(RumbleAction);
+                    break;
+                case 6: //Finish
+                    RumbleAction = RumbleTimer(rumbleFinish, rumbleFinishIntensity);
+                    StartCoroutine(RumbleAction);
+                break;
+                case 7: //BH
+                    RumbleAction = RumbleTimer(rumbleBH, rumbleBHIntensity);
+                    StartCoroutine(RumbleAction);
+                break;
+                default:
+                    //GamePad.SetVibration(0, 0.0f, 0.0f);
+                break;
+            }
+        }
 	}
-    IEnumerator RumbleTimer(float rumbleDuration)
+    IEnumerator RumbleTimer(float rumbleDuration, float rumbleIntensity)
     {
         WaitToRumble = true;
-        GamePad.SetVibration(0, 0.001f, 0.001f);
+        GamePad.SetVibration(0, rumbleIntensity, rumbleIntensity);
         yield return new WaitForSeconds(rumbleDuration);
         GamePad.SetVibration(0, 0.0f, 0.0f);
-        //if(!RumbleState && !AlarmActivated)
-            RumbleState = 0;
+        RumbleState = 0;
+        WaitToRumble = false;
     }
 }

@@ -15,9 +15,16 @@ public class FirstTrackProjectile : MonoBehaviour {
     void Start()
     {
         tb = gameObject.GetComponent<TimeBehaviour>();
-        target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
-        gameObject.transform.LookAt(target);
-        Instantiate(Resources.Load("EnemyBasicProjectile New"), transform);
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+            gameObject.transform.LookAt(target);
+        }else //isDestroying
+        {
+            target = GameObject.FindGameObjectWithTag("PlayerDestroyed").transform.position; //(GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).normalized;
+            gameObject.transform.LookAt(target);
+        }
+        Instantiate(Resources.Load("EnemyBasicProjectile"), transform);
 
     }
 
@@ -25,9 +32,12 @@ public class FirstTrackProjectile : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime * tb.scaleOfTime;
-        if (timeToLive <= 0.0f) Destroy(gameObject);
+        if (timeToLive <= 0.0f) {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
         if (transform.position.z < -15) Destroy(gameObject);
-        gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime;
+        gameObject.transform.position += gameObject.transform.forward * speed * tb.scaleOfTime* Time.deltaTime;
         /* gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(target.x, 0.0f, target.z), speed* tb.scaleOfTime);
         if (Vector3.Distance(gameObject.transform.position , new Vector3(target.x, 0.0f, target.z)) < 0.1f){
             Destroy(gameObject);
@@ -39,6 +49,7 @@ public class FirstTrackProjectile : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "ghost")
         {
+            Instantiate(Resources.Load("EnemyProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

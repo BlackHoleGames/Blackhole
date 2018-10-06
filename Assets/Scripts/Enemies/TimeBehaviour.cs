@@ -7,13 +7,14 @@ public class TimeBehaviour : MonoBehaviour {
 
     public float scaleOfTime = 1.0f;
     private float slowDownCounter, t;
-    bool startSpeedUp, slowingDown;
+    private bool startSpeedUp, slowingDown;
     private float startingPointScaleOfTime;
     // Use this for initialization
     void Start() {
         startSpeedUp = false;
         slowingDown = false;
         t = 0;
+
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class TimeBehaviour : MonoBehaviour {
     public void SlowDown(float newScaleOfTime,float slowdownduration) {
         scaleOfTime = newScaleOfTime;
         slowDownCounter = slowdownduration;
-        startingPointScaleOfTime = slowdownduration;
+        startingPointScaleOfTime = newScaleOfTime;
         startSpeedUp = false;
         slowingDown = true;
     }

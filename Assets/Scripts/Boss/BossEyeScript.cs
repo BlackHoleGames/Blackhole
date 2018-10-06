@@ -4,53 +4,60 @@ using UnityEngine;
 
 public class BossEyeScript : MonoBehaviour {
 
-    public float life = 30.0f;
+    public float life = 300.0f;
     public float shotDecreaseTime = 0.25f;
-    public float afterDefeatSpeed = 2.0f;
+    public float afterDefeatSpeed = 35.0f;
+    public float rotationSpeed = 5.0f;
     public Material matOn, matOff;
     public TimeBehaviour tb;
-    private bool hit, materialHitOn, disabled, orienting, goToExitPoint, goToEntryPoint;
-    public float shotCooldown = 5.0f;
-    public float rateOfFire = 0.2f;
+    private bool hit, materialHitOn, disabled, goToExitPoint, goToEntryPoint;
+    public float shotCooldown = 1.0f;
+    public float rateOfFire = 0.25f;
     public float shotOffset = 0.2f;
+    public float initialShotDelay;
     public float waitBeforeCharge;
-    public int numberOfShots = 3;
+    public int numberOfShots = 1;
     public GameObject enemyProjectile, explosion;
-    private float rateCounter, shotTimeCounter, shotCounter, rotTime;
+    public float rateCounter, shotTimeCounter, shotCounter;
     private ThirdBossStage tbs;
-    private Vector3 initialOrientation, orientationTarget;
+    private Vector3 exitTargetPos;
     public Transform KamikazeEntry, KamikazeExit;
+    private AudioSource audioSource;
+    private GameObject player;
+    private float delay = 15.0f;
+    private bool vulnerable;
     // Use this for initialization
     void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
         tb = gameObject.GetComponent<TimeBehaviour>();
         tbs = GetComponentInParent<ThirdBossStage>();
         disabled = false;
+        vulnerable = false;
+        rateCounter = initialShotDelay;
     }
 
     // Update is called once per frame
     void Update () {
         if (!disabled) {
-            ManageShot();
+            transform.eulerAngles += new Vector3(0.0f,0.0f, rotationSpeed* Time.deltaTime);
+            
             ManageHit();
         }
         else {
-            if (orienting)
-            {
-                rotTime += Time.unscaledDeltaTime / 2.0f;
-                transform.eulerAngles = AngleLerp( orientationTarget, initialOrientation, (rotTime * 1.0f));
-                if (rotTime >= 1.0f) {
-                    orienting = false;
-                }
-            }
-            else ManageExit();
+            ManageExit();
         }
+        if (delay < 0.0f) {
+            if (!goToEntryPoint && !goToExitPoint) ManageShot();
+        }
+        else delay -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile" && !disabled)
+        if (other.gameObject.tag == "PlayerProjectile" && !disabled && vulnerable)
         {
-            //hitAudioSource.Play();
+            audioSource.Play();
             if (life > 0.0f) {
                 life -= other.gameObject.GetComponent<Projectile>().damage;
                 hit = true;
@@ -59,6 +66,7 @@ public class BossEyeScript : MonoBehaviour {
                     gameObject.GetComponent<Renderer>().material = matOff;
                     tbs.EyeDefeated();
                     shotCooldown -= shotDecreaseTime;
+                    
                 }
             }        
         }
@@ -98,21 +106,31 @@ public class BossEyeScript : MonoBehaviour {
     private void ManageExit() {
         if (goToEntryPoint) {
             if (Vector3.Distance(transform.position, KamikazeEntry.position) < 0.1f) {
-                orienting = true;
                 goToEntryPoint = false;
                 goToExitPoint = true;
-                transform.LookAt(KamikazeExit);
+                transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
+                gameObject.GetComponent<Renderer>().material = matOn;
             }
-            else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed);
+            else transform.position = Vector3.MoveTowards(transform.position, KamikazeEntry.position, Time.deltaTime * afterDefeatSpeed * tb.scaleOfTime);
         }
         if (goToExitPoint) {
-            if (waitBeforeCharge > 0.0f) waitBeforeCharge -= Time.unscaledDeltaTime;
-            else {
-                if (Vector3.Distance(transform.position, KamikazeExit.position) < 0.1f) {
-                    Instantiate(explosion, transform.position, transform.rotation);
+            if (waitBeforeCharge > 0.0f)
+            {
+                waitBeforeCharge -= Time.unscaledDeltaTime;
+                if (waitBeforeCharge <= 0.0f) {
+                    exitTargetPos = player.transform.position;
+                    transform.LookAt(exitTargetPos);
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, exitTargetPos) < 0.1f)
+                {
+                    tbs.EyeDestroyed();
+                    Instantiate(Resources.Load("ExplosionEye"), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
-                else transform.position = Vector3.MoveTowards(transform.position, KamikazeExit.position, Time.deltaTime * afterDefeatSpeed);
+                else transform.position = Vector3.MoveTowards(transform.position, exitTargetPos, Time.deltaTime * afterDefeatSpeed * tb.scaleOfTime);
             }
         }
     }
@@ -122,10 +140,6 @@ public class BossEyeScript : MonoBehaviour {
     }
 
     public void StartExit() {
-        rotTime = 0.0f;
-        orienting = true;
-        initialOrientation = transform.rotation.eulerAngles;
-        orientationTarget =  Quaternion.LookRotation( KamikazeEntry.position - transform.position).eulerAngles;
         goToEntryPoint = true;
     }
 
@@ -135,5 +149,9 @@ public class BossEyeScript : MonoBehaviour {
         float zLerp = Mathf.LerpAngle(StartAngle.z, FinishAngle.z, t);
         Vector3 Lerped = new Vector3(xLerp, yLerp, zLerp);
         return Lerped;
+    }
+
+    public void UnProtect() {
+        vulnerable = true;
     }
 }

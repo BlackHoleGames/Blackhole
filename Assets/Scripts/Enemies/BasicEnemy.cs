@@ -18,8 +18,11 @@ public class BasicEnemy : MonoBehaviour {
     private bool shielded, hit, materialHitOn;
     private float rateCounter, shotTimeCounter, shotCounter, hitFeedbackCounter;
     private AudioSource audioSource, hitAudioSource;
-	// Use this for initialization
-	void Start () {
+    private SquadManager squadManager;
+    private GameObject eye;
+    // Use this for initialization
+    void Start () {
+        squadManager = GetComponentInParent<SquadManager>();
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -49,6 +52,10 @@ public class BasicEnemy : MonoBehaviour {
         //gameObject.GetComponent<Renderer>().material = matOff;
     }
 
+    public void Protect() {
+        shielded = true;
+    }
+
     public void ManageShot() {
         if (rateCounter <= 0.0f)
         {
@@ -59,6 +66,9 @@ public class BasicEnemy : MonoBehaviour {
                 {
                     shotTimeCounter = rateOfFire;
                     --shotCounter;
+                    GameObject fx = Instantiate(Resources.Load("PS_EnemyShoot"), transform) as GameObject;
+                    fx.transform.eulerAngles += new Vector3(0.0f,180.0f,0.0f);
+                    if (gameObject.name == "AlienArmored") fx.transform.localScale = new Vector3(2.0f,2.0f,2.0f);
                     Instantiate(enemyProjectile, transform.position, transform.rotation);
                     audioSource.Play();
                 }
@@ -94,7 +104,7 @@ public class BasicEnemy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" && life > 0.0f)
         {
             if (!hitAudioSource.enabled) hitAudioSource.enabled = true;
             hitAudioSource.Play();
@@ -104,12 +114,15 @@ public class BasicEnemy : MonoBehaviour {
             }
             if (life <= 0.0f)
             {
-                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                if (gameObject.name != "AlienArmored") Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);                
+                else Instantiate(Resources.Load("ExplosionBig"), transform.position, transform.rotation);
+                
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 2.0f);
                 //Testing Plugin Vibrator GamePad.SetVibration(0, 0.0f, 0.0f);
                 vibratorOn();
                 ScoreScript.score = ScoreScript.score + (int)(100 * ScoreScript.multiplierScore);
                 if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                squadManager.DecreaseNumber();
                 Destroy(gameObject);
             }
         }

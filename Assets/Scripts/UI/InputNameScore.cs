@@ -6,22 +6,24 @@ using UnityEngine.UI;
 public class InputNameScore : MonoBehaviour {
     public Text timerText;
     public Text initialsText;
-    private int timeRemaining=9;
+    public Text Congrats;
+    public Text NumPosition;
+    private int timeRemaining=19;
     private IEnumerator Timercoroutine;
     private IEnumerator Initialcoroutine;
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private string letter = "Z";
+    private string letter = "A";
     private float axisX;
     private float RT;
     private string initialAux="";
-    private bool initialAuxDone = false;
     private bool isDone = false;
     public bool WaitingForName = false;
     public bool IsInputName = false;
-    
+    public int Confirm = 0;
     // Use this for initialization
     void Start () {
-        if (SaveGameStatsScript.GameStats.isGameOver)
+        if (SaveGameStatsScript.GameStats!=null &&
+            SaveGameStatsScript.GameStats.isGameOver)
         {
             Timercoroutine = TimeRemaining(1.0f);
             StartCoroutine(Timercoroutine);
@@ -30,6 +32,9 @@ public class InputNameScore : MonoBehaviour {
             isDone = false;
         }else
         {
+            SaveGameStatsScript.GameStats.isGameOver = false;
+            SaveGameStatsScript.GameStats.playerScore = 0;
+            SaveGameStatsScript.GameStats.SetStats();
             timerText.enabled = false;
             initialsText.enabled = false;
         }
@@ -44,15 +49,16 @@ public class InputNameScore : MonoBehaviour {
             axisX = Input.GetAxis("Horizontal");
             if (!isDone)
             {
-                if (Input.GetButtonDown("AButton"))
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown("enter") ||
+            Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Space))
                 {
-                    initialAuxDone = true;
                     initialAux = initialAux + letter;
-                    if (initialAux.Length == 3) isDone = true;
+                    Confirm++;
+                    if (Confirm == 3) isDone = true;
+                    //if (initialAux.Length == 3) isDone = true;
                 }
                 if (Input.GetButtonDown("BButton"))
                 {
-                    initialAuxDone = false;
                     switch (initialAux.Length)
                     {
                         case 0:
@@ -102,6 +108,7 @@ public class InputNameScore : MonoBehaviour {
         WaitingForName = false;
 
         SaveGameStatsScript.GameStats.SetScore(initialsText.text, SaveGameStatsScript.GameStats.playerScore.ToString());
+        yield return new WaitForSeconds(seconds);
         FadeOutInputName();
         yield return new WaitForSeconds(seconds);
         GetComponent<LeaderBoardScript>().isLeaderBoardTime = true;
@@ -127,5 +134,7 @@ public class InputNameScore : MonoBehaviour {
     {
         timerText.CrossFadeAlpha(0.0f, 1.0f, false);
         initialsText.CrossFadeAlpha(0.0f, 1.0f, false);
+        Congrats.CrossFadeAlpha(0.0f, 1.0f, false);
+        NumPosition.CrossFadeAlpha(0.0f, 1.0f, false);
     }
 }

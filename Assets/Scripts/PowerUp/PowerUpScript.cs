@@ -35,13 +35,24 @@ public class PowerUpScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && alive)
+        if (alive)
         {
-            audioSource.Play();
-            other.gameObject.GetComponent<SwitchablePlayerController>().AddLife(lifeGiving);
-            GetComponent<Renderer>().enabled = false;
-            particleCatched.SetActive(true);
-            alive = false;
+            if (other.gameObject.tag == "Player")
+            {
+                audioSource.Play();
+                other.gameObject.GetComponent<SwitchablePlayerController>().AddPoints();
+                GetComponent<Renderer>().enabled = false;
+                particleCatched.SetActive(true);
+                alive = false;
+            }
+            else if (other.gameObject.tag == "BubbleObject")
+            {
+                audioSource.Play();
+                other.gameObject.transform.parent.GetComponentInChildren<SwitchablePlayerController>().AddPoints();
+                GetComponent<Renderer>().enabled = false;
+                particleCatched.SetActive(true);                  
+                alive = false;
+            }
         }
     }
 }

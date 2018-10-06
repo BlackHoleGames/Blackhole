@@ -8,7 +8,17 @@ public class EnemyLookAt : MonoBehaviour {
     private TimeBehaviour tb;
     // Use this for initialization
     void Start () {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        else //isDestroying
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("PlayerDestroyed").transform;
+        }
+
+
         tb = GetComponent<TimeBehaviour>();
     }
 	

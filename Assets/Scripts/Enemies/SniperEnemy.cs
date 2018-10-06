@@ -6,8 +6,7 @@ public class SniperEnemy : MonoBehaviour {
     public float life = 10.0f;
     public float shotCooldown = 5.0f;
     public float shotDuration = 1.0f;
-    public GameObject enemyProjectile;
-    private GameObject player;
+    public GameObject enemyProjectile, enemyDestroyed;
     public float spawnCooldown = 5.0f;
     public float hitFeedbackDuration = 0.25f;
 
@@ -20,9 +19,9 @@ public class SniperEnemy : MonoBehaviour {
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
     private EnemyLookAt ela;
+
     // Use this for initialization
     void Start() {
-        player = GameObject.Find("Parent");
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
@@ -47,35 +46,11 @@ public class SniperEnemy : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (spawnCooldown > 0.0f) spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
-        //else
         if (squadManager.ArrivedToCenter()) ManageShot();
     }
-    /*
-    public void ManageShot() {
-        if (rateCounter <= 0.0f)
-        {
-            if (!playCharging)
-            {
-                playCharging = true;
-                audioSource.Play();
-                targetPos = player.transform.position;
-            }
-            //shotTimeCounter -= Time.deltaTime * tb.scaleOfTime;
-            if (shotTimeCounter <= 0)
-            {
-                playCharging = false;
-                //shotTimeCounter = chargeTime;
-                //rateCounter = shotCooldown;
-                Instantiate(enemyProjectile, transform.position, transform.rotation);
-            }
-            if ((increaseWings || decreaseWings) && !(increaseWings && decreaseWings)) ManageHit();
-        }
-        else rateCounter -= Time.deltaTime * tb.scaleOfTime;
-    }*/
+
 
     public void ManageShot()
     {
@@ -89,7 +64,6 @@ public class SniperEnemy : MonoBehaviour {
                 increaseWings = true;
                 GameObject laser = Instantiate(enemyProjectile, transform.position, transform.rotation);
                 laser.transform.parent = transform;
-
             }
             if (shotDurationCounter <= 0)
             {
@@ -128,7 +102,7 @@ public class SniperEnemy : MonoBehaviour {
 
     public void ManageWings() {
         if (increaseWings) {
-            wingTimeCounter += Time.deltaTime / 2.0f;
+            wingTimeCounter += Time.deltaTime / 0.5f;
             float lerpedScaleUnit = Mathf.Lerp(0.5f, 1.0f, wingTimeCounter);
             Vector3 lerpedScaleVector = new Vector3(lerpedScaleUnit, lerpedScaleUnit, lerpedScaleUnit);
             wings.transform.localScale = lerpedScaleVector;
@@ -166,8 +140,10 @@ public class SniperEnemy : MonoBehaviour {
             {
                 Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
 
-                //squadManager.DecreaseNumber();
-                Destroy(transform.parent.gameObject);
+                if (enemyDestroyed) enemyDestroyed.SetActive(true);
+                squadManager.DecreaseNumber();
+                Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }
         }
     }

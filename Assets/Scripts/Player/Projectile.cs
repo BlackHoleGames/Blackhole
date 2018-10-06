@@ -19,12 +19,14 @@ public class Projectile : MonoBehaviour {
         if (timeToLive <= 0.0f) {
             Destroy(gameObject);
         }
-        gameObject.transform.Translate(0.0f, 0.0f, speed*Time.unscaledDeltaTime);
+        if(Time.timeScale > 0.0f) gameObject.transform.Translate(0.0f, 0.0f, speed*Time.unscaledDeltaTime);
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "ghost" && other.gameObject.tag != "timeBubble" && other.gameObject.tag != "powerUp") {
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "ghost" && other.gameObject.tag != "timeBubble"
+            && other.gameObject.tag != "powerUp" && other.gameObject.tag != "EnemyProjectile" && other.gameObject.tag != "SquadManager"
+            && other.gameObject.tag != "DodgeSection" && other.gameObject.tag != "BubbleObject" && other.gameObject.tag != "Particles" && other.gameObject.tag != "DeathLaser") {
             Instantiate(Resources.Load("PS_ProjectileHit"), transform.position, transform.rotation);
             Destroy(gameObject);
         }

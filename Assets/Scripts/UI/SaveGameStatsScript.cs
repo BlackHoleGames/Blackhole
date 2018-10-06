@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveGameStatsScript : MonoBehaviour
 {
@@ -15,9 +16,16 @@ public class SaveGameStatsScript : MonoBehaviour
     public int playerScore = 0;
     public string[] ScoreNames;
     public string[] ScoreResults;
+    public GameObject camera2Objects, cameraEndObjects, cameraStructObjects, cameraLeaderBoards;
+    public GameObject InitialMusicScreen;
     public static SaveGameStatsScript GameStats;
     private String configFile;
     private String scoreFile;
+    private List<GameObject> earthArray;
+    public float speedToMove = 2.0f;
+    public static bool SceneisChanged = true;
+    private Transform earthOriginal;
+
     public enum GameOverType
     {
         THEEND, GAMEOVER, NOTHING
@@ -41,20 +49,76 @@ public class SaveGameStatsScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //if (InitialMusicScreen == null)
+        //{
+        //     == this;
+        //    DontDestroyOnLoad(gameObject);
+        //}else
+        //{
+
+        //}
     }
 
 
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = false;
+        earthArray = new List<GameObject>();
+        foreach (Transform child in transform)
+        {
+            earthArray.Add(child.gameObject);
+        }
         GetStats();
         GetScore();
+
+        //earthOriginal=GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = false;
+        //if (SceneisChanged) {
+        //    SceneisChanged = false;
+        //    GameObject temp = GameObject.FindGameObjectWithTag("Earth") ;
+        //    //temp.transform.position = earthOriginal.position;  //new Vector3(-195.6456f, -165.0f, 528.1803f);
+        //    //temp.transform.rotation = earthOriginal.rotation;
+        //    //GameObject.FindGameObjectWithTag("Earth").GetComponent<Transform>().transform.eulerAngles = //new Vector3(6.583f, 289.706f, 156.25f);
+        //}
+        switch (SceneManager.GetActiveScene().buildIndex)
+        {
+            case 1://History
+                InitialMusicScreen.SetActive(true);
+                break;
+            case 2://EarthTittleScreen + Menu
+                InitialMusicScreen.SetActive(true);
+            break;
+            case 3://Briefing
+                InitialMusicScreen.SetActive(true);
+            break;
+            case 4://InGame
+                InitialMusicScreen.SetActive(false);
+            break;
+            case 5://GameOver
+                InitialMusicScreen.SetActive(false);
+            break;
+            case 6://LeaderBoard
+                InitialMusicScreen.SetActive(true);
+            break;
+            case 7:
+                InitialMusicScreen.SetActive(true);
+            break;
+            case 8://LeaderBoards -> Camera 2
+            break;
 
+
+
+            default:
+                InitialMusicScreen.SetActive(false);
+            break;
+        }
     }
     public void SetStats()
     {
@@ -148,17 +212,17 @@ public class SaveGameStatsScript : MonoBehaviour
     }
     public void DefaultScore()
     {
-        ScoreNames[0] = "MPP";
-        ScoreNames[1] = "EMI";
-        ScoreNames[2] = "FPA";
-        ScoreNames[3] = "AM3";
-        ScoreNames[4] = "CSP";
+        ScoreNames[0] = "AGL";
+        ScoreNames[1] = "JIN";
+        ScoreNames[2] = "MPM";
+        ScoreNames[3] = "EMI";
+        ScoreNames[4] = "FPA";
 
-        ScoreResults[0] = "2000000";
-        ScoreResults[1] = "1000000";
-        ScoreResults[2] = "500000";
-        ScoreResults[3] = "250000";
-        ScoreResults[4] = "10000";
+        ScoreResults[0] = "80000";
+        ScoreResults[1] = "70000";
+        ScoreResults[2] = "60000";
+        ScoreResults[3] = "55000";
+        ScoreResults[4] = "50000";
 
         using (StreamWriter sw = File.CreateText(scoreFile))
         {

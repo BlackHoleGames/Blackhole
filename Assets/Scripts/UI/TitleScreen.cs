@@ -5,8 +5,9 @@ using System.Collections;
 
 public class TitleScreen : MonoBehaviour {
 
-    public Image splashImage;
-    public Text splashText;
+    public Text TitleText;
+    public Text PressStartText;
+    public Image Curtain;
     public string loadLevel;
     public bool PStart;
     public bool isLeaderBoardTime = true;
@@ -14,58 +15,48 @@ public class TitleScreen : MonoBehaviour {
 
 
     IEnumerator Start() {
-        //        if(GameObject.FindGameObjectWithTag("UIScore").GetComponent<SwitchablePlayerController>().speedOn==null)
-        //if (GameObject.FindGameObjectWithTag("UIScore").GetComponent<LeaderBoardScript>() != null)
-        //{
-        //    isLeaderBoardTime = GameObject.FindGameObjectWithTag("UIScore").GetComponent<LeaderBoardScript>().isLeaderBoardTime;
-        //}else
-        //{
-        //    isLeaderBoardTime = true;
-        //}
-        splashImage.canvasRenderer.SetAlpha(0.0f);
-        splashText.canvasRenderer.SetAlpha(0.0f);
+
+        TitleText.canvasRenderer.SetAlpha(0.0f);
+        PressStartText.canvasRenderer.SetAlpha(0.0f);
+        Curtain.canvasRenderer.SetAlpha(1.0f);
+        Curtain.CrossFadeAlpha(0.0f, 3.0f, false);
+        yield return new WaitForSeconds(3.0f);
+        
         FadeInImage();
+        yield return new WaitForSeconds(2.0f);
         for (int i = 0; i < 5; i++) {
             FadeInText();
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.75f);
             FadeOut();
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.75f);
         }
         SaveGameStatsScript.GameStats.isGameOver = false;
         //Score
-        if (SaveGameStatsScript.GameStats.StatusUISequence) { 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
-            SaveGameStatsScript.GameStats.StatusUISequence = false;
-            SaveGameStatsScript.GameStats.SetStats();
-        }
-        else//Video Tutorial
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (!SaveGameStatsScript.GameStats.StatusUISequence) { 
+            SceneManager.LoadScene(6);
             SaveGameStatsScript.GameStats.StatusUISequence = true;
             SaveGameStatsScript.GameStats.SetStats();
         }
-        
-        
-    }
+        else//History
+        {
+            SceneManager.LoadScene(1);
+            SaveGameStatsScript.GameStats.StatusUISequence = false;
+            SaveGameStatsScript.GameStats.SetStats();
+        }
 
-    // Update is called once per frame
-    void Update () {
-        //if (Input.GetKeyDown("enter"))
-        //{
-        //    PStart = true;
-        //}
+
     }
 
     void FadeInText()
     {
-        splashText.CrossFadeAlpha(1.0f, 1.5f, false);
+        PressStartText.CrossFadeAlpha(1.0f, 0.75f, false);
     }
     void FadeInImage()
     {
-        splashImage.CrossFadeAlpha(1.0f, 1.5f, false);      
+        TitleText.CrossFadeAlpha(1.0f, 1.0f, false);      
     }
     void FadeOut()
     {
-        splashText.CrossFadeAlpha(0.0f, 2.5f, false);
+        PressStartText.CrossFadeAlpha(0.0f, 0.75f, false);
     }
 }

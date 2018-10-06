@@ -12,7 +12,8 @@ public class RadialShooter : MonoBehaviour {
 
     public GameObject enemyProjectile;
     public float spawnCooldown = 5.0f;
-    private float rateCounter, shotTimeCounter, hitFeedbackCounter; //, shotCounter;
+    private float rateCounter,  hitFeedbackCounter; //, shotCounter;
+    //private float shotTimeCounter;
     public float degreesPerProjectile;
     public Material matOn, matOff;
     bool shielded, hit, materialHitOn;
@@ -21,14 +22,16 @@ public class RadialShooter : MonoBehaviour {
     private TimeBehaviour tb;
     private AudioSource audioSource, hitAudioSource;
     public AudioClip gunshot;
+    private SquadManager squadManager;
     // Use this for initialization
     void Start()
     {
+        squadManager = GetComponentInParent<SquadManager>();
         audioSource = GetComponents<AudioSource>()[0];
         hitAudioSource = GetComponents<AudioSource>()[1];
         tb = gameObject.GetComponent<TimeBehaviour>();
         //shotCounter = numberOfShots;
-        shotTimeCounter = rateOfFire;
+        //shotTimeCounter = rateOfFire;
         rateCounter = 0.0f;
         shielded = false;
         gameObject.GetComponent<Renderer>().material = matOn;
@@ -42,20 +45,30 @@ public class RadialShooter : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        ManageShot();
+        ManageHit();        
+    }
+
+    public void ManageShot() {
         if (spawnCooldown <= 0.0f)
         {
             if (rateCounter <= 0.0f)
             {
                 audioSource.Play();
-                for (int i = 0; i < numberOfShots; ++i) {
-                    shotTimeCounter = rateOfFire;
+                for (int i = 0; i < numberOfShots; ++i)
+                {
+                    //shotTimeCounter = rateOfFire;
+                    Instantiate(Resources.Load("PS_EnemyShoot"), transform);
                     Instantiate(enemyProjectile, transform.position, Quaternion.Euler(new Vector3(0.0f, degreesPerProjectile * i, 0.0f)));
                 }
-                rateCounter = shotCooldown;             
+                rateCounter = shotCooldown;
             }
             else rateCounter -= Time.deltaTime * tb.scaleOfTime;
         }
         else spawnCooldown -= Time.deltaTime * tb.scaleOfTime;
+    }
+
+    public void ManageHit() {
         if (materialHitOn)
         {
             if (hitFeedbackCounter > 0.0f) hitFeedbackCounter -= Time.deltaTime;
@@ -88,8 +101,11 @@ public class RadialShooter : MonoBehaviour {
             if (!shielded) life -= other.gameObject.GetComponent<Projectile>().damage;
             if (life <= 0.0f)
             {
-                Instantiate(explosionPS, gameObject.transform.position, gameObject.transform.rotation);
+                Instantiate(Resources.Load("Explosion"), transform.position, transform.rotation);
+                squadManager.DecreaseNumber();
+
                 Destroy(gameObject);
+                ScoreScript.score = ScoreScript.score + (int)(1500 * ScoreScript.multiplierScore);
             }
         }
     }

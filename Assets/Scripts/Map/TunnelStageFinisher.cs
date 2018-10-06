@@ -14,16 +14,20 @@ public class TunnelStageFinisher : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-
+        if (transform.position.z < -10.0f) {
             mm.GoToNextStage();
             Destroy(transform.parent.gameObject);
         }
+    
     }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && !done)
+        {
+            done = true;
+            mm.GoToNextStage();
+            Destroy(transform.parent.gameObject);
+        }
+    }*/
 }

@@ -11,7 +11,11 @@ public class EnemyManager : MonoBehaviour {
     public SpawnPoint[] squadronSpawnPoints;
     public SpawnPoint[] squadronExitPoints;
     public float[] squadTime, delayTime;
-    private int squadronIndex;
+    public int lastIntroEnemyIndex;
+    public int asteroidSquadronIndex;
+    public int minibossSquadronIndex;
+    public int structEnemiesIndex;
+    public int squadronIndex;
     private Dictionary<SpawnPoint, Transform> spawnToTransform;
     private bool waitForDelay, instantiatingSubSquads, startSpawning;
     private float waitingTime, subSquadDelay;
@@ -19,10 +23,13 @@ public class EnemyManager : MonoBehaviour {
     private GameObject ChainSquadManager;
     // For debug
     private GameObject actualSquad;
-
+    private MapManger mm;
+    private bool done;
+    private bool firstTutorial = false;
     //subSquadUnitDelayTime
     // Use this for initialization
     void Start () {
+        done = false;
         startSpawning = false;
         squadronIndex = 0;
         spawnToTransform = new Dictionary<SpawnPoint, Transform>();
@@ -38,14 +45,14 @@ public class EnemyManager : MonoBehaviour {
         spawnToTransform.Add(SpawnPoint.LEFTUP, spawns[9]);
         spawnToTransform.Add(SpawnPoint.TOPLEFT, spawns[10]);
         spawnToTransform.Add(SpawnPoint.TOP, spawns[11]);
-
+        mm = GetComponentInParent<MapManger>();
         //SpawnNext();
         waitForDelay = false;
     }
 
     // Update is called once per frame
     void Update () {
-        if (startSpawning) {
+        if (startSpawning) {           
             if (waitForDelay) {
                 waitingTime -= Time.deltaTime;
                 if (waitingTime < 0.0f) {
@@ -75,21 +82,8 @@ public class EnemyManager : MonoBehaviour {
                     obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
                     actualSquad = obj;
                     ++squadronIndex;
-                    if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
                 }
             }
-            else {
-                GetComponentInParent<MapManger>().GoToNextStage();
-                //TimerScript.gameover = true;
-            }
-        }
-    }
-
-    public void StartWait() {
-        if (!instantiatingSubSquads)
-        {
-            waitForDelay = true;
-            waitingTime = delayTime[squadronIndex-1];
         }
     }
 
@@ -102,20 +96,52 @@ public class EnemyManager : MonoBehaviour {
             obj.GetComponent<SquadManager>().SetStartPoint(squadronSpawnPoints[squadronIndex]);
             obj.GetComponent<SquadManager>().SetExitPoint(spawns[(int)squadronExitPoints[squadronIndex]].position);
             obj.GetComponent<SquadManager>().SetTimeToLive(squadTime[squadronIndex]);
+            obj.GetComponent<SquadManager>().squadManagerParent = ChainSquadManager.GetComponent<SquadManager>();
             --subSquadEnemyCounter;
             if (subSquadEnemyCounter <= 0) {
                 instantiatingSubSquads = false;
-                Destroy(ChainSquadManager);
-                StartWait();
+                //Destroy(ChainSquadManager);
+                //StartWait();
                 ++squadronIndex;
-                if (squadronIndex > 1) ScoreScript.score = ScoreScript.score + (int)(500 * ScoreScript.multiplierScore);
             }
+        }
+    }
+
+    public void StartWait()
+    {
+        if (squadronIndex >= squadrons.Length && !done)
+        {
+           mm.GoToNextStage();
+            done = true;
+           //Destroy(gameObject);
+        }
+        else
+        {
+            if ((squadronIndex == lastIntroEnemyIndex) && (mm.GetStage() == MapManger.Stages.INTRO)) {
+                StartNextPhase();
+            }
+            else {
+                if ((!instantiatingSubSquads))
+                {
+                    if (squadronIndex < squadrons.Length) waitingTime = delayTime[squadronIndex];
+                    waitForDelay = true;
+                }
+            }
+        }
+        if (squadronIndex == minibossSquadronIndex) {
+            mm.NotifyManagerSpawnedMinidboss();
+        }
+        //Tutorial 1
+        if (!firstTutorial)
+        {
+            firstTutorial = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SwitchablePlayerController>().onTutorial = true;
         }
     }
 
     public void StartManager() {
         startSpawning = true;
-        SpawnNext();
+        StartWait();
     }
 
     public void StopManager() {
@@ -126,8 +152,8 @@ public class EnemyManager : MonoBehaviour {
         return startSpawning;
     }
 
-    public void StartNewPhase() {
-        GetComponentInParent<MapManger>().GoToNextStage();
+    public void StartNextPhase() {
+        mm.GoToNextStage();
         StopManager();
     }
 
@@ -135,8 +161,7 @@ public class EnemyManager : MonoBehaviour {
         if (squadronIndex < squadrons.Length)
         {
             if (!instantiatingSubSquads) Destroy(actualSquad);
-            else
-            {
+            else {
                 instantiatingSubSquads = false;
                 Destroy(ChainSquadManager);
             }
@@ -158,6 +183,32 @@ public class EnemyManager : MonoBehaviour {
                 break;
             }             
         }
-        StartWait();        
+        StartWait();
+        mm.NotifyManagerSpawnedMinidboss();
+    }
+
+    public void SetAsteroidWaveIndex() {
+        squadronIndex = asteroidSquadronIndex;
+    }
+
+    public void SetStructureWaveIndex() {
+        squadronIndex = structEnemiesIndex;
+    }
+
+    public void SetIntroWaveIndex() {
+        squadronIndex = 0;
+    }
+
+    public void SetMiniBossIndex() {
+        squadronIndex = minibossSquadronIndex;
+    }
+
+    public void NotifyMiniBossArrivedToPosition() {
+        mm.NotifyBossInPosition();
+        StopManager();
+    }
+
+    public void NotifyMiniBossSecondPhaseStart() {
+        mm.NotifyBossSecondPhaseStarted();
     }
 }

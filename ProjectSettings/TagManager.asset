@@ -35,6 +35,33 @@ TagManager:
   - MultiplierX1
   - MultiplierX2
   - MultiplierX3
+  - SquadManager
+  - TimeBombManager
+  - LiveValue
+  - UI_InGame
+  - Earth
+  - UI_Panel
+  - Managers
+  - DodgeSection
+  - QuitConfirm
+  - QYes
+  - QUITCONFIRMYES
+  - Cursor
+  - PlayerStarCraft
+  - L1
+  - L2
+  - L3
+  - BubbleObject
+  - DeathLaser
+  - UICamCollider
+  - Cam2Objects
+  - MusicUI
+  - CamBH
+  - CamStruct
+  - CamEndObjects
+  - CamLeaderBoards
+  - Particles
+  - Meteorites
   layers:
   - Default
   - TransparentFX

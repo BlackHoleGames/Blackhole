@@ -33,30 +33,11 @@ public class TimerScript : MonoBehaviour {
         {
             float t = Time.time - startTime;
 
-            string minutes = ((int)t / 60).ToString();
-            string seconds = (t % 60).ToString();
+            timeLine.value = (t % 60) / 59;   
 
-            //timerText.text = minutes + ":" + seconds;
-            timeLine.value = (t % 60) / 59;//timeLine.value + (t % 60) * 0.00001f;       
-            //gameover = false;     
         }
         if (gameover) {
-            //GameOverText.gameObject.SetActive(true);
             FinishGame();
-            //startTime = Time.time;
-            //Comented to Test GameOver();
-
-            //float t2 = Time.time - endTime;
-            //float seconds2 = (t2 % 60);
-            //Comented for testing if (seconds2 > 3)
-            //Comented for testing {
-            //Comented for testing     restartMap();
-            //Comented for testing     timeLine.value = 0.00001f;
-            //Comented for testing     startTime = Time.time;
-            //Comented for testing     SceneManager.LoadScene(0);
-            //Comented for testing     //SceneManager.LoadScene(1);    
-            //Comented for testing 
-            //Comented for testing }
 
         }
 

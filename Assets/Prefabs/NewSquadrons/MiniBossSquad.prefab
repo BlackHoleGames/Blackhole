@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 54969698056900220}
   m_Layer: 0
   m_Name: MiniBossSquad
-  m_TagString: Enemy
+  m_TagString: SquadManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,13 +125,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChainOfEnemies: 0
+  isSubsquad: 0
   subSquadCount: 0
   subSquadron: {fileID: 0}
   subSquadUnitDelayTime: 0
+  squadManagerParent: {fileID: 0}
   numOfMembers: 1
   Manager: {fileID: 0}
   speed: 3
   timeToStay: -1
+  isMiniBoss: 1
 --- !u!135 &135875014319115178
 SphereCollider:
   m_ObjectHideFlags: 1

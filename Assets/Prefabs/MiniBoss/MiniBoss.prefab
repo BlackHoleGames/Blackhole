@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 114458318678410498}
   m_Layer: 0
   m_Name: MiniBossBody
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,13 +214,13 @@ GameObject:
   - component: {fileID: 23885702761478456}
   - component: {fileID: 114041005571594922}
   - component: {fileID: 114586862630743478}
+  - component: {fileID: 114549880833496666}
   - component: {fileID: 135108615772941476}
   - component: {fileID: 54779135801814496}
   - component: {fileID: 82155444150749542}
-  - component: {fileID: 114549880833496666}
   m_Layer: 0
   m_Name: MiniBossHead
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2183,7 +2183,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2263,7 +2263,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2285,7 +2285,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 63cbc9455491c41458f5f9db45207cc7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2343,7 +2343,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2367,17 +2367,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74af3e43d91d54847bb31664f11bfd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
-  hitFeedbackDuration: 0.25
+  life: 1000
+  hitFeedbackDuration: 0.02
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
-  matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
+  matOff: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   tb: {fileID: 0}
-  destroyedBody: {fileID: 1679286144418736}
   destroyedHead: {fileID: 1123517625016818}
   body: {fileID: 1169625942835322}
-  destroyedTimer: 3
+  projectile: {fileID: 1728116442411620, guid: 3b3a5a29fc054e34bbf1d8e331e62e17, type: 2}
 --- !u!114 &114458318678410498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2437,19 +2434,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28029787cb23b6c4bb86a9f2aa841962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  life: 1000
   shotCooldown: 1.5
   rateOfFire: 0.2
-  numberOfShots: 10
-  hitFeedbackDuration: 0.25
+  numberOfShots: 8
+  hitFeedbackDuration: 0.02
   spawnDelay: 5
   matOn: {fileID: 2100000, guid: 55e863f45eb655f46a87d2ad6d9aaa06, type: 2}
-  matOff: {fileID: 2100000, guid: 34fd06cd0af77454bb386668269323a3, type: 2}
+  matOff: {fileID: 2100000, guid: 09013399704645641beaf964e0d9080c, type: 2}
   enemyProjectile: {fileID: 1608848417862874, guid: 191d514802cac9f4f81a51b8e9f305b4,
     type: 2}
-  explosionPS: {fileID: 1858143781726434, guid: 2bf109a5d00278845a22ee691dbe3624,
-    type: 2}
-  tb: {fileID: 0}
+  destroyedBody: {fileID: 1679286144418736}
   gunshot: {fileID: 8300000, guid: 304bfe71b06052b4794d2ecd55ee0b73, type: 3}
 --- !u!135 &135108615772941476
 SphereCollider:
@@ -2462,4 +2457,4 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 74.30892
-  m_Center: {x: 0.000019073485, y: 17.306639, z: -7.406141}
+  m_Center: {x: 0, y: 0, z: 0}
