@@ -4,6 +4,6 @@ Team:
 
 Maximino Puncernau Margarit
 
-Francesc Perez Arias
+Francesc Pérez Arias
 
-Esteban Marin Illana 
+Esteban Marín Illana 
