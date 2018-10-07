@@ -3,7 +3,7 @@ Game Project for the Master in Videogame Design and Development of the UPC Schoo
 Team:
 
 Maximino Puncernau Margarit
-Francesc Perez Arias
-Esteban Marin Illana 
 
-UPC - 2018
+Francesc Perez Arias
+
+Esteban Marin Illana 
